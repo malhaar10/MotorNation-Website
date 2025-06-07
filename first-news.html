@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorNation</title>
+    <link rel="stylesheet" href="first-news.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+
+<body>
+    <section class="header">
+        <div class="logo-container">
+            <a href="index.html"><img src="images/logo.png" alt="MotorNation Logo"></a>
+            <p>Subscribe us on Youtube</p>
+            <a href="https://www.youtube.com/channel/UC9HmzxcrnW3CGZVf0iPK6Eg" class="hero-btn">Subscribe!</a>
+        </div>
+        <nav id="navbar">
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="">REVIEWS</a></li>
+                    <li><a href="">NEWS</a></li>
+                    <li><a href="">COMPARISONS</a></li>
+                    <li><a href="">ELECTRIC</a></li>
+                    <li><a href="">RETRO</a></li>
+                    <li><a href="">GALLERY</a></li>
+                    <li><a href="">VIDEOS</a></li>
+                </ul>
+            </div>
+            <div class="input-box">
+                <input type="text" placeholder="Search...">
+                <span class="search">
+                    <i class="uil uil-search search-icon"></i>
+                </span>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+    </section>
+    <article class="news-article">
+        <div class="article-header">
+            <div class="breadcrumb">
+                <a href="/">News</a> / <a href="/launches">Launches</a> / Mini Countryman E John Cooper Works Pack
+                Launched in India
+            </div>
+            <h1>Mini Countryman E John Cooper Works Pack Launched in India</h1>
+            <div class="article-meta">
+                <span class="date">Published: June 8, 2025</span>
+                <span class="author">By Nihad Raoof</span>
+                <div class="social-share">
+                    <!-- Add your social media sharing buttons here -->
+                </div>
+            </div>
+        </div>
+
+        <div class="article-content">
+            <div class="article-image">
+                <img src="images\896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman E John Cooper Works"
+                    id="mainImage">
+                <div class="image-gallery">
+                    <!-- Thumbnail images for gallery -->
+                    <img src="images\896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 1"
+                        class="thumbnail" onclick="changeImage(this.src)">
+                    <img src="images\SUV Battles! (1).png" alt="Mini Countryman View 2" class="thumbnail"
+                        onclick="changeImage(this.src)">
+                    <img src="images\896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 3"
+                        class="thumbnail" onclick="changeImage(this.src)">
+                    <img src="images\896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 4"
+                        class="thumbnail" onclick="changeImage(this.src)">
+                </div>
+            </div>
+
+            <div class="article-text">
+                <p>Mini India today confirmed the introduction of the new Mini Countryman E John Cooper Works (JCW) Pack
+                    to the Indian market. The all-electric model will be available in a limited series of 20 units.</p>
+                <!-- Add more article content here -->
+            </div>
+        </div>
+    </article>
+    <script>
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+    </script>
+</body>
+
+</html>

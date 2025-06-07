@@ -5,14 +5,14 @@
     box-sizing: border-box;
 }
 
-body {
+/* body {
     background-color: black;
-}
+} */
 
 .header {
     min-height: 80vh;
     width: 100%;
-    background-image: url('images/images.jpg');
+    /* background-image: url('images/images.jpg'); */
     background-position: center;
     background-size: cover;
     position: relative;
