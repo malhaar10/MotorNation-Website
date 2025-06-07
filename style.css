@@ -548,10 +548,18 @@ hr{
     width: 40px;
     margin-left: 0;
 }
-.blog-section1 .hero-btn{
+.blog-section1 .hero-btn {
     float: none;
-    margin-left: 40%;
-    margin-top: 30px;
+    width: 150px;  /* Add this line */
+    display: block;  /* Add this line */
+    margin: 30px auto;  /* Change this line */
+    text-align: center;  /* Add this line */
+    padding: 12px 20px;
+    background: transparent;
+    color: #fff;
+    border: 1px solid #fff;
+    cursor: pointer;
+    transition: all 1s ease;
 }
 
 .hr1 hr{
