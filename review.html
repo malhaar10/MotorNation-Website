@@ -4,7 +4,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotorNation</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="review.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
@@ -24,13 +24,15 @@
             <div class="nav-links" id="navLinks">
                 <i class="fa fa-times" onclick="hideMenu()"></i>
                 <ul>
+                    <li><a href="index.html">HOME</a></li>
                     <li><a href="">REVIEWS</a></li>
-                    <li><a href="">NEWS</a></li>
+                    <li><a href="news-page-template.html">NEWS</a></li>
                     <li><a href="">COMPARISONS</a></li>
                     <li><a href="">ELECTRIC</a></li>
                     <li><a href="">RETRO</a></li>
                     <li><a href="">GALLERY</a></li>
                     <li><a href="">VIDEOS</a></li>
+                    <li><a href="base.html">BASE=layout-to-be-removed-later</a></li>
                 </ul>
             </div>
             <div class="input-box">
@@ -43,18 +45,257 @@
         </nav>
 
     </section>
+    <section>
+        <article class="news-article">
+            <div class="article-content">
+                <div class="article-text">
+                    <h2>NAME OF VEHICLE</h2>
+                </div>
+                <div class="article-image">
+                    <div class="main-image-container">
+                        <button class="slider-btn prev-btn" onclick="prevImage()">❮</button>
+                        <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg"
+                            alt="Mini Countryman E John Cooper Works" id="mainImage">
+                        <button class="slider-btn next-btn" onclick="nextImage()">❯</button>
+                    </div>
+                    <div class="image-gallery-container">
+                        <button class="gallery-nav prev">❮</button>
+                        <div class="image-gallery">
+                            <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 1"
+                                class="thumbnail" onclick="changeImage(this.src, 0)">
+                            <img src="images/SUV Battles! (1).png" alt="Mini Countryman View 2" class="thumbnail"
+                                onclick="changeImage(this.src, 1)">
+                            <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 3"
+                                class="thumbnail" onclick="changeImage(this.src, 2)">
+                            <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 4"
+                                class="thumbnail" onclick="changeImage(this.src, 3)">
+                        </div>
+                        <button class="gallery-nav next">❯</button>
+                    </div>
+                </div>
+
+                <div class="article-text">
+                    <h2>OVERVIEW</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a quod, consectetur, dicta
+                        itaque,
+                        delectus obcaecati voluptas ab architecto veniam saepe quis nisi ullam? Provident similique,
+                        quam veniam,
+                        nesciunt veritatis magni corrupti asperiores incidunt tenetur eum aliquid non, suscipit officiis
+                        excepturi
+                        doloribus illum consectetur quos maxime obcaecati quisquam quidem esse quo! Veritatis quo quis
+                        minima
+                        dolores commodi earum voluptates eum, officiis voluptate officia, quas deleniti! Tempore earum
+                        illo autem
+                        ad!</p><br>
+                    <h2>DRIVETRAIN</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a quod, consectetur, dicta
+                        itaque,
+                        delectus obcaecati voluptas ab architecto veniam saepe quis nisi ullam? Provident similique,
+                        quam veniam,
+                        nesciunt veritatis magni corrupti asperiores incidunt tenetur eum aliquid non, suscipit officiis
+                        excepturi
+                        doloribus illum consectetur quos maxime obcaecati quisquam quidem esse quo! Veritatis quo quis
+                        minima
+                        dolores commodi earum voluptates eum, officiis voluptate officia, quas deleniti! Tempore earum
+                        illo autem
+                        ad!</p><br>
+                    <h2>INTERIOR</h2>
+                    <div class="article-image">
+                        <div class="main-image-container">
+                            <button class="slider-btn prev-btn" onclick="prevImage()">❮</button>
+                            <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg"
+                                alt="Mini Countryman E John Cooper Works" id="mainImage">
+                            <button class="slider-btn next-btn" onclick="nextImage()">❯</button>
+                        </div>
+                        <div class="image-gallery-container">
+                            <button class="gallery-nav prev">❮</button>
+                            <div class="image-gallery">
+                                <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 1"
+                                    class="thumbnail" onclick="changeImage(this.src, 0)">
+                                <img src="images/SUV Battles! (1).png" alt="Mini Countryman View 2" class="thumbnail"
+                                    onclick="changeImage(this.src, 1)">
+                                <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 3"
+                                    class="thumbnail" onclick="changeImage(this.src, 2)">
+                                <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 4"
+                                    class="thumbnail" onclick="changeImage(this.src, 3)">
+                            </div>
+                            <button class="gallery-nav next">❯</button>
+                        </div>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a quod, consectetur,
+                        dicta
+                        itaque,
+                        delectus obcaecati voluptas ab architecto veniam saepe quis nisi ullam? Provident similique,
+                        quam veniam,
+                        nesciunt veritatis magni corrupti asperiores incidunt tenetur eum aliquid non, suscipit
+                        officiis
+                        excepturi
+                        doloribus illum consectetur quos maxime obcaecati quisquam quidem esse quo! Veritatis quo
+                        quis
+                        minima
+                        dolores commodi earum voluptates eum, officiis voluptate officia, quas deleniti! Tempore
+                        earum
+                        illo autem
+                        ad!</p><br>
+                    <h2>TECHNOLOGY</h2>
+                    <div class="article-image">
+                        <div class="main-image-container">
+                            <button class="slider-btn prev-btn" onclick="prevImage()">❮</button>
+                            <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg"
+                                alt="Mini Countryman E John Cooper Works" id="mainImage">
+                            <button class="slider-btn next-btn" onclick="nextImage()">❯</button>
+                        </div>
+                        <div class="image-gallery-container">
+                            <button class="gallery-nav prev">❮</button>
+                            <div class="image-gallery">
+                                <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 1"
+                                    class="thumbnail" onclick="changeImage(this.src, 0)">
+                                <img src="images/SUV Battles! (1).png" alt="Mini Countryman View 2" class="thumbnail"
+                                    onclick="changeImage(this.src, 1)">
+                                <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 3"
+                                    class="thumbnail" onclick="changeImage(this.src, 2)">
+                                <img src="images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 4"
+                                    class="thumbnail" onclick="changeImage(this.src, 3)">
+                            </div>
+                            <button class="gallery-nav next">❯</button>
+                        </div>
+                    </div>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a quod, consectetur,
+                        dicta
+                        itaque,
+                        delectus obcaecati voluptas ab architecto veniam saepe quis nisi ullam? Provident similique,
+                        quam veniam,
+                        nesciunt veritatis magni corrupti asperiores incidunt tenetur eum aliquid non, suscipit
+                        officiis
+                        excepturi
+                        doloribus illum consectetur quos maxime obcaecati quisquam quidem esse quo! Veritatis quo
+                        quis
+                        minima
+                        dolores commodi earum voluptates eum, officiis voluptate officia, quas deleniti! Tempore
+                        earum
+                        illo autem
+                        ad!</p><br>
+                    <h2>SAFETY</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a quod, consectetur,
+                        dicta
+                        itaque,
+                        delectus obcaecati voluptas ab architecto veniam saepe quis nisi ullam? Provident similique,
+                        quam veniam,
+                        nesciunt veritatis magni corrupti asperiores incidunt tenetur eum aliquid non, suscipit
+                        officiis
+                        excepturi
+                        doloribus illum consectetur quos maxime obcaecati quisquam quidem esse quo! Veritatis quo
+                        quis
+                        minima
+                        dolores commodi earum voluptates eum, officiis voluptate officia, quas deleniti! Tempore
+                        earum
+                        illo autem
+                        ad!</p><br>
+                    <h2>WARRANTY</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a quod, consectetur,
+                        dicta
+                        itaque,
+                        delectus obcaecati voluptas ab architecto veniam saepe quis nisi ullam? Provident similique,
+                        quam veniam,
+                        nesciunt veritatis magni corrupti asperiores incidunt tenetur eum aliquid non, suscipit
+                        officiis
+                        excepturi
+                        doloribus illum consectetur quos maxime obcaecati quisquam quidem esse quo! Veritatis quo
+                        quis
+                        minima
+                        dolores commodi earum voluptates eum, officiis voluptate officia, quas deleniti! Tempore
+                        earum
+                        illo autem
+                        ad!</p><br>
+                    <h2>PRICING</h2>
+                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Reprehenderit a quod, consectetur,
+                        dicta
+                        itaque,
+                        delectus obcaecati voluptas ab architecto veniam saepe quis nisi ullam? Provident similique,
+                        quam veniam,
+                        nesciunt veritatis magni corrupti asperiores incidunt tenetur eum aliquid non, suscipit
+                        officiis
+                        excepturi
+                        doloribus illum consectetur quos maxime obcaecati quisquam quidem esse quo! Veritatis quo
+                        quis
+                        minima
+                        dolores commodi earum voluptates eum, officiis voluptate officia, quas deleniti! Tempore
+                        earum
+                        illo autem
+                        ad!</p>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <script>
+        function changeImage(src) {
+            document.getElementById('mainImage').src = src;
+        }
+    </script>
+    <script>
+        const images = Array.from(document.querySelectorAll('.image-gallery img'));
+        let currentIndex = 0;
+
+        function changeImage(src, index) {
+            document.getElementById('mainImage').src = src;
+            currentIndex = index;
+            updateThumbnailSelection();
+        }
+
+        function nextImage() {
+            currentIndex = (currentIndex + 1) % images.length;
+            changeImage(images[currentIndex].src, currentIndex);
+        }
+
+        function prevImage() {
+            currentIndex = (currentIndex - 1 + images.length) % images.length;
+            changeImage(images[currentIndex].src, currentIndex);
+        }
+
+        function updateThumbnailSelection() {
+            images.forEach((img, index) => {
+                img.classList.toggle('active', index === currentIndex);
+            });
+        }
+
+        // Gallery scroll buttons
+        document.querySelector('.gallery-nav.prev').addEventListener('click', () => {
+            document.querySelector('.image-gallery').scrollBy({
+                left: -120,
+                behavior: 'smooth'
+            });
+        });
+
+        document.querySelector('.gallery-nav.next').addEventListener('click', () => {
+            document.querySelector('.image-gallery').scrollBy({
+                left: 120,
+                behavior: 'smooth'
+            });
+        });
+
+        // Keyboard navigation
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+        });
+
+        // Initialize thumbnail selection
+        updateThumbnailSelection();
+    </script>
+
     <section class="contact-card">
-    <img src="images/logo.png" alt="MotorNation logo">
-    <div class="social-icons">
-        <a href="assets/facebook.png"><i class="fa fa-facebook"></i></a>
-        <a href="assets/twitter.png"><i class="fa fa-twitter"></i></a>
-        <a href="assets/instagram.png"><i class="fa fa-instagram"></i></a>
-        <a href="assets/youtube.png"><i class="fa fa-youtube"></i></a>
-    </div>
-    <div class="contact-links">
-        <a href="">About us</a>
-        <a href="">Contact us</a>
-        <a href="">Terms & Conditions</a>
-        <a href="">Careers</a>
-    </div>
-</section>
+        <img src="images/logo.png" alt="MotorNation logo">
+        <div class="social-icons">
+            <a href="assets/facebook.png"><i class="fa fa-facebook"></i></a>
+            <a href="assets/twitter.png"><i class="fa fa-twitter"></i></a>
+            <a href="assets/instagram.png"><i class="fa fa-instagram"></i></a>
+            <a href="assets/youtube.png"><i class="fa fa-youtube"></i></a>
+        </div>
+        <div class="contact-links">
+            <a href="">About us</a>
+            <a href="">Contact us</a>
+            <a href="">Terms & Conditions</a>
+            <a href="">Careers</a>
+        </div>
+    </section>
