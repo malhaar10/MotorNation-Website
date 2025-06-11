@@ -674,6 +674,7 @@ hr{
 .contact-links a:hover {
     color: lightskyblue;
 }
+<<<<<<< HEAD
 
 hr{
     width: 90%;
@@ -682,3 +683,5 @@ hr{
     border: 1px solid lightskyblue;
     height: 2px;
 }
+=======
+>>>>>>> 193889b37d0430b963c491f18ac8a3cfa2a04766
