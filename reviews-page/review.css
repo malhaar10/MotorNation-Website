@@ -302,7 +302,7 @@ section {
 }
 
 .article-image img {
-    width: 100%;
+    width: 85%;
     height: auto;
     border-radius: 8px;
     max-height: 600px;
@@ -399,7 +399,7 @@ section {
 
 .main-image-container {
     position: relative;
-    width: 100%;
+    width: 85%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -437,6 +437,7 @@ section {
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
+    width: 95%;
 }
 
 .gallery-nav {
@@ -464,7 +465,7 @@ section {
     right: 0;
     top: 50%;
     transform: translateY(-50%);
-    background-color: rgba(211, 211, 211, 0.9);
+    background-color: rgba(65, 65, 65, 0.9);
     padding: 20px;
     border-radius: 10px 0 0 10px;
     z-index: 1000;
@@ -481,7 +482,7 @@ section {
 }
 
 .sidebar ul li a {
-    color: #333;
+    color: #ffffff;
     text-decoration: none;
     font-size: 16px;
     transition: color 0.3s;
