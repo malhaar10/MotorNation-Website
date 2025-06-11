@@ -5,9 +5,9 @@
     box-sizing: border-box;
 }
 
-/* body {
+body {
     background-color: black;
-} */
+}
 
 /* Update the header min-height */
 .header {
@@ -443,4 +443,12 @@ nav .fa {
 
 .contact-links a:hover {
     color: lightskyblue;
+}
+
+hr{
+    width: 90%;
+    margin: auto;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+    height: 2px;
 }

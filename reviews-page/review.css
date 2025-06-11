@@ -5,9 +5,9 @@
     box-sizing: border-box;
 }
 
-/* body {
+body {
     background-color: black;
-} */
+}
 
 .header {
     min-height: auto;
@@ -503,4 +503,12 @@ section {
 
 .contact-links a:hover {
     color: lightskyblue;
+}
+
+hr{
+    width: 90%;
+    margin: auto;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+    height: 2px;
 }
