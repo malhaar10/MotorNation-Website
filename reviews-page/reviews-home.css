@@ -1,0 +1,463 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald', sans-serif;
+    box-sizing: border-box;
+}
+
+/* body {
+    background-color: black;
+} */
+
+.header {
+    min-height: 35vh;
+    width: 100%;
+    /* background-image: url('images/images.jpg'); */
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+}
+
+.logo-container {
+    width: 100%;
+    background-color: black;
+    /* Set background color for the logo container */
+    text-align: left;
+    padding: 10px 10px;
+    /* Add padding for spacing */
+    height: 120px;
+}
+
+.logo-container img {
+    width: 200px;
+    margin-left: 10px;
+}
+
+.logo-container p {
+    text-align: right;
+    margin-top: -30px;
+    margin-right: 30px;
+}
+
+.logo-container .hero-btn {
+    text-decoration: none;
+    color: black;
+    border: 1px solid #fff;
+    font-size: 13px;
+    cursor: pointer;
+    float: right;
+    margin-right: 40px;
+    margin-top: -60px;
+    border-radius: 10px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    background-color: #fff;
+}
+
+/*------Nabar------*/
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    padding: 0 6%;
+    z-index: 1000;
+    background-color: #333;
+    /* Add background color to navbar */
+}
+
+.nav-links {
+    flex: 1;
+    text-align: left;
+}
+
+.nav-links ul {
+    list-style: none;
+}
+
+.nav-links ul li {
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+
+.nav-links ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.5s, color 0.5s;
+    margin: 5px;
+    padding: 5px 10px;
+    /* Add padding to create a box effect */
+    position: relative;
+}
+
+.nav-links ul li:hover a {
+    background-color: lightskyblue;
+    color: #333;
+    /* Change text color on hover */
+}
+
+.header .text-box {
+    width: 90%;
+    color: rgb(27, 27, 27);
+    margin: auto;
+    text-align: left;
+}
+
+.header .text-box h4 {
+    font-size: 40px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-top: 50px;
+}
+
+.header .text-box h1 {
+    color: #fff;
+    font-size: 65px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 30px;
+    text-align: left;
+
+}
+
+.header .text-box h5 {
+    color: #fff;
+    margin-bottom: 30px;
+    margin-top: -20px;
+    font-size: 20px;
+}
+
+.hero-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+
+.hero-btn:hover {
+    border: 1px solid lightskyblue;
+    background: lightskyblue;
+    transition: 1s;
+}
+
+nav .fa {
+    display: none;
+}
+
+.input-box {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    margin: 0 15px;
+    max-width: 60px;
+    background-color: #333;
+    border-radius: 6px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    transition: max-width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), border-radius 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.input-box.open {
+    max-width: 300px;
+    border-radius: 6px;
+    color: #333;
+}
+
+.input-box input {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 0 30px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    background-color: #333;
+    /* Match the background color */
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.input-box.open input {
+    padding: 0 10px 0 55px;
+}
+
+.input-box .search {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    border-radius: 6px;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: padding 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.input-box.open .search {
+    padding: 6px 0 0 6px;
+}
+
+.input-box .search .search-icon {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.input-box .close-icon {
+    position: absolute;
+    right: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: lightskyblue;
+    cursor: pointer;
+}
+
+.input-box:hover {
+    max-width: 300px;
+}
+
+.input-box:hover input {
+    padding: 0 10px 0 55px;
+}
+
+@media (max-width: 700px) {
+    nav {
+        flex-direction: column;
+    }
+
+    .logo-container img {
+        width: 150px;
+    }
+
+    .text-box h1 {
+        font-size: 20px;
+    }
+
+    .nav-links ul li {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        background: lightskyblue;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px;
+        text-align: left;
+        z-index: 2;
+        transition: 1s;
+    }
+
+    nav .fa {
+        display: block;
+        color: #fff;
+        margin: 10px;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .nav-links ul {
+        padding: 30px;
+    }
+}
+
+.contact-card {
+    background-color: black;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 76px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.contact-card img {
+    height: 100px;
+    width: auto;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-right: auto;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: lightskyblue;
+}
+
+.contact-links {
+    margin-left: auto;
+}
+
+.contact-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
+.contact-links a:hover {
+    color: lightskyblue;
+}
+
+.latest-news{
+    width: 90%;
+    margin: auto;
+    padding-top: -50px;
+}
+.latest-news hr{
+    width: 20%;
+    margin-top: -1px;
+    margin-left: 0px;
+    height: 10px;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+}
+.latest-news h3{
+    text-align: left;
+    color: #fff;
+    font-size: 50px;
+}
+.container{
+    width: 90;
+}
+.blog-section{
+    width: 100%;
+    margin-top: 20px;
+}
+.blog-section .cards{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 50px;
+    margin: 25px auto;
+}
+.blog-section .cards .card{
+    width: 100%;
+    position: relative;
+}
+.blog-section .image-section img{
+    width: 100%;
+    height: auto;
+    transition: filter 0.3s ease;
+}
+.blog-section a{
+    text-decoration: none;
+}
+.blog-section p{
+    color: lightskyblue;
+    font-size: 12px;
+    padding-top: 5px;
+}
+.blog-section h3{
+    color: #fff;
+    font-size: 22px;
+    padding-top: 5px;
+    transition: filter 0.3s ease;
+}
+.blog-section h5{
+    color: #fff;
+    padding-top: 5px;
+    font-weight: normal;
+}
+.blog-section .card:hover img {
+    filter: grayscale(50%);
+}
+
+.blog-section .card:hover h3 {
+    text-decoration: underline;
+    color: lightskyblue;
+}
+.blog-section .card hr{
+    height: 2px;
+    margin-top: 7px;
+    color: rgb(128, 206, 255);
+    width: 40px;
+}
+@media screen and (max-width: 992px){
+    .cards{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 768px) {
+    .cards{
+        grid-template-columns: 1fr;
+    }
+}
+.hr hr{
+    margin-top: 100px;
+}
+
+.breaking{
+    width: 90%;
+    margin: auto;
+    padding-top: 20px;
+}
+.breaking img{
+    align-items: left;
+    height: 495px;
+    width: 880px;
+    transition: filter 0.3s ease;
+}
+.breaking h4{
+    margin-top: -470px;
+    margin-bottom: 500px;
+    color: lightskyblue;
+    padding-left: 900px;
+    font-size: 15px;
+    transition: text-decoration 0.3s ease;
+}
+.breaking h3{
+    margin-top: -490px;
+    margin-bottom: 450px;
+    color: #fff;
+    padding-left: 900px;
+    transition: text-decoration 0.3s ease;
+    font-size: 25px;
+}
+.breaking p{
+    margin-top: -440px;
+    margin-bottom: 450px;
+    padding-left: 900px;
+    color: #fff
+}
+.breaking a{
+    text-decoration: none;
+    color: inherit;
+}
+.breaking:hover img {
+    filter: grayscale(50%);
+}
+
+.breaking:hover h3 {
+    text-decoration: underline;
+    color: lightskyblue;
+}
+hr{
+    width: 90%;
+    margin: auto;
+    margin-top: -150px;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+    height: 2px;
+}
