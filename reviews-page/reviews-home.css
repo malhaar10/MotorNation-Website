@@ -10,13 +10,13 @@ body {
 }
 
 .header {
-    min-height: 35vh;
+    min-height: auto;  /* Change from 35vh to auto */
     width: 100%;
-    /* background-image: url('images/images.jpg'); */
     background-position: center;
     background-size: cover;
     position: relative;
     color: white;
+    margin-bottom: 0;  /* Add this to remove bottom margin */
 }
 
 .logo-container {
@@ -415,9 +415,10 @@ nav .fa {
 }
 .breaking img{
     align-items: left;
-    height: 495px;
-    width: 880px;
+    height: auto;
+    width: 70%;
     transition: filter 0.3s ease;
+    border-radius: 15px;
 }
 .breaking h4{
     margin-top: -470px;
@@ -459,4 +460,65 @@ hr{
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
     height: 2px;
+}
+
+.car-types {
+    background-color: #333;
+    padding: 0;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: 44px;
+    margin-top: 0;  /* Add this to remove top margin */
+}
+
+.category-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.categories {
+    display: flex;
+    gap: 40px;  /* Increased gap between items */
+    padding: 0 24px;  /* Remove vertical padding */
+    color: #fff;
+    text-decoration: none;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: center;
+    text-align: center;
+    height: 100%;  /* Fill parent height */
+    align-items: center;
+}
+
+.category-item {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.3s ease;  /* Add smooth transition for color change */
+}
+
+.category-item:hover {
+    color: lightskyblue;  /* Change only the text color */
+}
+
+.categories::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+
+.category-item:hover {
+    background-color: lightskyblue;
+    color: #333;
+}
+
+.mid-hr hr{
+    width: 100%;
+    color: #065586
 }
