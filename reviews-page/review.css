@@ -11,50 +11,44 @@ body {
 
 .header {
     min-height: auto;
-    /* Change from 80vh to auto */
     width: 100%;
     background-position: center;
     background-size: cover;
     position: relative;
     color: white;
     margin-bottom: 0;
-    /* Add this */
 }
 
 .logo-container {
     width: 100%;
     background-color: black;
-    /* Set background color for the logo container */
     text-align: left;
-    padding: 10px 10px;
-    /* Add padding for spacing */
-    height: 120px;
+    padding: 20px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo-container img {
     width: 200px;
-    margin-left: 10px;
+    margin: 0;
 }
 
 .logo-container p {
-    text-align: right;
-    margin-top: -30px;
-    margin-right: 30px;
+    margin: 0;
+    padding-right: 20px;
 }
 
 .logo-container .hero-btn {
     text-decoration: none;
-    color: black;
+    color: #fff;
     border: 1px solid #fff;
+    padding: 8px 16px;
     font-size: 13px;
     cursor: pointer;
-    float: right;
-    margin-right: 40px;
-    margin-top: -60px;
-    border-radius: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: #fff;
+    margin: 0;
+    transition: all 0.3s ease;
 }
 
 /*------Nabar------*/

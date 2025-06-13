@@ -10,45 +10,45 @@ body {
 }
 
 .header {
-    min-height: 80vh;
+    min-height: auto;
     width: 100%;
-    /* background-image: url('images/images.jpg'); */
     background-position: center;
     background-size: cover;
     position: relative;
     color: white;
+    margin-bottom: 0;
 }
 
 .logo-container {
     width: 100%;
-    background-color: black; /* Set background color for the logo container */
+    background-color: black;
     text-align: left;
-    padding: 10px 10px; /* Add padding for spacing */
-    height: 120px;
+    padding: 20px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 
 .logo-container img {
     width: 200px;
-    margin-left: 10px;
+    margin: 0;
 }
-.logo-container p{
-    text-align: right;
-    margin-top: -30px;
-    margin-right: 30px;
+
+.logo-container p {
+    margin: 0;
+    padding-right: 20px;
 }
-.logo-container .hero-btn{
+
+.logo-container .hero-btn {
     text-decoration: none;
-    color: black;
+    color: #fff;
     border: 1px solid #fff;
+    padding: 8px 16px;
     font-size: 13px;
     cursor: pointer;
-    float: right;
-    margin-right: 40px;
-    margin-top: -60px;
-    border-radius: 10px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    background-color: #fff;
+    margin: 0;
+    transition: all 0.3s ease;
 }
 /*------Nabar------*/
 nav {
@@ -674,7 +674,6 @@ hr{
 .contact-links a:hover {
     color: lightskyblue;
 }
-<<<<<<< HEAD
 
 hr{
     width: 90%;
@@ -683,5 +682,3 @@ hr{
     border: 1px solid lightskyblue;
     height: 2px;
 }
-=======
->>>>>>> 193889b37d0430b963c491f18ac8a3cfa2a04766
