@@ -262,55 +262,64 @@ nav .fa {
     }
 }
 /*-----First News bar------*/
-.breaking{
+.breaking {
     width: 90%;
     margin: auto;
     padding-top: 50px;
+    padding-bottom: 50px;
 }
-.breaking img{
-    align-items: left;
-    height: 495px;
-    width: 880px;
-    transition: filter 0.3s ease;
-}
-.breaking h4{
-    margin-top: -470px;
-    margin-bottom: 500px;
-    color: lightskyblue;
-    padding-left: 900px;
-    font-size: 15px;
-    transition: text-decoration 0.3s ease;
-}
-.breaking h3{
-    margin-top: -490px;
-    margin-bottom: 450px;
-    color: #fff;
-    padding-left: 900px;
-    transition: text-decoration 0.3s ease;
-    font-size: 25px;
-}
-.breaking p{
-    margin-top: -440px;
-    margin-bottom: 450px;
-    padding-left: 900px;
-    color: #fff
-}
-.breaking a{
+
+.breaking a {
     text-decoration: none;
     color: inherit;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
 }
+
+.breaking img {
+    width: 60%;
+    height: auto;
+    transition: filter 0.3s ease;
+    flex-shrink: 0;
+}
+
+.breaking .content {
+    flex: 1;
+    padding-top: 20px;
+}
+
+.breaking h4 {
+    color: lightskyblue;
+    font-size: 15px;
+    margin-bottom: 15px;
+    transition: text-decoration 0.3s ease;
+}
+
+.breaking h3 {
+    color: #fff;
+    font-size: 25px;
+    margin-bottom: 20px;
+    transition: text-decoration 0.3s ease;
+}
+
+.breaking p {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
 .breaking:hover img {
     filter: grayscale(50%);
 }
 
 .breaking:hover h3 {
-    text-decoration: underline;
     color: lightskyblue;
 }
-hr{
+
+/* Update the hr margin */
+hr {
     width: 90%;
-    margin: auto;
-    margin-top: -150px;
+    margin: 50px auto;
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
     height: 2px;
