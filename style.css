@@ -53,6 +53,10 @@ body {
     width: 40px;
     object-fit: contain;
 }
+
+.logo-container .hero-btn:hover {
+    background: none;
+}
 /*------Nabar------*/
 nav {
     display: flex;
@@ -453,7 +457,7 @@ hr {
 .videos .container1 {
     width: 100%;
     margin-left: 0;
-    margin-top: 250px;
+    margin-top: 50px;
 }
 
 .videos .head .image-container {
