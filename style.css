@@ -42,13 +42,16 @@ body {
 
 .logo-container .hero-btn {
     text-decoration: none;
-    color: #fff;
-    border: 1px solid #fff;
-    padding: 8px 16px;
-    font-size: 13px;
-    cursor: pointer;
     margin: 0;
-    transition: all 0.3s ease;
+    border: none;
+    padding-left: 20px;
+    background: none;
+}
+
+.logo-container .hero-btn img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
 }
 /*------Nabar------*/
 nav {
@@ -91,11 +94,17 @@ nav {
 }
 
 .header .text-box {
-    width: 90%;
+    width: 100%;
     color: rgb(27, 27, 27);
     margin: auto; 
     text-align: left;
+    background-image: url('assets/shifter.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    padding: 100px 50px;
 }
+
 
 .header .text-box h4 {
     font-size: 40px;
@@ -413,96 +422,105 @@ hr {
 }
 
 /*-----Videos------*/
-.videos{
+.videos {
     width: 90%;
-    margin-top: 100px;
+    margin: 100px auto 0;
+    padding: 0;
 }
-.videos hr{
-    width: 11.5%;
-    margin-top: -101px;
-    margin-left: 76px;
+
+.videos hr {
+    width: 20%;
+    margin: -101px 0 0 0;
     height: 10px;
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
 }
-.videos h3{
+
+.videos h3 {
     text-align: left;
     color: #fff;
     font-size: 50px;
-    margin-left: 76px;
+    margin-left: 0;
 }
-.videos .head img{
-    margin-left: 76px;
-    margin-top: 20px;
-    width: 880px;
+
+.videos .head {
+    display: flex;
+    gap: 40px;
+    margin: 20px 0;
+    padding-left: 0;
+}
+
+.videos .container1 {
+    width: 100%;
+    margin-left: 0;
+    margin-top: 250px;
+}
+
+.videos .head .image-container {
+    flex: 0 0 500px;
+}
+
+.videos .head img {
+    width: 100%;
     height: auto;
     transition: filter 0.3s ease;
 }
-.videos .head h4{
-    margin-top: -490px;
-    margin-bottom: 500px;
-    margin-left: 75px;
-    color: lightskyblue;
-    padding-left: 900px;
-    font-size: 15px;
-    transition: text-decoration 0.3s ease;
-}
-.videos .head h3{
-    margin-top: -490px;
-    margin-bottom: 450px;
-    color: #fff;
-    padding-left: 900px;
-    transition: text-decoration 0.3s ease;
-    font-size: 25px;
-}
-.videos .head a{
-    text-decoration: none;
-    color: inherit;
-}
-.videos .head:hover img {
-    filter: grayscale(50%);
+
+.videos .head .content-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
 }
 
-.videos .head:hover h3 {
-    text-decoration: underline;
+.videos .head h4 {
     color: lightskyblue;
+    font-size: 15px;
+    margin: 0;
+    transition: text-decoration 0.3s ease;
 }
-.videos .head p{
-    margin-top: -440px;
-    padding-left: 900px;
-    margin-left: 75px;
-    color: #fff
-}
-.videos .p p{
-    margin-top: 5px;
+
+.videos .head h3 {
     color: #fff;
+    font-size: 25px;
+    margin: 10px 0;
+    padding: 0;
+    transition: text-decoration 0.3s ease;
 }
-.head .hero-btn{
+
+.videos .head p {
+    color: #fff;
+    margin: 10px 0;
+}
+
+.videos .head .p p {
+    color: #fff;
+    margin: 5px 0;
+}
+
+.head .hero-btn {
     text-decoration: none;
     color: #fff;
     border: 1px solid #fff;
     padding: 12px 34px;
     font-size: 13px;
     background: transparent;
-    position: relative;
     cursor: pointer;
-    float: none;
-    margin-top: 50px;
-    margin-left: 1100px;
+    width: fit-content;
+    margin-top: auto;
 }
-.head .hero-btn {
-    color: #fff !important;
+
+/* Add responsive layout */
+@media screen and (max-width: 992px) {
+    .videos .head {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .videos .head .image-container {
+        flex: 0 0 auto;
+    }
 }
-.head .hero-btn:hover {
-    border: 1px solid lightskyblue;
-    background: lightskyblue;
-    transition: 1s;
-}
-.videos .container1{
-    width: 100%;
-    margin-left: 76px;
-    margin-top: 250px;
-}
+
 .container1 .blog-section1{
     width: 100%;
     margin-top: 20px;
