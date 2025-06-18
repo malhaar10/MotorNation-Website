@@ -402,7 +402,7 @@ hr {
 }
 
 .blog-section .card:hover h3 {
-    text-decoration: underline;
+    text-decoration: none;
     color: lightskyblue;
 }
 .blog-section .card hr{
@@ -569,7 +569,7 @@ hr {
 }
 
 .blog-section1 .card:hover h3 {
-    text-decoration: underline;
+    text-decoration: none;
     color: lightskyblue;
 }
 .blog-section1 .card hr{

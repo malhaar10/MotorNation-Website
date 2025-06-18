@@ -66,7 +66,6 @@ nav {
     padding: 0 6%;
     z-index: 1000;
     background-color: #333;
-    /* Add background color to navbar */
 }
 
 .nav-links {
@@ -411,51 +410,66 @@ nav .fa {
     margin-top: 100px;
 }
 
-.breaking{
+.breaking {
     width: 90%;
+    display: flex;
+    padding: 20px 0;
     margin: auto;
-    padding-top: 20px;
 }
-.breaking img{
-    align-items: left;
+
+.breaking img {
+    width: 700px;
     height: auto;
-    width: 70%;
-    transition: filter 0.3s ease;
-    border-radius: 15px;
+    object-fit: cover;
+    margin-right: 20px;
 }
-.breaking h4{
-    margin-top: -470px;
-    margin-bottom: 500px;
-    color: lightskyblue;
-    padding-left: 900px;
-    font-size: 15px;
-    transition: text-decoration 0.3s ease;
+
+.breaking .text-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
 }
-.breaking h3{
-    margin-top: -490px;
-    margin-bottom: 450px;
-    color: #fff;
-    padding-left: 900px;
-    transition: text-decoration 0.3s ease;
-    font-size: 25px;
+
+.breaking h4 {
+    color: #ff0000;
+    margin-bottom: 10px;
 }
-.breaking p{
-    margin-top: -440px;
-    margin-bottom: 450px;
-    padding-left: 900px;
-    color: #fff
+
+.breaking h3 {
+    font-size: 24px;
+    margin-bottom: 10px;
 }
-.breaking a{
+
+.breaking p {
+    margin-bottom: 10px;
+}
+
+/* Keep these hover effects */
+.breaking a {
     text-decoration: none;
     color: inherit;
 }
+
 .breaking:hover img {
     filter: grayscale(50%);
 }
 
 .breaking:hover h3 {
-    text-decoration: underline;
     color: lightskyblue;
+    text-decoration: none;
+}
+
+/* Add media query for responsive design */
+@media screen and (max-width: 768px) {
+    .breaking {
+        flex-direction: column;
+    }
+    
+    .breaking .image-container,
+    .breaking .content-container {
+        flex: 0 0 100%;
+    }
 }
 hr{
     width: 90%;
