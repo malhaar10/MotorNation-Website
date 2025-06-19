@@ -291,25 +291,26 @@ section {
 
 /* Article Content Layout */
 .article-content {
-    max-width: 1200px;
-    margin: 0 auto;
+    width: 60%;
+margin-left: 10%;
     background-color: transparent;
 }
 
 /* Article Images */
 .article-image {
-    margin: 0;
     padding: 0;
+    width: 100%;
+    height: auto;
+    margin: 0; /* Center the container */
 }
 
 .article-image img {
-    width: 85%;
+    width: 100%; /* Changed from 85% to 100% since parent is now 85% */
     height: auto;
     border-radius: 8px;
     max-height: 600px;
     object-fit: cover;
     display: block;
-    /* Add this to remove any default image spacing */
 }
 
 .article-text {
@@ -335,6 +336,8 @@ section {
 }
 
 .image-gallery {
+    width: 85%; /* Match the width of article image */
+    margin: 0 auto; /* Center the gallery */
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
@@ -359,7 +362,7 @@ section {
 
 .image-gallery img {
     width: 120px;
-    height: 80px;
+    height: auto;
     object-fit: cover;
     border-radius: 4px;
     cursor: pointer;
@@ -400,7 +403,7 @@ section {
 
 .main-image-container {
     position: relative;
-    width: 85%;
+    width: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -438,7 +441,7 @@ section {
     align-items: center;
     gap: 1rem;
     margin-top: 1rem;
-    width: 95%;
+    width: 100%;
 }
 
 .gallery-nav {
@@ -462,9 +465,11 @@ section {
 }
 
 .sidebar {
-    position: fixed;
+    height: 59%;
+    position:fixed ;
+    width: 20vw;
     right: 0;
-    top: 50%;
+    top: 55%;
     transform: translateY(-50%);
     background-color: rgba(65, 65, 65, 0.9);
     padding: 20px;
@@ -485,8 +490,8 @@ section {
 .sidebar ul li a {
     color: #ffffff;
     text-decoration: none;
-    font-size: 16px;
-    transition: color 0.3s;
+    font-size: 18px;
+    transition: color 0.9s;
     display: block;
     padding: 5px 10px;
 }

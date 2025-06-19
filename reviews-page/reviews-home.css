@@ -342,7 +342,7 @@ nav .fa {
     font-size: 50px;
 }
 .container{
-    width: 90;
+    width: 100%;
 }
 .blog-section{
     width: 100%;
@@ -353,10 +353,13 @@ nav .fa {
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 50px;
     margin: 25px auto;
+    width: 100%;
 }
 .blog-section .cards .card{
     width: 100%;
     position: relative;
+    margin: 0%;
+    padding: 0%;
 }
 .blog-section .image-section img{
     width: 100%;
@@ -439,20 +442,18 @@ nav .fa {
 .breaking h3 {
     font-size: 24px;
     margin-bottom: 10px;
+    color: white;
 }
 
 .breaking p {
     margin-bottom: 10px;
+    color: white;
 }
 
 /* Keep these hover effects */
 .breaking a {
     text-decoration: none;
     color: inherit;
-}
-
-.breaking:hover img {
-    filter: grayscale(50%);
 }
 
 .breaking:hover h3 {
