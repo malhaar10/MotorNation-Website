@@ -279,17 +279,10 @@ nav .fa {
 
 .categories {
     display: flex;
-    gap: 40px;
+    flex-wrap: wrap;  /* Allow wrapping to new lines */
     justify-content: center;
-    align-items: center;
-    padding: 0 24px;
-    overflow-x: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.categories::-webkit-scrollbar {
-    display: none;
+    gap: 60px;
+    padding: 20px;
 }
 
 .category {
@@ -297,24 +290,34 @@ nav .fa {
     flex-direction: column;
     align-items: center;
     text-align: center;
+    width: 100px;
+    height: 100px;
+    padding: 10px;
+    background-color: #222; 
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+}
+
+.category:hover {
+    transform: scale(1.05);
+    background-color: #444;
 }
 
 .category img {
-    height: 50px;
+    height: 60px;
     width: auto;
-    margin-bottom: 5px;
 }
 
 .category-item {
     color: #fff;
     text-decoration: none;
-    transition: color 0.3s ease;
+    font-size: 12px;
 }
 
 .category-item:hover {
     color: lightskyblue;
-    background-color: transparent;
 }
+
 
 
 .contact-card {
