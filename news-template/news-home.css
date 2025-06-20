@@ -1,0 +1,355 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+}
+
+.header {
+    min-height: auto;
+    width: 100%;
+    background-position: center;
+    background-size: cover;
+    position: relative;
+    color: white;
+    margin-bottom: 0;
+}
+
+.logo-container {
+    width: 100%;
+    background-color: black;
+    text-align: left;
+    padding: 20px;
+    height: auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logo-container img {
+    width: 200px;
+    margin: 0;
+}
+
+.logo-container p {
+    margin: 0;
+    padding-right: 20px;
+}
+
+.logo-container .hero-btn {
+    text-decoration: none;
+    margin: 0;
+    border: none;
+    padding-left: 20px;
+    background: none;
+}
+
+.logo-container .hero-btn img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+}
+
+.logo-container .hero-btn:hover {
+    background: none;
+}
+.hero-btn.yt-subscribe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-decoration: none;
+    padding-left: 0; /* override earlier padding */
+    background: none;
+    border: none;
+}
+
+.hero-btn.yt-subscribe img {
+    height: 40px;
+    width: 40px;
+    object-fit: contain;
+}
+
+.hero-btn.yt-subscribe span {
+    margin-top: 4px;
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+/*------Nabar------*/
+nav {
+    display: flex;
+    justify-content: center;
+    align-items: left;
+    padding: 0 6%;
+    z-index: 1000;
+    background-color: #333;
+    /* Add background color to navbar */
+}
+
+.nav-links {
+    flex: 1;
+    text-align: left;
+}
+
+.nav-links ul {
+    list-style: none;
+}
+
+.nav-links ul li {
+    display: inline-block;
+    padding: 8px 12px;
+    position: relative;
+}
+
+.nav-links ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 15px;
+    transition: background-color 0.5s, color 0.5s;
+    margin: 5px;
+    padding: 5px 10px;
+    /* Add padding to create a box effect */
+    position: relative;
+}
+
+.nav-links ul li:hover a {
+    background-color: lightskyblue;
+    color: #333;
+    /* Change text color on hover */
+}
+
+.header .text-box {
+    width: 90%;
+    color: rgb(27, 27, 27);
+    margin: auto;
+    text-align: left;
+}
+
+.header .text-box h4 {
+    font-size: 40px;
+    color: #fff;
+    font-weight: 500;
+    margin-bottom: 10px;
+    margin-top: 50px;
+}
+
+.header .text-box h1 {
+    color: #fff;
+    font-size: 65px;
+    text-transform: uppercase;
+    line-height: 1;
+    margin-bottom: 30px;
+    text-align: left;
+
+}
+
+.header .text-box h5 {
+    color: #fff;
+    margin-bottom: 30px;
+    margin-top: -20px;
+    font-size: 20px;
+}
+
+.hero-btn {
+    display: inline-block;
+    text-decoration: none;
+    color: #fff;
+    border: 1px solid #fff;
+    padding: 12px 34px;
+    font-size: 13px;
+    background: transparent;
+    position: relative;
+    cursor: pointer;
+}
+
+.hero-btn:hover {
+    border: 1px solid lightskyblue;
+    background: lightskyblue;
+    transition: 1s;
+}
+
+nav .fa {
+    display: none;
+}
+
+.input-box {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    margin: 0 15px;
+    max-width: 60px;
+    background-color: #333;
+    border-radius: 6px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    transition: max-width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), border-radius 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.input-box.open {
+    max-width: 300px;
+    border-radius: 6px;
+    color: #333;
+}
+
+.input-box input {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 0 30px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    background-color: #333;
+    /* Match the background color */
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.input-box.open input {
+    padding: 0 10px 0 55px;
+}
+
+.input-box .search {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    border-radius: 6px;
+    background-color: #333;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: padding 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
+
+.input-box.open .search {
+    padding: 6px 0 0 6px;
+}
+
+.input-box .search .search-icon {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 2px;
+}
+
+.input-box .close-icon {
+    position: absolute;
+    right: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: lightskyblue;
+    cursor: pointer;
+}
+
+.input-box:hover {
+    max-width: 300px;
+}
+
+.input-box:hover input {
+    padding: 0 10px 0 55px;
+}
+
+@media (max-width: 700px) {
+    nav {
+        flex-direction: column;
+    }
+
+    .logo-container img {
+        width: 150px;
+    }
+
+    .text-box h1 {
+        font-size: 20px;
+    }
+
+    .nav-links ul li {
+        display: block;
+    }
+
+    .nav-links {
+        position: absolute;
+        background: lightskyblue;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px;
+        text-align: left;
+        z-index: 2;
+        transition: 1s;
+    }
+
+    nav .fa {
+        display: block;
+        color: #fff;
+        margin: 10px;
+        font-size: 22px;
+        cursor: pointer;
+    }
+
+    .nav-links ul {
+        padding: 30px;
+    }
+}
+
+.contact-card {
+    background-color: black;
+    width: 100%;
+    margin: 0 auto;
+    padding: 20px 76px;
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.contact-card img {
+    height: 70px;
+    width: auto;
+}
+
+.social-icons {
+    display: flex;
+    gap: 15px;
+    margin-right: auto;
+}
+
+.social-icons a {
+    color: #fff;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: lightskyblue;
+}
+
+.contact-links {
+    margin-left: auto;
+}
+
+.contact-links a {
+    color: #fff;
+    text-decoration: none;
+    margin-right: 20px;
+    transition: color 0.3s ease;
+}
+
+.contact-links a:hover {
+    color: lightskyblue;
+}
+
+hr{
+    width: 90%;
+    margin: auto;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+    height: 2px;
+}
