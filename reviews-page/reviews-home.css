@@ -290,6 +290,56 @@ nav .fa {
     }
 }
 
+.car-types {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: auto;
+    margin-top: 20;
+}
+
+.category-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.categories {
+    display: flex;
+    gap: 40px;  /* Increased gap between items */
+    padding: 0 24px;  /* Remove vertical padding */
+    color: #fff;
+    text-decoration: none;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: center;
+    text-align: center;
+    height: 100%;  /* Fill parent height */
+    align-items: center;
+}
+
+.category-item {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.3s ease;  /* Add smooth transition for color change */
+}
+
+.categories::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+
+.category-item:hover {
+    color: #676767;
+}
 .categories {
     display: flex;
     flex-wrap: wrap;
@@ -330,8 +380,6 @@ nav .fa {
 .category-item:hover {
     color: lightskyblue;
 }
-
-
 
 .contact-card {
     background-color: black;
@@ -543,62 +591,7 @@ hr{
     height: 2px;
 }
 
-.car-types {
-    background-color: #333;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: auto;
-    margin-top: 20;
-}
 
-.category-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.categories {
-    display: flex;
-    gap: 40px;  /* Increased gap between items */
-    padding: 0 24px;  /* Remove vertical padding */
-    color: #fff;
-    text-decoration: none;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    justify-content: center;
-    text-align: center;
-    height: 100%;  /* Fill parent height */
-    align-items: center;
-}
-
-.category-item {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 24px;
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;  /* Add smooth transition for color change */
-}
-
-.category-item:hover {
-    color: lightskyblue;  /* Change only the text color */
-}
-
-.categories::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari, Opera */
-}
-
-.category-item:hover {
-    background-color: lightskyblue;
-    color: #333;
-}
 
 .mid-hr hr{
     width: 100%;

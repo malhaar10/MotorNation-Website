@@ -290,6 +290,56 @@ nav .fa {
     }
 }
 
+.car-types {
+    padding-top: 15px;
+    padding-bottom: 10px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    height: auto;
+    margin-top: 20;
+}
+
+.category-container {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+}
+
+.categories {
+    display: flex;
+    gap: 40px;  /* Increased gap between items */
+    padding: 0 24px;  /* Remove vertical padding */
+    color: #fff;
+    text-decoration: none;
+    overflow-x: scroll;
+    scroll-behavior: smooth;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    justify-content: center;
+    text-align: center;
+    height: 100%;  /* Fill parent height */
+    align-items: center;
+}
+
+.category-item {
+    text-align: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 24px;
+    color: #000000;
+    text-decoration: none;
+    transition: color 0.3s ease;  /* Add smooth transition for color change */
+}
+
+.categories::-webkit-scrollbar {
+    display: none;  /* Chrome, Safari, Opera */
+}
+
+.category-item:hover {
+    color: #676767;
+}
 .categories {
     display: flex;
     flex-wrap: wrap;
@@ -331,61 +381,118 @@ nav .fa {
     color: lightskyblue;
 }
 
-.car-types {
-    background-color: #333;
-    padding-top: 15px;
-    padding-bottom: 10px;
-    position: relative;
-    display: flex;
-    align-items: center;
-    height: auto;
-    margin-top: 20;
+.latest-news {
+    width: 90%;
+    margin: auto;
+    padding-top: -50px;
 }
-
-.category-container {
-    width: 100%;
-    overflow: hidden;
-    position: relative;
-}
-
-.categories {
-    display: flex;
-    gap: 40px;  /* Increased gap between items */
-    padding: 0 24px;  /* Remove vertical padding */
-    color: #fff;
-    text-decoration: none;
-    overflow-x: scroll;
-    scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    justify-content: center;
-    text-align: center;
-    height: 100%;  /* Fill parent height */
-    align-items: center;
-}
-
-.category-item {
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 0 24px;
-    color: #fff;
-    text-decoration: none;
-    transition: color 0.3s ease;  /* Add smooth transition for color change */
-}
-
-.category-item:hover {
-    color: lightskyblue;  /* Change only the text color */
-}
-
-.categories::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari, Opera */
-}
-
-.category-item:hover {
+.latest-news hr {
+    width: 20%;
+    margin-top: -1px;
+    margin-left: 0px;
+    height: 10px;
     background-color: lightskyblue;
-    color: #333;
+    border: 1px solid lightskyblue;
+}
+.latest-news h1 {
+    text-align: left;
+    color: #fff;
+    font-size: 50px;
+}
+.latest-news h2 {
+    padding-top: 5px;
+    text-align: left;
+    color: #fff;
+    font-size: 40px;
+}
+
+.latest-news .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 40px;
+    margin: 25px auto;
+    width: 100%;
+}
+
+.latest-news .card {
+    width: 29%;
+    position: relative;
+    background-color:#c4c4c4;
+    padding: 7px;
+
+}
+.latest-news .image-section img {
+    width: 100%;
+    height: auto;
+    transition: filter 0.3s ease;
+}
+.latest-news .name{
+    color:#000000;
+    font-weight: bold;
+    font-size: 25px;
+    padding-left: 10px;
+}
+.latest-news .price{
+    padding-top: 10px;
+    color:#000000;
+    font-size: 18px;
+    padding-left: 10px;
+}
+.latest-news .full-button {
+    font-size: medium;
+    background-color: #c4c4c4;
+    padding: 7px 30px;
+    color: #000000;
+    height: 50px;
+    width: auto;
+    text-align: right;
+    display: block;
+    margin-left: 72.52vw;
+    border: none;
+    cursor: pointer;
+}
+
+.latest-news .full-button:hover{
+    background-color: lightskyblue;
+}
+.latest-news p {
+    color: lightskyblue;
+    font-size: 30px;
+    padding-top: 5px;
+}
+.latest-news h3 {
+    color: #fff;
+    font-size: 22px;
+    padding-top: 5px;
+    transition: filter 0.3s ease;
+}
+.latest-news .card:hover img {
+    filter: grayscale(50%);
+}
+.latest-news .card:hover h3 {
+    text-decoration: none;
+    color: lightskyblue;
+}
+.latest-news .card hr {
+    height: 2px;
+    margin-top: 7px;
+    color: rgb(128, 206, 255);
+    width: 40px;
+}
+
+/* Responsive grid for .latest-news */
+@media screen and (max-width: 992px) {
+    .latest-news .cards {
+        flex-direction: row;
+        gap: 30px;
+    }
+}
+@media screen and (max-width: 768px) {
+    .latest-news .cards {
+        flex-direction: column;
+        gap: 20px;
+    }
 }
 
 .mid-hr hr{
