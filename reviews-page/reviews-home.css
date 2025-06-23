@@ -427,12 +427,12 @@ nav .fa {
     color: lightskyblue;
 }
 
-.latest-news {
+.latest-news{
     width: 90%;
     margin: auto;
     padding-top: -50px;
 }
-.latest-news hr {
+.latest-news hr{
     width: 20%;
     margin-top: -1px;
     margin-left: 0px;
@@ -440,75 +440,75 @@ nav .fa {
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
 }
-.latest-news h3 {
+.latest-news h3{
     text-align: left;
     color: #fff;
     font-size: 50px;
 }
-
-.latest-news .cards {
+.container{
+    width: 90;
+}
+.blog-section{
+    width: 100%;
+    margin-top: 20px;
+}
+.blog-section .cards{
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     grid-gap: 50px;
     margin: 25px auto;
-    width: 100%;
 }
-
-.latest-news .card {
+.blog-section .cards .card{
     width: 100%;
     position: relative;
 }
-
-.latest-news .image-section img {
+.blog-section .image-section img{
     width: 100%;
     height: auto;
     transition: filter 0.3s ease;
 }
-
-.latest-news p {
+.blog-section a{
+    text-decoration: none;
+}
+.blog-section p{
     color: lightskyblue;
     font-size: 12px;
     padding-top: 5px;
 }
-.latest-news h3 {
+.blog-section h3{
     color: #fff;
     font-size: 22px;
     padding-top: 5px;
     transition: filter 0.3s ease;
 }
-.latest-news h5 {
+.blog-section h5{
     color: #fff;
     padding-top: 5px;
     font-weight: normal;
 }
-.latest-news .card:hover img {
+.blog-section .card:hover img {
     filter: grayscale(50%);
 }
-.latest-news .card:hover h3 {
+
+.blog-section .card:hover h3 {
     text-decoration: none;
     color: lightskyblue;
 }
-.latest-news .card hr {
+.blog-section .card hr{
     height: 2px;
     margin-top: 7px;
     color: rgb(128, 206, 255);
     width: 40px;
 }
-
-/* Responsive grid for .latest-news */
-@media screen and (max-width: 992px) {
-    .latest-news .cards {
+@media screen and (max-width: 992px){
+    .cards{
         grid-template-columns: repeat(2, 1fr);
     }
 }
 @media screen and (max-width: 768px) {
-    .latest-news .cards {
+    .cards{
         grid-template-columns: 1fr;
     }
-}
-
-.hr hr{
-    margin-top: 100px;
 }
 .hr hr{
     margin-top: 100px;
@@ -590,8 +590,6 @@ hr{
     border: 1px solid lightskyblue;
     height: 2px;
 }
-
-
 
 .mid-hr hr{
     width: 100%;
