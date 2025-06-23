@@ -418,12 +418,8 @@ hr {
     justify-content: center;
     gap: 60px;
     padding: 20px;
-    overflow-x: auto;
-    overflow-y: hidden;
 }
-.catagories::-webkit-scrollbar{
-    height: 7px;
-}
+
 .category {
     display: flex;
     flex-direction: column;
