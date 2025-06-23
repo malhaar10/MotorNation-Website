@@ -9,6 +9,7 @@ body {
     background-color: black;
 }
 
+/* Update the header min-height */
 .header {
     min-height: auto;
     width: 100%;
@@ -57,12 +58,14 @@ body {
 .logo-container .hero-btn:hover {
     background: none;
 }
+
 .hero-btn.yt-subscribe {
     display: flex;
     flex-direction: column;
     align-items: center;
     text-decoration: none;
-    padding-left: 0; /* override earlier padding */
+    padding-left: 0;
+    /* override earlier padding */
     background: none;
     border: none;
 }
@@ -80,7 +83,7 @@ body {
     font-weight: bold;
 }
 
-/*------Nabar------*/
+/*------Navbar------*/
 nav {
     display: flex;
     justify-content: center;
@@ -300,6 +303,166 @@ nav .fa {
     }
 }
 
+.heading {
+    color: #ffffff;
+    font-size: xx-large;
+    padding-left: 70px;
+    padding-top: 30px;
+}
+
+.breaking {
+    width: 90%;
+    margin: auto;
+    padding-top: 30px;
+    padding-bottom: 20px;
+}
+
+.breaking a {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.breaking img {
+    width: 60%;
+    height: auto;
+    transition: filter 0.3s ease;
+    flex-shrink: 0;
+}
+
+.breaking .content {
+    flex: 1;
+    padding-top: 20px;
+}
+
+.breaking h4 {
+    color: lightskyblue;
+    font-size: 15px;
+    margin-bottom: 15px;
+    transition: text-decoration 0.3s ease;
+}
+
+.breaking h3 {
+    color: #fff;
+    font-size: 25px;
+    margin-bottom: 20px;
+    transition: text-decoration 0.3s ease;
+}
+
+.breaking p {
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.breaking:hover img {
+    filter: grayscale(50%);
+}
+
+.breaking:hover h3 {
+    color: lightskyblue;
+}
+
+.latest-news{
+    width: 90%;
+    margin: auto;
+    padding-top: -50px;
+}
+.latest-news hr{
+    width: 20%;
+    margin-top: -1px;
+    margin-left: 0px;
+    height: 10px;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+}
+.latest-news h3{
+    text-align: left;
+    color: #fff;
+    font-size: 50px;
+}
+.container{
+    width: 90;
+}
+.blog-section{
+    width: 100%;
+    margin-top: 20px;
+}
+.blog-section .cards{
+    display: flex;
+    gap: 15px;
+    margin: 25px auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* white-space:unset; */
+}
+.blog-section .cards::-webkit-scrollbar{
+    height: 7px;
+}
+.blog-section .cards::-webkit-scrollbar-thumb{
+    background-color: lightskyblue;
+    border-radius: 4px;
+}
+.blog-section .cards .card{
+    flex: 0 0 auto;
+    width: 300px;
+    position: relative;
+    padding-bottom: 10px;
+}
+.blog-section .image-section img{
+    width: 100%;
+    height: auto;
+    transition: filter 0.3s ease;
+}
+.blog-section a{
+    text-decoration: none;
+}
+.blog-section p{
+    color: lightskyblue;
+    font-size: 12px;
+    padding-top: 5px;
+}
+.blog-section h3{
+    color: #fff;
+    font-size: 22px;
+    padding-top: 5px;
+    transition: filter 0.3s ease;
+}
+.blog-section h5{
+    color: #fff;
+    padding-top: 5px;
+    font-weight: normal;
+}
+.blog-section .card:hover img {
+    filter: grayscale(50%);
+}
+
+.blog-section .card:hover h3 {
+    text-decoration: none;
+    color: lightskyblue;
+}
+.blog-section .card hr{
+    height: 2px;
+    margin-top: 7px;
+    color: rgb(128, 206, 255);
+    width: 40px;
+}
+
+@media screen and (max-width: 992px){
+    .cards{
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+@media screen and (max-width: 768px) {
+    .cards{
+        grid-template-columns: 1fr;
+    }
+}
+.hr hr{
+    margin-top: 100px;
+}
+
 .contact-card {
     background-color: black;
     width: 100%;
@@ -346,7 +509,7 @@ nav .fa {
     color: lightskyblue;
 }
 
-hr{
+hr {
     width: 90%;
     margin: auto;
     background-color: lightskyblue;
