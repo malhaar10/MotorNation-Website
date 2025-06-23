@@ -198,7 +198,6 @@ nav .fa {
     font-weight: 400;
     color: #fff;
     background-color: #333;
-    /* Match the background color */
     transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
 
@@ -308,8 +307,8 @@ nav .fa {
 
 .categories {
     display: flex;
-    gap: 40px;  /* Increased gap between items */
-    padding: 0 24px;  /* Remove vertical padding */
+    gap: 40px;
+    padding: 0 24px;
     color: #fff;
     text-decoration: none;
     overflow-x: scroll;
@@ -318,7 +317,7 @@ nav .fa {
     -ms-overflow-style: none;
     justify-content: center;
     text-align: center;
-    height: 100%;  /* Fill parent height */
+    height: 100%;
     align-items: center;
 }
 
@@ -330,11 +329,11 @@ nav .fa {
     padding: 0 24px;
     color: #000000;
     text-decoration: none;
-    transition: color 0.3s ease;  /* Add smooth transition for color change */
+    transition: color 0.3s ease;
 }
 
 .categories::-webkit-scrollbar {
-    display: none;  /* Chrome, Safari, Opera */
+    display: none; 
 }
 
 .category-item:hover {
@@ -453,10 +452,13 @@ nav .fa {
     margin-top: 20px;
 }
 .blog-section .cards{
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    grid-gap: 50px;
+    display: flex;
+    gap: 50px;
     margin: 25px auto;
+}
+.blog-section .cards .break{
+    flex-basis: 100%;
+    width: 100%;
 }
 .blog-section .cards .card{
     width: 100%;
