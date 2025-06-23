@@ -250,48 +250,7 @@ nav .fa {
     .input-box:hover input {
         padding: 0 10px 0 55px;
     }
-    
-@media (max-width: 700px) {
-    nav {
-        flex-direction: column;
-    }
 
-    .logo-container img {
-        width: 150px;
-    }
-
-    .text-box h1 {
-        font-size: 20px;
-    }
-
-    .nav-links ul li {
-        display: block;
-    }
-
-    .nav-links {
-        position: absolute;
-        background: lightskyblue;
-        height: 100vh;
-        width: 200px;
-        top: 0;
-        right: -200px;
-        text-align: left;
-        z-index: 2;
-        transition: 1s;
-    }
-
-    nav .fa {
-        display: block;
-        color: #fff;
-        margin: 10px;
-        font-size: 22px;
-        cursor: pointer;
-    }
-
-    .nav-links ul {
-        padding: 30px;
-    }
-}
 .news-article {
     max-width: 1200px;
     margin: 0 auto;
@@ -399,35 +358,6 @@ nav .fa {
 
 .article-text p {
     margin-bottom: 1.5rem;
-}
-
-/* Responsive Design */
-@media (max-width: 992px) {
-    .article-content {
-        grid-template-columns: 1fr;
-    }
-}
-
-@media (max-width: 768px) {
-    .news-article {
-        padding: 1rem;
-    }
-
-    .article-header h1 {
-        font-size: 28px;
-    }
-
-    .article-meta {
-        flex-wrap: wrap;
-        gap: 1rem;
-    }
-
-    .social-share {
-        margin-left: 0;
-        width: 100%;
-        justify-content: center;
-        margin-top: 1rem;
-    }
 }
 
 .contact-card {
