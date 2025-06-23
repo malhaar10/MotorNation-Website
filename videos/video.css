@@ -314,7 +314,7 @@ nav .fa {
     width: 90%;
     margin: auto;
     padding-top: 30px;
-    padding-bottom: 50px;
+    padding-bottom: 20px;
 }
 
 .breaking a {
@@ -393,10 +393,22 @@ nav .fa {
     display: flex;
     gap: 15px;
     margin: 25px auto;
+    overflow-x: auto;
+    overflow-y: hidden;
+    /* white-space:unset; */
+}
+.blog-section .cards::-webkit-scrollbar{
+    height: 7px;
+}
+.blog-section .cards::-webkit-scrollbar-thumb{
+    background-color: lightskyblue;
+    border-radius: 4px;
 }
 .blog-section .cards .card{
-    width: 100%;
+    flex: 0 0 auto;
+    width: 300px;
     position: relative;
+    padding-bottom: 10px;
 }
 .blog-section .image-section img{
     width: 100%;
@@ -436,6 +448,7 @@ nav .fa {
     color: rgb(128, 206, 255);
     width: 40px;
 }
+
 @media screen and (max-width: 992px){
     .cards{
         grid-template-columns: repeat(2, 1fr);
