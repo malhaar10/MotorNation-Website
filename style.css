@@ -428,7 +428,8 @@ hr {
     width: 100px;
     height: 100px;
     padding: 10px;
-    background-color: #c4c4c4; 
+    background-color: #dbdbdb; 
+; 
     border-radius: 8px;
     transition: transform 0.3s ease;
 }
