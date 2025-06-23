@@ -323,15 +323,15 @@ nav .fa {
 }
 
 .category-item {
+    display: inline-block;
     text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     padding: 0 24px;
     color: #000000;
     text-decoration: none;
-    transition: color 0.3s ease;  /* Add smooth transition for color change */
+    font-size: 12px;
+    transition: color 0.3s ease;
 }
+
 
 .categories::-webkit-scrollbar {
     display: none;  /* Chrome, Safari, Opera */

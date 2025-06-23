@@ -372,10 +372,15 @@ nav .fa {
 }
 
 .category-item {
+    display: inline-block;
+    text-align: center;
+    padding: 0 24px;
     color: #000000;
     text-decoration: none;
     font-size: 12px;
+    transition: color 0.3s ease;
 }
+
 
 .category-item:hover {
     color: lightskyblue;
