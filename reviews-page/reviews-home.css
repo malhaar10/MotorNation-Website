@@ -359,6 +359,22 @@ nav .fa {
     border-radius: 8px;
     transition: transform 0.3s ease;
 }
+.category-item {
+    display: inline-block;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.category-item img {
+    display: block;
+    width: 100%;
+}
+
+.category-item span {
+    display: block;
+}
+
 
 .category:hover {
     transform: scale(1.05);
