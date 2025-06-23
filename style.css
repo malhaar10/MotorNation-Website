@@ -603,18 +603,16 @@ hr {
     width: 40px;
     margin-left: 0;
 }
-.blog-section1 .hero-btn {
-    float: none;
-    width: 150px;  /* Add this line */
-    display: block;  /* Add this line */
-    margin: 30px auto;  /* Change this line */
-    text-align: center;  /* Add this line */
+.blog-section1 .more-button {
+    width: 150px; 
+    display: block; 
+    margin: 30px auto;  
+    text-align: center;  
     padding: 12px 20px;
     background: transparent;
     color: #fff;
     border: 1px solid #fff;
     cursor: pointer;
-    transition: all 1s ease;
 }
 
 .hr1 hr{
