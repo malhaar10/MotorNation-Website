@@ -52,6 +52,7 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .logo-container .hero-btn:hover {
@@ -71,6 +72,7 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .hero-btn.yt-subscribe span {
@@ -271,6 +273,7 @@ nav .fa {
 .contact-card img {
     height: 70px;
     width: auto;
+    border-radius: 16px;
 }
 
 .social-icons {

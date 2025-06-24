@@ -52,6 +52,7 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .logo-container .hero-btn:hover {
@@ -327,6 +328,7 @@ nav .fa {
 .category-item img {
     display: block;
     width: 100%;
+    border-radius: 16px;
 }
 
 .category-item span {
@@ -342,6 +344,7 @@ nav .fa {
 .category img {
     height: 60px;
     width: auto;
+    border-radius: 16px;
 }
 
 .category-item {
@@ -367,6 +370,7 @@ nav .fa {
 .contact-card img {
     height: 70px;
     width: auto;
+    border-radius: 16px;
 }
 
 .social-icons {
@@ -445,6 +449,7 @@ nav .fa {
     width: 100%;
     height: auto;
     transition: filter 0.3s ease;
+    border-radius: 16px;
 }
 .blog-section a{
     text-decoration: none;
@@ -467,6 +472,7 @@ nav .fa {
 }
 .blog-section .card:hover img {
     filter: grayscale(50%);
+    border-radius: 16px;
 }
 
 .blog-section .card:hover h3 {
@@ -495,6 +501,7 @@ nav .fa {
     height: auto;
     object-fit: cover;
     margin-right: 20px;
+    border-radius: 16px;
 }
 
 .breaking .text-content {
