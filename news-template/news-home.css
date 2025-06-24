@@ -52,6 +52,7 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .logo-container .hero-btn:hover {
@@ -71,6 +72,7 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .hero-btn.yt-subscribe span {
@@ -277,6 +279,7 @@ nav .fa {
     height: auto;
     transition: filter 0.3s ease;
     flex-shrink: 0;
+    border-radius: 16px;
 }
 
 .breaking .content {
@@ -305,6 +308,7 @@ nav .fa {
 
 .breaking:hover img {
     filter: grayscale(50%);
+    border-radius: 16px;
 }
 
 .breaking:hover h3 {
@@ -359,6 +363,7 @@ hr {
     width: 100%;
     height: auto;
     transition: filter 0.3s ease;
+    border-radius: 16px;
 }
 .blog-section a{
     text-decoration: none;
@@ -381,6 +386,7 @@ hr {
 }
 .blog-section .card:hover img {
     filter: grayscale(50%);
+    border-radius: 16px;
 }
 
 .blog-section .card:hover h3 {
@@ -410,6 +416,7 @@ hr {
 .contact-card img {
     height: 70px;
     width: auto;
+    border-radius: 16px;
 }
 
 .social-icons {

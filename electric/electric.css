@@ -33,6 +33,7 @@ body {
 .logo-container img {
     width: 200px;
     margin: 0;
+    border-radius: 16px;
 }
 
 .logo-container p {
@@ -52,6 +53,7 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .logo-container .hero-btn:hover {
@@ -327,6 +329,7 @@ nav .fa {
 .category img {
     height: 60px;
     width: auto;
+    border-radius: 16px;
 }
 
 .category-item {
@@ -389,6 +392,7 @@ nav .fa {
     width: 100%;
     height: auto;
     transition: filter 0.3s ease;
+    border-radius: 16px;
 }
 .latest-news .name{
     color:#000000;
@@ -432,6 +436,7 @@ nav .fa {
 }
 .latest-news .card:hover img {
     filter: grayscale(50%);
+    border-radius: 16px;
 }
 .latest-news .card:hover h3 {
     text-decoration: none;
@@ -462,6 +467,7 @@ nav .fa {
 .contact-card img {
     height: 70px;
     width: auto;
+    border-radius: 16px;
 }
 
 .social-icons {

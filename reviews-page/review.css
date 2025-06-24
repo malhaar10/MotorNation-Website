@@ -52,6 +52,7 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .logo-container .hero-btn:hover {
@@ -72,6 +73,7 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
+    border-radius: 16px;
 }
 
 .hero-btn.yt-subscribe span {
@@ -293,6 +295,7 @@ margin-left: 10%;
     max-height: 600px;
     object-fit: cover;
     display: block;
+    border-radius: 16px;
 }
 
 .article-text {
@@ -349,10 +352,12 @@ margin-left: 10%;
     border-radius: 4px;
     cursor: pointer;
     transition: opacity 0.3s ease;
+    border-radius: 16px;
 }
 
 .image-gallery img:hover {
     opacity: 0.8;
+    border-radius: 16px;
 }
 
 .main-image-container {
@@ -463,6 +468,7 @@ margin-left: 10%;
 .contact-card img {
     height: 70px;
     width: auto;
+    border-radius: 16px;
 }
 
 .social-icons {
