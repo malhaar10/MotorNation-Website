@@ -430,9 +430,12 @@ nav .fa {
     gap: 50px;
     margin: 25px auto;
 }
-.blog-section .cards .break{
-    flex-basis: 100%;
-    width: 100%;
+.blog-section .full-button{
+    height: 8vh;
+    width: 10vw;
+    margin-left: 3.5vw;
+    background:#444;
+    border: none;
 }
 .blog-section .cards .card{
     width: 100%;
