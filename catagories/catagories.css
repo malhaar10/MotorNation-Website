@@ -412,10 +412,12 @@ nav .fa {
     margin-left: 72.52vw;
     border: none;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 .latest-news .full-button:hover{
     background-color: lightskyblue;
+    border-radius: 12px;
 }
 .latest-news p {
     color: lightskyblue;
