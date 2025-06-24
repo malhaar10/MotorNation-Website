@@ -53,20 +53,37 @@
 
         <div class="article-content">
             <div class="article-image">
-                <img src="../images\896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman E John Cooper Works"
-                    id="mainImage">
-                <div class="image-gallery">
-                    <!-- Thumbnail images for gallery -->
-                    <img src="../images\896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 1"
-                        class="thumbnail" onclick="changeImage(this.src)">
-                    <img src="../images\SUV Battles! (1).png" alt="Mini Countryman View 2" class="thumbnail"
-                        onclick="changeImage(this.src)">
-                    <img src="../images\896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 3"
-                        class="thumbnail" onclick="changeImage(this.src)">
-                    <img src="../images\896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="Mini Countryman View 4"
-                        class="thumbnail" onclick="changeImage(this.src)">
-                    <img src="../images\SUV Battles! (1).png" alt="Mini Countryman View 4"
-                        class="thumbnail" onclick="changeImage(this.src)">
+                    <div class="main-image-container">
+                        <button class="slider-btn prev-btn" onclick="prevImage()">❮</button>
+                        <img src="../images/2025-crv\63_2024HondaCRVEX-L.avif" alt="2025 HONDA CR-V" id="mainImage">
+                        <button class="slider-btn next-btn" onclick="nextImage()">❯</button>
+                    </div>
+                    <div class="image-gallery-container">
+                        <!-- <button class="gallery-nav prev">❮</button> -->
+                        <div class="image-gallery">
+                            <img src="../images/2025-crv\63_2024HondaCRVEX-L.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 0)">
+                            <img src="../images/2025-crv\13_2024HondaCRVEX-L.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 1)">
+                            <img src="../images\2025-crv\18_2024HondaCRVEX-L.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 2)">
+                            <img src="../images/2025-crv/29_2024HondaCRVEX-L.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 3)">
+                            <img src="../images\2025-crv\45_2024HondaCRVEX-L.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 4)">
+                            <img src="../images\2025-crv\62_2024HondaCRVEX-L.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 5)">
+                            <img src="../images\2025-crv\76_2024HondaCRVEX-L.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 6)">
+                            <img src="../images/2025-crv/engine.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 7)">
+                            <img src="../images/2025-crv/infotainment.jpg" class="thumbnail"
+                                onclick="changeImage(this.src, 8)">
+                            <img src="../images/2025-crv/interior.avif" class="thumbnail"
+                                onclick="changeImage(this.src, 9)">
+                        </div>
+                        <!-- <button class="gallery-nav next">❯</button> -->
+                    </div>
                 </div>
             </div>
 

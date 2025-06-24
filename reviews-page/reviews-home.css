@@ -46,6 +46,7 @@ body {
     border: none;
     padding-left: 20px;
     background: none;
+    border-radius: 12px;
 }
 
 .logo-container .hero-btn img {
@@ -53,10 +54,12 @@ body {
     width: 40px;
     object-fit: contain;
     border-radius: 16px;
+    border-radius: 12px;
 }
 
 .logo-container .hero-btn:hover {
     background: none;
+    border-radius: 12px;
 }
 .hero-btn.yt-subscribe {
     display: flex;
@@ -156,12 +159,14 @@ nav {
     background: transparent;
     position: relative;
     cursor: pointer;
+    border-radius: 12px;
 }
 
 .hero-btn:hover {
     border: 1px solid lightskyblue;
     background: lightskyblue;
     transition: 1s;
+    border-radius: 12px;
 }
 
 nav .fa {
@@ -440,6 +445,7 @@ nav .fa {
     margin-left: 3.5vw;
     background:#444;
     border: none;
+    border-radius: 12px;
 }
 .blog-section .cards .card{
     width: 100%;
@@ -540,12 +546,12 @@ nav .fa {
 
 .watch-on-yt{
     display: block;
-    background: rgba(51, 51, 51, 0.848);
+    background:#676767;
     color: #fff;
-    border: 1px solid #ffffff54;
     width: 150px;
     padding: 12px 20px;
     margin-top: 50px;
+    border-radius: 12px;
 }
 hr{
     width: 90%;

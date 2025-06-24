@@ -318,30 +318,50 @@ nav .fa {
     margin-top: 2rem;
 }
 
-/* Article Images */
 .article-image {
-    grid-column: 1 / -1;
-    margin-bottom: 2rem;
+    padding: 0;
+    width: 100%;
+    height: auto;
+    margin: 0; /* Center the container */
 }
 
 .article-image img {
-    width: 100%;
+    width: 100%; /* Changed from 85% to 100% since parent is now 85% */
     height: auto;
     border-radius: 8px;
+    max-height: 600px;
+    object-fit: cover;
+    display: block;
     border-radius: 16px;
 }
-
 .image-gallery {
+    width: 85%; /* Match the width of article image */
+    margin: 0 auto; /* Center the gallery */
     display: flex;
     gap: 1rem;
     margin-top: 1rem;
     overflow-x: auto;
     padding-bottom: 1rem;
+    scrollbar-width: thin;
+    scrollbar-color: lightskyblue transparent;
+}
+
+.image-gallery::-webkit-scrollbar {
+    height: 8px;
+}
+
+.image-gallery::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.image-gallery::-webkit-scrollbar-thumb {
+    background-color: lightskyblue;
+    border-radius: 4px;
 }
 
 .image-gallery img {
     width: 120px;
-    height: 80px;
+    height: auto;
     object-fit: cover;
     border-radius: 4px;
     cursor: pointer;
@@ -353,11 +373,56 @@ nav .fa {
     opacity: 0.8;
     border-radius: 16px;
 }
+.main-image-container {
+    position: relative;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slider-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 16px;
+    cursor: pointer;
+    font-size: 18px;
+    border-radius: 4px;
+    transition: background-color 0.3s;
+}
+
+.slider-btn:hover {
+    background: rgba(0, 0, 0, 0.8);
+    border-radius: 12px;
+}
+
+.prev-btn {
+    left: 10px;
+    border-radius: 12px;
+}
+
+.next-btn {
+    right: 10px;
+    border-radius: 12px;
+}
+
+.image-gallery-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+    width: 100%;
+}
+
 
 /* Article Text Content */
 .article-text {
     font-size: 16px;
-    line-height: 1.6;
     color: #ffffff;
 }
 

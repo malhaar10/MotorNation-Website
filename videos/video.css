@@ -415,7 +415,25 @@ nav .fa {
 .hr hr{
     margin-top: 100px;
 }
+.latest-news .full-button {
+    font-size: medium;
+    background-color: #c4c4c4;
+    padding: 7px 30px;
+    color: #000000;
+    height: 50px;
+    width: auto;
+    text-align: right;
+    display: block;
+    margin-left: 72.52vw;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+}
 
+.latest-news .full-button:hover{
+    background-color: lightskyblue;
+    border-radius: 12px;
+}
 .contact-card {
     background-color: black;
     width: 100%;
