@@ -430,7 +430,7 @@ margin-left: 10%;
     scroll-behavior: smooth;
 }
 
-.sidebar {
+/* .sidebar {
     height: 59%;
     position:fixed ;
     width: 20vw;
@@ -460,7 +460,7 @@ margin-left: 10%;
     transition: color 0.9s;
     display: block;
     padding: 5px 10px;
-}
+} */
 
 .contact-card {
     background-color: black;

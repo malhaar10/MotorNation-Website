@@ -53,7 +53,6 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
-    border-radius: 16px;
 }
 
 .logo-container .hero-btn:hover {
@@ -73,7 +72,6 @@ body {
     height: 40px;
     width: 40px;
     object-fit: contain;
-    border-radius: 16px;
 }
 
 .hero-btn.yt-subscribe span {
@@ -261,63 +259,19 @@ nav .fa {
     margin-top: 20px; /* Add some spacing after the navbar */
 }
 
-/* Article Header */
-.article-header h1 {
-    font-family: 'Oswald', sans-serif;
-    font-size: 36px;
-    font-weight: 600;
-    line-height: 1.2;
-    margin-bottom: 1rem;
-    color: #ffffff;
+.news-article {
+    margin-top: 0;
+    padding-top: 0;
 }
-
-/* Article Meta Information */
-.article-meta {
-    display: flex;
-    align-items: center;
-    gap: 2rem;
-    margin-bottom: 2rem;
-    font-size: 14px;
-    color: #ffffff;
-}
-
-.article-meta .date,
-.article-meta .author {
-    display: flex;
-    align-items: center;
-    color: #ffffff;
-}
-
-/* Social Share Buttons */
-.social-share {
-    display: flex;
-    gap: 1rem;
-    margin-left: auto;
-}
-
-.social-share a {
-    width: 32px;
-    height: 32px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    color: #ffffff;
-    transition: background-color 0.3s ease;
-}
-
-.social-share .facebook { background-color: #1877f2; }
-.social-share .twitter { background-color: #1da1f2; }
-.social-share .linkedin { background-color: #0a66c2; }
 
 /* Article Content Layout */
 .article-content {
-    display: grid;
-    grid-template-columns: 1fr 380px;
-    gap: 2rem;
-    margin-top: 2rem;
+    width: 60%;
+margin-left: 10%;
+    background-color: transparent;
 }
 
+/* Article Images */
 .article-image {
     padding: 0;
     width: 100%;
@@ -334,6 +288,29 @@ nav .fa {
     display: block;
     border-radius: 16px;
 }
+
+.article-text {
+    font-size: 16px;
+    line-height: 1.6;
+    color: #ffffff;
+    padding: 0;
+    margin-top: 2rem;
+}
+
+.article-text h2 {
+    color: #fff;
+    font-size: 2rem;
+    margin: 0 0 1rem;
+    padding: 0;
+}
+
+.article-text p {
+    color: #fff;
+    margin-bottom: 1.5rem;
+    padding: 0;
+    line-height: 1.6;
+}
+
 .image-gallery {
     width: 85%; /* Match the width of article image */
     margin: 0 auto; /* Center the gallery */
@@ -373,6 +350,7 @@ nav .fa {
     opacity: 0.8;
     border-radius: 16px;
 }
+
 .main-image-container {
     position: relative;
     width: 100%;
@@ -419,16 +397,26 @@ nav .fa {
     width: 100%;
 }
 
-
-/* Article Text Content */
-.article-text {
+.gallery-nav {
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
     font-size: 16px;
-    color: #ffffff;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
-.article-text p {
-    margin-bottom: 1.5rem;
+.gallery-nav:hover {
+    background: rgba(0, 0, 0, 0.8);
 }
+
+.image-gallery {
+    flex: 1;
+    scroll-behavior: smooth;
+}
+
 
 .contact-card {
     background-color: black;
@@ -443,7 +431,6 @@ nav .fa {
 .contact-card img {
     height: 70px;
     width: auto;
-    border-radius: 16px;
 }
 
 .social-icons {
