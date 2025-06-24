@@ -360,6 +360,7 @@ nav .fa {
     /* white-space:unset; */
 }
 .blog-section .cards::-webkit-scrollbar{
+    display: none;
     height: 7px;
 }
 .blog-section .cards::-webkit-scrollbar-thumb{

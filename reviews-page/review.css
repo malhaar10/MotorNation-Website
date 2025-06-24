@@ -332,11 +332,12 @@ margin-left: 10%;
     margin-top: 1rem;
     overflow-x: auto;
     padding-bottom: 1rem;
-    scrollbar-width: thin;
-    scrollbar-color: lightskyblue transparent;
+    /* scrollbar-width: thin;
+    scrollbar-color: lightskyblue transparent; */
 }
 
 .image-gallery::-webkit-scrollbar {
+    display: none;
     height: 8px;
 }
 
