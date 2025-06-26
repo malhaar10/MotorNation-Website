@@ -378,10 +378,12 @@ hr {
 }
 .categories {
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     justify-content: center;
     gap: 40px;
     padding: 20px;
+    scroll-behavior: smooth;
 }
 
 .category {
@@ -395,12 +397,14 @@ hr {
     background-color: #ffffff; 
     border-radius: 8px;
     transition: transform 0.3s ease;
+    white-space: nowrap;
 }
 .category-item {
     display: inline-block;
     text-align: center;
     text-decoration: none;
     color: inherit;
+    min-width: 100px;
 }
 
 .category-item img {
