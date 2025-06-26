@@ -338,24 +338,18 @@ hr {
 
 .category-container {
     width: 100%;
-    overflow: hidden;
     position: relative;
+    overflow-x: auto;
+    padding: 0 63px;
 }
 
 .categories {
     display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     gap: 40px;
-    padding: 0 24px;
-    color: white;
-    text-decoration: none;
-    overflow-x: scroll;
     scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    justify-content: center;
-    text-align: center;
-    height: 100%;
-    align-items: center;
+    -webkit-overflow-scrolling: touch;
 }
 
 .category-item {
@@ -376,15 +370,6 @@ hr {
 .category-item:hover {
     color: #676767;
 }
-.categories {
-    display: flex;
-    flex-wrap: nowrap;
-    overflow-x: auto;
-    justify-content: center;
-    gap: 40px;
-    padding: 20px;
-    scroll-behavior: smooth;
-}
 
 .category {
     display: flex;
@@ -397,14 +382,12 @@ hr {
     background-color: #ffffff; 
     border-radius: 8px;
     transition: transform 0.3s ease;
-    white-space: nowrap;
 }
 .category-item {
     display: inline-block;
     text-align: center;
     text-decoration: none;
     color: inherit;
-    min-width: 100px;
 }
 
 .category-item img {
