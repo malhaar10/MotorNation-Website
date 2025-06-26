@@ -265,24 +265,18 @@ nav .fa {
 
 .category-container {
     width: 100%;
-    overflow: hidden;
     position: relative;
+    overflow-x: auto;
+    padding: 0 63px;
 }
 
 .categories {
     display: flex;
+    flex-wrap: nowrap;
+    overflow-x: auto;
     gap: 40px;
-    padding: 0 24px;
-    color: #fff;
-    text-decoration: none;
-    overflow-x: scroll;
     scroll-behavior: smooth;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-    justify-content: center;
-    text-align: center;
-    height: 100%;
-    align-items: center;
+    -webkit-overflow-scrolling: touch;
 }
 
 .category-item {
@@ -302,13 +296,6 @@ nav .fa {
 
 .category-item:hover {
     color: #676767;
-}
-.categories {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 40px;
-    padding: 20px;
 }
 
 .category {
