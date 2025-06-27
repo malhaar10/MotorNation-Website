@@ -268,13 +268,14 @@ nav .fa {
     font-size: xx-large;
     padding-left: 70px;
     padding-top: 30px;
+    margin: 0 5vw;
 }
 
 .breaking {
-    width: 90%;
-    margin: auto;
-    padding-top: 30px;
-    padding-bottom: 20px;
+    width: 80vw;
+    margin: 0 10vw;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .breaking a {
@@ -327,8 +328,8 @@ nav .fa {
 }
 
 .latest-news{
-    width: 90%;
-    margin: auto;
+    width: 80vw;
+    margin: 0 10vw;
     padding-top: -50px;
 }
 .latest-news hr{

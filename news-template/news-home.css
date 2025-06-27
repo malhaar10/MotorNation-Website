@@ -260,12 +260,11 @@ nav .fa {
     padding: 0 10px 0 55px;
 }
 .breaking {
-    width: 90%;
-    margin: auto;
+    width: 80vw;
+    margin: 0 10vw;
     padding-top: 50px;
     padding-bottom: 50px;
 }
-
 .breaking a {
     text-decoration: none;
     color: inherit;
@@ -325,8 +324,8 @@ hr {
 }
 
 .latest-news{
-    width: 90%;
-    margin: auto;
+    width: 80vw;
+    margin: 0 10vw;
     padding-top: -50px;
 }
 .latest-news hr{

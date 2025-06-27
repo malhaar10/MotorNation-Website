@@ -98,7 +98,7 @@ nav {
 
 .nav-links {
     flex: 1;
-    text-align: left;
+    margin-left: 3vw;
 }
 
 .nav-links ul {
