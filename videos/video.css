@@ -266,15 +266,15 @@ nav .fa {
 .heading {
     color: #ffffff;
     font-size: xx-large;
-    padding-left: 70px;
+    margin: 2vh 10vw;
     padding-top: 30px;
 }
 
 .breaking {
-    width: 90%;
-    margin: auto;
-    padding-top: 30px;
-    padding-bottom: 20px;
+    width: 80vw;
+    margin: 0 10vw;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .breaking a {
@@ -327,8 +327,8 @@ nav .fa {
 }
 
 .latest-news{
-    width: 90%;
-    margin: auto;
+    width: 80vw;
+    margin: 0 10vw;
     padding-top: -50px;
 }
 .latest-news hr{
@@ -425,7 +425,7 @@ nav .fa {
     width: auto;
     text-align: right;
     display: block;
-    margin-left: 72.52vw;
+    margin-left: 69vw; 
     border: none;
     cursor: pointer;
     border-radius: 12px;
@@ -483,8 +483,8 @@ nav .fa {
 }
 
 hr {
-    width: 90%;
-    margin: auto;
+    width: 80%;
+    margin-left: 10vw;
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
     height: 2px;

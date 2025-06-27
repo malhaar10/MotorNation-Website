@@ -255,16 +255,16 @@ nav .fa {
     padding-bottom: 10px;
     position: relative;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     height: auto;
-    margin-top: 20;
+    margin-top: 0 10vw;
 }
 
 .category-container {
-    width: 100%;
+    width: 100vw;
     position: relative;
     overflow-x: auto;
-    padding: 0 63px;
+    padding: 0 10vw;
 }
 
 .categories {
@@ -335,9 +335,9 @@ nav .fa {
     color: lightskyblue;
 }
 
-.latest-news {
-    width: 90%;
-    margin: auto;
+.latest-news{
+    width: 80vw;
+    margin: 0 10vw;
     padding-top: -50px;
 }
 .latest-news hr {
@@ -403,7 +403,7 @@ nav .fa {
     width: auto;
     text-align: right;
     display: block;
-    margin-left: 72.52vw;
+    margin-left: 64.8vw;
     border: none;
     cursor: pointer;
     border-radius: 12px;

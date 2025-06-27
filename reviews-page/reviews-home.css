@@ -258,18 +258,17 @@ nav .fa {
     padding-bottom: 10px;
     position: relative;
     display: flex;
-    align-items: center;
+    /* align-items: center; */
     height: auto;
-    margin-top: 20;
+    margin-top: 0 10vw;
 }
 
 .category-container {
-    width: 100%;
+    width: 100vw;
     position: relative;
     overflow-x: auto;
-    padding: 0 63px;
+    padding: 0 10vw;
 }
-
 .categories {
     display: flex;
     flex-wrap: nowrap;
@@ -395,10 +394,16 @@ nav .fa {
 .contact-links a:hover {
     color: lightskyblue;
 }
-
+.latest-news .latest-head{
+    font-size:xx-large;
+    text-decoration: none;
+    font-weight: bold;
+    margin-left: .8vw;
+    color: white;
+}
 .latest-news{
-    width: 90%;
-    margin: auto;
+    width: 80vw;
+    margin: 0 10vw;
     padding-top: -50px;
 }
 .latest-news hr{
@@ -410,9 +415,9 @@ nav .fa {
     border: 1px solid lightskyblue;
 }
 .latest-news h3{
-    text-align: left;
     color: #fff;
     font-size: 50px;
+    text-decoration: none;
 }
 .container{
     width: 90;
@@ -429,7 +434,7 @@ nav .fa {
 .blog-section .full-button{
     height: 8vh;
     width: 10vw;
-    margin-left: 3.5vw;
+    margin-left: 0.1vw;
     background:#444;
     border: none;
     border-radius: 12px;
@@ -483,10 +488,11 @@ nav .fa {
 }
 
 .breaking {
-    width: 90%;
+    width: 80vw;
+    margin: 0 10vw;
+    padding-top: 50px;
+    padding-bottom: 50px;
     display: flex;
-    padding: 20px 0;
-    margin: auto;
 }
 
 .breaking img {
