@@ -23,7 +23,7 @@ body {
     width: 100%;
     background-color: black;
     text-align: left;
-    padding: 20px;
+    padding: 20px 0 20px 10vw;
     height: auto;
     display: flex;
     align-items: center;
