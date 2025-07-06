@@ -2,54 +2,16 @@ body {
     background-color: black;
 }
 
-.header {
-    min-height: auto;
-    width: 100%;
-    background-position: center;
-    background-size: cover;
-    position: relative;
-    color: white;
-    margin-bottom: 0;
-}
-
-.logo-container {
-    width: 100%;
+.header .logo-container {
     background-color: black;
-    text-align: left;
     padding: 20px 0 20px 10vw;
-    height: auto;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
+    height: 16vh;
 }
 
-.logo-container img {
-    width: 200px;
+.header .logo-container img {
+    height: 80px;
+    width: auto;
     margin: 0;
-}
-
-.logo-container p {
-    margin: 0;
-    padding-right: 20px;
-}
-
-.logo-container .hero-btn {
-    text-decoration: none;
-    margin: 0;
-    border: none;
-    padding-left: 20px;
-    background: none;
-    border-radius: 12px;
-}
-
-.logo-container .hero-btn img {
-    height: 40px;
-    width: 40px;
-    object-fit: contain;
-}
-
-.logo-container .hero-btn:hover {
-    background: none;
 }
 
 /*------Nabar------*/
@@ -57,18 +19,17 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 0 6%;
     margin-bottom: 2vh;
     z-index: 1000;
     background-color: #333;
     position: sticky;
-    top: 0;
     width: 100%;
 }
 
 .nav-links {
     flex: none;
     margin-left: 3vw;
+    padding-left: 5vw;
 }
 
 .nav-links ul {
@@ -85,7 +46,7 @@ nav {
 .nav-links ul li a {
     color: white;
     text-decoration: none;
-    font-size: 15px;
+    font-size: 20px;
     transition: background-color 0.5s, color 0.5s;
     margin: 5px;
     padding: 5px 10px;
