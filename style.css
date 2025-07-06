@@ -65,6 +65,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     padding: 0 6%;
+    margin-bottom: 2vh;
     z-index: 1000;
     background-color: #333;
     position: sticky;
@@ -115,9 +116,11 @@ nav {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 100px 50px;
+    padding: 100px 100px;
+    border-radius: 30px;
+    border-color: #ffffff;
+    border-width: 10px;
 }
-
 
 .header .text-box h4 {
     font-size: 40px;
