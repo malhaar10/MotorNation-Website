@@ -249,9 +249,9 @@ body {
 .contact-links a:hover {
     color: lightskyblue;
 }
-hr{
-    width: 90%;
-    margin: auto;
+hr {
+    width: 80%;
+    margin-left: 2vh 10vw 2vh 10vw;
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
     height: 2px;

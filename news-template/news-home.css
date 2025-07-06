@@ -67,7 +67,7 @@ body {
 /* Update the hr margin */
 hr {
     width: 90%;
-    margin: 50px auto;
+
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
     height: 2px;
@@ -199,9 +199,9 @@ hr {
     color: lightskyblue;
 }
 
-hr{
-    width: 90%;
-    margin: auto;
+hr {
+    width: 80%;
+    margin-left: 10vw;
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
     height: 2px;
