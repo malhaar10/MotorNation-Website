@@ -9,7 +9,7 @@ body {
     background-color: black;
 }
 
-.header {
+/* .header {
     min-height: auto;
     width: 100%;
     background-position: center;
@@ -63,7 +63,7 @@ body {
 }
 .hero-btn.yt-subscribe {
     display: flex;
-    flex-direction: column;   /* Stack vertically */
+    flex-direction: column;
     align-items: center;
     gap: 4px;
     text-decoration: none;
@@ -75,7 +75,6 @@ body {
     font-weight: bold;
 }
 
-/*------Nabar------*/
 nav {
     display: flex;
     justify-content: center;
@@ -107,14 +106,13 @@ nav {
     transition: background-color 0.5s, color 0.5s;
     margin: 5px;
     padding: 5px 10px;
-    /* Add padding to create a box effect */
     position: relative;
 }
 
 .nav-links ul li:hover a {
     background-color: lightskyblue;
     color: #333;
-    /* Change text color on hover */
+
 }
 
 .header .text-box {
@@ -251,7 +249,7 @@ nav .fa {
 
 .input-box:hover input {
     padding: 0 10px 0 55px;
-}
+} */
 
 .car-types {
     padding-top: 15px;
