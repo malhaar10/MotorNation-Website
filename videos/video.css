@@ -8,7 +8,11 @@
 body {
     background-color: black;
 }
-
+.heading{
+    padding-left: 10vw;
+    font-size: 2rem;
+    color: white
+}
 .breaking {
     width: 80vw;
     margin: 0 10vw;
@@ -227,4 +231,10 @@ body {
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
     height: 2px;
+}
+.mid-hr hr{
+    margin-top: 5vh;
+    margin-left: 20vh;
+    width: 80%;
+    color: lightskyblue
 }
