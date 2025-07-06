@@ -247,3 +247,19 @@ nav .fa {
 .contact-links a:hover {
     color: lightskyblue;
 }
+.hr hr{
+    margin-top: 100px;
+    width: 80%;
+    margin-left: 10vw;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+    height: 2px;
+}
+
+hr {
+    width: 80%;
+    margin-left: 10vw;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+    height: 2px;
+}
