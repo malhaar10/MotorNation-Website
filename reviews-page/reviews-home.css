@@ -104,52 +104,6 @@ body {
     color: lightskyblue;
 }
 
-.contact-card {
-    background-color: black;
-    width: 100%;
-    margin: 0 auto;
-    padding: 20px 9vw 20px 9vw;
-    display: flex;
-    align-items: center;
-    gap: 30px;
-}
-
-.contact-card img {
-    height: 70px;
-    width: auto;
-    border-radius: 16px;
-}
-
-.social-icons {
-    display: flex;
-    gap: 15px;
-    margin-right: auto;
-}
-
-.social-icons a {
-    color: #fff;
-    font-size: 20px;
-    transition: color 0.3s ease;
-}
-
-.social-icons a:hover {
-    color: lightskyblue;
-}
-
-.contact-links {
-    margin-left: auto;
-}
-
-.contact-links a {
-    color: #fff;
-    text-decoration: none;
-    margin-right: 20px;
-    transition: color 0.3s ease;
-}
-
-.contact-links a:hover {
-    color: lightskyblue;
-}
 .latest-news .latest-head{
     font-size:xx-large;
     text-decoration: none;
