@@ -110,6 +110,57 @@ body {
     background-color: lightskyblue;
     border-radius: 4px;
 }
+.blog-section {
+  width: 100%;
+}
+
+/* container wraps cards and buttons */
+.cards-container {
+  position: relative;        /* establish positioning context */
+  overflow: hidden;          /* hide scrollbars outside view */
+  width: 100%;
+}
+
+/* your existing cards styling */
+.blog-section .cards {
+  display: flex;
+  gap: 15px;
+  margin: 25px auto;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-behavior: smooth;
+}
+
+.blog-section .cards::-webkit-scrollbar {
+  display: none;
+  height: 7px;
+}
+
+.blog-section .cards::-webkit-scrollbar-thumb {
+  background-color: lightskyblue;
+  border-radius: 4px;
+}
+.scroll-btn {
+  position: absolute;
+  top: 35%;
+  transform: translateY(-50%);
+  background-color: rgb(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  border-radius: 7px;
+  font-size: 2rem;
+  cursor: pointer;
+  padding: 0.5rem 1rem;
+  z-index: 10;
+}
+
+.scroll-btn.left {
+  left: 0;
+}
+
+.scroll-btn.right {
+  right: 0;
+}
 .blog-section .cards .card{
     flex: 0 0 auto;
     width: 300px;
