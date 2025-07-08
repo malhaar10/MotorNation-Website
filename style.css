@@ -72,18 +72,11 @@ nav {
 
 
 .header .text-box {
-    width: 100%;
     color: rgb(27, 27, 27);
-    margin: auto; 
     text-align: left;
     background-image: url('assets/shifter.avif');
     background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 100px 100px;
     border-radius: 30px;
-    border-color: #ffffff;
-    border-width: 10px;
 }
 
 .header .text-box h4 {
@@ -109,7 +102,7 @@ nav {
     margin-top: -20px;
     font-size: 20px;
 }
-.hero-btn {
+.videos .hero-btn {
     display: inline-block;
     text-decoration: none;
     color: #fff;
@@ -118,15 +111,13 @@ nav {
     font-size: 13px;
     background: transparent;
     position: relative;
-    cursor: pointer;
     border-radius: 12px;
 }
 
-.hero-btn:hover {
-    border: 1px solid lightskyblue;
+.videos .hero-btn:hover {
     background: lightskyblue;
-    transition: 1s;
-    border-radius: 12px;
+    color: black;
+    border: none;
 }
 nav .fa {
     display: none;
@@ -593,7 +584,10 @@ hr {
     cursor: pointer;
     border-radius: 12px;
 }
-
+.blog-section1 .more-button:hover{
+    color: black;
+    background-color: lightskyblue;
+}
 .hr1 hr{
     margin-top: 50px;
 }
