@@ -212,16 +212,16 @@ body {
 }
 .latest-news .full-button {
     font-size: medium;
-    background-color: #c4c4c4;
+    background-color: transparent;
     padding: 7px 30px;
-    color: #000000;
+    color: white;
     height: 50px;
     width: auto;
     text-align: right;
     display: block;
     margin-left: 69vw; 
-    border: none;
-    cursor: pointer;
+    border-color: white;
+    border-width: 1px;
     border-radius: 12px;
 }
 
