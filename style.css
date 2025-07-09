@@ -347,6 +347,26 @@ hr {
 .category-item:hover {
     color: lightskyblue;
 }
+.scroll-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgb(0, 0, 0, 0.6);
+    color: white;
+    border: none;
+    font-size: 2rem;
+    cursor: pointer;
+    padding: 0.5rem 1rem;
+    z-index: 10;
+}
+
+.scroll-btn.left {
+    left: 6vw;
+}
+
+.scroll-btn.right {
+    left: 90vw
+}
 .latest-news{
     width: 80vw;
     margin: 0 10vw;

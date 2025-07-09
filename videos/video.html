@@ -552,6 +552,16 @@
             <a href="">Careers</a>
         </div>
     </section>
+    <script>
+        function scrollCards(button, direction) {
+            const container = button.closest('.cards-container').querySelector('.cards');
+            const scrollAmount = container.clientWidth * 0.8; // adjust scroll step if needed
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 
 </html>
