@@ -10,20 +10,14 @@ body {
 }
 
 .news-article {
-    margin-left: 10vw;
+    padding-left: 10vw;
     background-color: transparent;
     margin-top: 20px;
-}
-
-.news-article {
-    margin-top: 0;
-    padding-top: 0;
 }
 
 /* Article Content Layout */
 .article-content {
     width: 70%;
-    margin-left: 10vw;
 }
 
 /* Article Images */
