@@ -39,8 +39,7 @@
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
     </section>
-
-    <section class="car-types">
+    <section class="car-types"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
         <div class="category-container">
             <div class="categories">
                 <div class="category">
@@ -71,7 +70,7 @@
                     <a href="../catagories/luxury.html" class="category-item"><img src="../assets/luxury.avif" alt="Luxury"><span>LUXURY</span></a>
                 </div>
             </div>
-        </div>
+        </div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
     </section>
     <section class="latest-news">
         <h1>ELECTRIC VEHICLES</h1><br><br>
@@ -254,6 +253,16 @@
             <a href="">Careers</a>
         </div>
     </section>
+        <script>
+        function scrollCards(button, direction) {
+            const container = button.closest('.car-types').querySelector('.categories');
+            const scrollAmount = container.clientWidth * 0.8; // adjust scroll step if needed
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 
 </html>

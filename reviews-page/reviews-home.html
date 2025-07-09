@@ -40,38 +40,47 @@
         </nav>
 
     </section>
-    <section class="car-types">
+    <section class="car-types"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
         <div class="category-container">
             <div class="categories">
                 <div class="category">
-                    <a href="../catagories/performance.html" class="category-item"><img src="../assets/performance.avif" alt="Performance"><span>PERFORMANCE</span></a>
+                    <a href="../catagories/performance.html" class="category-item"><img src="../assets/performance.avif"
+                            alt="Performance"><span>PERFORMANCE</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/hybrids.html" class="category-item"><img src="../assets/hybrid.avif" alt="Hybrids"><span>HYBRIDs</span></a>
+                    <a href="../catagories/hybrids.html" class="category-item"><img src="../assets/hybrid.avif"
+                            alt="Hybrids"><span>HYBRIDs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/pickups.html" class="category-item"><img src="../assets/pickup.avif" alt="Pickups"><span>PICKUPs</span></a>
+                    <a href="../catagories/pickups.html" class="category-item"><img src="../assets/pickup.avif"
+                            alt="Pickups"><span>PICKUPs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/suv.html" class="category-item"><img src="../assets/suv.avif" alt="SUVs"><span>SUVs</span></a>
+                    <a href="../catagories/suv.html" class="category-item"><img src="../assets/suv.avif"
+                            alt="SUVs"><span>SUVs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/minivan.html" class="category-item"><img src="../assets/mpv.avif" alt="Minivans"><span>MINIVANs</span></a>
+                    <img src="../assets/mpv.avif" alt="Minivans"><a href="../catagories/minivan.html"
+                        class="category-item"><span>MINIVANs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/sedan.html" class="category-item"><img src="../assets/sedan.avif" alt="Sedans"><span>SEDANs</span></a>
+                    <a href="../catagories/sedan.html" class="category-item"><img src="../assets/sedan.avif"
+                            alt="Sedans"><span>SEDANs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/ev.html" class="category-item"><img src="../assets/electric.avif" alt="EVs"><span>EVs</span></a>
+                    <a href="../catagories/ev.html" class="category-item"><img src="../assets/electric.avif"
+                            alt="EVs"><span>EVs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/hatchback.html" class="category-item"><img src="../assets/hatchback.avif" alt="Hatchbacks"><span>HATCHBACKs</span></a>
+                    <a href="../catagories/hatchback.html" class="category-item"><img src="../assets/hatchback.avif"
+                            alt="Hatchbacks"><span>HATCHBACKs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/luxury.html" class="category-item"><img src="../assets/luxury.avif" alt="Luxury"><span>LUXURY</span></a>
+                    <a href="../catagories/luxury.html" class="category-item"><img src="../assets/luxury.avif"
+                            alt="Luxury"><span>LUXURY</span></a>
                 </div>
             </div>
-        </div>
+        </div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
     </section>
 
     <section><br>
@@ -160,6 +169,16 @@
             <a href="">Careers</a>
         </div>
     </section>
+    <script>
+        function scrollCards(button, direction) {
+            const container = button.closest('.car-types').querySelector('.categories');
+            const scrollAmount = container.clientWidth * 0.8; // adjust scroll step if needed
+            container.scrollBy({
+                left: direction * scrollAmount,
+                behavior: 'smooth'
+            });
+        }
+    </script>
 </body>
 
 </html>
