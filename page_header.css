@@ -121,87 +121,88 @@ nav {
 nav .fa {
     display: none;
 }
-    .input-box {
-        position: relative;
-        height: 40px;
-        width: 100%;
-        margin: 0 15px;
-        max-width: 60px;
-        background-color: #333;
-        border-radius: 6px;
-        margin-top: 2px;
-        margin-bottom: 2px;
-        transition: max-width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), border-radius 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
 
-    .input-box.open {
-        max-width: 300px;
-        border-radius: 6px;
-        color: #333;
-    }
+.input-box {
+    position: relative;
+    height: 40px;
+    width: 100%;
+    margin: 0 15px;
+    max-width: 60px;
+    background-color: #333;
+    border-radius: 6px;
+    margin-top: 2px;
+    margin-bottom: 2px;
+    transition: max-width 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55), border-radius 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
 
-    .input-box input {
-        position: relative;
-        height: 100%;
-        width: 100%;
-        padding: 0 30px;
-        outline: none;
-        border: none;
-        border-radius: 6px;
-        font-size: 16px;
-        font-weight: 400;
-        color: #fff;
-        background-color: #333;
-        transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
+.input-box.open {
+    max-width: 300px;
+    border-radius: 6px;
+    color: #333;
+}
 
-    .input-box.open input {
-        padding: 0 10px 0 55px;
-    }
+.input-box input {
+    position: relative;
+    height: 100%;
+    width: 100%;
+    padding: 0 30px;
+    outline: none;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    font-weight: 400;
+    color: #fff;
+    background-color: #333;
+    transition: all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
 
-    .input-box .search {
-        position: absolute;
-        left: 0;
-        top: 0;
-        height: 100%;
-        width: 40px;
-        border-radius: 6px;
-        background-color: #333;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: padding 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-    }
+.input-box.open input {
+    padding: 0 10px 0 55px;
+}
 
-    .input-box.open .search {
-        padding: 6px 0 0 6px;
-    }
+.input-box .search {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 40px;
+    border-radius: 6px;
+    background-color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: padding 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+}
 
-    .input-box .search .search-icon {
-        font-size: 20px;
-        color: #fff;
-        margin-bottom: 2px;
-    }
+.input-box.open .search {
+    padding: 6px 0 0 6px;
+}
 
-    .input-box .close-icon {
-        position: absolute;
-        right: -35px;
-        top: 50%;
-        transform: translateY(-50%);
-        font-size: 18px;
-        color: lightskyblue;
-        cursor: pointer;
-    }
+.input-box .search .search-icon {
+    font-size: 20px;
+    color: #fff;
+    margin-bottom: 2px;
+}
 
-    .input-box:hover {
-        max-width: 300px;
-    }
+.input-box .close-icon {
+    position: absolute;
+    right: -35px;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 18px;
+    color: lightskyblue;
+    cursor: pointer;
+}
 
-    .input-box:hover input {
-        padding: 0 10px 0 55px;
-    }
+.input-box:hover {
+    max-width: 300px;
+}
 
-    .contact-card {
+.input-box:hover input {
+    padding: 0 10px 0 55px;
+}
+
+.contact-card {
     background-color: black;
     width: 100%;
     margin: 0 auto;
