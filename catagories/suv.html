@@ -25,18 +25,17 @@
                 <ul>
                     <li><a href="../index.html">HOME</a></li>
                     <li><a href="../reviews-page/reviews-home.html">REVIEWS</a></li>
-                    <li><a href="../news-template/news-home.html">NEWS</a></li> 
+                    <li><a href="../news-template/news-home.html">NEWS</a></li>
                     <li><a href="../electric/electric.html">ELECTRIC</a></li>
                     <li><a href="../gallery/gallery.html">GALLERY</a></li>
                     <li><a href="../videos/video.html">VIDEOS</a></li>
                 </ul>
             </div>
-            <div class="input-box">
-                <input type="text" placeholder="Search...">
-                <span class="search">
-                    <i class="uil uil-search search-icon"></i>
-                </span>
+            <div class="search-box">
+                <i class="uil uil-search search-icon"></i>
+                <input type="text" placeholder="Search..">
             </div>
+
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
     </section>
@@ -45,31 +44,39 @@
         <div class="category-container">
             <div class="categories">
                 <div class="category">
-                    <a href="../catagories/performance.html" class="category-item"><img src="../assets/performance.avif" alt="Performance"><span>PERFORMANCE</span></a>
+                    <a href="../catagories/performance.html" class="category-item"><img src="../assets/performance.avif"
+                            alt="Performance"><span>PERFORMANCE</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/hybrids.html" class="category-item"><img src="../assets/hybrid.avif" alt="Hybrids"><span>HYBRIDs</span></a>
+                    <a href="../catagories/hybrids.html" class="category-item"><img src="../assets/hybrid.avif"
+                            alt="Hybrids"><span>HYBRIDs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/pickups.html" class="category-item"><img src="../assets/pickup.avif" alt="Pickups"><span>PICKUPs</span></a>
+                    <a href="../catagories/pickups.html" class="category-item"><img src="../assets/pickup.avif"
+                            alt="Pickups"><span>PICKUPs</span></a>
                 </div>
                 <!-- <div class="category">
                     <a href="../catagories/suv.html" class="category-item"><img src="../assets/hybrid.avif" alt="SUVs"><span>SUVs</span></a>
                 </div> -->
                 <div class="category">
-                    <a href="../catagories/minivan.html" class="category-item"><img src="../assets/mpv.avif" alt="Minivans"><span>MINIVANs</span></a>
+                    <a href="../catagories/minivan.html" class="category-item"><img src="../assets/mpv.avif"
+                            alt="Minivans"><span>MINIVANs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/sedan.html" class="category-item"><img src="../assets/sedan.avif" alt="Sedans"><span>SEDANs</span></a>
+                    <a href="../catagories/sedan.html" class="category-item"><img src="../assets/sedan.avif"
+                            alt="Sedans"><span>SEDANs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/ev.html" class="category-item"><img src="../assets/electric.avif" alt="EVs"><span>EVs</span></a>
+                    <a href="../catagories/ev.html" class="category-item"><img src="../assets/electric.avif"
+                            alt="EVs"><span>EVs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/hatchback.html" class="category-item"><img src="../assets/hatchback.avif" alt="Hatchbacks"><span>HATCHBACKs</span></a>
+                    <a href="../catagories/hatchback.html" class="category-item"><img src="../assets/hatchback.avif"
+                            alt="Hatchbacks"><span>HATCHBACKs</span></a>
                 </div>
                 <div class="category">
-                    <a href="../catagories/luxury.html" class="category-item"><img src="../assets/luxury.avif" alt="Luxury"><span>LUXURY</span></a>
+                    <a href="../catagories/luxury.html" class="category-item"><img src="../assets/luxury.avif"
+                            alt="Luxury"><span>LUXURY</span></a>
                 </div>
             </div>
         </div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
@@ -223,7 +230,7 @@
             <a href="">Careers</a>
         </div>
     </section>
-        <script>
+    <script>
         function scrollCards(button, direction) {
             const container = button.closest('.car-types').querySelector('.categories');
             const scrollAmount = container.clientWidth * 0.8; // adjust scroll step if needed
