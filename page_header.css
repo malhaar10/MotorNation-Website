@@ -125,7 +125,7 @@ nav .fa {
 .search-box {
     display: flex;
     align-items: center;
-    background-color: #5c5c5c;
+    background-color: rgba(255, 255, 255, 0.897);
     border-radius: 6px;
     padding: 0 12px;
     height: 35px;
@@ -139,14 +139,9 @@ nav .fa {
     background: transparent;
     border: none;
     outline: none;
-    color: white;
+    color: black;
     font-size: 16px;
     padding-left: 10px;
-}
-
-.search-box .search-icon {
-    color: white;
-    font-size: 20px;
 }
 
 .contact-card {
