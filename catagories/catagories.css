@@ -116,6 +116,12 @@ body {
     margin: 0 10vw;
     padding-top: -50px;
 }
+.latest-news .hr2{
+    width: 75vw;
+    background-color: lightskyblue;
+    border: 1px solid lightskyblue;
+    height: 2px;
+}
 .latest-news hr {
     width: 20%;
     margin-top: -1px;
@@ -148,7 +154,6 @@ body {
 .latest-news .card {
     width: 29%;
     position: relative;
-    background-color:#c4c4c4;
     padding: 7px;
     border-radius: 16px;
 }
@@ -159,28 +164,29 @@ body {
     border-radius: 16px;
 }
 .latest-news .name{
-    color:#000000;
+    color:white;
     font-weight: bold;
     font-size: 25px;
     padding-left: 10px;
 }
 .latest-news .price{
     padding-top: 10px;
-    color:#000000;
+    color:white;
     font-size: 18px;
     padding-left: 10px;
 }
 .latest-news .full-button {
     font-size: medium;
-    background-color: #c4c4c4;
+    background-color: transparent;
     padding: 7px 30px;
-    color: #000000;
+    color: white;
     height: 50px;
     width: auto;
     text-align: right;
     display: block;
     margin-left: 64.6vw;
-    border: none;
+    border-color: white;
+    border-width: 1px;
     cursor: pointer;
     border-radius: 12px;
 }
@@ -221,8 +227,8 @@ body {
 }
 
 .hr{
-    width: 90vw;
-    margin: auto;
+    width: 80vw;
+    margin-left: 9.5vw;
     background-color: lightskyblue;
     border: 1px solid lightskyblue;
     height: 2px;

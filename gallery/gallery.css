@@ -152,16 +152,15 @@ body {
   font-size: 2rem;
   cursor: pointer;
   padding: 0.5rem 1rem;
-  z-index: 10;
+  z-index: 1;
 }
-
 .scroll-btn.left {
   left: 0;
 }
-
 .scroll-btn.right {
   right: 0;
 }
+
 .blog-section .cards .card{
     flex: 0 0 auto;
     width: 300px;
