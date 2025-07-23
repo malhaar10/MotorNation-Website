@@ -43,9 +43,8 @@
     </section>
     <section class="latest-news">
         <div class="container">
-            <div class="blog-section">
+            <div class="blog-section"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
                 <div class="cards-container">
-                    <button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
                     <div class="cards">
                         <div class="card">
                             <a href="">
@@ -112,10 +111,9 @@
                                     <h5>June 17, 2024</h5>
                                 </div>
                             </a>
-                        </div>
-                    </div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
+                        </div>                  
                 </div>
-            </div>
+            </div></div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
         </div>
     </section>
     <hr>
@@ -124,9 +122,8 @@
     </section>
     <section class="latest-news">
         <div class="container">
-            <div class="blog-section">
+            <div class="blog-section"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
                 <div class="cards-container">
-                    <button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
                     <div class="cards">
                         <div class="card">
                             <a href="">
@@ -193,10 +190,9 @@
                                     <h5>June 17, 2024</h5>
                                 </div>
                             </a>
-                        </div>
-                    </div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
+                        </div>                  
                 </div>
-            </div>
+            </div></div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
         </div>
     </section>
     <hr>
@@ -788,7 +784,7 @@
     </section>
     <script>
         function scrollCards(button, direction) {
-            const container = button.closest('.cards-container').querySelector('.cards');
+            const container = button.closest('.blog-section').querySelector('.cards');
             const scrollAmount = container.clientWidth * 0.8; // adjust scroll step if needed
             container.scrollBy({
                 left: direction * scrollAmount,
