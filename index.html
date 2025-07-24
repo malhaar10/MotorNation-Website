@@ -415,7 +415,7 @@
 
         <div class="container1">
             <div class="blog-section1">
-                <div class="cards1">
+                <div class="cards1" id="channel-video-section">
                     <div class="card">
                         <a href="https://www.youtube.com/watch?v=h44RX9cgjqM">
                             <div class="image-section">
@@ -507,6 +507,46 @@
         </div>
 
     </section>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.getElementById('channel-video-section');
+    const channelId = 'UC9HmzxcrnW3CGZVf0iPK6Eg';
+
+    fetch(`http://localhost:3000/getChannelVideos?channelId=${channelId}`)
+        .then(res => res.json())
+        .then(videos => {
+            container.innerHTML = '';
+
+            videos.forEach(video => {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const date = new Date(video.publishedAt).toLocaleDateString();
+
+                card.innerHTML = `
+                    <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank">
+                        <div class="image-section">
+                            <img src="${video.thumbnail}" alt="${video.title}" loading="lazy">
+                        </div>
+                        <div class="content">
+                            <p>REVIEW</p>
+                            <h3>${video.title}</h3>
+                            <h5>${date}</h5>
+                            <hr>
+                        </div>
+                    </a>
+                `;
+                container.appendChild(card);
+            });
+        })
+        .catch(err => {
+            console.error('Failed to load videos:', err);
+            container.innerHTML = '<p style="color:red;">Could not load videos.</p>';
+        });
+});
+</script>
+
+
 
     <section class="hr">
         <hr>
