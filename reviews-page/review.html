@@ -42,7 +42,7 @@
         <article class="news-article">
             <div class="article-content">
                 <div class="article-text">
-                    <h2>2025 HONDA CR-V</h2>
+                    <h2 id="review-title">2025 HONDA CR-V</h2>
                 </div>
                 <div class="article-image">
                     <div class="main-image-container">
@@ -80,7 +80,7 @@
 
                 <div class="article-text">
                     <h2 id="overview">OVERVIEW</h2>
-                    <p>Compact crossovers such as the 2025 Honda CR-V are in high demand, as they offer comfortable
+                    <p id="overview-text">Compact crossovers such as the 2025 Honda CR-V are in high demand, as they offer comfortable
                         seating, decent fuel efficiency, and an easy-to-park profile. Honda's cheerful entry in this
                         competitive SUV segment earns its place at the top of our list because it also offers agile
                         handling to accompany its practicality. Equipped with front- or all-wheel drive and a 190-hp
@@ -89,7 +89,7 @@
                         capable off-road, the CR-V is a better all-arounder for its pleasant driving dynamics, solid
                         build quality, and just-right balance of infotainment knobs and screens.</p><br>
                     <h2 id="pricing">PRICING</h2>
-                    <p>The price of the 2025 Honda CR-V starts at $31,495 and goes up to $36,395 depending on the trim
+                    <p id="pricing-text">The price of the 2025 Honda CR-V starts at $31,495 and goes up to $36,395 depending on the trim
                         and options.
                         The CR-V LX, EX, and EX-L are all gas-only models. The Sport, Sport-L, and Sport Touring models
                         come exclusively with the hybrid powertrain, and these are what we'd recommend most. Of the
@@ -100,7 +100,7 @@
                     <div class="article-image">
                         <img src="../images/2025-crv/engine.avif" id="mainImage"><br>
                     </div>
-                    <p>Behind the CR-V's upright grille is a standard 190-hp turbocharged 1.5-liter four-cylinder. It
+                    <p id="drivetrain-text">Behind the CR-V's upright grille is a standard 190-hp turbocharged 1.5-liter four-cylinder. It
                         pairs with a CVT and either front- or all-wheel drive. This setup is standard on the LX, EX, and
                         EX-L models. Every CR-V has hill-descent control that helps modulate the compact SUV's speed on
                         steep or slippery declines when traveling at low speeds. Most models are fitted with a set of
@@ -120,7 +120,7 @@
                     <div class="article-image">
                         <img src="../images/2025-crv/interior.avif" id="mainImage"><br>
                     </div>
-                    <p>The CR-V's handsome interior design is highlighted by a honeycomb-textured insert spanning most
+                    <p id="interior-text">The CR-V's handsome interior design is highlighted by a honeycomb-textured insert spanning most
                         of the dash, discreetly hiding the air vents. The steering wheel frames a partially digital
                         gauge cluster with an analog speedometer and a 7.0-inch display that allows the driver to swap
                         between different informational menus. Honda says the front seats are designed to decrease
@@ -133,14 +133,14 @@
                     <div class="article-image">
                         <img src="../images/2025-crv/infotainment.jpg" id="mainImage"><br>
                     </div>
-                    <p>The CR-V's infotainment system operates through a 7.0-inch touchscreen on the LX and EX trim
+                    <p id="technology-text">The CR-V's infotainment system operates through a 7.0-inch touchscreen on the LX and EX trim
                         levels. The setup features physical volume and tuning knobs as well as Apple CarPlay and Android
                         Auto. The EX-L has a 9.0-inch touchscreen with wireless Apple CarPlay and Android Auto. While
                         the bigger display doesn't include a tuning knob, there is a volume knob that accompanies the
                         built-in navigation, plus two USB-C ports for rear-seat passengers and wireless smartphone
                         charging.</p><br>
                     <h2 id="safety">SAFETY</h2>
-                    <p>Honda equips every CR-V with a boatload of standard driver-assistance technology. Along with
+                    <p id="safety-text">Honda equips every CR-V with a boatload of standard driver-assistance technology. Along with
                         automated emergency braking, the compact SUV comes with a driver-attention monitor, lane-keeping
                         assist, and a back-seat reminder. For more information about the CR-V's crash-test results,
                         visit the National Highway Traffic Safety Administration (NHTSA) and Insurance Institute for
@@ -151,7 +151,7 @@
                         Standard adaptive cruise control</p><br>
 
                     <h2 id="warranty">WARRANTY</h2>
-                    <p>There's nothing particularly special about the CR-V's limited and powertrain warranties. Both
+                    <p id="warranty-text">There's nothing particularly special about the CR-V's limited and powertrain warranties. Both
                         include coverage periods comparable with most competitors. However, Honda started offering
                         complimentary scheduled maintenance on 2024 CR-V models; that continues for 2025 with one year
                         or 12,000 miles of coverage.<br>
@@ -242,6 +242,48 @@
             <a href="">Careers</a>
         </div>
     </section>
+    <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+        const params = new URLSearchParams(window.location.search);
+        const id = params.get('id');
+
+        if (!id) {
+            console.warn('No review ID provided in URL.');
+            return;
+        }
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/reviews`);
+            const reviews = await response.json();
+
+            const review = reviews.find(r => r.id === id);
+
+            if (!review) {
+                console.warn('No review found for ID:', id);
+                return;
+            }
+
+            // Update the title
+            if (review.title) {
+                document.getElementById('review-title').textContent = review.title;
+            }
+
+            // Fill in review sections
+            document.getElementById('overview-text').textContent = review.overview || '';
+            document.getElementById('pricing-text').textContent = review.pricing || '';
+            document.getElementById('drivetrain-text').textContent = review.drivetrain || '';
+            document.getElementById('interior-text').textContent = review.interior || '';
+            document.getElementById('technology-text').textContent = review.technology || '';
+            document.getElementById('safety-text').textContent = review.safety || '';
+            document.getElementById('warranty-text').textContent = review.warranty || '';
+
+        } catch (error) {
+            console.error('Failed to load review data:', error);
+        }
+    });
+</script>
+
+
 
 </body>
 

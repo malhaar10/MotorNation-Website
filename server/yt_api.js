@@ -3,13 +3,23 @@ const express = require('express');
 const axios = require('axios');
 const NodeCache = require('node-cache');
 const cors = require('cors');
+const pool = require('./reviews_db');  // ⬅️ PostgreSQL connection
+pool.query('SELECT 1', (err, res) => {
+  if (err) {
+    console.error('❌ DB test connection failed:', err.stack);
+  } else {
+    console.log('✅ DB test connection successful');
+  }
+});
+
 
 const app = express();
-const PORT = 3000;
+const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.YT_API_KEY;
-const cache = new NodeCache({ stdTTL: 86400 }); // cache for 1 day
+const cache = new NodeCache({ stdTTL: 86400 });
 
 app.use(cors());
+app.use(express.json());  // ⬅️ Parse JSON bodies
 
 /**
  * Fetch videos from a specific playlist
@@ -46,7 +56,7 @@ app.get('/getPlaylistVideos', async (req, res) => {
 });
 
 /**
- * Fetch accurate and latest videos from the YouTube channel
+ * Fetch latest videos from a channel
  */
 app.get('/getChannelVideos', async (req, res) => {
     const { channelId } = req.query;
@@ -57,7 +67,6 @@ app.get('/getChannelVideos', async (req, res) => {
     if (cached) return res.json(cached);
 
     try {
-        // Step 1: Get the latest video IDs using search endpoint
         const searchResponse = await axios.get('https://www.googleapis.com/youtube/v3/search', {
             params: {
                 part: 'id',
@@ -71,7 +80,6 @@ app.get('/getChannelVideos', async (req, res) => {
 
         const videoIds = searchResponse.data.items.map(item => item.id.videoId).join(',');
 
-        // Step 2: Fetch actual video details using videos endpoint
         const videosResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
             params: {
                 part: 'snippet',
@@ -94,6 +102,43 @@ app.get('/getChannelVideos', async (req, res) => {
         res.status(500).json({ error: 'Failed to fetch latest channel videos' });
     }
 });
+
+/**
+ * POST /api/reviews - Insert a new review
+ */
+app.post('/api/reviews', async (req, res) => {
+    const { overview, pricing, drivetrain, warranty, interior, safety, technology, tag } = req.body;
+
+    try {
+        const result = await pool.query(
+            `INSERT INTO reviews (
+                overview, pricing, drivetrain, warranty, interior, safety, technology, tag
+            ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+            RETURNING *`,
+            [overview, pricing, drivetrain, warranty, interior, safety, technology, tag]
+        );
+
+        res.status(201).json(result.rows[0]);
+    } catch (err) {
+        console.error('Error inserting review:', err);
+        res.status(500).json({ error: 'Failed to insert review' });
+    }
+});
+
+/**
+ * GET /api/reviews - Fetch all reviews
+ */
+app.get('/api/reviews', async (req, res) => {
+    try {
+        const result = await pool.query('SELECT * FROM reviews ORDER BY created_at DESC');
+        res.json(result.rows);
+    } catch (err) {
+    console.error('Error fetching reviews:', err.stack); // shows full error
+    res.status(500).json({ error: 'Failed to fetch reviews' });
+    }
+});
+
+
 
 app.listen(PORT, () => {
     console.log(`🚀 Server running on http://localhost:${PORT}`);
