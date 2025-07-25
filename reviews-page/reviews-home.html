@@ -98,56 +98,22 @@
         </div>
     </section>
     <hr>
-
+    
     <section class="latest-news">
         <hr>
         <a class="latest-head">LATEST REVIEWS</a>
         <div class="container">
             <div class="blog-section">
-                <div class="cards">
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                            </div>
-                            <div class="content">
-                                <p>FIRST LOOK</p>
-                                <h3>Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</h3>
-                                <h5>June 18, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="../images/XPB_1285768_HiRes.jpg">
-                            </div>
-                            <div class="content">
-                                <p>LE-MANS</p>
-                                <h3>Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="../images/fiat1.jpg">
-                            </div>
-                            <div class="content">
-                                <p>LAUNCH</p>
-                                <h3>Fiat reveals Grande Panda: A Retro styled compact SUV</h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
+                <div class="cards" id="review-cards-container">
+                    <!-- Cards will be injected here dynamically -->
                 </div>
-                <button class="full-button">See full list</button>
+                <button class="full-button" onclick="window.location.href='/reviews-page/review-list.html'">
+                    See full list
+                </button>
             </div>
+        </div>
     </section>
+
     <section class="hr">
         <hr>
     </section>
@@ -177,6 +143,39 @@
             });
         }
     </script>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/reviews/summary');
+                const reviews = await response.json();
+
+                const container = document.getElementById('review-cards-container');
+                reviews.forEach(review => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    card.innerHTML = `
+                    <a href="../reviews-page/review-template.html?id=${review.id}">
+                        <div class="image-section">
+                            <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
+                        </div>
+                        <div class="content">
+                            <p>${review.model_year}</p>
+                            <h3>${review.car_name}</h3>
+                            <h5>Latest Review</h5>
+                            <hr>
+                        </div>
+                    </a>
+                `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Failed to load latest reviews:', error);
+            }
+        });
+    </script>
+
 </body>
 
 </html>

@@ -143,11 +143,6 @@ body {
     width: 100%;
     margin-top: 20px;
 }
-.blog-section .cards{
-    display: flex;
-    gap: 50px;
-    margin: 25px auto;
-}
 .blog-section .full-button{
     margin-top: 5vh;
     height: 7vh;
@@ -164,10 +159,26 @@ body {
     background-color: lightskyblue;
     color: black;
 }
-.blog-section .cards .card{
-    width: 100%;
-    position: relative;
+.blog-section .cards {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 30px;
+    margin: 25px auto;
 }
+
+.blog-section .card {
+    width: calc(33.333% - 20px); /* 3 cards per row with spacing */
+    background-color: #111;
+    border-radius: 12px;
+    overflow: hidden;
+    transition: transform 0.3s ease;
+}
+
+.blog-section .card:hover {
+    transform: scale(1.03);
+}
+
 .blog-section .image-section img{
     width: 100%;
     height: auto;
