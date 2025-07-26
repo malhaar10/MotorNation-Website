@@ -82,19 +82,8 @@
     </section>
 
     <section><br>
-        <div class="breaking">
-            <a href="../reviews-page/review.html"><img src="../images/2025-crv/63_2024HondaCRVEX-L.avif"></a>
-            <div class="text-content">
-                <h4>NEW</h4>
-                <h3><a href="../reviews-page/review.html">2025 HONDA CR-V</h3>
-                <p>12 June, 2025</p>
-                <p>SHORT DESCRIPTION
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat provident non ex earum laborum
-                    perspiciatis adipisci, incidunt maiores? Ut a voluptate iure facilis repellendus eum vero nemo cum
-                    consequatur dolores.
-                </p>
-                <button class="watch-on-yt" onclick="window.open('#', '_blank')">Watch on YouTube</button>
-            </div>
+        <div class="breaking" id="latest-review">
+            
         </div>
     </section>
     <hr>
@@ -175,6 +164,42 @@
             }
         });
     </script>
+    <script>
+        async function loadLatestReview() {
+            try {
+                const response = await fetch('http://localhost:3000/api/reviews'); // Use your backend URL
+                const reviews = await response.json();
+
+                if (!Array.isArray(reviews) || reviews.length === 0) {
+                    document.getElementById('latest-review').innerHTML = '<p>No reviews available.</p>';
+                    return;
+                }
+
+                const latest = reviews[0];
+                const imagePath = '../images/2025-crv/29_2024HondaCRVEX-L.avif';
+
+                document.getElementById('latest-review').innerHTML = `
+            <a href="../reviews-page/review.html?id=${latest.id}">
+              <img src="${imagePath}" alt="${latest.car_name}">
+            </a>
+            <div class="text-content">
+              <h4>NEW</h4>
+              <h3><a href="../reviews-page/review.html?id=${latest.id}">
+                ${latest.car_name.toUpperCase()}
+              </a></h3>
+              <p>${new Date().toLocaleDateString()}</p>
+              <button class="watch-on-yt" onclick="window.open('#', '_blank')">Watch on YouTube</button>
+            </div>
+          `;
+            } catch (err) {
+                console.error('Error loading latest review:', err);
+                document.getElementById('latest-review').innerHTML = '<p>Failed to load review.</p>';
+            }
+        }
+
+        window.addEventListener('DOMContentLoaded', loadLatestReview);
+    </script>
+
 
 </body>
 
