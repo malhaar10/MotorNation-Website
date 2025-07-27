@@ -43,24 +43,7 @@
         </div>
     </section>
 
-    <!-------First News------>
-    <section>
-        <div class="breaking">
-            <a href="news-template/news-home.html">
-                <img src="images/zo6_orange.jpg">
-                <div class="content">
-                    <h4>RE-CALLS</h4>
-                    <h3>Corvettes Re-called! 13k of them may face seatbelt issues as per Chevrolet</h3>
-                    <p>General Motors is recalling more than 13,000 Chevrolet Corvettes due to an issue with the
-                        seatbelts,
-                        according to a notification from the National Highway Traffic and Safety Administration.
-                        General Motors is recalling 13,464 2024-2025 Corvette vehicles.</p>
-                    <p>15 June, 2024</p>
-                </div>
-            </a>
-        </div>
-    </section>
-    <section>
+        <section>
         <hr>
     </section>
     <!-------Reviews------->
@@ -116,84 +99,7 @@
         <div class="container">
             <div class="blog-section">
                 <div class="cards">
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/audi-rs-e-tron-gt-1.jpg">
-                            </div>
-                            <div class="content">
-                                <p>FIRST LOOK</p>
-                                <h3>Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</h3>
-                                <h5>June 18, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/XPB_1285768_HiRes.jpg">
-                            </div>
-                            <div class="content">
-                                <p>LE-MANS</p>
-                                <h3>Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/fiat1.jpg">
-                            </div>
-                            <div class="content">
-                                <p>LAUNCH</p>
-                                <h3>Fiat reveals Grande Panda: A Retro styled compact SUV</h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/2024-jaguar-f-type-r75-convertible-151-edit-660f012e498ef.jpg">
-                            </div>
-                            <div class="content">
-                                <p>INDUSTY</p>
-                                <h3>Jaguar Bids farewell to its F-Type with its Final Model...</h3>
-                                <h5>June 16, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/2024-Jeep-Wagoneer-front-quarter.jpg">
-                            </div>
-                            <div class="content">
-                                <p>REVIEWS</p>
-                                <h3>Can the electric retain the rugged Jeep DNA? The 2025 Jeep Wagoneer S</h3>
-                                <h5>June 15, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/intro-1664566243.jpg">
-                            </div>
-                            <div class="content">
-                                <p>OPINION</p>
-                                <h3>Opinion: Can cars be an inclusive hobby?!</h3>
-                                <h5>June 14, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
+                    
                 </div>
             </div>
         </div>
@@ -201,6 +107,43 @@
     <section class="hr">
         <hr>
     </section>
+    <script>
+document.addEventListener('DOMContentLoaded', () => {
+    const container = document.querySelector('.latest-news .cards');
+
+    fetch('http://localhost:3000/api/reviews/summary')
+        .then(res => res.json())
+        .then(reviews => {
+            container.innerHTML = ''; // Clear existing content
+
+            reviews.forEach(review => {
+                const card = document.createElement('div');
+                card.className = 'card';
+
+                card.innerHTML = `
+                    <a href="reviews-page/review-template.html?id=${review.id}">
+                        <div class="image-section">
+                            <img src="../images/Comparison.png" alt="${review.car_name}" loading="lazy">
+                        </div>
+                        <div class="content">
+                            <p>REVIEW</p>
+                            <h3>${review.car_name}</h3>
+                            <h5>${review.model_year}</h5>
+                            <hr>
+                        </div>
+                    </a>
+                `;
+
+                container.appendChild(card);
+            });
+        })
+        .catch(err => {
+            console.error('Failed to load reviews:', err);
+            container.innerHTML = '<p style="color:red;">Could not load reviews.</p>';
+        });
+});
+</script>
+
     <!-------Latest-News------->
     <section class="latest-news">
         <hr>
@@ -209,85 +152,7 @@
         </a>
         <div class="container">
             <div class="blog-section">
-                <div class="cards">
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/audi-rs-e-tron-gt-1.jpg">
-                            </div>
-                            <div class="content">
-                                <p>FIRST LOOK</p>
-                                <h3>Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</h3>
-                                <h5>June 18, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/XPB_1285768_HiRes.jpg">
-                            </div>
-                            <div class="content">
-                                <p>LE-MANS</p>
-                                <h3>Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/fiat1.jpg">
-                            </div>
-                            <div class="content">
-                                <p>LAUNCH</p>
-                                <h3>Fiat reveals Grande Panda: A Retro styled compact SUV</h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/2024-jaguar-f-type-r75-convertible-151-edit-660f012e498ef.jpg">
-                            </div>
-                            <div class="content">
-                                <p>INDUSTY</p>
-                                <h3>Jaguar Bids farewell to its F-Type with its Final Model...</h3>
-                                <h5>June 16, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/2024-Jeep-Wagoneer-front-quarter.jpg">
-                            </div>
-                            <div class="content">
-                                <p>REVIEWS</p>
-                                <h3>Can the electric retain the rugged Jeep DNA? The 2025 Jeep Wagoneer S</h3>
-                                <h5>June 15, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/intro-1664566243.jpg">
-                            </div>
-                            <div class="content">
-                                <p>OPINION</p>
-                                <h3>Opinion: Can cars be an inclusive hobby?!</h3>
-                                <h5>June 14, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
+                <div class="cards" id="latest-news-cards">
                 </div>
             </div>
         </div>
@@ -295,6 +160,46 @@
     <section class="hr">
         <hr>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const newsContainer = document.getElementById('latest-news-cards');
+
+            fetch('http://localhost:3000/api/news/summary')
+                .then(res => res.json())
+                .then(newsItems => {
+                    newsContainer.innerHTML = ''; // Clear placeholder content
+
+                    newsItems.forEach(item => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+
+                        const date = new Date(item.date).toLocaleDateString('en-GB', {
+                            day: 'numeric', month: 'short', year: 'numeric'
+                        });
+
+                        card.innerHTML = `
+                        <a href="news-template/news-page-template.html?id=${item.id}">
+                            <div class="image-section">
+                                <img src="../images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="${item.news_title}" loading="lazy">
+                            </div>
+                            <div class="content">
+                                <p>${item.tag.toUpperCase()}</p>
+                                <h3>${item.news_title}</h3>
+                                <h5>${date}</h5>
+                                <hr>
+                            </div>
+                        </a>
+                    `;
+                        newsContainer.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    console.error('❌ Failed to fetch latest news:', err);
+                    newsContainer.innerHTML = '<p style="color: red;">Could not load latest news.</p>';
+                });
+        });
+    </script>
+
     <!-------evs------->
     <section class="latest-news">
         <hr>
@@ -394,25 +299,6 @@
         <hr>
         <a href="videos/video.html" style="text-decoration: none;">
             <h3>VIDEOS</h3>
-        </a>
-        <div class="head">
-            <div class="image-container">
-                <a href="https://www.youtube.com/watch?v=lkT7JaWDz60">
-                    <img src="images/SUV Battles! (1).png">
-                </a>
-            </div>
-            <div class="content-container">
-                <h4>SUV BATTLES!</h4>
-                <h3>2024 Toyota RAV4 GR battles 2024 Renault Captur Hybrid</h3>
-                <p>A classic battle between the new RAV4 and Capur. Witness the pros and cons of each vehicle in the
-                    comparison.</p>
-                <div class="p">
-                    <p>19 June 2024</p>
-                </div>
-                <a href="https://www.youtube.com/watch?v=lkT7JaWDz60" class="hero-btn">Watch Now on Youtube!</a>
-            </div>
-        </div>
-
         <div class="container1">
             <div class="blog-section1">
                 <div class="cards1" id="channel-video-section">

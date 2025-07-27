@@ -29,7 +29,7 @@ router.get('/news/summary', async (req, res) => {
       SELECT id, news_title, date, tag
       FROM news
       ORDER BY created_at DESC
-      LIMIT 7
+      LIMIT 6
     `);
     res.json(result.rows);
   } catch (err) {

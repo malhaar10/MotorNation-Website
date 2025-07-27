@@ -73,5 +73,20 @@ router.get('/reviews/summary', async (req, res) => {
   }
 });
 
+router.get('/reviews/summary', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year
+      FROM reviews
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching review summary:', err);
+    res.status(500).json({ error: 'Failed to fetch review summary' });
+  }
+});
+
 
 module.exports = router;

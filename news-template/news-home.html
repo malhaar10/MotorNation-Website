@@ -84,7 +84,7 @@ fetch('http://localhost:3000/api/news/summary')
     const featured = data[0];
     document.getElementById('featured-news').innerHTML = `
       <a href="../news-template/news-page-template.html?id=${featured.id}">
-        <img src="../images/placeholder.jpg" alt="${featured.news_title}">
+        <img src="../images/2024-jaguar-f-type-r75-convertible-151-edit-660f012e498ef.jpg" alt="${featured.news_title}">
         <div class="content">
           <h4>${featured.tag || 'NEWS'}</h4>
           <h3>${featured.news_title}</h3>
@@ -102,7 +102,7 @@ fetch('http://localhost:3000/api/news/summary')
       card.innerHTML = `
         <a href="../news-template/news-page-template.html?id=${article.id}">
           <div class="image-section">
-            <img src="../images/placeholder.jpg" alt="${article.news_title}">
+            <img src="../images/Comparison.png" alt="${article.news_title}">
           </div>
           <div class="content">
             <p>${article.tag || 'UPDATE'}</p>
