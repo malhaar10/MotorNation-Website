@@ -114,6 +114,40 @@ app.get('/getChannelVideos', async (req, res) => {
   }
 });
 
+// ✅ Fetch latest 6 videos from a specific playlist
+app.get('/api/playlist/latest', async (req, res) => {
+  const playlistId = 'YOUR_PLAYLIST_ID'; // Replace with actual ID
+  const cacheKey = `playlist-${playlistId}`;
+
+  const cached = cache.get(cacheKey);
+  if (cached) return res.json(cached);
+
+  try {
+    const response = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
+      params: {
+        part: 'snippet',
+        playlistId,
+        maxResults: 6,
+        key: API_KEY,
+      },
+    });
+
+    const videos = response.data.items.map(item => ({
+      title: item.snippet.title,
+      thumbnail: item.snippet.thumbnails.medium.url,
+      publishedAt: item.snippet.publishedAt,
+      videoId: item.snippet.resourceId.videoId,
+    }));
+
+    cache.set(cacheKey, videos);
+    res.json(videos);
+  } catch (err) {
+    console.error('❌ Error fetching playlist videos:', err.response?.data || err.message);
+    res.status(500).json({ error: 'Failed to fetch playlist videos' });
+  }
+});
+
+
 // === Start Server ===
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);

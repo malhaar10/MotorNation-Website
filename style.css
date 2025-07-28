@@ -71,36 +71,25 @@ nav {
 }
 
 .header .text-box {
-    color: rgb(27, 27, 27);
-    text-align: left;
+    text-align: right;
     background-image: url('assets/shifter.avif');
-    height: auto;
+    height: 70vh;
     width: 80vw;
+    color: white;
 }
 
-.header .text-box h4 {
-    font-size: 30px;
-    color: #fff;
+.header .text-box .l1 {
+    font-size: 30px !important;
     font-weight: 500;
-    margin-bottom: 10px;
-    margin-top: 50px;
+    margin-bottom: 40px;
 }
 
-.header .text-box h1 {
-    color: #fff;
-    font-size: 65px;
-    text-transform: uppercase;
-    line-height: 1;
-    margin-bottom: 30px;
-    text-align: left;
-    
+.header .text-box .l2 {
+    font-size: 20px !important;
+    margin-bottom: 40px;
 }
-.header .text-box h5{
-    color: #fff;
-    margin-bottom: 30px;
-    margin-top: -20px;
-    font-size: 20px;
-}
+
+
 /* .videos .hero-btn {
     display: inline-block;
     text-decoration: none;

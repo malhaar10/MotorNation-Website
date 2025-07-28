@@ -37,9 +37,10 @@
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
     </section>
-    <section class="car-types"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
+    <section class="car-types">
         <div class="category-container">
-            <div class="categories">
+            <button class="scroll-btn left" onclick="scrollCategories(-1)">❮</button>
+            <div class="categories" id="categoryScroll">
                 <div class="category">
                     <a href="../catagories/performance.html" class="category-item"><img src="../assets/performance.avif"
                             alt="Performance"><span>PERFORMANCE</span></a>
@@ -64,9 +65,6 @@
                     <a href="../catagories/sedan.html" class="category-item"><img src="../assets/sedan.avif"
                             alt="Sedans"><span>SEDANs</span></a>
                 </div>
-                <!-- <div class="category">
-                    <a href="../catagories/ev.html" class="category-item"><img src="../assets/electric.avif" alt="EVs"><span>EVs</span></a>
-                </div> -->
                 <div class="category">
                     <a href="../catagories/hatchback.html" class="category-item"><img src="../assets/hatchback.avif"
                             alt="Hatchbacks"><span>HATCHBACKs</span></a>
@@ -76,170 +74,54 @@
                             alt="Luxury"><span>LUXURY</span></a>
                 </div>
             </div>
-        </div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
+            <button class="scroll-btn right" onclick="scrollCategories(1)">❯</button>
+        </div>
     </section>
+
+
+
     <section class="latest-news">
         <h1>ELECTRIC VEHICLES</h1><br><br>
         <hr>
         <h2>SUVs</h2>
         <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/2025-lincoln-navigator-black-label_sunrise-copper_01-4.avif">
-                </div>
-                <p class="name">2025 Lincoln Navigator</p>
-                <p class="price">Price: $89,050</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-                <p class="name">Ferrari</p>
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
-        <hr>
-        <h2>SEDANs</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                </div>
-
-                <p class="name">Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-
-                <p class="name">Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
-        <hr>
-        <h2>PICKUPs</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                </div>
-
-                <p class="name">Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-
-                <p class="name">Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
-        <hr>
-        <h2>CARs</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                </div>
-
-                <p class="name">Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-
-                <p class="name">Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
-        <hr>
-        <h2>PERFORMANCE</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                </div>
-
-                <p class="name">Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-
-                <p class="name">Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
+            <!-- JS inserts cards here -->
+            <button class="full-button">
+                <a href="electric.html">See full list</a>
+            </button>
         </div>
         <br>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.latest-news .cards');
+            const playlistId = 'PLeHErLXrPBfRQOO_SRtKs0CtK5C6IKYc_'; // Replace with actual playlist ID
+
+            fetch(`http://localhost:3000/getPlaylistVideos?playlistId=${playlistId}`)
+                .then(res => res.json())
+                .then(videos => {
+                    videos.forEach(video => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+
+                        card.innerHTML = `
+                    <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank" style="text-decoration: none;">
+                        <div class="image-section">
+                            <img src="${video.thumbnail}" alt="${video.title}">
+                        </div>
+                        <h3>${video.title}</h3>
+                    </a>
+                `;
+                        container.insertBefore(card, container.querySelector('.full-button'));
+                    });
+                })
+                .catch(err => {
+                    console.error('Failed to load playlist videos:', err);
+                    container.innerHTML = '<p style="color:red;">Could not load videos.</p>';
+                });
+        });
+    </script>
 
     <section class="hr">
         <hr>
@@ -259,16 +141,19 @@
             <a href="">Careers</a>
         </div>
     </section>
+
     <script>
-        function scrollCards(button, direction) {
-            const container = button.closest('.car-types').querySelector('.categories');
-            const scrollAmount = container.clientWidth * 0.8; // adjust scroll step if needed
+        function scrollCategories(direction) {
+            const container = document.getElementById('categoryScroll');
+            const scrollAmount = container.clientWidth * 0.5; // You can tweak this
+
             container.scrollBy({
                 left: direction * scrollAmount,
                 behavior: 'smooth'
             });
         }
     </script>
+
 </body>
 
 </html>
