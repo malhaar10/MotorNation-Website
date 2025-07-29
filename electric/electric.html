@@ -78,12 +78,10 @@
         </div>
     </section>
 
-
-
     <section class="latest-news">
         <h1>ELECTRIC VEHICLES</h1><br><br>
         <hr>
-        <h2>SUVs</h2>
+        <h2>VIDEOS</h2>
         <div class="cards">
             <!-- JS inserts cards here -->
             <button class="full-button">
@@ -122,6 +120,106 @@
                 });
         });
     </script>
+
+    <section class="latest-news">
+        <hr>
+        <h2>REVIEWS</h2>
+        <a class="latest-head">LATEST REVIEWS</a>
+        <div class="container">
+            <div class="blog-section">
+                <div class="cards" id="reviews-electric">
+                    <!-- Cards will be injected here dynamically -->
+                </div>
+                <button class="full-button" onclick="window.location.href='/reviews-page/review-list.html'">
+                    See full list
+                </button>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/reviews/electric');
+
+                const reviews = await response.json();
+
+                const container = document.getElementById('reviews-electric');
+                reviews.forEach(review => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    card.innerHTML = `
+                    <a href="../reviews-page/review-template.html?id=${review.id}">
+                        <div class="image-section">
+                            <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
+                        </div>
+                        <div class="content">
+                            <p>${review.model_year}</p>
+                            <h3>${review.car_name}</h3>
+                            <h5>Latest Review</h5>
+                            <hr>
+                        </div>
+                    </a>
+                `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Failed to load latest reviews:', error);
+            }
+        });
+    </script>
+
+<section class="latest-news">
+  <hr>
+  <h2>LATEST NEWS</h2>
+  <div class="container">
+    <div class="blog-section">
+      <div class="cards" id="ev-news-cards">
+        <!-- News cards injected here -->
+      </div>
+    </div>
+  </div>
+</section>
+
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    fetch("http://localhost:3000/api/news/electric")
+      .then(res => {
+        if (!res.ok) throw new Error('Failed to fetch news');
+        return res.json();
+      })
+      .then(data => {
+        console.log("✅ EV News:", data);
+        const cardsContainer = document.getElementById('ev-news-cards');
+        if (!cardsContainer) return;
+
+        cardsContainer.innerHTML = ''; // Clear previous if needed
+
+        data.slice(0, 6).forEach(article => {
+          const card = document.createElement('div');
+          card.className = 'card';
+          card.innerHTML = `
+            <a href="../news-template/news-page-template.html?id=${article.id}">
+              <div class="image-section">
+                <img src="../images/Comparison.png" alt="${article.news_title}">
+              </div>
+              <div class="content">
+                <p>${article.tag || 'UPDATE'}</p>
+                <h3>${article.news_title}</h3>
+                <h5>${new Date(article.date).toLocaleDateString()}</h5>
+                <hr>
+              </div>
+            </a>
+          `;
+          cardsContainer.appendChild(card);
+        });
+      })
+      .catch(err => console.error("❌ Error loading EV news:", err));
+  });
+</script>
+
+
 
     <section class="hr">
         <hr>

@@ -75,30 +75,17 @@
     </section>
 
     <script>
-fetch('http://localhost:3000/api/news/summary')
+fetch('http://localhost:3000/api/news/electric')
   .then(res => res.json())
   .then(data => {
-    if (!data || data.length === 0) return;
-
-    // ✅ FEATURED article
-    const featured = data[0];
-    document.getElementById('featured-news').innerHTML = `
-      <a href="../news-template/news-page-template.html?id=${featured.id}">
-        <img src="../images/2024-jaguar-f-type-r75-convertible-151-edit-660f012e498ef.jpg" alt="${featured.news_title}">
-        <div class="content">
-          <h4>${featured.tag || 'NEWS'}</h4>
-          <h3>${featured.news_title}</h3>
-          <p>${new Date(featured.date).toLocaleDateString()}</p>
-        </div>
-      </a>
-    `;
-
-    // ✅ Next 6 cards
     const cardsContainer = document.getElementById('news-cards');
+
+    // Skip the first article (index 0), and insert up to 6 others (i = 1 to 6)
     for (let i = 1; i < Math.min(7, data.length); i++) {
       const article = data[i];
       const card = document.createElement('div');
       card.className = 'card';
+
       card.innerHTML = `
         <a href="../news-template/news-page-template.html?id=${article.id}">
           <div class="image-section">
@@ -112,10 +99,12 @@ fetch('http://localhost:3000/api/news/summary')
           </div>
         </a>
       `;
+
       cardsContainer.appendChild(card);
     }
   })
   .catch(err => console.error('❌ Failed to load news summary:', err));
+
 </script>
 
 

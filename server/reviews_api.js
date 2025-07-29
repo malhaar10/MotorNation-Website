@@ -88,6 +88,22 @@ router.get('/reviews/summary', async (req, res) => {
   }
 });
 
+// reviews_api.js
+router.get('/reviews/electric', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year
+      FROM reviews
+      WHERE tag = 'ev'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching EV reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
 
 
 module.exports = router;
