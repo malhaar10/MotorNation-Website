@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Input Panel</title>
+    <link rel="stylesheet" href="../content_input_panel/base.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <style>
+        body {
+            font-family: 'Oswald', sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .form-container {
+            margin-left: 10vw;
+            margin-top: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 80vw;
+        }
+
+        label {
+            font-weight: 600;
+            font-size: 18px;
+            margin-bottom: 5px;
+            display: block;
+            color: white;
+        }
+
+        input[type="text"],
+        textarea {
+            padding: 12px;
+            font-size: 16px;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 6px;
+            font-family: 'Oswald', sans-serif;
+        }
+
+        textarea {
+            min-height: 160px;
+            resize: vertical;
+            background-color: #e0e0e0;
+        }
+    </style>
+
+</head>
+
+<body>
+    <section class="header">
+        <div class="logo-container">
+            <a href="index.html"><img src="../assets/MotorNation.avif" alt="MotorNation Logo"></a>
+        </div>
+    </section>
+
+    <section class="form-container">
+        <div>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title">
+        </div>
+
+        <div>
+            <label for="author">Author</label>
+            <input type="text" id="author" name="author">
+        </div>
+
+        <div>
+            <label for="para1">Paragraph 1</label>
+            <textarea id="para1" name="para1"></textarea>
+        </div>
+
+        <div>
+            <label for="para2">Paragraph 2</label>
+            <textarea id="para2" name="para2"></textarea>
+        </div>
+
+        <div>
+            <label for="para3">Paragraph 3</label>
+            <textarea id="para3" name="para3"></textarea>
+        </div>
+
+        <div>
+            <label for="tag1">Tag 1</label>
+            <input type="text" id="tag1" name="tag1">
+        </div>
+
+        <div>
+            <label for="tag2">Tag 2</label>
+            <input type="text" id="tag2" name="tag2">
+        </div>
+
+        <div>
+            <label for="images">Image URLs</label>
+            <input type="text" id="images" name="images" placeholder="Separate multiple URLs with commas">
+        </div>
+    </section>
+</body>
+
+</html>
