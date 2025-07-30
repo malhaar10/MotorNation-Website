@@ -99,7 +99,7 @@
         <div class="container">
             <div class="blog-section">
                 <div class="cards">
-                    
+
                 </div>
             </div>
         </div>
@@ -108,22 +108,22 @@
         <hr>
     </section>
     <script>
-document.addEventListener('DOMContentLoaded', () => {
-    const container = document.querySelector('.latest-news .cards');
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.querySelector('.latest-news .cards');
 
-    fetch('http://localhost:3000/api/reviews/summary')
-        .then(res => res.json())
-        .then(reviews => {
-            container.innerHTML = ''; // Clear existing content
+            fetch('http://localhost:3000/api/reviews/summary')
+                .then(res => res.json())
+                .then(reviews => {
+                    container.innerHTML = ''; // Clear existing content
 
-            reviews.forEach(review => {
-                const card = document.createElement('div');
-                card.className = 'card';
+                    reviews.forEach(review => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
 
-                card.innerHTML = `
+                        card.innerHTML = `
                     <a href="reviews-page/review-template.html?id=${review.id}">
                         <div class="image-section">
-                            <img src="../images/Comparison.png" alt="${review.car_name}" loading="lazy">
+                            <img src="../images/2025-crv/63_2024HondaCRVEX-L.avif" alt="${review.car_name}" loading="lazy">
                         </div>
                         <div class="content">
                             <p>REVIEW</p>
@@ -134,15 +134,15 @@ document.addEventListener('DOMContentLoaded', () => {
                     </a>
                 `;
 
-                container.appendChild(card);
-            });
-        })
-        .catch(err => {
-            console.error('Failed to load reviews:', err);
-            container.innerHTML = '<p style="color:red;">Could not load reviews.</p>';
+                        container.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    console.error('Failed to load reviews:', err);
+                    container.innerHTML = '<p style="color:red;">Could not load reviews.</p>';
+                });
         });
-});
-</script>
+    </script>
 
     <!-------Latest-News------->
     <section class="latest-news">
@@ -180,7 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         card.innerHTML = `
                         <a href="news-template/news-page-template.html?id=${item.id}">
                             <div class="image-section">
-                                <img src="../images/896c20101e66ebd3f3a12ab17e9b758b.jpeg" alt="${item.news_title}" loading="lazy">
+                                <img src="../images/2025-crv/29_2024HondaCRVEX-L.avif" alt="${item.news_title}" loading="lazy">
                             </div>
                             <div class="content">
                                 <p>${item.tag.toUpperCase()}</p>
@@ -208,89 +208,44 @@ document.addEventListener('DOMContentLoaded', () => {
         </a>
         <div class="container">
             <div class="blog-section">
-                <div class="cards">
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/audi-rs-e-tron-gt-1.jpg">
-                            </div>
-                            <div class="content">
-                                <p>FIRST LOOK</p>
-                                <h3>Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</h3>
-                                <h5>June 18, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/XPB_1285768_HiRes.jpg">
-                            </div>
-                            <div class="content">
-                                <p>LE-MANS</p>
-                                <h3>Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/fiat1.jpg">
-                            </div>
-                            <div class="content">
-                                <p>LAUNCH</p>
-                                <h3>Fiat reveals Grande Panda: A Retro styled compact SUV</h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/2024-jaguar-f-type-r75-convertible-151-edit-660f012e498ef.jpg">
-                            </div>
-                            <div class="content">
-                                <p>INDUSTY</p>
-                                <h3>Jaguar Bids farewell to its F-Type with its Final Model...</h3>
-                                <h5>June 16, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/2024-Jeep-Wagoneer-front-quarter.jpg">
-                            </div>
-                            <div class="content">
-                                <p>REVIEWS</p>
-                                <h3>Can the electric retain the rugged Jeep DNA? The 2025 Jeep Wagoneer S</h3>
-                                <h5>June 15, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="">
-                            <div class="image-section">
-                                <img src="images/intro-1664566243.jpg">
-                            </div>
-                            <div class="content">
-                                <p>OPINION</p>
-                                <h3>Opinion: Can cars be an inclusive hobby?!</h3>
-                                <h5>June 14, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
+                <div class="cards" id="reviews-electric">
                 </div>
             </div>
         </div>
     </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                const response = await fetch('http://localhost:3000/api/reviews/electric');
+
+                const reviews = await response.json();
+
+                const container = document.getElementById('reviews-electric');
+                reviews.forEach(review => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    card.innerHTML = `
+                        <a href="../reviews-page/review-template.html?id=${review.id}">
+                            <div class="image-section">
+                                <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
+                            </div>
+                            <div class="content">
+                                <p>${review.model_year}</p>
+                                <h3>${review.car_name}</h3>
+                                <h5>Latest Review</h5>
+                                <hr>
+                            </div>
+                        </a>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('Failed to load latest reviews:', error);
+            }
+        });
+    </script>
     <section class="hr">
         <hr>
     </section>
@@ -299,117 +254,33 @@ document.addEventListener('DOMContentLoaded', () => {
         <hr>
         <a href="videos/video.html" style="text-decoration: none;">
             <h3>VIDEOS</h3>
-        <div class="container1">
-            <div class="blog-section1">
-                <div class="cards1" id="channel-video-section">
-                    <div class="card">
-                        <a href="https://www.youtube.com/watch?v=h44RX9cgjqM">
-                            <div class="image-section">
-                                <img src="images/thumbnail.jpeg">
-                            </div>
-                            <div class="content">
-                                <p>REVIEW</p>
-                                <h3>2024 Renault Captur Hybrid - First Look, Interior & Exterior Features | Best Compact
-                                    SUV?!</h3>
-                                <h5>June 18, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
+            <div class="container1">
+                <div class="blog-section1">
+                    <div class="cards1" id="channel-video-section">
                     </div>
-                    <div class="card">
-                        <a href="https://www.youtube.com/watch?v=YFxoHaxPX6E">
-                            <div class="image-section">
-                                <img src="images/thumbnail (1).jpeg">
-                            </div>
-                            <div class="content">
-                                <p>FIRST LOOK</p>
-                                <h3>2025 Isuzu MU-X - First Look, Interior & Exterior Features | Ultimate 4x4 Hybrid?!
-                                </h3>
-                                <h5>June 17, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.youtube.com/watch?v=ti5HBTRH-WQ">
-                            <div class="image-section">
-                                <img src="images/thumbnail (2).jpeg">
-                            </div>
-                            <div class="content">
-                                <p>SEGMENT BATTLES</p>
-                                <h3>2024 Toyota Crown Signia vs 2024 Toyota RAV4 GR Visual Comparison | Segment Battles!
-                                </h3>
-                                <h5>June 16, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.youtube.com/watch?v=WqGjGrLWYvo">
-                            <div class="image-section">
-                                <img src="images/thumbnail (3).jpeg">
-                            </div>
-                            <div class="content">
-                                <p>SUV BATTLES</p>
-                                <h3>2024 Toyota Crown Signia vs 2024 Mazda CX-60 PHEV Visual Comparison | SUV Battles!
-                                </h3>
-                                <h5>June 15, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.youtube.com/watch?v=RO3sdJZUsr8">
-                            <div class="image-section">
-                                <img src="images/thumbnail (4).jpeg">
-                            </div>
-                            <div class="content">
-                                <p>REVIEW</p>
-                                <h3>2024 Toyota Crown Signia - First Look, Interior & Exterior Features | Crown of
-                                    Mid-Size SUVs?!</h3>
-                                <h5>June 14, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
-                    <div class="card">
-                        <a href="https://www.youtube.com/watch?v=DPMb6LHF9po">
-                            <div class="image-section">
-                                <img src="images/thumbnail (5).jpeg">
-                            </div>
-                            <div class="content">
-                                <p>FIRST LOOK</p>
-                                <h3>2025 Hongqi Guoya - First Look, Interior & Exterior Features | Chinese Bentley?!.
-                                </h3>
-                                <h5>June 13, 2024</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    </div>
+                    <a href="https://www.youtube.com/@motornationofficial/videos" class="more-button" target="_blank">More
+                        Videos</a>
                 </div>
-                <a href="https://www.youtube.com/@motornationofficial/videos" class="more-button" target="_blank">More
-                    Videos</a>
             </div>
-        </div>
-
+    
     </section>
 
-<script>
-document.addEventListener('DOMContentLoaded', () => {
-    const container = document.getElementById('channel-video-section');
-    const channelId = 'UC9HmzxcrnW3CGZVf0iPK6Eg';
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('channel-video-section');
+            const channelId = 'UC9HmzxcrnW3CGZVf0iPK6Eg';
 
-    fetch(`http://localhost:3000/getChannelVideos?channelId=${channelId}`)
-        .then(res => res.json())
-        .then(videos => {
-            container.innerHTML = '';
+            fetch(`http://localhost:3000/getChannelVideos?channelId=${channelId}`)
+                .then(res => res.json())
+                .then(videos => {
+                    container.innerHTML = '';
 
-            videos.forEach(video => {
-                const card = document.createElement('div');
-                card.className = 'card';
-                const date = new Date(video.publishedAt).toLocaleDateString();
+                    videos.forEach(video => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        const date = new Date(video.publishedAt).toLocaleDateString();
 
-                card.innerHTML = `
+                        card.innerHTML = `
                     <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank">
                         <div class="image-section">
                             <img src="${video.thumbnail}" alt="${video.title}" loading="lazy">
@@ -422,17 +293,15 @@ document.addEventListener('DOMContentLoaded', () => {
                         </div>
                     </a>
                 `;
-                container.appendChild(card);
-            });
-        })
-        .catch(err => {
-            console.error('Failed to load videos:', err);
-            container.innerHTML = '<p style="color:red;">Could not load videos.</p>';
+                        container.appendChild(card);
+                    });
+                })
+                .catch(err => {
+                    console.error('Failed to load videos:', err);
+                    container.innerHTML = '<p style="color:red;">Could not load videos.</p>';
+                });
         });
-});
-</script>
-
-
+    </script>
 
     <section class="hr">
         <hr>

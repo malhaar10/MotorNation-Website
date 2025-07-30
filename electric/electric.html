@@ -149,18 +149,18 @@
                     card.className = 'card';
 
                     card.innerHTML = `
-                    <a href="../reviews-page/review-template.html?id=${review.id}">
-                        <div class="image-section">
-                            <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
-                        </div>
-                        <div class="content">
-                            <p>${review.model_year}</p>
-                            <h3>${review.car_name}</h3>
-                            <h5>Latest Review</h5>
-                            <hr>
-                        </div>
-                    </a>
-                `;
+                        <a href="../reviews-page/review-template.html?id=${review.id}">
+                            <div class="image-section">
+                                <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
+                            </div>
+                            <div class="content">
+                                <p>${review.model_year}</p>
+                                <h3>${review.car_name}</h3>
+                                <h5>Latest Review</h5>
+                                <hr>
+                            </div>
+                        </a>
+                    `;
 
                     container.appendChild(card);
                 });
@@ -169,57 +169,55 @@
             }
         });
     </script>
+    
+    <section class="latest-news">
+        <hr>
+        <h2>LATEST NEWS</h2>
+        <div class="container">
+            <div class="blog-section">
+                <div class="cards" id="ev-news-cards">
+                    <!-- News cards injected here -->
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            fetch("http://localhost:3000/api/news/electric")
+                .then(res => {
+                    if (!res.ok) throw new Error('Failed to fetch news');
+                    return res.json();
+                })
+                .then(data => {
+                    console.log("✅ EV News:", data);
+                    const cardsContainer = document.getElementById('ev-news-cards');
+                    if (!cardsContainer) return;
 
-<section class="latest-news">
-  <hr>
-  <h2>LATEST NEWS</h2>
-  <div class="container">
-    <div class="blog-section">
-      <div class="cards" id="ev-news-cards">
-        <!-- News cards injected here -->
-      </div>
-    </div>
-  </div>
-</section>
+                    cardsContainer.innerHTML = ''; // Clear previous if needed
 
-<script>
-  document.addEventListener('DOMContentLoaded', () => {
-    fetch("http://localhost:3000/api/news/electric")
-      .then(res => {
-        if (!res.ok) throw new Error('Failed to fetch news');
-        return res.json();
-      })
-      .then(data => {
-        console.log("✅ EV News:", data);
-        const cardsContainer = document.getElementById('ev-news-cards');
-        if (!cardsContainer) return;
-
-        cardsContainer.innerHTML = ''; // Clear previous if needed
-
-        data.slice(0, 6).forEach(article => {
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <a href="../news-template/news-page-template.html?id=${article.id}">
-              <div class="image-section">
-                <img src="../images/Comparison.png" alt="${article.news_title}">
-              </div>
-              <div class="content">
-                <p>${article.tag || 'UPDATE'}</p>
-                <h3>${article.news_title}</h3>
-                <h5>${new Date(article.date).toLocaleDateString()}</h5>
-                <hr>
-              </div>
-            </a>
-          `;
-          cardsContainer.appendChild(card);
+                    data.slice(0, 6).forEach(article => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        card.innerHTML = `
+                <a href="../news-template/news-page-template.html?id=${article.id}">
+                  <div class="image-section">
+                    <img src="../images/Comparison.png" alt="${article.news_title}">
+                  </div>
+                  <div class="content">
+                    <p>${article.tag || 'UPDATE'}</p>
+                    <h3>${article.news_title}</h3>
+                    <h5>${new Date(article.date).toLocaleDateString()}</h5>
+                    <hr>
+                  </div>
+                </a>
+              `;
+                        cardsContainer.appendChild(card);
+                    });
+                })
+                .catch(err => console.error("❌ Error loading EV news:", err));
         });
-      })
-      .catch(err => console.error("❌ Error loading EV news:", err));
-  });
-</script>
-
-
+    </script>
 
     <section class="hr">
         <hr>
