@@ -102,6 +102,65 @@
             <input type="text" id="images" name="images" placeholder="Separate multiple URLs with commas">
         </div>
     </section>
+    <div style="margin: 40px 10vw;">
+        <button id="submitBtn" style="
+        background-color: #007BFF;
+        color: white;
+        font-size: 18px;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    ">
+            Enter
+        </button>
+    </div>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', async () => {
+            const title = document.getElementById('title').value.trim();
+            const author = document.getElementById('author').value.trim();
+            const para1 = document.getElementById('para1').value.trim();
+            const para2 = document.getElementById('para2').value.trim();
+            const para3 = document.getElementById('para3').value.trim();
+            const tag1 = document.getElementById('tag1').value.trim();
+            const tag2 = document.getElementById('tag2').value.trim();
+            const images = document.getElementById('images').value.trim();
+
+            const payload = {
+                news_title: title,
+                author: author,
+                para1: para1,
+                para2: para2,
+                para3: para3,
+                tag: tag1,
+                tag2: tag2,
+                images: images
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/news', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert('✅ News article submitted successfully!');
+                    console.log('Created article ID:', data.id);
+                } else {
+                    const err = await response.json();
+                    alert('❌ Failed to submit news: ' + err.error);
+                }
+            } catch (error) {
+                alert('⚠️ Could not connect to server: ' + error.message);
+            }
+        });
+    </script>
+
 </body>
 
 </html>

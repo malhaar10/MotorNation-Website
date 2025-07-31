@@ -62,8 +62,13 @@
 
     <section class="form-container">
         <div>
-            <label for="title">Title</label>
+            <label for="title">Car Name</label>
             <input type="text" id="title" name="title">
+        </div>
+
+        <div>
+            <label for="model_year">Model Year</label>
+            <input type="text" id="model_year" name="model_year">
         </div>
 
         <div>
@@ -77,7 +82,7 @@
         </div>
 
         <div>
-            <label for="drivetrain">Drivetrain</label>
+            <label for="drivetrain">Powertrain</label>
             <textarea id="drivetrain" name="drivetrain"></textarea>
         </div>
 
@@ -116,6 +121,73 @@
             <input type="text" id="images" name="images" placeholder="Separate multiple URLs with commas">
         </div>
     </section>
+
+    <div style="margin: 40px 10vw;">
+        <button id="submitBtn" style="
+        background-color: #007BFF;
+        color: white;
+        font-size: 18px;
+        padding: 12px 24px;
+        border: none;
+        border-radius: 6px;
+        cursor: pointer;
+    ">
+            Enter
+        </button>
+    </div>
+
+    <script>
+        document.getElementById('submitBtn').addEventListener('click', async () => {
+            const title = document.getElementById('title').value.trim();
+            const model_year = document.getElementById('model_year').value.trim();
+            const overview = document.getElementById('overview').value.trim();
+            const pricing = document.getElementById('pricing').value.trim();
+            const drivetrain = document.getElementById('drivetrain').value.trim();
+            const interior = document.getElementById('interior').value.trim();
+            const technology = document.getElementById('technology').value.trim();
+            const safety = document.getElementById('safety').value.trim();
+            const warranty = document.getElementById('warranty').value.trim();
+            const tag1 = document.getElementById('tag1').value.trim();
+            const tag2 = document.getElementById('tag2').value.trim();
+            const images = document.getElementById('images').value.trim();
+
+            const payload = {
+                car_name: title,
+                model_year: model_year,
+                overview: overview,
+                pricing: pricing,
+                drivetrain: drivetrain,
+                interior: interior,
+                technology: technology,
+                safety: safety,
+                warranty: warranty,
+                tag: tag1,
+                tag2: tag2,
+                images: images
+            };
+
+            try {
+                const response = await fetch('http://localhost:3000/api/reviews', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(payload)
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    alert('✅ Review submitted successfully!');
+                    console.log('Created review ID:', data.id);
+                } else {
+                    const err = await response.json();
+                    alert('❌ Failed to submit review: ' + err.error);
+                }
+            } catch (error) {
+                alert('⚠️ Could not connect to server: ' + error.message);
+            }
+        });
+    </script>
 </body>
 
 </html>

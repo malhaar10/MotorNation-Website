@@ -2,50 +2,6 @@ const express = require('express');
 const router = express.Router();
 const pool = require('./reviews_db');
 
-// POST /api/reviews - Create a new review
-router.post('/reviews', async (req, res) => {
-  const {
-    car_name,
-    model_year,
-    overview,
-    pricing,
-    drivetrain,
-    warranty,
-    interior,
-    safety,
-    technology,
-    tag
-  } = req.body;
-
-  try {
-    const result = await pool.query(
-      `INSERT INTO reviews (
-        car_name, model_year, overview, pricing, drivetrain,
-        warranty, interior, safety, technology, tag
-      ) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)
-      RETURNING *`,
-      [
-        car_name,
-        model_year,
-        overview,
-        pricing,
-        drivetrain,
-        warranty,
-        interior,
-        safety,
-        technology,
-        tag
-      ]
-    );
-
-    res.status(201).json(result.rows[0]);
-  } catch (err) {
-    console.error('Error inserting review:', err);
-    res.status(500).json({ error: 'Failed to create review' });
-  }
-});
-
-
 // GET /api/reviews - Fetch all reviews
 router.get('/reviews', async (req, res) => {
   try {
@@ -105,5 +61,42 @@ router.get('/reviews/electric', async (req, res) => {
   }
 });
 
+router.post('/reviews', async (req, res) => {
+  const {
+    car_name,
+    model_year,
+    overview,
+    pricing,
+    drivetrain,
+    interior,
+    technology,
+    safety,
+    warranty,
+    tag,
+    tag2
+  } = req.body;
+
+  if (!car_name || !model_year || !overview || !pricing || !drivetrain ||
+      !interior || !technology || !safety || !warranty || !tag || !tag2) {
+    return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  try {
+    const result = await pool.query(
+      `INSERT INTO reviews (
+        car_name, model_year, overview, pricing, drivetrain,
+        interior, technology, safety, warranty, tag, tag2
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
+      RETURNING *`,
+      [car_name, model_year, overview, pricing, drivetrain,
+       interior, technology, safety, warranty, tag, tag2]
+    );
+
+    res.status(201).json(result.rows[0]);
+  } catch (err) {
+    console.error('Error inserting review:', err);
+    res.status(500).json({ error: 'Failed to create review' });
+  }
+});
 
 module.exports = router;
