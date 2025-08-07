@@ -31,10 +31,15 @@
                     <li><a href="content_input_panel/input_home.html">CONTENT_INPUT</a></li>
                 </ul>
             </div>
+            <!-- Search Box -->
             <div class="search-box">
-                <input type="text" placeholder="Search..">
+                <input type="text" id="searchInput" placeholder="Search..">
             </div>
 
+            <!-- Search Popup Container -->
+            <div id="searchResultsPopup" class="popup" style="display:none;">
+                <div id="searchResults" class="popup-content"></div>
+            </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
         <div class="text-box">
@@ -43,6 +48,15 @@
             <p class="l1">Your Ultimate Car Hub</p>
         </div>
     </section>
+    <script>
+        function performSearch() {
+            const tag = document.getElementById('searchInput').value.trim().toLowerCase();
+            if (!tag) return;
+
+            // Redirect to search results page (if you have one)
+            window.location.href = `/search.html?tag=${encodeURIComponent(tag)}`;
+        }
+    </script>
 
     <section>
         <hr>
@@ -259,11 +273,12 @@
                 <div class="blog-section1">
                     <div class="cards1" id="channel-video-section">
                     </div>
-                    <a href="https://www.youtube.com/@motornationofficial/videos" class="more-button" target="_blank">More
+                    <a href="https://www.youtube.com/@motornationofficial/videos" class="more-button"
+                        target="_blank">More
                         Videos</a>
                 </div>
             </div>
-    
+
     </section>
 
     <script>
@@ -346,6 +361,140 @@
                 behavior: 'smooth'
             });
         }
+    </script>
+
+    <script>
+        document.getElementById('searchInput').addEventListener('keydown', async function (e) {
+            if (e.key === 'Enter') {
+                const tag = this.value.trim().toLowerCase();
+                if (!tag) return;
+
+                try {
+                    const res = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
+                    const data = await res.json();
+
+                    const resultsDiv = document.getElementById('searchResults');
+                    resultsDiv.innerHTML = ''; // clear previous
+
+                    if (data.reviews?.length > 0) {
+                        resultsDiv.innerHTML += '<h3>Reviews</h3>';
+                        data.reviews.forEach(r => {
+                            resultsDiv.innerHTML += `
+                <div>
+                  <a href="/review.html?review=${r.id}">
+                    <strong>${r.car_name} (${r.model_year})</strong>
+                  </a> — ${r.tag}, ${r.tag2}
+                </div>`;
+                        });
+                    }
+
+                    if (data.news?.length > 0) {
+                        resultsDiv.innerHTML += '<h3>News</h3>';
+                        data.news.forEach(n => {
+                            resultsDiv.innerHTML += `
+                <div>
+                  <a href="/news_article.html?id=${n.id}">
+                    <strong>${n.news_title}</strong>
+                  </a> — ${n.date} — ${n.tag}, ${n.tag2}
+                </div>`;
+                        });
+                    }
+
+                    if (!data.reviews?.length && !data.news?.length) {
+                        resultsDiv.innerHTML = '<p>No results found.</p>';
+                    }
+
+                    // Show popup
+                    document.getElementById('searchResultsPopup').style.display = 'block';
+
+                } catch (err) {
+                    console.error('Search error:', err);
+                    document.getElementById('searchResults').innerHTML = '<p>Error fetching search results.</p>';
+                    document.getElementById('searchResultsPopup').style.display = 'block';
+                }
+            }
+        });
+
+        // Optional: Close popup on outside click
+        window.addEventListener('click', function (e) {
+            const popup = document.getElementById('searchResultsPopup');
+            if (!document.getElementById('searchResults').contains(e.target) && e.target.id !== 'searchInput') {
+                popup.style.display = 'none';
+            }
+        });
+    </script>
+    <!-- Replace your search bar event handler script with the following: -->
+    <script>
+        document.getElementById('searchInput').addEventListener('keydown', async function (e) {
+            if (e.key === 'Enter') {
+                const tag = this.value.trim().toLowerCase();
+                if (!tag) return;
+
+                console.log("Searching for:", tag); // TEST PRINT
+
+                try {
+                    // Use full backend URL to avoid 404 when running static frontend
+                    const res = await fetch('http://localhost:3000/api/search?tag=' + encodeURIComponent(tag));
+                    console.log("Fetch status:", res.status); // TEST PRINT
+
+                    if (!res.ok) {
+                        const errText = await res.text();
+                        console.error("Error body:", errText); // TEST PRINT
+                        throw new Error("Network response was not ok");
+                    }
+
+                    const data = await res.json();
+                    console.log("Search API response:", data); // TEST PRINT
+
+                    const resultsDiv = document.getElementById('searchResults');
+                    resultsDiv.innerHTML = ''; // clear previous
+
+                    if (data.reviews?.length > 0) {
+                        resultsDiv.innerHTML += '<h3>Reviews</h3>';
+                        data.reviews.forEach(r => {
+                            resultsDiv.innerHTML += `
+            <div>
+              <a href="/reviews-page/review-template.html?id=${r.id}">
+                <strong>${r.car_name} (${r.model_year})</strong>
+              </a> — ${r.tag}, ${r.tag2}
+            </div>`;
+                        });
+                    }
+
+                    if (data.news?.length > 0) {
+                        resultsDiv.innerHTML += '<h3>News</h3>';
+                        data.news.forEach(n => {
+                            resultsDiv.innerHTML += `
+            <div>
+              <a href="/news-template/news-page-template.html?id=${n.id}">
+                <strong>${n.news_title}</strong>
+              </a> — ${new Date(n.date).toLocaleDateString()} — ${n.tag}, ${n.tag2}
+            </div>`;
+                        });
+                    }
+
+                    if (!data.reviews?.length && !data.news?.length) {
+                        resultsDiv.innerHTML = '<p>No results found.</p>';
+                    }
+
+                    // Show popup
+                    document.getElementById('searchResultsPopup').style.display = 'block';
+
+                } catch (err) {
+                    console.error('Search error:', err);
+                    document.getElementById('searchResults').innerHTML = '<p>Error fetching search results.</p>';
+                    document.getElementById('searchResultsPopup').style.display = 'block';
+                }
+            }
+        });
+
+        // Optional: Close popup on outside click
+        window.addEventListener('click', function (e) {
+            const popup = document.getElementById('searchResultsPopup');
+            if (!document.getElementById('searchResults').contains(e.target) && e.target.id !== 'searchInput') {
+                popup.style.display = 'none';
+            }
+        });
     </script>
 
 </body>

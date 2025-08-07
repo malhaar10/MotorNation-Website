@@ -1,0 +1,53 @@
+<div id="results"></div>
+
+<script>
+  window.onload = async () => {
+    const params = new URLSearchParams(window.location.search);
+    const tag = params.get('tag');
+    if (!tag) return;
+
+    try {
+      // Use explicit backend URL for local dev
+      const fullUrl = `http://localhost:3000/api/search?tag=${encodeURIComponent(tag)}`;
+      console.log("Fetching from:", fullUrl);
+
+      const res = await fetch(fullUrl);
+      console.log("Status:", res.status);
+
+      const contentType = res.headers.get("content-type");
+      console.log("Content-Type:", contentType);
+
+      if (!res.ok) {
+        const errText = await res.text();
+        console.error("Error body:", errText);
+        throw new Error("Request failed");
+      }
+
+      const data = await res.json();
+      console.log("Fetched data:", data);
+
+      const container = document.getElementById('results');
+      if (data.reviews.length === 0 && data.news.length === 0) {
+        container.innerHTML = "<p>No results found.</p>";
+        return;
+      }
+
+      data.reviews.forEach(r => {
+        const div = document.createElement('div');
+        div.innerHTML = `<h3><a href="/reviews-page/review-template.html?id=${r.id}">${r.car_name} (${r.model_year})</a></h3>`;
+        container.appendChild(div);
+      });
+
+      data.news.forEach(n => {
+        const div = document.createElement('div');
+        div.innerHTML = `<h3><a href="/news-template/news-page-template.html?id=${n.id}">${n.news_title}</a></h3>`;
+        container.appendChild(div);
+      });
+
+    } catch (err) {
+      console.error("Fetch failed:", err);
+      const container = document.getElementById('results');
+      container.innerHTML = "<p>Error fetching search results.</p>";
+    }
+  };
+</script>

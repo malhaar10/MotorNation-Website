@@ -50,7 +50,7 @@ router.get('/reviews/electric', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year
       FROM reviews
-      WHERE tag = 'ev'
+      WHERE tag = 'ev' OR tag2 = 'ev'
       ORDER BY model_year DESC
       LIMIT 6
     `);
