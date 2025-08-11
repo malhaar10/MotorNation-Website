@@ -2,24 +2,36 @@
 <html lang="en">
 
 <head>
+    <!-- Meta and title configuration -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotorNation</title>
+    
+    <!-- CSS stylesheets for page styling -->
     <link rel="stylesheet" href="page_header.css">
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts configuration -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    
+    <!-- External icon libraries -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
 
 <body>
+    <!-- Header section with logo, navigation, and hero text -->
     <section class="header">
+        <!-- Logo container with home page link -->
         <div class="logo-container">
             <a href="index.html"><img src="assets\MotorNation.avif" alt="MotorNation Logo"></a>
         </div>
+        
+        <!-- Main navigation bar -->
         <nav id="navbar">
+            <!-- Navigation links with hamburger menu support -->
             <div class="nav-links" id="navLinks">
                 <i class="fa fa-times" onclick="hideMenu()"></i>
                 <ul>
@@ -31,23 +43,28 @@
                     <li><a href="content_input_panel/input_home.html">CONTENT_INPUT</a></li>
                 </ul>
             </div>
-            <!-- Search Box -->
+            
+            <!-- Search functionality -->
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Search..">
             </div>
 
-            <!-- Search Popup Container -->
+            <!-- Search results popup container -->
             <div id="searchResultsPopup" class="popup" style="display:none;">
                 <div id="searchResults" class="popup-content"></div>
             </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
+        
+        <!-- Hero text section -->
         <div class="text-box">
             <p class="l1">Driven by Passion,</p>
             <p class="l2">Fueled by insight</p>
             <p class="l1">Your Ultimate Car Hub</p>
         </div>
     </section>
+    
+    <!-- Search function for redirecting to search results page -->
     <script>
         function performSearch() {
             const tag = document.getElementById('searchInput').value.trim().toLowerCase();
@@ -58,19 +75,25 @@
         }
     </script>
 
+    <!-- Section divider -->
     <section>
         <hr>
     </section>
-    <!-------Reviews------->
+    
+    <!-- Reviews section header -->
     <section class="latest-news">
         <hr>
         <a href="reviews-page/reviews-home.html" style="text-decoration: none;">
             <h3>REVIEWS</h3>
         </a>
     </section>
-    <section class="car-types"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
+    
+    <!-- Car categories section with horizontal scrolling -->
+    <section class="car-types">
+        <button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
         <div class="category-container">
             <div class="categories">
+                <!-- Individual car category items -->
                 <div class="category">
                     <a href="catagories/performance.html" class="category-item"><img src="assets/performance.avif"
                             alt="Performance"><span>PERFORMANCE</span></a>
@@ -108,29 +131,38 @@
                             alt="Luxury"><span>LUXURY</span></a>
                 </div>
             </div>
-        </div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
+        </div>
+        <button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
     </section>
+    
+    <!-- Latest reviews section with dynamic content loading -->
     <section class="latest-news">
         <div class="container">
             <div class="blog-section">
                 <div class="cards">
-
+                    <!-- Reviews will be dynamically loaded here -->
                 </div>
             </div>
         </div>
     </section>
+    
+    <!-- Section divider -->
     <section class="hr">
         <hr>
     </section>
+    
+    <!-- Script to fetch and display reviews from API -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.querySelector('.latest-news .cards');
 
+            // Fetch reviews summary from backend API
             fetch('http://localhost:3000/api/reviews/summary')
                 .then(res => res.json())
                 .then(reviews => {
                     container.innerHTML = ''; // Clear existing content
 
+                    // Create card for each review
                     reviews.forEach(review => {
                         const card = document.createElement('div');
                         card.className = 'card';
@@ -159,7 +191,7 @@
         });
     </script>
 
-    <!-------Latest-News------->
+    <!-- Latest news section -->
     <section class="latest-news">
         <hr>
         <a href="news-template/news-home.html" style="text-decoration: none;">
@@ -168,26 +200,34 @@
         <div class="container">
             <div class="blog-section">
                 <div class="cards" id="latest-news-cards">
+                    <!-- News articles will be dynamically loaded here -->
                 </div>
             </div>
         </div>
     </section>
+    
+    <!-- Section divider -->
     <section class="hr">
         <hr>
     </section>
+    
+    <!-- Script to fetch and display news articles from API -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const newsContainer = document.getElementById('latest-news-cards');
 
+            // Fetch news summary from backend API
             fetch('http://localhost:3000/api/news/summary')
                 .then(res => res.json())
                 .then(newsItems => {
                     newsContainer.innerHTML = ''; // Clear placeholder content
 
+                    // Create card for each news item
                     newsItems.forEach(item => {
                         const card = document.createElement('div');
                         card.className = 'card';
 
+                        // Format date for display
                         const date = new Date(item.date).toLocaleDateString('en-GB', {
                             day: 'numeric', month: 'short', year: 'numeric'
                         });
@@ -209,13 +249,13 @@
                     });
                 })
                 .catch(err => {
-                    console.error('❌ Failed to fetch latest news:', err);
+                    console.error('Failed to fetch latest news:', err);
                     newsContainer.innerHTML = '<p style="color: red;">Could not load latest news.</p>';
                 });
         });
     </script>
 
-    <!-------evs------->
+    <!-- Electric vehicles section -->
     <section class="latest-news">
         <hr>
         <a href="electric/electric.html" style="text-decoration: none;">
@@ -224,18 +264,23 @@
         <div class="container">
             <div class="blog-section">
                 <div class="cards" id="reviews-electric">
+                    <!-- Electric vehicle reviews will be dynamically loaded here -->
                 </div>
             </div>
         </div>
     </section>
+    
+    <!-- Script to fetch and display electric vehicle reviews -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
+                // Fetch electric vehicle reviews from API
                 const response = await fetch('http://localhost:3000/api/reviews/electric');
-
                 const reviews = await response.json();
 
                 const container = document.getElementById('reviews-electric');
+                
+                // Create card for each electric vehicle review
                 reviews.forEach(review => {
                     const card = document.createElement('div');
                     card.className = 'card';
@@ -261,10 +306,13 @@
             }
         });
     </script>
+    
+    <!-- Section divider -->
     <section class="hr">
         <hr>
     </section>
-    <!-----videos------->
+    
+    <!-- Videos section -->
     <section class="videos">
         <hr>
         <a href="videos/video.html" style="text-decoration: none;">
@@ -272,25 +320,28 @@
             <div class="container1">
                 <div class="blog-section1">
                     <div class="cards1" id="channel-video-section">
+                        <!-- YouTube videos will be dynamically loaded here -->
                     </div>
                     <a href="https://www.youtube.com/@motornationofficial/videos" class="more-button"
-                        target="_blank">More
-                        Videos</a>
+                        target="_blank">More Videos</a>
                 </div>
             </div>
-
+        </a>
     </section>
 
+    <!-- Script to fetch and display YouTube videos -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             const container = document.getElementById('channel-video-section');
             const channelId = 'UC9HmzxcrnW3CGZVf0iPK6Eg';
 
+            // Fetch YouTube channel videos from backend API
             fetch(`http://localhost:3000/getChannelVideos?channelId=${channelId}`)
                 .then(res => res.json())
                 .then(videos => {
                     container.innerHTML = '';
 
+                    // Create card for each video
                     videos.forEach(video => {
                         const card = document.createElement('div');
                         card.className = 'card';
@@ -319,10 +370,12 @@
         });
     </script>
 
+    <!-- Section divider -->
     <section class="hr">
         <hr>
     </section>
 
+    <!-- Contact and social media footer section -->
     <section class="contact-card">
         <img src="assets/MotorNation.avif" alt="MotorNation logo">
         <div class="social-icons">
@@ -339,19 +392,22 @@
         </div>
     </section>
 
-
-    <!--------JavaScript for Toggle Menu-------->
+    <!-- Mobile navigation menu toggle functionality -->
     <script>
         var navLinks = document.getElementById("navLinks");
 
+        // Show mobile navigation menu
         function showMenu() {
             navLinks.style.right = "0";
         }
+        
+        // Hide mobile navigation menu
         function hideMenu() {
             navLinks.style.right = "-200px";
         }
-
     </script>
+    
+    <!-- Horizontal scrolling functionality for car categories -->
     <script>
         function scrollCards(button, direction) {
             const container = button.closest('.car-types').querySelector('.categories');
@@ -363,6 +419,7 @@
         }
     </script>
 
+    <!-- Search functionality with live results popup -->
     <script>
         document.getElementById('searchInput').addEventListener('keydown', async function (e) {
             if (e.key === 'Enter') {
@@ -370,12 +427,14 @@
                 if (!tag) return;
 
                 try {
+                    // Fetch search results from backend API
                     const res = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
                     const data = await res.json();
 
                     const resultsDiv = document.getElementById('searchResults');
                     resultsDiv.innerHTML = ''; // clear previous
 
+                    // Display review results
                     if (data.reviews?.length > 0) {
                         resultsDiv.innerHTML += '<h3>Reviews</h3>';
                         data.reviews.forEach(r => {
@@ -388,6 +447,7 @@
                         });
                     }
 
+                    // Display news results
                     if (data.news?.length > 0) {
                         resultsDiv.innerHTML += '<h3>News</h3>';
                         data.news.forEach(n => {
@@ -400,11 +460,12 @@
                         });
                     }
 
+                    // Show no results message if nothing found
                     if (!data.reviews?.length && !data.news?.length) {
                         resultsDiv.innerHTML = '<p>No results found.</p>';
                     }
 
-                    // Show popup
+                    // Show popup with results
                     document.getElementById('searchResultsPopup').style.display = 'block';
 
                 } catch (err) {
@@ -415,7 +476,7 @@
             }
         });
 
-        // Optional: Close popup on outside click
+        // Close search popup when clicking outside
         window.addEventListener('click', function (e) {
             const popup = document.getElementById('searchResultsPopup');
             if (!document.getElementById('searchResults').contains(e.target) && e.target.id !== 'searchInput') {
@@ -423,32 +484,34 @@
             }
         });
     </script>
-    <!-- Replace your search bar event handler script with the following: -->
+    
+    <!-- Enhanced search functionality with improved error handling -->
     <script>
         document.getElementById('searchInput').addEventListener('keydown', async function (e) {
             if (e.key === 'Enter') {
                 const tag = this.value.trim().toLowerCase();
                 if (!tag) return;
 
-                console.log("Searching for:", tag); // TEST PRINT
+                console.log("Searching for:", tag); // Debug logging
 
                 try {
                     // Use full backend URL to avoid 404 when running static frontend
                     const res = await fetch('http://localhost:3000/api/search?tag=' + encodeURIComponent(tag));
-                    console.log("Fetch status:", res.status); // TEST PRINT
+                    console.log("Fetch status:", res.status); // Debug logging
 
                     if (!res.ok) {
                         const errText = await res.text();
-                        console.error("Error body:", errText); // TEST PRINT
+                        console.error("Error body:", errText); // Debug logging
                         throw new Error("Network response was not ok");
                     }
 
                     const data = await res.json();
-                    console.log("Search API response:", data); // TEST PRINT
+                    console.log("Search API response:", data); // Debug logging
 
                     const resultsDiv = document.getElementById('searchResults');
                     resultsDiv.innerHTML = ''; // clear previous
 
+                    // Display review results with proper links
                     if (data.reviews?.length > 0) {
                         resultsDiv.innerHTML += '<h3>Reviews</h3>';
                         data.reviews.forEach(r => {
@@ -461,6 +524,7 @@
                         });
                     }
 
+                    // Display news results with proper links
                     if (data.news?.length > 0) {
                         resultsDiv.innerHTML += '<h3>News</h3>';
                         data.news.forEach(n => {
@@ -473,11 +537,12 @@
                         });
                     }
 
+                    // Show no results message if nothing found
                     if (!data.reviews?.length && !data.news?.length) {
                         resultsDiv.innerHTML = '<p>No results found.</p>';
                     }
 
-                    // Show popup
+                    // Show popup with results
                     document.getElementById('searchResultsPopup').style.display = 'block';
 
                 } catch (err) {
@@ -488,7 +553,7 @@
             }
         });
 
-        // Optional: Close popup on outside click
+        // Close search popup when clicking outside the search area
         window.addEventListener('click', function (e) {
             const popup = document.getElementById('searchResultsPopup');
             if (!document.getElementById('searchResults').contains(e.target) && e.target.id !== 'searchInput') {

@@ -1,7 +1,9 @@
+/* Global body styling - Sets black background for entire page */
 body {
     background-color: black;
 }
 
+/* Logo container styling - Positions and sizes the main logo */
 .header .logo-container {
     background-color: black;
     padding: 20px 0 20px 10vw;
@@ -14,7 +16,7 @@ body {
     margin: 0;
 }
 
-/*------Nabar------*/
+/* Navigation bar styling - Main navigation layout and positioning */
 nav {
     display: flex;
     justify-content: space-between;
@@ -26,6 +28,7 @@ nav {
     width: 100%;
 }
 
+/* Navigation links container - Left side navigation menu */
 .nav-links {
     flex: none;
     margin-left: 3vw;
@@ -37,12 +40,14 @@ nav {
     padding: 0;
 }
 
+/* Individual navigation list items - Horizontal menu layout */
 .nav-links ul li {
     display: inline-block;
     padding: 8px 12px;
     position: relative;
 }
 
+/* Navigation link styling - Text appearance and hover effects */
 .nav-links ul li a {
     color: white;
     text-decoration: none;
@@ -54,13 +59,14 @@ nav {
     border-radius: 12px;
 }
 
+/* Navigation link hover effects - Changes color and background on hover */
 .nav-links ul li:hover a {
     background-color: lightskyblue;
     color: #333;
     border-radius: 12px;
 }
 
-
+/* Hero section styling - Main banner with background image and text */
 .header .text-box {
     width: 100%;
     color: rgb(27, 27, 27);
@@ -76,6 +82,7 @@ nav {
     border-width: 10px;
 }
 
+/* Hero section h4 styling - Secondary heading in hero area */
 .header .text-box h4 {
     font-size: 40px;
     color: #fff;
@@ -84,6 +91,7 @@ nav {
     margin-top: 50px;
 }
 
+/* Hero section main heading - Primary title text styling */
 .header .text-box h1 {
     color: #fff;
     font-size: 65px;
@@ -91,14 +99,17 @@ nav {
     line-height: 1;
     margin-bottom: 30px;
     text-align: left;
-    
 }
+
+/* Hero section h5 styling - Tertiary text in hero area */
 .header .text-box h5{
     color: #fff;
     margin-bottom: 30px;
     margin-top: -20px;
     font-size: 20px;
 }
+
+/* Hero button styling - Call-to-action button appearance */
 .hero-btn {
     display: inline-block;
     text-decoration: none;
@@ -112,16 +123,20 @@ nav {
     border-radius: 12px;
 }
 
+/* Hero button hover effects - Interactive button styling */
 .hero-btn:hover {
     border: 1px solid lightskyblue;
     background: lightskyblue;
     transition: 1s;
     border-radius: 12px;
 }
+
+/* Hide mobile menu icon by default - Only shown on smaller screens */
 nav .fa {
     display: none;
 }
 
+/* Search box container styling - Input field and background */
 .search-box {
     display: flex;
     align-items: center;
@@ -134,6 +149,7 @@ nav .fa {
     margin: 0 15px;
 }
 
+/* Search input field styling - Text input appearance */
 .search-box input {
     flex: 1;
     background: transparent;
@@ -144,6 +160,7 @@ nav .fa {
     padding-left: 10px;
 }
 
+/* Footer contact card container - Bottom section layout */
 .contact-card {
     background-color: black;
     width: 100%;
@@ -154,32 +171,38 @@ nav .fa {
     gap: 30px;
 }
 
+/* Footer logo styling - Contact section logo appearance */
 .contact-card img {
     height: 70px;
     width: auto;
     border-radius: 16px;
 }
 
+/* Social media icons container - Icon layout and spacing */
 .social-icons {
     display: flex;
     gap: 15px;
     margin-right: auto;
 }
 
+/* Social media icon styling - Individual icon appearance */
 .social-icons a {
     color: #fff;
     font-size: 20px;
     transition: color 0.3s ease;
 }
 
+/* Social media icon hover effects - Color change on hover */
 .social-icons a:hover {
     color: lightskyblue;
 }
 
+/* Contact links container - Footer navigation positioning */
 .contact-links {
     margin-left: auto;
 }
 
+/* Contact link styling - Footer link appearance and interactions */
 .contact-links a {
     color: #fff;
     text-decoration: none;
@@ -187,9 +210,12 @@ nav .fa {
     transition: color 0.3s ease;
 }
 
+/* Contact link hover effects - Footer link color change */
 .contact-links a:hover {
     color: lightskyblue;
 }
+
+/* Section divider styling with margin - Spaced horizontal rule */
 .hr hr{
     margin-top: 3vh;
     width: 80%;
@@ -199,6 +225,7 @@ nav .fa {
     height: 2px;
 }
 
+/* General horizontal rule styling - Standard page dividers */
 hr {
     width: 80%;
     margin-left: 10vw;
