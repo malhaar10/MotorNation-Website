@@ -49,10 +49,6 @@
                 <input type="text" id="searchInput" placeholder="Search..">
             </div>
 
-            <!-- Search results popup container -->
-            <div id="searchResultsPopup" class="popup" style="display:none;">
-                <div id="searchResults" class="popup-content"></div>
-            </div>
             <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
         
@@ -64,17 +60,6 @@
         </div>
     </section>
     
-    <!-- Search function for redirecting to search results page -->
-    <script>
-        function performSearch() {
-            const tag = document.getElementById('searchInput').value.trim().toLowerCase();
-            if (!tag) return;
-
-            // Redirect to search results page (if you have one)
-            window.location.href = `/search.html?tag=${encodeURIComponent(tag)}`;
-        }
-    </script>
-
     <!-- Section divider -->
     <section>
         <hr>
@@ -419,147 +404,25 @@
         }
     </script>
 
-    <!-- Search functionality with live results popup -->
+    <!-- Search functionality that redirects to search results page -->
     <script>
-        document.getElementById('searchInput').addEventListener('keydown', async function (e) {
+        document.getElementById('searchInput').addEventListener('keydown', function (e) {
             if (e.key === 'Enter') {
-                const tag = this.value.trim().toLowerCase();
+                const tag = this.value.trim();
                 if (!tag) return;
 
-                try {
-                    // Fetch search results from backend API
-                    const res = await fetch(`/api/search?tag=${encodeURIComponent(tag)}`);
-                    const data = await res.json();
-
-                    const resultsDiv = document.getElementById('searchResults');
-                    resultsDiv.innerHTML = ''; // clear previous
-
-                    // Display review results
-                    if (data.reviews?.length > 0) {
-                        resultsDiv.innerHTML += '<h3>Reviews</h3>';
-                        data.reviews.forEach(r => {
-                            resultsDiv.innerHTML += `
-                <div>
-                  <a href="/review.html?review=${r.id}">
-                    <strong>${r.car_name} (${r.model_year})</strong>
-                  </a> — ${r.tag}, ${r.tag2}
-                </div>`;
-                        });
-                    }
-
-                    // Display news results
-                    if (data.news?.length > 0) {
-                        resultsDiv.innerHTML += '<h3>News</h3>';
-                        data.news.forEach(n => {
-                            resultsDiv.innerHTML += `
-                <div>
-                  <a href="/news_article.html?id=${n.id}">
-                    <strong>${n.news_title}</strong>
-                  </a> — ${n.date} — ${n.tag}, ${n.tag2}
-                </div>`;
-                        });
-                    }
-
-                    // Show no results message if nothing found
-                    if (!data.reviews?.length && !data.news?.length) {
-                        resultsDiv.innerHTML = '<p>No results found.</p>';
-                    }
-
-                    // Show popup with results
-                    document.getElementById('searchResultsPopup').style.display = 'block';
-
-                } catch (err) {
-                    console.error('Search error:', err);
-                    document.getElementById('searchResults').innerHTML = '<p>Error fetching search results.</p>';
-                    document.getElementById('searchResultsPopup').style.display = 'block';
-                }
+                // Redirect to search results page
+                window.location.href = `search.html?tag=${encodeURIComponent(tag)}`;
             }
         });
 
-        // Close search popup when clicking outside
-        window.addEventListener('click', function (e) {
-            const popup = document.getElementById('searchResultsPopup');
-            if (!document.getElementById('searchResults').contains(e.target) && e.target.id !== 'searchInput') {
-                popup.style.display = 'none';
-            }
-        });
-    </script>
-    
-    <!-- Enhanced search functionality with improved error handling -->
-    <script>
-        document.getElementById('searchInput').addEventListener('keydown', async function (e) {
-            if (e.key === 'Enter') {
-                const tag = this.value.trim().toLowerCase();
-                if (!tag) return;
-
-                console.log("Searching for:", tag); // Debug logging
-
-                try {
-                    // Use full backend URL to avoid 404 when running static frontend
-                    const res = await fetch('http://localhost:3000/api/search?tag=' + encodeURIComponent(tag));
-                    console.log("Fetch status:", res.status); // Debug logging
-
-                    if (!res.ok) {
-                        const errText = await res.text();
-                        console.error("Error body:", errText); // Debug logging
-                        throw new Error("Network response was not ok");
-                    }
-
-                    const data = await res.json();
-                    console.log("Search API response:", data); // Debug logging
-
-                    const resultsDiv = document.getElementById('searchResults');
-                    resultsDiv.innerHTML = ''; // clear previous
-
-                    // Display review results with proper links
-                    if (data.reviews?.length > 0) {
-                        resultsDiv.innerHTML += '<h3>Reviews</h3>';
-                        data.reviews.forEach(r => {
-                            resultsDiv.innerHTML += `
-            <div>
-              <a href="/reviews-page/review-template.html?id=${r.id}">
-                <strong>${r.car_name} (${r.model_year})</strong>
-              </a> — ${r.tag}, ${r.tag2}
-            </div>`;
-                        });
-                    }
-
-                    // Display news results with proper links
-                    if (data.news?.length > 0) {
-                        resultsDiv.innerHTML += '<h3>News</h3>';
-                        data.news.forEach(n => {
-                            resultsDiv.innerHTML += `
-            <div>
-              <a href="/news-template/news-page-template.html?id=${n.id}">
-                <strong>${n.news_title}</strong>
-              </a> — ${new Date(n.date).toLocaleDateString()} — ${n.tag}, ${n.tag2}
-            </div>`;
-                        });
-                    }
-
-                    // Show no results message if nothing found
-                    if (!data.reviews?.length && !data.news?.length) {
-                        resultsDiv.innerHTML = '<p>No results found.</p>';
-                    }
-
-                    // Show popup with results
-                    document.getElementById('searchResultsPopup').style.display = 'block';
-
-                } catch (err) {
-                    console.error('Search error:', err);
-                    document.getElementById('searchResults').innerHTML = '<p>Error fetching search results.</p>';
-                    document.getElementById('searchResultsPopup').style.display = 'block';
-                }
-            }
-        });
-
-        // Close search popup when clicking outside the search area
-        window.addEventListener('click', function (e) {
-            const popup = document.getElementById('searchResultsPopup');
-            if (!document.getElementById('searchResults').contains(e.target) && e.target.id !== 'searchInput') {
-                popup.style.display = 'none';
-            }
-        });
+        // Optional: Add search button functionality
+        function performSearch() {
+            const tag = document.getElementById('searchInput').value.trim();
+            if (!tag) return;
+            
+            window.location.href = `search.html?tag=${encodeURIComponent(tag)}`;
+        }
     </script>
 
 </body>
