@@ -1,0 +1,154 @@
+/* Main container with equal spacing */
+.search-container {
+    margin: 0 10vw;
+    min-height: 100vh;
+}
+
+/* Additional styling for search results */
+.search-results-section {
+    margin: 40px 0;
+}
+
+.results-container {
+    background-color: #000;
+    color: #fff;
+    padding: 30px;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+}
+
+.results-container .section-title {
+    color: lightskyblue;
+    font-size: 1.8em;
+    font-weight: bold;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 2px solid lightskyblue;
+    text-align: center;
+}
+
+.results-container .cards {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+.results-container .card {
+    background-color: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    width: 100%;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.results-container .card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(135, 206, 250, 0.3);
+}
+
+.results-container .card .image-section {
+    height: 200px;
+    overflow: hidden;
+}
+
+.results-container .card .image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.results-container .card .content {
+    padding: 20px;
+}
+
+.results-container .card .content p {
+    color: lightskyblue;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    font-size: 0.9em;
+}
+
+.results-container .card .content h3 {
+    color: #fff;
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+}
+
+.results-container .card .content h5 {
+    color: #ccc;
+    margin: 0 0 15px 0;
+    font-size: 1em;
+}
+
+.results-container .card a {
+    text-decoration: none;
+    color: inherit;
+}
+
+.section-separator {
+    height: 2px;
+    background: linear-gradient(to right, transparent, lightskyblue, transparent);
+    margin: 40px 0;
+    opacity: 0.8;
+}
+
+.no-results {
+    text-align: center;
+    color: #ccc;
+    font-style: italic;
+    padding: 60px;
+    font-size: 1.2em;
+}
+
+.search-info {
+    text-align: center;
+    margin: 20px 0;
+    color: #fff;
+}
+
+.search-info h1 {
+    color: lightskyblue;
+    margin-bottom: 10px;
+}
+
+.search-info p {
+    color: #ccc;
+    font-size: 1.1em;
+}
+
+/* Responsive design */
+@media (max-width: 1024px) {
+    .results-container .cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 768px) {
+    .search-container {
+        margin: 0 5vw;
+    }
+    
+    .results-container .cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .results-container .card {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .search-container {
+        margin: 0 3vw;
+    }
+    
+    .results-container {
+        padding: 20px;
+    }
+    
+    .results-container .section-title {
+        font-size: 1.5em;
+    }
+}

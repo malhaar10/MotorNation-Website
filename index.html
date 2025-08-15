@@ -153,7 +153,7 @@
                         card.className = 'card';
 
                         card.innerHTML = `
-                    <a href="reviews-page/review-template.html?id=${review.id}">
+                    <a href="reviews-page/review.html?id=${review.id}">
                         <div class="image-section">
                             <img src="../images/2025-crv/63_2024HondaCRVEX-L.avif" alt="${review.car_name}" loading="lazy">
                         </div>
@@ -175,7 +175,7 @@
                 });
         });
     </script>
-
+    
     <!-- Latest news section -->
     <section class="latest-news">
         <hr>
@@ -256,6 +256,7 @@
     </section>
     
     <!-- Script to fetch and display electric vehicle reviews -->
+    <!-- Script to fetch and display electric vehicle reviews -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
@@ -264,14 +265,14 @@
                 const reviews = await response.json();
 
                 const container = document.getElementById('reviews-electric');
-                
+
                 // Create card for each electric vehicle review
                 reviews.forEach(review => {
                     const card = document.createElement('div');
                     card.className = 'card';
 
                     card.innerHTML = `
-                        <a href="../reviews-page/review-template.html?id=${review.id}">
+                        <a href="reviews-page/review.html?id=${review.id}">
                             <div class="image-section">
                                 <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
                             </div>

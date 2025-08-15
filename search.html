@@ -1,108 +1,98 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Search Results - Motor Nation</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 0;
-            padding: 20px;
-            background-color: #f0f0f0;
-        }
+    <title>Search Results - MotorNation</title>
 
-        div#results {
-            background-color: #000 !important;
-            color: #fff !important;
-            padding: 20px;
-            border-radius: 8px;
-            max-height: 600px;
-            overflow-y: auto;
-            margin: 20px 0;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
+    <!-- CSS stylesheets for page styling -->
+    <link rel="stylesheet" href="page_header.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="search.css">
 
-        #results .results-section {
-            margin-bottom: 30px;
-        }
+    <!-- Google Fonts configuration -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
 
-        #results .section-title {
-            color: #ff6b35 !important;
-            font-size: 1.5em;
-            font-weight: bold;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #ff6b35;
-        }
-
-        #results .result-item {
-            background-color: #1a1a1a !important;
-            padding: 15px;
-            margin-bottom: 10px;
-            border-radius: 5px;
-            border-left: 3px solid #ff6b35;
-            transition: background-color 0.3s ease;
-            cursor: pointer;
-        }
-
-        #results .result-item:hover {
-            background-color: #2a2a2a !important;
-        }
-
-        #results .result-item h3 {
-            margin: 0;
-            font-size: 1.2em;
-            color: #fff !important;
-        }
-
-        #results .result-item p {
-            margin: 5px 0 0 0;
-            font-size: 0.9em;
-            color: #ccc !important;
-        }
-
-        #results .no-results {
-            text-align: center;
-            color: #ccc !important;
-            font-style: italic;
-            padding: 40px;
-        }
-
-        #results .section-separator {
-            height: 2px;
-            background: linear-gradient(to right, transparent, #ff6b35, transparent);
-            margin: 30px 0;
-            opacity: 0.8;
-        }
-
-        .back-button {
-            background-color: #ff6b35;
-            color: white;
-            padding: 10px 20px;
-            text-decoration: none;
-            border-radius: 5px;
-            display: inline-block;
-            margin-bottom: 20px;
-        }
-
-        .back-button:hover {
-            background-color: #e55a2b;
-        }
-    </style>
+    <!-- External icon libraries -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 </head>
+
 <body>
-    <a href="index.html" class="back-button">← Back to Home</a>
-    <h1>Search Results</h1>
-    <div id="results">Loading...</div>
+    <!-- Header section with logo, navigation -->
+    <section class="header">
+        <!-- Logo container with home page link -->
+        <div class="logo-container">
+            <a href="index.html"><img src="assets/MotorNation.avif" alt="MotorNation Logo"></a>
+        </div>
+
+        <!-- Main navigation bar -->
+        <nav id="navbar">
+            <!-- Navigation links with hamburger menu support -->
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="index.html">HOME</a></li>
+                    <li><a href="reviews-page/reviews-home.html">REVIEWS</a></li>
+                    <li><a href="news-template/news-home.html">NEWS</a></li>
+                    <li><a href="electric/electric.html">ELECTRIC</a></li>
+                    <li><a href="videos/video.html">VIDEOS</a></li>
+                    <li><a href="content_input_panel/input_home.html">CONTENT_INPUT</a></li>
+                </ul>
+            </div>
+
+            <!-- Search functionality -->
+            <div class="search-box">
+                <input type="text" id="searchInput" placeholder="Search..">
+            </div>
+
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+    </section>
+
+    <!-- Main content container with equal spacing -->
+    <div class="search-container">
+
+        <!-- Search Results Info -->
+        <div class="search-info">
+            <h1 id="searchTitle">Search Results</h1>
+            <p id="searchQuery"></p>
+        </div>
+
+        <!-- Search Results Content -->
+        <div id="results">
+            <div class="no-results">Loading search results...</div>
+        </div>
+    </div>
+
+    <section class="hr">
+        <hr>
+    </section>
+    <!-- Contact and social media footer section -->
+    <section class="contact-card">
+        <img src="assets/MotorNation.avif" alt="MotorNation logo">
+        <div class="social-icons">
+            <a href="assets/facebook.avif"><i class="fa fa-facebook"></i></a>
+            <a href="assets/twitter.avif"><i class="fa fa-twitter"></i></a>
+            <a href="assets/instagram.avif"><i class="fa fa-instagram"></i></a>
+            <a href="assets/youtube.avif"><i class="fa fa-youtube"></i></a>
+        </div>
+        <div class="contact-links">
+            <a href="">About us</a>
+            <a href="">Contact us</a>
+            <a href="">Terms & Conditions</a>
+            <a href="">Careers</a>
+        </div>
+    </section>
 
     <script>
         function redirectToPage(type, id) {
             if (type === 'review') {
-                // Navigate to review page with the specific ID
                 window.location.href = `reviews-page/review.html?id=${id}`;
             } else if (type === 'news') {
-                // Navigate to news page with the specific ID  
                 window.location.href = `news-template/news-page-template.html?id=${id}`;
             }
         }
@@ -110,13 +100,16 @@
         window.addEventListener('load', async () => {
             const params = new URLSearchParams(window.location.search);
             const tag = params.get('tag');
-            
+
             const container = document.getElementById('results');
-            
+            const searchQuery = document.getElementById('searchQuery');
+
             if (!tag) {
-                container.innerHTML = "<div class='no-results'>No search term provided.</div>";
+                container.innerHTML = '<div class="results-container"><div class="no-results">No search term provided.</div></div>';
                 return;
             }
+
+            searchQuery.textContent = `Showing results for: "${tag}"`;
 
             try {
                 const fullUrl = `http://localhost:3000/api/search?tag=${encodeURIComponent(tag)}`;
@@ -133,9 +126,9 @@
 
                 const data = await res.json();
                 console.log("Fetched data:", data);
-                
+
                 if (data.reviews.length === 0 && data.news.length === 0) {
-                    container.innerHTML = `<div class='no-results'>No results found for: "${tag}"</div>`;
+                    container.innerHTML = `<div class="results-container"><div class="no-results">No results found for: "${tag}"</div></div>`;
                     return;
                 }
 
@@ -143,52 +136,100 @@
 
                 // Reviews section
                 if (data.reviews.length > 0) {
-                    html += '<div class="results-section">';
+                    html += '<section class="latest-news search-results-section">';
+                    html += '<div class="results-container">';
                     html += '<div class="section-title">Reviews (' + data.reviews.length + ')</div>';
+                    html += '<div class="container">';
+                    html += '<div class="blog-section">';
+                    html += '<div class="cards">';
+
                     data.reviews.forEach(r => {
                         html += `
-                            <div class="result-item" onclick="redirectToPage('review', '${r.id}')">
-                                <h3>${r.car_name} (${r.model_year})</h3>
-                                <p>Tags: ${r.tag}${r.tag2 ? ', ' + r.tag2 : ''}</p>
+                            <div class="card" onclick="redirectToPage('review', '${r.id}')" style="cursor: pointer;">
+                                <div class="image-section">
+                                    <img src="images/2025-crv/63_2024HondaCRVEX-L.avif" alt="${r.car_name}" loading="lazy">
+                                </div>
+                                <div class="content">
+                                    <p>REVIEW</p>
+                                    <h3>${r.car_name}</h3>
+                                    <h5>${r.model_year} • ${r.tag}${r.tag2 ? ', ' + r.tag2 : ''}</h5>
+                                    <hr>
+                                </div>
                             </div>
                         `;
                     });
-                    html += '</div>';
+
+                    html += '</div></div></div></div></section>';
                 }
 
                 // Separator if both sections exist
                 if (data.reviews.length > 0 && data.news.length > 0) {
-                    html += '<div class="section-separator"></div>';
+                    html += '<section class="hr"><hr></section>';
                 }
 
                 // News section
                 if (data.news.length > 0) {
-                    html += '<div class="results-section">';
+                    html += '<section class="latest-news search-results-section">';
+                    html += '<div class="results-container">';
                     html += '<div class="section-title">News (' + data.news.length + ')</div>';
+                    html += '<div class="container">';
+                    html += '<div class="blog-section">';
+                    html += '<div class="cards">';
+
                     data.news.forEach(n => {
                         const newsDate = new Date(n.date).toLocaleDateString('en-GB', {
-                            day: 'numeric', 
-                            month: 'short', 
+                            day: 'numeric',
+                            month: 'short',
                             year: 'numeric'
                         });
-                        
+
                         html += `
-                            <div class="result-item" onclick="redirectToPage('news', '${n.id}')">
-                                <h3>${n.news_title}</h3>
-                                <p>${newsDate} • Tags: ${n.tag}${n.tag2 ? ', ' + n.tag2 : ''}</p>
+                            <div class="card" onclick="redirectToPage('news', '${n.id}')" style="cursor: pointer;">
+                                <div class="image-section">
+                                    <img src="images/2025-crv/29_2024HondaCRVEX-L.avif" alt="${n.news_title}" loading="lazy">
+                                </div>
+                                <div class="content">
+                                    <p>${n.tag.toUpperCase()}</p>
+                                    <h3>${n.news_title}</h3>
+                                    <h5>${newsDate} • ${n.tag}${n.tag2 ? ', ' + n.tag2 : ''}</h5>
+                                    <hr>
+                                </div>
                             </div>
                         `;
                     });
-                    html += '</div>';
+
+                    html += '</div></div></div></div></section>';
                 }
 
                 container.innerHTML = html;
 
             } catch (err) {
                 console.error("Fetch failed:", err);
-                container.innerHTML = "<div class='no-results'>Error fetching search results: " + err.message + "</div>";
+                container.innerHTML = '<div class="results-container"><div class="no-results">Error fetching search results: ' + err.message + '</div></div>';
             }
         });
+
+        // Search functionality for the search box in header
+        document.getElementById('searchInput').addEventListener('keydown', function (e) {
+            if (e.key === 'Enter') {
+                const tag = this.value.trim();
+                if (!tag) return;
+                window.location.href = `search.html?tag=${encodeURIComponent(tag)}`;
+            }
+        });
+
+        // Mobile navigation menu toggle functionality
+        var navLinks = document.getElementById("navLinks");
+
+        function showMenu() {
+            navLinks.style.right = "0";
+        }
+
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+        }
     </script>
+
 </body>
+
 </html>
