@@ -56,13 +56,10 @@
             color: #fff !important;
         }
 
-        #results .result-item a {
-            color: #fff !important;
-            text-decoration: none;
-        }
-
-        #results .result-item a:hover {
-            color: #ff6b35 !important;
+        #results .result-item p {
+            margin: 5px 0 0 0;
+            font-size: 0.9em;
+            color: #ccc !important;
         }
 
         #results .no-results {
@@ -78,18 +75,35 @@
             margin: 30px 0;
             opacity: 0.8;
         }
+
+        .back-button {
+            background-color: #ff6b35;
+            color: white;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+
+        .back-button:hover {
+            background-color: #e55a2b;
+        }
     </style>
 </head>
 <body>
+    <a href="index.html" class="back-button">← Back to Home</a>
     <h1>Search Results</h1>
     <div id="results">Loading...</div>
 
     <script>
         function redirectToPage(type, id) {
             if (type === 'review') {
-                window.location.href = `/reviews-page/review-template.html?id=${id}`;
+                // Navigate to review page with the specific ID
+                window.location.href = `reviews-page/review.html?id=${id}`;
             } else if (type === 'news') {
-                window.location.href = `/news-template/news-page-template.html?id=${id}`;
+                // Navigate to news page with the specific ID  
+                window.location.href = `news-template/news-page-template.html?id=${id}`;
             }
         }
 
@@ -121,7 +135,7 @@
                 console.log("Fetched data:", data);
                 
                 if (data.reviews.length === 0 && data.news.length === 0) {
-                    container.innerHTML = "<div class='no-results'>No results found for: " + tag + "</div>";
+                    container.innerHTML = `<div class='no-results'>No results found for: "${tag}"</div>`;
                     return;
                 }
 
@@ -133,8 +147,9 @@
                     html += '<div class="section-title">Reviews (' + data.reviews.length + ')</div>';
                     data.reviews.forEach(r => {
                         html += `
-                            <div class="result-item" onclick="redirectToPage('review', ${r.id})">
+                            <div class="result-item" onclick="redirectToPage('review', '${r.id}')">
                                 <h3>${r.car_name} (${r.model_year})</h3>
+                                <p>Tags: ${r.tag}${r.tag2 ? ', ' + r.tag2 : ''}</p>
                             </div>
                         `;
                     });
@@ -151,9 +166,16 @@
                     html += '<div class="results-section">';
                     html += '<div class="section-title">News (' + data.news.length + ')</div>';
                     data.news.forEach(n => {
+                        const newsDate = new Date(n.date).toLocaleDateString('en-GB', {
+                            day: 'numeric', 
+                            month: 'short', 
+                            year: 'numeric'
+                        });
+                        
                         html += `
-                            <div class="result-item" onclick="redirectToPage('news', ${n.id})">
+                            <div class="result-item" onclick="redirectToPage('news', '${n.id}')">
                                 <h3>${n.news_title}</h3>
+                                <p>${newsDate} • Tags: ${n.tag}${n.tag2 ? ', ' + n.tag2 : ''}</p>
                             </div>
                         `;
                     });
