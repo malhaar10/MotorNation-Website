@@ -19,6 +19,9 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
+    <!-- Search functionality script -->
+    <script src="search-functionality.js"></script>
 </head>
 
 <body>
@@ -400,27 +403,6 @@
                 left: direction * scrollAmount,
                 behavior: 'smooth'
             });
-        }
-    </script>
-
-    <!-- Search functionality that redirects to search results page -->
-    <script>
-        document.getElementById('searchInput').addEventListener('keydown', function (e) {
-            if (e.key === 'Enter') {
-                const tag = this.value.trim();
-                if (!tag) return;
-
-                // Redirect to search results page
-                window.location.href = `search.html?tag=${encodeURIComponent(tag)}`;
-            }
-        });
-
-        // Optional: Add search button functionality
-        function performSearch() {
-            const tag = document.getElementById('searchInput').value.trim();
-            if (!tag) return;
-            
-            window.location.href = `search.html?tag=${encodeURIComponent(tag)}`;
         }
     </script>
 
