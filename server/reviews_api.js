@@ -13,7 +13,6 @@ router.get('/reviews', async (req, res) => {
   }
 });
 
-// ✅ Fix this in reviews_api.js
 router.get('/reviews/summary', async (req, res) => {
   try {
     const result = await pool.query(`
@@ -29,28 +28,13 @@ router.get('/reviews/summary', async (req, res) => {
   }
 });
 
-router.get('/reviews/summary', async (req, res) => {
-  try {
-    const result = await pool.query(`
-      SELECT id, car_name, model_year
-      FROM reviews
-      ORDER BY created_at DESC
-      LIMIT 6
-    `);
-    res.json(result.rows);
-  } catch (err) {
-    console.error('Error fetching review summary:', err);
-    res.status(500).json({ error: 'Failed to fetch review summary' });
-  }
-});
-
-// reviews_api.js
 router.get('/reviews/electric', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT id, car_name, model_year
       FROM reviews
-      WHERE tag = 'ev' OR tag2 = 'ev'
+      WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev'
+         OR LOWER(tag) = 'electric' OR LOWER(tag2) = 'electric'
       ORDER BY model_year DESC
       LIMIT 6
     `);
