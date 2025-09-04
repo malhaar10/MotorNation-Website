@@ -14,8 +14,8 @@ body {
 
 .header .logo-container {
     background-color: black;
-    padding: 20px 0 20px 10vw;
-    height: 16vh;
+    padding: 4vh 10vw 4vh 10vw;
+    height: auto;
 }
 
 .header .logo-container img {
@@ -100,7 +100,7 @@ nav {
 
 .header .text-box {
     text-align: right;
-    background-image: url('assets/shifter.avif');
+    /* background-image: url('assets/shifter.avif'); */
     height: 70vh;
     width: 80vw;
     color: white;
