@@ -19,7 +19,7 @@ body {
 }
 
 .header .logo-container img {
-    height: 80px;
+    height: 11h;
     width: auto;
     margin: 0;
 }
@@ -51,70 +51,30 @@ body {
   text-decoration: underline;
 }
 
-
-/*------Nabar------*/
-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 2vh;
-    z-index: 1000;
-    background-color: #333;
-    position: sticky;
-    width: 100%;
-}
-
-.nav-links {
-    flex: none;
-    margin-left: 3vw;
-    padding-left: 5vw;
-}
-
-.nav-links ul {
-    list-style: none;
-    padding: 0;
-}
-
-.nav-links ul li {
-    display: inline-block;
-    padding: 8px 12px;
-    position: relative;
-}
-
-.nav-links ul li a {
-    color: white;
-    text-decoration: none;
-    font-size: 20px;
-    transition: background-color 0.5s, color 0.5s;
-    margin: 5px;
-    padding: 5px 10px;
-    position: relative;
-    border-radius: 12px;
-}
-
-.nav-links ul li:hover a {
-    background-color: lightskyblue;
-    color: #333;
-    border-radius: 12px;
-}
-
 .header .text-box {
-    text-align: right;
-    /* background-image: url('assets/shifter.avif'); */
-    height: 70vh;
-    width: 80vw;
+    text-align: left;
+    height: clamp(50vh, 70vh, 80vh);
+    width: clamp(90vw, 80vw, 75vw);
     color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 clamp(2vw, 5vw, 10vw);
 }
 
 .header .text-box .l1 {
-    font-size: 30px !important;
+    font-size: clamp(4vw, 10vh, 12vh);
     font-weight: 500;
-    margin-bottom: 40px;
+    margin-bottom: clamp(5px, 1vh, 15px);
+    margin-top: 0;
+    line-height: 1.1;
 }
 
 .header .text-box .l2 {
-    font-size: 20px !important;
-    margin-bottom: 40px;
+    font-size: clamp(3vw, 7vh, 9vh);
+    margin-bottom: clamp(5px, 1vh, 15px);
+    margin-top: 0;
+    line-height: 1.1;
 }
 
 

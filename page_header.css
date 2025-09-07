@@ -6,8 +6,8 @@ body {
 /* Logo container styling - Positions and sizes the main logo */
 .header .logo-container {
     background-color: black;
-    padding: 20px 0 20px 10vw;
-    height: 16vh;
+    padding: 4vh 10vw 4vh 10vw;
+    height: auto;
 }
 
 .header .logo-container img {
@@ -21,11 +21,20 @@ nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 2vh;
+    margin-bottom: 0;
     z-index: 1000;
     background-color: #333;
     position: sticky;
     width: 100%;
+}
+
+/* Search container styling - Positions search bar below navbar */
+.search-container {
+    background-color: #333;
+    padding: 5px 20vh;
+    display: flex;
+    justify-content: left;
+    margin-bottom: 2vh;
 }
 
 /* Navigation links container - Left side navigation menu */
@@ -72,7 +81,6 @@ nav {
     color: rgb(27, 27, 27);
     margin: auto; 
     text-align: left;
-    background-image: url('assets/shifter.avif');
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
@@ -144,9 +152,9 @@ nav .fa {
     border-radius: 6px;
     padding: 0 12px;
     height: 35px;
-    max-width: 300px;
-    width: 100%;
-    margin: 0 15px;
+    max-width: 400px;
+    width: 90%;
+    margin: 0;
 }
 
 /* Search input field styling - Text input appearance */
