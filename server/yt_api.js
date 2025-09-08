@@ -141,7 +141,6 @@ app.get('/getChannelVideos', async (req, res) => {
       }));
 
       cache.set(cacheKey, videos);
-      console.log(`✅ Successfully fetched ${videos.length} videos`);
       return res.json(videos);
     } catch (error) {
       lastError = error;

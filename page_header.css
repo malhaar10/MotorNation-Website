@@ -84,7 +84,7 @@ nav {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
-    padding: 100px 100px;
+    padding: 10vh 10vw;
     border-radius: 30px;
     border-color: #ffffff;
     border-width: 10px;
@@ -94,7 +94,7 @@ nav {
 .header .text-box h4 {
     font-size: 40px;
     color: #fff;
-    font-weight: 500;
+    font-weight: 400;
     margin-bottom: 10px;
     margin-top: 50px;
 }

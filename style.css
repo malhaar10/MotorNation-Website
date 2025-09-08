@@ -8,9 +8,6 @@
 body {
     background-color: black;
 }
-body {
-    background-color: black;
-}
 
 .header .logo-container {
     background-color: black;
@@ -77,114 +74,34 @@ body {
     line-height: 1.1;
 }
 
-
-/* .videos .hero-btn {
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
-    border: 1px solid #fff;
-    padding: 12px 34px;
-    font-size: 13px;
-    background: transparent;
-    position: relative;
-    border-radius: 12px;
-}
-
-.videos .hero-btn:hover {
-    background: lightskyblue;
-    color: black;
-    border: none;
-} */
 nav .fa {
     display: none;
 }
 
-/*-----First News bar------*/
-.breaking {
-    width: 80vw;
-    margin: 0 10vw;
-    padding-top: 50px;
-    padding-bottom: 50px;
-}
-
-.breaking a {
-    text-decoration: none;
-    color: inherit;
-    display: flex;
-    gap: 40px;
-    align-items: flex-start;
-}
-
-.breaking img {
-    width: 60%;
-    height: auto;
-    transition: filter 0.3s ease;
-    flex-shrink: 0;
-    border-radius: 16px;
-}
-
-.breaking .content {
-    flex: 1;
-    padding-top: 20px;
-}
-
-.breaking h4 {
-    color: lightskyblue;
-    font-size: 15px;
-    margin-bottom: 15px;
-    transition: text-decoration 0.3s ease;
-}
-
-.breaking h3 {
-    color: #fff;
-    font-size: 25px;
-    margin-bottom: 20px;
-    transition: text-decoration 0.3s ease;
-}
-
-.breaking p {
-    color: #fff;
-    margin-bottom: 15px;
-}
-
-.breaking:hover img {
-    filter: grayscale(50%);
-    border-radius: 16px;
-}
-
-.breaking:hover h3 {
-    color: lightskyblue;
-}
-
-hr {
-    width: 80vw;
-    background-color: lightskyblue;
-    /* border: 1px solid lightskyblue; */
-    height: 2px;
-}
 /*----Latest-News----*/
 .car-types {
-    padding-top: 15px;
-    padding-bottom: 10px;
-    position: relative;
+    padding: 15px 0 10px;
     display: flex;
-    height: auto;
-    margin-top: 0 10vw;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin: 0 auto;
+    max-width: 100vw;
 }
 
 .category-container {
-    width: 100vw;
-    position: relative;
-    overflow-x: auto;
-    padding: 0 10vw;
+    width: 80vw;
+    overflow: hidden;
+    order: 2;
 }
 .categories {
     display: flex;
     flex-wrap: nowrap;
     overflow-x: auto;
-    gap: 40px;
+    gap: 30px;
     scroll-behavior: smooth;
     -webkit-overflow-scrolling: touch;
+    padding: 10px 20px;
 }
 
 .categories::-webkit-scrollbar {
@@ -196,9 +113,11 @@ hr {
 }
 
 .category {
+    flex: 0 0 120px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    justify-content: center;
     text-align: center;
     width: 120px;
     height: 120px;
@@ -208,20 +127,29 @@ hr {
     transition: transform 0.3s ease;
 }
 .category-item {
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     text-align: center;
     text-decoration: none;
-    color: inherit;
+    color: #000000;
+    font-size: 16px;
+    width: 100%;
+    height: 100%;
 }
 
 .category-item img {
-    display: block;
-    width: 100%;
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
     border-radius: 16px;
+    margin-bottom: 5px;
 }
 
 .category-item span {
-    display: block;
+    font-size: 12px;
+    font-weight: 500;
 }
 
 
@@ -246,24 +174,33 @@ hr {
     color: lightskyblue;
 }
 .scroll-btn {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: rgb(0, 0, 0, 0.6);
+    flex: 0 0 auto;
+    background-color: rgba(0, 0, 0, 0.6);
     color: white;
     border: none;
     font-size: 2rem;
     cursor: pointer;
     padding: 0.5rem 1rem;
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background-color 0.3s ease;
     z-index: 10;
 }
 
+.scroll-btn:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
 .scroll-btn.left {
-    left: 6vw;
+    order: 1;
 }
 
 .scroll-btn.right {
-    left: 90vw
+    order: 3;
 }
 .latest-news{
     width: 80vw;
