@@ -42,28 +42,55 @@ app.get('/getPlaylistVideos', async (req, res) => {
   const cached = cache.get(`playlist-${playlistId}`);
   if (cached) return res.json(cached);
 
-  try {
-    const response = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
-      params: {
-        part: 'snippet',
-        playlistId,
-        maxResults: 6,
-        key: API_KEY,
-      },
-    });
+  // Retry logic for network issues
+  const maxRetries = 3;
+  let lastError;
 
-    const videos = response.data.items.map(item => ({
-      videoId: item.snippet.resourceId.videoId,
-      title: item.snippet.title,
-      thumbnail: item.snippet.thumbnails.medium.url,
-    }));
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      console.log(`🔄 Attempting to fetch playlist videos (attempt ${attempt}/${maxRetries})`);
+      
+      const response = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
+        params: {
+          part: 'snippet',
+          playlistId,
+          maxResults: 6,
+          key: API_KEY,
+        },
+        timeout: 10000, // 10 second timeout
+      });
 
-    cache.set(`playlist-${playlistId}`, videos);
-    res.json(videos);
-  } catch (error) {
-    console.error('❌ Error fetching playlist videos:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Failed to fetch playlist videos' });
+      const videos = response.data.items.map(item => ({
+        videoId: item.snippet.resourceId.videoId,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.medium.url,
+      }));
+
+      cache.set(`playlist-${playlistId}`, videos);
+      console.log(`✅ Successfully fetched ${videos.length} playlist videos`);
+      return res.json(videos);
+    } catch (error) {
+      lastError = error;
+      console.error(`❌ Error fetching playlist videos (attempt ${attempt}/${maxRetries}):`, {
+        message: error.message,
+        code: error.code,
+        response: error.response?.data
+      });
+      
+      // Wait before retrying (except on last attempt)
+      if (attempt < maxRetries) {
+        console.log(`⏳ Waiting 2 seconds before retry...`);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
+    }
   }
+
+  // All retries failed
+  console.error('❌ All retry attempts failed for playlist videos');
+  res.status(500).json({ 
+    error: 'Failed to fetch playlist videos after multiple attempts',
+    details: lastError?.message || 'Unknown error'
+  });
 });
 
 // === GET /getChannelVideos ===
@@ -75,41 +102,73 @@ app.get('/getChannelVideos', async (req, res) => {
   const cached = cache.get(cacheKey);
   if (cached) return res.json(cached);
 
-  try {
-    const searchResponse = await axios.get('https://www.googleapis.com/youtube/v3/search', {
-      params: {
-        part: 'id',
-        channelId,
-        order: 'date',
-        maxResults: 6,
-        type: 'video',
-        key: API_KEY,
-      },
-    });
+  // Retry logic for network issues
+  const maxRetries = 3;
+  let lastError;
 
-    const videoIds = searchResponse.data.items.map(item => item.id.videoId).join(',');
+  for (let attempt = 1; attempt <= maxRetries; attempt++) {
+    try {
+      console.log(`🔄 Attempting to fetch channel videos (attempt ${attempt}/${maxRetries})`);
+      
+      const searchResponse = await axios.get('https://www.googleapis.com/youtube/v3/search', {
+        params: {
+          part: 'id',
+          channelId,
+          order: 'date',
+          maxResults: 6,
+          type: 'video',
+          key: API_KEY,
+        },
+        timeout: 10000, // 10 second timeout
+      });
 
-    const videosResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
-      params: {
-        part: 'snippet',
-        id: videoIds,
-        key: API_KEY,
-      },
-    });
+      const videoIds = searchResponse.data.items.map(item => item.id.videoId).join(',');
 
-    const videos = videosResponse.data.items.map(item => ({
-      videoId: item.id,
-      title: item.snippet.title,
-      thumbnail: item.snippet.thumbnails.medium.url,
-      publishedAt: item.snippet.publishedAt,
-    }));
+      const videosResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
+        params: {
+          part: 'snippet',
+          id: videoIds,
+          key: API_KEY,
+        },
+        timeout: 10000, // 10 second timeout
+      });
 
-    cache.set(cacheKey, videos);
-    res.json(videos);
-  } catch (error) {
-    console.error('❌ Error fetching channel videos:', error.response?.data || error.message);
-    res.status(500).json({ error: 'Failed to fetch latest channel videos' });
+      const videos = videosResponse.data.items.map(item => ({
+        videoId: item.id,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.medium.url,
+        publishedAt: item.snippet.publishedAt,
+      }));
+
+      cache.set(cacheKey, videos);
+      console.log(`✅ Successfully fetched ${videos.length} videos`);
+      return res.json(videos);
+    } catch (error) {
+      lastError = error;
+      console.error(`❌ Error fetching channel videos (attempt ${attempt}/${maxRetries}):`, {
+        message: error.message,
+        code: error.code,
+        response: error.response?.data,
+        config: {
+          url: error.config?.url,
+          timeout: error.config?.timeout
+        }
+      });
+      
+      // Wait before retrying (except on last attempt)
+      if (attempt < maxRetries) {
+        console.log(`⏳ Waiting 2 seconds before retry...`);
+        await new Promise(resolve => setTimeout(resolve, 2000));
+      }
+    }
   }
+
+  // All retries failed
+  console.error('❌ All retry attempts failed for channel videos');
+  res.status(500).json({ 
+    error: 'Failed to fetch latest channel videos after multiple attempts',
+    details: lastError?.message || 'Unknown error'
+  });
 });
 
 // === GET /api/playlist/latest ===
