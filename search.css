@@ -152,3 +152,28 @@
         font-size: 1.5em;
     }
 }
+
+@media (max-width: 768px) {
+    .results-container {
+        width: 95%;
+        padding: 20px 15px;
+    }
+    
+    .results-container .cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .results-container .card {
+        padding: 15px;
+    }
+    
+    .results-container .card h3 {
+        font-size: 16px;
+        line-height: 1.3;
+    }
+    
+    .search-info h1 {
+        font-size: 1.5rem;
+    }
+}

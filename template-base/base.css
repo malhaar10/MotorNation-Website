@@ -314,3 +314,18 @@ hr{
     border: 1px solid lightskyblue;
     height: 2px;
 }
+
+@media (max-width: 768px) {
+    .button-container {
+        height: 60vh;
+        gap: 20px;
+        padding: 0 20px;
+    }
+    
+    .btn-large {
+        padding: 15px 40px;
+        font-size: 18px;
+        width: 100%;
+        max-width: 300px;
+    }
+}

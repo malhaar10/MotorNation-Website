@@ -308,3 +308,35 @@ hr {
     border: 1px solid lightskyblue;
     height: 2px;
 }
+
+@media (max-width: 768px) {
+    .breaking {
+        width: 95vw;
+        margin: 0 2.5vw;
+        padding: 30px 0;
+    }
+    
+    .breaking a {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .breaking img {
+        width: 100%;
+    }
+    
+    .blog-section .cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 20px;
+    }
+    
+    .blog-section .card {
+        max-width: 100%;
+    }
+    
+    .blog-section h3 {
+        font-size: 18px;
+        line-height: 1.3;
+    }
+}

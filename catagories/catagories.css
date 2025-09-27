@@ -233,3 +233,50 @@ body {
     border: 1px solid lightskyblue;
     height: 2px;
 }
+
+@media (max-width: 768px) {
+    .heading {
+        font-size: x-large;
+        padding-left: 20px;
+        margin: 0 3vw;
+    }
+    
+    .categories {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+        padding: 0 20px;
+    }
+    
+    .category-card {
+        padding: 15px;
+    }
+    
+    .category-card h3 {
+        font-size: 16px;
+    }
+    
+    .cards-container {
+        padding: 0 10px;
+    }
+    
+    .cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .scroll-btn {
+        display: none; /* Hide scroll buttons on mobile */
+    }
+}
+
+@media (max-width: 480px) {
+    .heading {
+        font-size: large;
+        padding-left: 15px;
+    }
+    
+    .categories {
+        grid-template-columns: 1fr;
+        padding: 0 15px;
+    }
+}

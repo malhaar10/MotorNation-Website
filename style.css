@@ -340,9 +340,9 @@ nav .fa {
     transition: text-decoration 0.3s ease;
 }
 
-.videos .head h3 {
+.videos .head h5 {
     color: #fff;
-    font-size: 25px;
+    font-size: 5px;
     margin: 10px 0;
     padding: 0;
     transition: text-decoration 0.3s ease;
@@ -510,4 +510,125 @@ nav .fa {
 }
 .blogs .p p{
     margin-top: 5px;
+}
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .text-box {
+        padding: 20px;
+        text-align: center;
+    }
+    
+    .text-box .l1, .text-box .l2 {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+    
+    /* Car categories mobile */
+    .car-types {
+        padding: 0 10px;
+    }
+    
+    .categories {
+        gap: 15px;
+        padding: 0 10px;
+    }
+    
+    .category {
+        min-width: 120px;
+    }
+    
+    .category img {
+        width: 100px;
+        height: 100px;
+    }
+    
+    .category span {
+        font-size: 12px;
+    }
+    
+    .scroll-btn {
+        width: 35px;
+        height: 35px;
+        font-size: 16px;
+    }
+    
+    /* Blog sections mobile */
+    .blog-section .cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 20px;
+    }
+    
+    .card {
+        max-width: 100%;
+    }
+    
+    .card img {
+        width: 100%;
+        height: 200px;
+        object-fit: cover;
+    }
+    
+    .card .content {
+        padding: 15px;
+    }
+    
+    .card h3 {
+        font-size: 18px;
+        line-height: 1.3;
+    }
+    
+    /* Videos section mobile */
+    .blog-section1 .cards1 {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    /* Contact card mobile */
+    .contact-card {
+        padding: 30px 20px;
+        text-align: center;
+    }
+    
+    .contact-card img {
+        height: 60px;
+    }
+    
+    .social-icons {
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .contact-links {
+        flex-direction: column;
+        gap: 10px;
+    }
+}
+
+@media (max-width: 480px) {
+    .text-box .l1, .text-box .l2 {
+        font-size: 20px;
+    }
+    
+    .categories {
+        gap: 10px;
+    }
+    
+    .category {
+        min-width: 100px;
+    }
+    
+    .category img {
+        width: 80px;
+        height: 80px;
+    }
+    
+    .blog-section .cards {
+        padding: 0 15px;
+    }
+    
+    .card h3 {
+        font-size: 16px;
+    }
 }

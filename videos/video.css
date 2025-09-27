@@ -243,3 +243,21 @@ body {
     width: 80%;
     color: lightskyblue
 }
+
+@media (max-width: 768px) {
+    .cards-container .cards {
+        grid-template-columns: 1fr;
+        gap: 20px;
+        padding: 0 20px;
+    }
+    
+    .scroll-btn {
+        display: none;
+    }
+    
+    .full-button {
+        margin: 20px auto;
+        padding: 12px 24px;
+        font-size: 14px;
+    }
+}

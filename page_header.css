@@ -241,3 +241,83 @@ hr {
     border: 1px solid lightskyblue;
     height: 2px;
 }
+
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+    .header .logo-container {
+        padding: 2vh 5vw;
+    }
+    
+    .header .logo-container img {
+        height: 60px;
+    }
+    
+    .nav-links {
+        position: fixed;
+        background: #333;
+        height: 100vh;
+        width: 200px;
+        top: 0;
+        right: -200px;
+        text-align: left;
+        z-index: 2;
+        transition: 0.5s;
+        padding-top: 50px;
+    }
+    
+    .nav-links ul li {
+        display: block;
+        margin: 25px 0;
+    }
+    
+    .nav-links ul li a {
+        color: white;
+        text-decoration: none;
+        font-size: 18px;
+        padding: 10px 20px;
+        display: block;
+    }
+    
+    .nav-links .fa {
+        position: absolute;
+        top: 25px;
+        left: 25px;
+        cursor: pointer;
+    }
+    
+    .fa-bars {
+        display: block;
+        color: #fff;
+        margin: 10px;
+        font-size: 22px;
+        cursor: pointer;
+    }
+    
+    .search-container {
+        padding: 10px 5vw;
+    }
+    
+    .search-box {
+        width: 100%;
+    }
+    
+    .search-box input {
+        width: 100%;
+        font-size: 16px;
+        padding: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .header .logo-container {
+        padding: 1vh 3vw;
+    }
+    
+    .header .logo-container img {
+        height: 50px;
+    }
+    
+    .search-container {
+        padding: 8px 3vw;
+    }
+}

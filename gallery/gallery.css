@@ -210,3 +210,26 @@ body {
 .hr hr{
     margin-top: 100px;
 }
+
+@media (max-width: 768px) {
+    .heading {
+        font-size: x-large;
+        padding-left: 20px;
+        margin: 0 3vw;
+    }
+    
+    .breaking {
+        width: 95vw;
+        margin: 0 2.5vw;
+        padding: 30px 0;
+    }
+    
+    .breaking a {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .breaking img {
+        width: 100%;
+    }
+}
