@@ -41,11 +41,9 @@
             <div class="nav-links" id="navLinks">
                 <i class="fa fa-times" onclick="hideMenu()"></i>
 
-                <!-- Search functionality inside mobile menu -->
+                <!-- Search link inside mobile menu -->
                 <div class="mobile-search">
-                    <div class="search-box">
-                        <input type="text" id="searchInputMobile" placeholder="Search..">
-                    </div>
+                    <a href="search.html">SEARCH</a>
                 </div>
 
                 <ul>
@@ -54,16 +52,11 @@
                     <li><a href="electric/electric.html">ELECTRIC</a></li>
                     <li><a href="videos/video.html">VIDEOS</a></li>
                     <li><a href="content_input_panel/input_home.html">CONTENT_INPUT</a></li>
+                    <!-- Desktop search as nav link -->
+                    <li class="desktop-search-link"><a href="search.html">SEARCH</a></li>
                 </ul>
             </div>
         </nav>
-
-        <!-- Search functionality for desktop -->
-        <div class="search-container desktop-search">
-            <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search..">
-            </div>
-        </div>
 
         <!-- Hero text section -->
         <div class="text-box">
@@ -440,27 +433,6 @@
                 behavior: 'smooth'
             });
         }
-    </script>
-
-    <!-- Enhanced search functionality -->
-    <script>
-        // Sync search inputs between desktop and mobile
-        document.addEventListener('DOMContentLoaded', function () {
-            const desktopSearch = document.getElementById('searchInput');
-            const mobileSearch = document.getElementById('searchInputMobile');
-
-            if (desktopSearch && mobileSearch) {
-                // Sync mobile search to desktop
-                mobileSearch.addEventListener('input', function () {
-                    desktopSearch.value = this.value;
-                });
-
-                // Sync desktop search to mobile
-                desktopSearch.addEventListener('input', function () {
-                    mobileSearch.value = this.value;
-                });
-            }
-        });
     </script>
 
     <!-- Mobile navigation menu toggle functionality -->

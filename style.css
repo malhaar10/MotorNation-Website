@@ -124,12 +124,32 @@ nav .fa {
     margin-bottom: 10px;
 }
 
-.mobile-search .search-box {
-    width: 100%;
+.mobile-search a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 0;
+    font-size: 16px;
+    transition: color 0.3s ease;
 }
 
-.mobile-search .search-box input {
-    width: 100%;
+.mobile-search a:hover {
+    color: lightskyblue;
+    padding-left: 10px;
+    transition: all 0.3s ease;
+}
+
+/* Base search container styles */
+.search-container {
+    position: relative;
+}
+
+.search-box {
+    position: relative;
+}
+
+.search-box input {
     background: rgba(255, 255, 255, 0.1);
     color: white;
     border: 1px solid #444;
@@ -138,14 +158,28 @@ nav .fa {
     font-size: 14px;
     outline: none;
     transition: border-color 0.3s ease;
+    width: 100%;
+    cursor: pointer;
 }
 
-.mobile-search .search-box input:focus {
+.search-box input:focus {
     border-color: lightskyblue;
 }
 
-.mobile-search .search-box input::placeholder {
+.search-box input::placeholder {
     color: #ccc;
+}
+
+/* Desktop search positioning */
+@media (min-width: 769px) {
+    .desktop-search {
+        display: block;
+    }
+    
+    .search-box input::placeholder {
+        color: #888;
+        font-size: 14px;
+    }
 }
 
 /*----Latest-News----*/
@@ -651,6 +685,7 @@ nav .fa {
     /* Show mobile search inside menu */
     .mobile-search {
         display: block;
+        order: -1; /* Ensure search appears first */
     }
 
     /* Show hamburger menu */
@@ -675,6 +710,8 @@ nav .fa {
         border-left: 2px solid lightskyblue;
         overflow-y: auto;
         /* Add scroll if content is too long */
+        display: flex;
+        flex-direction: column;
     }
 
     .nav-links ul {

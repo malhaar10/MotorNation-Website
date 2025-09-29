@@ -19,29 +19,29 @@ body {
 /* Navigation bar styling - Main navigation layout and positioning */
 nav {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     align-items: center;
     margin-bottom: 0;
     z-index: 1000;
     background-color: #333;
     position: sticky;
     width: 100%;
+    padding: 15px 10vw;
 }
 
-/* Search container styling - Positions search bar below navbar */
+/* Search container styling - Now integrated in navbar */
 .search-container {
-    background-color: #333;
-    padding: 5px 20vh;
+    background-color: transparent;
+    padding: 0;
     display: flex;
-    justify-content: left;
-    margin-bottom: 2vh;
+    justify-content: center;
+    margin: 0;
 }
 
-/* Navigation links container - Left side navigation menu */
+/* Navigation links container - Centered navigation menu */
 .nav-links {
-    flex: none;
-    margin-left: 3vw;
-    padding-left: 5vw;
+    margin-left: 0;
+    padding-left: 0;
 }
 
 .nav-links ul {
@@ -52,7 +52,7 @@ nav {
 /* Individual navigation list items - Horizontal menu layout */
 .nav-links ul li {
     display: inline-block;
-    padding: 8px 12px;
+    padding: 8px 20px;
     position: relative;
 }
 
@@ -148,13 +148,17 @@ nav .fa {
 .search-box {
     display: flex;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.897);
-    border-radius: 6px;
-    padding: 0 12px;
-    height: 35px;
-    max-width: 400px;
-    width: 90%;
+    background-color: #ffffff;
+    border-radius: 25px;
+    padding: 0 15px;
+    height: 40px;
+    max-width: 280px;
+    width: 280px;
     margin: 0;
+    border: none;
+    outline: none;
+    box-sizing: border-box;
+    overflow: hidden;
 }
 
 /* Search input field styling - Text input appearance */
@@ -163,9 +167,10 @@ nav .fa {
     background: transparent;
     border: none;
     outline: none;
-    color: black;
-    font-size: 16px;
-    padding-left: 10px;
+    color: #333;
+    font-size: 14px;
+    padding: 0;
+    width: 100%;
 }
 
 /* Footer contact card container - Bottom section layout */
@@ -243,7 +248,16 @@ hr {
 }
 
 /* Mobile responsiveness */
+/* Desktop search link - shows only on desktop */
+.desktop-search-link {
+    display: inline-block;
+}
+
 @media (max-width: 768px) {
+    .desktop-search-link {
+        display: none;
+    }
+    
     .header .logo-container {
         padding: 2vh 5vw;
     }
