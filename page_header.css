@@ -75,7 +75,7 @@ nav {
     border-radius: 12px;
 }
 
-/* Hero section styling - Main banner with background image and text */
+/* Hero section styling - Main banner with background image and text
 .header .text-box {
     width: 100%;
     color: rgb(27, 27, 27);
@@ -91,31 +91,31 @@ nav {
 }
 
 /* Hero section h4 styling - Secondary heading in hero area */
-.header .text-box h4 {
+/* .header .text-box h4 {
     font-size: 40px;
     color: #fff;
     font-weight: 400;
     margin-bottom: 10px;
     margin-top: 50px;
-}
+} */
 
 /* Hero section main heading - Primary title text styling */
-.header .text-box h1 {
+/* .header .text-box h1 {
     color: #fff;
     font-size: 65px;
     text-transform: uppercase;
     line-height: 1;
     margin-bottom: 30px;
     text-align: left;
-}
+} */
 
 /* Hero section h5 styling - Tertiary text in hero area */
-.header .text-box h5{
+/* .header .text-box h5{
     color: #fff;
     margin-bottom: 30px;
     margin-top: -20px;
     font-size: 20px;
-}
+}  */
 
 /* Hero button styling - Call-to-action button appearance */
 .hero-btn {
@@ -306,6 +306,34 @@ hr {
         font-size: 16px;
         padding: 12px;
     }
+
+    /* Mobile contact card layout - Column display */
+    .contact-card {
+        flex-direction: column;
+        text-align: center;
+        gap: 20px;
+        padding: 20px 5vw;
+    }
+
+    .contact-card img {
+        height: 60px;
+    }
+
+    .social-icons {
+        margin: 0;
+        justify-content: center;
+    }
+
+    .contact-links {
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+    }
+
+    .contact-links a {
+        margin: 0;
+    }
 }
 
 @media (max-width: 480px) {
@@ -319,5 +347,23 @@ hr {
     
     .search-container {
         padding: 8px 3vw;
+    }
+
+    /* Smaller mobile contact card adjustments */
+    .contact-card {
+        padding: 15px 3vw;
+        gap: 15px;
+    }
+
+    .contact-card img {
+        height: 50px;
+    }
+
+    .social-icons {
+        gap: 20px;
+    }
+
+    .social-icons a {
+        font-size: 22px;
     }
 }

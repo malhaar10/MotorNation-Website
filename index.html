@@ -5,21 +5,21 @@
     <!-- Meta and title configuration -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotorNation</title>
-    
+
     <!-- CSS stylesheets for page styling -->
     <link rel="stylesheet" href="page_header.css">
     <link rel="stylesheet" href="style.css">
-    
+
     <!-- Google Fonts configuration -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
-    
+
     <!-- External icon libraries -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    
+
     <!-- Search functionality script -->
     <script src="search-functionality.js"></script>
 </head>
@@ -31,32 +31,40 @@
         <div class="logo-container">
             <a href="index.html"><img src="assets\MotorNation.avif" alt="MotorNation Logo"></a>
         </div>
-        
+
         <!-- Main navigation bar -->
         <nav id="navbar">
-            <!-- Navigation links with hamburger menu support -->
+            <!-- Hamburger menu icon (shows in mobile) -->
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+
+            <!-- Navigation links with close button -->
             <div class="nav-links" id="navLinks">
                 <i class="fa fa-times" onclick="hideMenu()"></i>
+
+                <!-- Search functionality inside mobile menu -->
+                <div class="mobile-search">
+                    <div class="search-box">
+                        <input type="text" id="searchInputMobile" placeholder="Search..">
+                    </div>
+                </div>
+
                 <ul>
                     <li><a href="reviews-page/reviews-home.html">REVIEWS</a></li>
                     <li><a href="news-template/news-home.html">NEWS</a></li>
                     <li><a href="electric/electric.html">ELECTRIC</a></li>
-                    <!-- <li><a href="gallery/gallery.html">GALLERY</a></li> -->
                     <li><a href="videos/video.html">VIDEOS</a></li>
                     <li><a href="content_input_panel/input_home.html">CONTENT_INPUT</a></li>
                 </ul>
             </div>
-
-            <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
-        
-        <!-- Search functionality moved below navbar -->
-        <div class="search-container">
+
+        <!-- Search functionality for desktop -->
+        <div class="search-container desktop-search">
             <div class="search-box">
                 <input type="text" id="searchInput" placeholder="Search..">
             </div>
         </div>
-        
+
         <!-- Hero text section -->
         <div class="text-box">
             <p class="l1">Driven by Passion,</p>
@@ -64,12 +72,12 @@
             <p class="l1">Your Ultimate Car Hub</p>
         </div>
     </section>
-    
+
     <!-- Section divider -->
     <section>
         <hr>
     </section>
-    
+
     <!-- Reviews section header -->
     <section class="latest-news">
         <hr>
@@ -77,7 +85,7 @@
             <h3>REVIEWS</h3>
         </a>
     </section>
-    
+
     <!-- Car categories section with horizontal scrolling -->
     <section class="car-types">
         <button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
@@ -85,7 +93,8 @@
             <div class="categories">
                 <!-- Individual car category items -->
                 <div class="category">
-                    <a href="catagories/performance.html" class="category-item"><img src="assets/performance.avif" alt="Performance"><span>PERFORMANCE</span></a>
+                    <a href="catagories/performance.html" class="category-item"><img src="assets/performance.avif"
+                            alt="Performance"><span>PERFORMANCE</span></a>
                 </div>
                 <div class="category">
                     <a href="catagories/hybrids.html" class="category-item"><img src="assets/hybrid.avif"
@@ -127,7 +136,7 @@
         </div>
         <button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
     </section>
-    
+
     <!-- Latest reviews section with dynamic content loading -->
     <section class="latest-news">
         <div class="container">
@@ -138,12 +147,12 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Section divider -->
     <section class="hr">
         <hr>
     </section>
-    
+
     <!-- Script to fetch and display reviews from API -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -183,7 +192,7 @@
                 });
         });
     </script>
-    
+
     <!-- Latest news section -->
     <section class="latest-news">
         <hr>
@@ -198,12 +207,12 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Section divider -->
     <section class="hr">
         <hr>
     </section>
-    
+
     <!-- Script to fetch and display news articles from API -->
     <script>
         document.addEventListener('DOMContentLoaded', () => {
@@ -262,7 +271,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- Script to fetch and display electric vehicle reviews -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
@@ -298,12 +307,12 @@
             }
         });
     </script>
-    
+
     <!-- Section divider -->
     <section class="hr">
         <hr>
     </section>
-    
+
     <!-- Videos section -->
     <section class="videos">
         <hr>
@@ -414,13 +423,13 @@
         function showMenu() {
             navLinks.style.right = "0";
         }
-        
+
         // Hide mobile navigation menu
         function hideMenu() {
             navLinks.style.right = "-200px";
         }
     </script>
-    
+
     <!-- Horizontal scrolling functionality for car categories -->
     <script>
         function scrollCards(button, direction) {
@@ -431,6 +440,63 @@
                 behavior: 'smooth'
             });
         }
+    </script>
+
+    <!-- Enhanced search functionality -->
+    <script>
+        // Sync search inputs between desktop and mobile
+        document.addEventListener('DOMContentLoaded', function () {
+            const desktopSearch = document.getElementById('searchInput');
+            const mobileSearch = document.getElementById('searchInputMobile');
+
+            if (desktopSearch && mobileSearch) {
+                // Sync mobile search to desktop
+                mobileSearch.addEventListener('input', function () {
+                    desktopSearch.value = this.value;
+                });
+
+                // Sync desktop search to mobile
+                desktopSearch.addEventListener('input', function () {
+                    mobileSearch.value = this.value;
+                });
+            }
+        });
+    </script>
+
+    <!-- Mobile navigation menu toggle functionality -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        // Show mobile navigation menu
+        function showMenu() {
+            navLinks.style.right = "0";
+            // Prevent body scrolling when menu is open
+            document.body.style.overflow = "hidden";
+        }
+
+        // Hide mobile navigation menu
+        function hideMenu() {
+            navLinks.style.right = "-250px"; /* Updated for new width */
+            // Restore body scrolling
+            document.body.style.overflow = "auto";
+        }
+
+        // Close menu when clicking outside (optional)
+        document.addEventListener('click', function (event) {
+            const navbar = document.getElementById('navbar');
+            const isClickInsideNav = navbar.contains(event.target);
+
+            if (!isClickInsideNav && navLinks.style.right === "0px") {
+                hideMenu();
+            }
+        });
+
+        // Close menu when window is resized to desktop size
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) {
+                hideMenu();
+            }
+        });
     </script>
 
 </body>
