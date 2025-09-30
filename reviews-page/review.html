@@ -23,8 +23,9 @@
             <a href="../home/index.html"><img src="../assets/MotorNation.avif" alt="MotorNation Logo"></a>
         </div>
         <nav id="navbar">
+            <i class="fa fa-bars" onclick="showMenu()"></i>
             <div class="nav-links" id="navLinks">
-                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <i class="fa fa-times close-btn" onclick="hideMenu()"></i>
                 <ul>
                     <li><a href="../index.html">HOME</a></li>
                     <li><a href="../news-template/news-home.html">NEWS</a></li>
@@ -34,7 +35,6 @@
                     <li><a href="../search.html">SEARCH</a></li>
                 </ul>
             </div>
-            <i class="fa fa-bars" onclick="showMenu()"></i>
         </nav>
 
     </section>
@@ -220,6 +220,42 @@
 
         } catch (error) {
             console.error('Failed to load review data:', error);
+        }
+    });
+</script>
+
+<!-- Mobile navigation menu toggle functionality -->
+<script>
+    var navLinks = document.getElementById("navLinks");
+
+    // Show mobile navigation menu
+    function showMenu() {
+        navLinks.style.right = "0";
+        // Prevent body scrolling when menu is open
+        document.body.style.overflow = "hidden";
+    }
+
+    // Hide mobile navigation menu
+    function hideMenu() {
+        navLinks.style.right = "-200px";
+        // Restore body scrolling
+        document.body.style.overflow = "auto";
+    }
+
+    // Close menu when clicking outside (optional)
+    document.addEventListener('click', function (event) {
+        const navbar = document.getElementById('navbar');
+        const isClickInsideNav = navbar.contains(event.target);
+
+        if (!isClickInsideNav && navLinks.style.right === "0px") {
+            hideMenu();
+        }
+    });
+
+    // Close menu when window is resized to desktop size
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 768) {
+            hideMenu();
         }
     });
 </script>
