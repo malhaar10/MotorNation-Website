@@ -1,12 +1,12 @@
 body {
     background-color: black;
-    padding: 10vh;
+    padding: 0;
 }
 
 .header .logo-container {
     background-color: black;
-    padding: 20px 0 20px 10vw;
-    height: 16vh;
+    padding: 4vh 10vw 4vh 10vw;
+    height: auto;
 }
 
 .header .logo-container img {

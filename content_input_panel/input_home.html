@@ -4,7 +4,8 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotorNation</title>
-    <link rel="stylesheet" href="../content_input_panel/base.css">
+    <link rel="stylesheet" href="../page_header.css">
+    <link rel="stylesheet" href="../content_input_panel/input_panel.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
@@ -45,11 +46,26 @@
         <div class="logo-container">
             <a href="../index.html"><img src="../assets/MotorNation.avif" alt="MotorNation Logo"></a>
         </div>
+        <nav id="navbar">
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="../reviews-page/reviews-home.html">REVIEWS</a></li>
+                    <li><a href="../news-template/news-home.html">NEWS</a></li>
+                    <!-- <li><a href="../gallery/gallery.html">GALLERY</a></li> -->
+                    <li><a href="../videos/video.html">VIDEOS</a></li>
+                    <li><a href="../search.html">SEARCH</a></li>
+                </ul>
+            </div>
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+        </nav>
+
     </section>
 
     <section class="button-container">
-        <a href="reviews_input.html" class="btn-large">REVIEWS PAGE</a>
-        <a href="news_input.html" class="btn-large">NEWS PAGE</a>
+        <a href="reviews_input.html" class="btn-large">REVIEWS INPUT</a>
+        <a href="news_input.html" class="btn-large">NEWS INPUT</a>
         <a href="image_converter.html" class="btn-large">IMAGE CONVERTER</a>
     </section>
     <section class="hr">
