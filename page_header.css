@@ -1,3 +1,10 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald', sans-serif;
+    box-sizing: border-box;
+}
+
 /* Global body styling - Sets black background for entire page */
 body {
     background-color: black;
@@ -72,70 +79,6 @@ nav {
 .nav-links ul li:hover a {
     background-color: lightskyblue;
     color: #333;
-    border-radius: 12px;
-}
-
-/* Hero section styling - Main banner with background image and text
-.header .text-box {
-    width: 100%;
-    color: rgb(27, 27, 27);
-    margin: auto; 
-    text-align: left;
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    padding: 10vh 10vw;
-    border-radius: 30px;
-    border-color: #ffffff;
-    border-width: 10px;
-}
-
-/* Hero section h4 styling - Secondary heading in hero area */
-/* .header .text-box h4 {
-    font-size: 40px;
-    color: #fff;
-    font-weight: 400;
-    margin-bottom: 10px;
-    margin-top: 50px;
-} */
-
-/* Hero section main heading - Primary title text styling */
-/* .header .text-box h1 {
-    color: #fff;
-    font-size: 65px;
-    text-transform: uppercase;
-    line-height: 1;
-    margin-bottom: 30px;
-    text-align: left;
-} */
-
-/* Hero section h5 styling - Tertiary text in hero area */
-/* .header .text-box h5{
-    color: #fff;
-    margin-bottom: 30px;
-    margin-top: -20px;
-    font-size: 20px;
-}  */
-
-/* Hero button styling - Call-to-action button appearance */
-.hero-btn {
-    display: inline-block;
-    text-decoration: none;
-    color: #fff;
-    border: 1px solid #fff;
-    padding: 12px 34px;
-    font-size: 13px;
-    background: transparent;
-    position: relative;
-    cursor: pointer;
-    border-radius: 12px;
-}
-
-/* Hero button hover effects - Interactive button styling */
-.hero-btn:hover {
-    border: 1px solid lightskyblue;
-    background: lightskyblue;
-    transition: 1s;
     border-radius: 12px;
 }
 
@@ -305,6 +248,10 @@ hr {
         margin: 10px;
         font-size: 22px;
         cursor: pointer;
+        position: fixed;
+        top: 15px;
+        right: 15px;
+        z-index: 3;
     }
     
     .search-container {
