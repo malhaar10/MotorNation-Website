@@ -235,24 +235,69 @@ body {
 }
 
 @media (max-width: 768px) {
+    /* Car categories mobile */
+    .car-types {
+        width: 100vw;
+        margin: 0;
+        padding: 15px 0 10px 0;
+    }
+
+    /* Hide scroll buttons on mobile */
+    .scroll-btn {
+        display: none;
+    }
+
+    /* Update category container for grid layout */
+    .category-container {
+        width: 90vw;
+        padding: 0 5vw;
+        overflow: hidden;
+    }
+    
+    .categories {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* 3 columns */
+        grid-template-rows: repeat(3, 1fr) !important;    /* 3 rows */
+        gap: 10px !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        flex-wrap: unset !important;
+        flex-direction: unset !important;
+    }
+    
+    .category {
+        width: auto; /* Let grid control the width */
+        height: 40px; /* Smaller height for mobile grid */
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Hide images in category cards on mobile */
+    .category img {
+        display: none;
+    }
+    
+    .category-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .category-item span {
+        font-size: 12px; /* Smaller text for mobile */
+        text-align: center;
+        color: #000000;
+    }
+
     .heading {
         font-size: x-large;
         padding-left: 20px;
         margin: 0 3vw;
-    }
-    
-    .categories {
-        grid-template-columns: repeat(2, 1fr);
-        gap: 15px;
-        padding: 0 20px;
-    }
-    
-    .category-card {
-        padding: 15px;
-    }
-    
-    .category-card h3 {
-        font-size: 16px;
     }
     
     .cards-container {
@@ -262,10 +307,6 @@ body {
     .cards {
         grid-template-columns: 1fr;
         gap: 20px;
-    }
-    
-    .scroll-btn {
-        display: none; /* Hide scroll buttons on mobile */
     }
 }
 
