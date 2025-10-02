@@ -15,12 +15,17 @@ router.get('/reviews', async (req, res) => {
 
 router.get('/reviews/summary', async (req, res) => {
   try {
+    console.log('Query params received:', req.query);
+    const limit = parseInt(req.query.limit) || 6;
+    console.log('Limit set to:', limit);
+
     const result = await pool.query(`
       SELECT id, car_name, model_year
       FROM reviews
       ORDER BY created_at DESC
-      LIMIT 6
-    `);
+      LIMIT $1`, [limit]);
+
+    console.log('Query executed, returning', result.rows.length, 'rows');
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching review summaries:', err);
@@ -61,7 +66,7 @@ router.post('/reviews', async (req, res) => {
   } = req.body;
 
   if (!car_name || !model_year || !overview || !pricing || !drivetrain ||
-      !interior || !technology || !safety || !warranty || !tag || !tag2) {
+    !interior || !technology || !safety || !warranty || !tag || !tag2) {
     return res.status(400).json({ error: 'Missing required fields' });
   }
 
@@ -73,7 +78,7 @@ router.post('/reviews', async (req, res) => {
       ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11)
       RETURNING *`,
       [car_name, model_year, overview, pricing, drivetrain,
-       interior, technology, safety, warranty, tag, tag2]
+        interior, technology, safety, warranty, tag, tag2]
     );
 
     res.status(201).json(result.rows[0]);

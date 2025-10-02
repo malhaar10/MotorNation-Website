@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    
+
     <!-- Search functionality script -->
     <script src="../search-functionality.js"></script>
 </head>
@@ -83,11 +83,11 @@
 
     <section><br>
         <div class="breaking" id="latest-review">
-            
+
         </div>
     </section>
     <hr>
-    
+
     <section class="latest-news">
         <hr>
         <a class="latest-head">LATEST REVIEWS</a>
@@ -133,36 +133,49 @@
         }
     </script>
     <script>
+        // ...existing code...
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                const response = await fetch('http://localhost:3000/api/reviews/summary');
+                const isMobile = window.innerWidth <= 768;
+                const limit = isMobile ? 3 : 6;
+
+                console.log('Window width:', window.innerWidth);
+                console.log('Is mobile:', isMobile);
+                console.log('Limit set to:', limit);
+
+                const url = `http://localhost:3000/api/reviews/summary?limit=${limit}`;
+                console.log('Fetching from URL:', url);
+
+                const response = await fetch(url);
                 const reviews = await response.json();
 
+                console.log('Received reviews count:', reviews.length);
+
                 const container = document.getElementById('review-cards-container');
+                container.innerHTML = ''; // Clear any existing content
+
                 reviews.forEach(review => {
                     const card = document.createElement('div');
                     card.className = 'card';
-
                     card.innerHTML = `
-                    <a href="../reviews-page/review.html?id=${review.id}">
-                        <div class="image-section">
-                            <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
-                        </div>
-                        <div class="content">
-                            <p>${review.model_year}</p>
-                            <h3>${review.car_name}</h3>
-                            <h5>Latest Review</h5>
-                            <hr>
-                        </div>
-                    </a>
-                `;
-
+            <a href="../reviews-page/review.html?id=${review.id}">
+                <div class="image-section">
+                    <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
+                </div>
+                <div class="content">
+                    <p>${review.model_year}</p>
+                    <h3>${review.car_name}</h3>
+                    <hr>
+                </div>
+            </a>
+            `;
                     container.appendChild(card);
                 });
             } catch (error) {
                 console.error('Failed to load latest reviews:', error);
             }
         });
+        // ...existing code...
     </script>
     <script>
         async function loadLatestReview() {
