@@ -645,31 +645,59 @@ body {
 
     /* Car categories mobile */
     .car-types {
-        padding: 0 10px;
+        width: 100vw;
+        margin: 0;
+        padding: 15px 0 10px 0;
     }
 
-    .categories {
-        gap: 15px;
-        padding: 0 10px;
-    }
-
-    .category {
-        min-width: 120px;
-    }
-
-    .category img {
-        width: 100px;
-        height: 100px;
-    }
-
-    .category span {
-        font-size: 12px;
-    }
-
+    /* Hide scroll buttons on mobile */
     .scroll-btn {
-        width: 35px;
-        height: 35px;
-        font-size: 16px;
+        display: none;
+    }
+
+    /* Update category container for grid layout */
+    .category-container {
+        width: 90vw;
+        padding: 0 5vw;
+        overflow: hidden;
+    }
+    
+    .categories {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr); /* 3 columns */
+        grid-template-rows: repeat(3, 1fr);    /* 3 rows */
+        gap: 10px;
+        overflow: hidden;
+        width: 100%;
+        max-width: 100%;
+    }
+    
+    .category {
+        width: auto; /* Let grid control the width */
+        height: 40px; /* Smaller height for mobile grid */
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Hide images in category cards on mobile */
+    .category img {
+        display: none;
+    }
+    
+    .category-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .category-item span {
+        font-size: 12px; /* Smaller text for mobile */
+        text-align: center;
+        color: #000000;
     }
 
     /* Blog sections mobile */
