@@ -190,10 +190,20 @@ hr {
         line-height: 1.3;
     }
     
-    .cards {
+    .latest-news {
+        width: 80vw;
+        margin: 0 10vw;
+    }
+    
+    .blog-section .cards {
         grid-template-columns: 1fr;
         gap: 20px;
-        padding: 0 20px;
+        padding: 0;
+    }
+    
+    /* Show only first 3 cards on mobile */
+    .blog-section .cards .card:nth-child(n+4) {
+        display: none;
     }
 }
 
@@ -206,7 +216,17 @@ hr {
         font-size: 18px;
     }
     
-    .cards {
-        padding: 0 15px;
+    .latest-news {
+        width: 80vw;
+        margin: 0 10vw;
+    }
+    
+    .blog-section .cards {
+        padding: 0;
+    }
+    
+    /* Show only first 3 cards on mobile */
+    .blog-section .cards .card:nth-child(n+4) {
+        display: none;
     }
 }
