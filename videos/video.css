@@ -217,9 +217,9 @@ body {
     color: white;
     height: 50px;
     width: auto;
-    text-align: right;
+    text-align: center;
     display: block;
-    margin-left: 69vw; 
+    margin: 0 auto; 
     border-color: white;
     border-width: 1px;
     border-radius: 12px;
