@@ -236,3 +236,111 @@ hr {
   width: 100%;
   color: #065586;
 }
+
+/* ========== Mobile Styles ========== */
+@media (max-width: 768px) {
+    .car-types {
+        width: 100vw;
+        margin: 0;
+        padding: 15px 0 10px 0;
+    }
+
+    /* Hide scroll buttons on mobile */
+    .scroll-btn {
+        display: none;
+    }
+
+    /* Update category container for grid layout */
+    .category-container {
+        width: 90vw;
+        padding: 0 5vw;
+        overflow: hidden;
+    }
+    
+    .categories {
+        display: grid !important;
+        grid-template-columns: repeat(3, 1fr) !important; /* 3 columns */
+        grid-template-rows: repeat(3, 1fr) !important;    /* 3 rows */
+        gap: 10px !important;
+        overflow: hidden !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        flex-wrap: unset !important;
+        flex-direction: unset !important;
+    }
+    
+    .category {
+        width: auto; /* Let grid control the width */
+        height: 40px; /* Smaller height for mobile grid */
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Hide images in category cards on mobile */
+    .category img {
+        display: none;
+    }
+    
+    .category-item {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 100%;
+    }
+    
+    .category-item span {
+        font-size: 12px; /* Smaller text for mobile */
+        text-align: center;
+        color: #000000;
+    }
+
+    /* ========== Mobile Card Limits ========== */
+    /* Limit cards to 3 per section while maintaining side margins */
+    .latest-news {
+        width: 80vw; /* Keep same side margins as desktop */
+        margin: 0 10vw; /* Keep same side margins as desktop */
+    }
+
+    .latest-news .cards {
+        display: grid;
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        gap: 20px;
+        margin: 25px auto;
+        width: 100%;
+    }
+
+    /* Limit video cards to 3 */
+    .latest-news .cards .card:nth-child(n+4):not(.full-button) {
+        display: none;
+    }
+
+    /* Limit review cards to 3 */
+    #reviews-electric .card:nth-child(n+4) {
+        display: none;
+    }
+
+    /* Limit news cards to 3 */
+    #ev-news-cards .card:nth-child(n+4) {
+        display: none;
+    }
+
+    /* Adjust typography for mobile */
+    .latest-news h1 {
+        font-size: 36px;
+    }
+
+    .latest-news h2 {
+        font-size: 28px;
+    }
+
+    .latest-news p {
+        font-size: 24px;
+    }
+
+    .latest-news h3 {
+        font-size: 18px;
+    }
+}
