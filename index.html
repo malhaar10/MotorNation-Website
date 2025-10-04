@@ -155,10 +155,15 @@
                         const card = document.createElement('div');
                         card.className = 'card';
 
+                        // Use first image from GCS if available, otherwise fallback to placeholder
+                        const imageUrl = (review.images && review.images.length > 0) 
+                            ? review.images[0] 
+                            : "../images/2025-crv/63_2024HondaCRVEX-L.avif";
+
                         card.innerHTML = `
                     <a href="reviews-page/review.html?id=${review.id}">
                         <div class="image-section">
-                            <img src="../images/2025-crv/63_2024HondaCRVEX-L.avif" alt="${review.car_name}" loading="lazy">
+                            <img src="${imageUrl}" alt="${review.car_name}" loading="lazy">
                         </div>
                         <div class="content">
                             <p>REVIEW</p>
@@ -220,10 +225,15 @@
                             day: 'numeric', month: 'short', year: 'numeric'
                         });
 
+                        // Use first image from GCS if available, otherwise fallback to placeholder
+                        const imageUrl = (item.images && item.images.length > 0) 
+                            ? item.images[0] 
+                            : "../images/2025-crv/29_2024HondaCRVEX-L.avif";
+
                         card.innerHTML = `
                         <a href="news-template/news-page-template.html?id=${item.id}">
                             <div class="image-section">
-                                <img src="../images/2025-crv/29_2024HondaCRVEX-L.avif" alt="${item.news_title}" loading="lazy">
+                                <img src="${imageUrl}" alt="${item.news_title}" loading="lazy">
                             </div>
                             <div class="content">
                                 <p>${item.tag.toUpperCase()}</p>
@@ -273,10 +283,15 @@
                     const card = document.createElement('div');
                     card.className = 'card';
 
+                    // Use first image from GCS if available, otherwise fallback to placeholder
+                    const imageUrl = (review.images && review.images.length > 0) 
+                        ? review.images[0] 
+                        : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
+
                     card.innerHTML = `
                         <a href="reviews-page/review.html?id=${review.id}">
                             <div class="image-section">
-                                <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
+                                <img src="${imageUrl}" alt="${review.car_name}">
                             </div>
                             <div class="content">
                                 <p>${review.model_year}</p>

@@ -149,10 +149,15 @@
                     const card = document.createElement('div');
                     card.className = 'card';
 
+                    // Use first image from GCS if available, otherwise fallback to placeholder
+                    const imageUrl = (review.images && review.images.length > 0) 
+                        ? review.images[0] 
+                        : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
+
                     card.innerHTML = `
                         <a href="../reviews-page/review-template.html?id=${review.id}">
                             <div class="image-section">
-                                <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
+                                <img src="${imageUrl}" alt="${review.car_name}">
                             </div>
                             <div class="content">
                                 <p>${review.model_year}</p>
@@ -200,10 +205,16 @@
                     data.slice(0, 6).forEach(article => {
                         const card = document.createElement('div');
                         card.className = 'card';
+
+                        // Use first image from GCS if available, otherwise fallback to placeholder
+                        const imageUrl = (article.images && article.images.length > 0) 
+                            ? article.images[0] 
+                            : "../images/Comparison.png";
+
                         card.innerHTML = `
                 <a href="../news-template/news-page-template.html?id=${article.id}">
                   <div class="image-section">
-                    <img src="../images/Comparison.png" alt="${article.news_title}">
+                    <img src="${imageUrl}" alt="${article.news_title}">
                   </div>
                   <div class="content">
                     <p>${article.tag || 'UPDATE'}</p>

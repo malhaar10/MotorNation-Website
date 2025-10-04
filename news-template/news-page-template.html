@@ -139,6 +139,7 @@
             fetch(`/api/news/${newsId}`)
                 .then(res => res.json())
                 .then(data => {
+                    // Update article title and content
                     document.querySelector(".article-text h2").textContent = data.news_title;
                     const paragraphs = [data.para1, data.para2, data.para3];
                     const container = document.querySelector(".article-text");
@@ -152,6 +153,30 @@
                         container.appendChild(para);
                         container.appendChild(document.createElement("br"));
                     });
+
+                    // Update images if available
+                    if (data.images && data.images.length > 0) {
+                        // Update main image
+                        const mainImage = document.getElementById('mainImage');
+                        if (mainImage) {
+                            mainImage.src = data.images[0];
+                            mainImage.alt = data.news_title;
+                        }
+
+                        // Update image gallery
+                        const imageGallery = document.querySelector('.image-gallery');
+                        if (imageGallery) {
+                            imageGallery.innerHTML = '';
+                            data.images.forEach((imageUrl, index) => {
+                                const img = document.createElement('img');
+                                img.src = imageUrl;
+                                img.className = 'thumbnail';
+                                img.alt = `${data.news_title} - Image ${index + 1}`;
+                                img.onclick = () => changeImage(imageUrl, index);
+                                imageGallery.appendChild(img);
+                            });
+                        }
+                    }
                 })
                 .catch(err => {
                     console.error("Failed to load news article", err);

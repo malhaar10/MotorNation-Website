@@ -85,17 +85,17 @@
                     <p id="pricing-text">
                     <h2 id="drivetrain">DRIVETRAIN</h2>
                     <div class="article-image">
-                        <img src="../images/2025-crv/engine.avif" id="mainImage"><br>
+                        <img src="../images/2025-crv/engine.avif" id="drivetrainImage"><br>
                     </div>
                     <p id="drivetrain-text">
                     <h2 id="interior">INTERIOR</h2>
                     <div class="article-image">
-                        <img src="../images/2025-crv/interior.avif" id="mainImage"><br>
+                        <img src="../images/2025-crv/interior.avif" id="interiorImage"><br>
                     </div>
                     <p id="interior-text">
                     <h2 id="technology">TECHNOLOGY</h2>
                     <div class="article-image">
-                        <img src="../images/2025-crv/infotainment.jpg" id="mainImage"><br>
+                        <img src="../images/2025-crv/infotainment.jpg" id="technologyImage"><br>
                     </div>
                     <p id="technology-text">
                     <h2 id="safety">SAFETY</h2>
@@ -116,7 +116,8 @@
         }
     </script>
     <script>
-        const images = Array.from(document.querySelectorAll('.image-gallery img'));
+        // Initialize global variables
+        let images = [];
         let currentIndex = 0;
 
         function changeImage(src, index) {
@@ -126,11 +127,13 @@
         }
 
         function nextImage() {
+            if (images.length === 0) return;
             currentIndex = (currentIndex + 1) % images.length;
             changeImage(images[currentIndex].src, currentIndex);
         }
 
         function prevImage() {
+            if (images.length === 0) return;
             currentIndex = (currentIndex - 1 + images.length) % images.length;
             changeImage(images[currentIndex].src, currentIndex);
         }
@@ -140,6 +143,14 @@
                 img.classList.toggle('active', index === currentIndex);
             });
         }
+
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            // Get initial images from gallery (fallback for hardcoded images)
+            images = Array.from(document.querySelectorAll('.image-gallery img'));
+            currentIndex = 0;
+            updateThumbnailSelection();
+        });
 
         // Gallery scroll buttons
         document.querySelector('.gallery-nav.prev').addEventListener('click', () => {
@@ -193,10 +204,8 @@
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/reviews`);
-            const reviews = await response.json();
-
-            const review = reviews.find(r => r.id === id);
+            const response = await fetch(`http://localhost:3000/api/reviews/${id}`);
+            const review = await response.json();
 
             if (!review) {
                 console.warn('No review found for ID:', id);
@@ -218,10 +227,55 @@
             document.getElementById('safety-text').textContent = review.safety || '';
             document.getElementById('warranty-text').textContent = review.warranty || '';
 
+            // Update images if available from GCS
+            if (review.images && review.images.length > 0) {
+                updateImagesFromDatabase(review.images);
+            }
+
         } catch (error) {
             console.error('Failed to load review data:', error);
         }
     });
+    
+    // Function to update images from database
+    function updateImagesFromDatabase(imageUrls) {
+        const mainImage = document.getElementById('mainImage');
+        const imageGallery = document.querySelector('.image-gallery');
+        
+        if (imageUrls.length > 0) {
+            // Update main image
+            mainImage.src = imageUrls[0];
+            mainImage.alt = document.getElementById('review-title').textContent || 'Review Image';
+            
+            // Update content section images if available
+            const drivetrainImg = document.getElementById('drivetrainImage');
+            const interiorImg = document.getElementById('interiorImage');
+            const technologyImg = document.getElementById('technologyImage');
+            
+            // Use different images for different sections if available
+            if (imageUrls.length > 1 && drivetrainImg) drivetrainImg.src = imageUrls[1];
+            if (imageUrls.length > 2 && interiorImg) interiorImg.src = imageUrls[2];
+            if (imageUrls.length > 3 && technologyImg) technologyImg.src = imageUrls[3];
+            
+            // Clear existing thumbnails
+            imageGallery.innerHTML = '';
+            
+            // Add new thumbnails from database
+            imageUrls.forEach((imageUrl, index) => {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.className = 'thumbnail';
+                img.onclick = () => changeImage(imageUrl, index);
+                if (index === 0) img.classList.add('active');
+                imageGallery.appendChild(img);
+            });
+            
+            // Update the global images array for slider functionality
+            images = Array.from(document.querySelectorAll('.image-gallery img'));
+            currentIndex = 0;
+            updateThumbnailSelection();
+        }
+    }
 </script>
 
 <!-- Mobile navigation menu toggle functionality -->

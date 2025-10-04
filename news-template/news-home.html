@@ -75,21 +75,25 @@
     </section>
 
     <script>
-fetch('http://localhost:3000/api/news/electric')
+fetch('http://localhost:3000/api/news/summary')
   .then(res => res.json())
   .then(data => {
     const cardsContainer = document.getElementById('news-cards');
 
-    // Skip the first article (index 0), and insert up to 6 others (i = 1 to 6)
-    for (let i = 1; i < Math.min(7, data.length); i++) {
-      const article = data[i];
+    // Display the first 6 news articles (all articles returned by summary endpoint)
+    data.forEach(article => {
       const card = document.createElement('div');
       card.className = 'card';
+
+      // Use first image from GCS if available, otherwise fallback to placeholder
+      const imageUrl = (article.images && article.images.length > 0) 
+        ? article.images[0] 
+        : "../images/Comparison.png";
 
       card.innerHTML = `
         <a href="../news-template/news-page-template.html?id=${article.id}">
           <div class="image-section">
-            <img src="../images/Comparison.png" alt="${article.news_title}">
+            <img src="${imageUrl}" alt="${article.news_title}">
           </div>
           <div class="content">
             <p>${article.tag || 'UPDATE'}</p>
@@ -101,7 +105,7 @@ fetch('http://localhost:3000/api/news/electric')
       `;
 
       cardsContainer.appendChild(card);
-    }
+    });
   })
   .catch(err => console.error('❌ Failed to load news summary:', err));
 

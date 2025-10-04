@@ -16,6 +16,7 @@
             font-family: 'Oswald', sans-serif;
             margin: 0;
             padding: 0;
+            background-color: black;
         }
 
         .form-container {
@@ -117,8 +118,20 @@
         </div>
 
         <div>
-            <label for="images">Image URLs</label>
-            <input type="text" id="images" name="images" placeholder="Separate multiple URLs with commas">
+            <label for="images">Upload Images (Max 10)</label>
+            <input type="file" id="images" name="images" multiple accept="image/*" style="
+                padding: 12px;
+                font-size: 16px;
+                width: 100%;
+                border: 1px solid #ccc;
+                border-radius: 6px;
+                font-family: 'Oswald', sans-serif;
+                background-color: white;
+            ">
+            <small style="color: #ccc; font-size: 14px; margin-top: 5px; display: block;">
+                Select up to 10 image files (JPG, PNG, GIF, etc.). Each file should be under 10MB.
+            </small>
+            <div id="imagePreview" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
         </div>
     </section>
 
@@ -137,6 +150,41 @@
     </div>
 
     <script>
+        // Add image preview functionality
+        document.getElementById('images').addEventListener('change', function(e) {
+            const files = e.target.files;
+            const preview = document.getElementById('imagePreview');
+            preview.innerHTML = '';
+
+            if (files.length > 10) {
+                alert('Please select a maximum of 10 images.');
+                e.target.value = '';
+                return;
+            }
+
+            Array.from(files).forEach((file, index) => {
+                if (file.size > 10 * 1024 * 1024) {
+                    alert(`File "${file.name}" is too large. Please select files under 10MB.`);
+                    return;
+                }
+
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.style.cssText = `
+                        width: 100px; 
+                        height: 100px; 
+                        object-fit: cover; 
+                        border-radius: 6px; 
+                        border: 2px solid #ccc;
+                    `;
+                    preview.appendChild(img);
+                };
+                reader.readAsDataURL(file);
+            });
+        });
+
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const title = document.getElementById('title').value.trim();
             const model_year = document.getElementById('model_year').value.trim();
@@ -149,42 +197,64 @@
             const warranty = document.getElementById('warranty').value.trim();
             const tag1 = document.getElementById('tag1').value.trim();
             const tag2 = document.getElementById('tag2').value.trim();
-            const images = document.getElementById('images').value.trim();
+            const images = document.getElementById('images').files;
 
-            const payload = {
-                car_name: title,
-                model_year: model_year,
-                overview: overview,
-                pricing: pricing,
-                drivetrain: drivetrain,
-                interior: interior,
-                technology: technology,
-                safety: safety,
-                warranty: warranty,
-                tag: tag1,
-                tag2: tag2,
-                images: images
-            };
+            // Create FormData for multipart form submission
+            const formData = new FormData();
+            formData.append('car_name', title);
+            formData.append('model_year', model_year);
+            formData.append('overview', overview);
+            formData.append('pricing', pricing);
+            formData.append('drivetrain', drivetrain);
+            formData.append('interior', interior);
+            formData.append('technology', technology);
+            formData.append('safety', safety);
+            formData.append('warranty', warranty);
+            formData.append('tag', tag1);
+            formData.append('tag2', tag2);
+
+            // Append image files
+            Array.from(images).forEach((file, index) => {
+                formData.append('images', file);
+            });
 
             try {
+                document.getElementById('submitBtn').disabled = true;
+                document.getElementById('submitBtn').textContent = 'Uploading...';
+
                 const response = await fetch('http://localhost:3000/api/reviews', {
                     method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(payload)
+                    body: formData // No Content-Type header - browser will set it automatically for FormData
                 });
 
                 if (response.ok) {
                     const data = await response.json();
                     alert('✅ Review submitted successfully!');
-                    console.log('Created review ID:', data.id);
+                    console.log('Created review:', data);
+                    
+                    // Reset form
+                    document.getElementById('title').value = '';
+                    document.getElementById('model_year').value = '';
+                    document.getElementById('overview').value = '';
+                    document.getElementById('pricing').value = '';
+                    document.getElementById('drivetrain').value = '';
+                    document.getElementById('interior').value = '';
+                    document.getElementById('technology').value = '';
+                    document.getElementById('safety').value = '';
+                    document.getElementById('warranty').value = '';
+                    document.getElementById('tag1').value = '';
+                    document.getElementById('tag2').value = '';
+                    document.getElementById('images').value = '';
+                    document.getElementById('imagePreview').innerHTML = '';
                 } else {
                     const err = await response.json();
                     alert('❌ Failed to submit review: ' + err.error);
                 }
             } catch (error) {
                 alert('⚠️ Could not connect to server: ' + error.message);
+            } finally {
+                document.getElementById('submitBtn').disabled = false;
+                document.getElementById('submitBtn').textContent = 'Enter';
             }
         });
     </script>

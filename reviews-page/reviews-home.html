@@ -157,10 +157,16 @@
                 reviews.forEach(review => {
                     const card = document.createElement('div');
                     card.className = 'card';
+                    
+                    // Use first image from GCS if available, otherwise fallback to placeholder
+                    const imageUrl = (review.images && review.images.length > 0) 
+                        ? review.images[0] 
+                        : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
+                    
                     card.innerHTML = `
             <a href="../reviews-page/review.html?id=${review.id}">
                 <div class="image-section">
-                    <img src="../images/2025-crv/18_2024HondaCRVEX-L.avif" alt="${review.car_name}">
+                    <img src="${imageUrl}" alt="${review.car_name}">
                 </div>
                 <div class="content">
                     <p>${review.model_year}</p>
@@ -180,7 +186,7 @@
     <script>
         async function loadLatestReview() {
             try {
-                const response = await fetch('http://localhost:3000/api/reviews'); // Use your backend URL
+                const response = await fetch('http://localhost:3000/api/reviews/summary?limit=1'); // Use summary endpoint for consistency
                 const reviews = await response.json();
 
                 if (!Array.isArray(reviews) || reviews.length === 0) {
@@ -189,7 +195,11 @@
                 }
 
                 const latest = reviews[0];
-                const imagePath = '../images/2025-crv/29_2024HondaCRVEX-L.avif';
+                
+                // Use first image from GCS if available, otherwise fallback to placeholder
+                const imagePath = (latest.images && latest.images.length > 0) 
+                    ? latest.images[0] 
+                    : '../images/2025-crv/29_2024HondaCRVEX-L.avif';
 
                 document.getElementById('latest-review').innerHTML = `
             <a href="../reviews-page/review.html?id=${latest.id}">
