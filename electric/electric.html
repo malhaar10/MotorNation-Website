@@ -131,7 +131,7 @@
                 <div class="cards" id="reviews-electric">
                     <!-- Cards will be injected here dynamically -->
                 </div>
-                <button class="full-button" onclick="window.location.href='/reviews-page/review-list.html'">
+                <button class="full-button" onclick="window.location.href='/reviews-page/reviews-home.html'">
                     See full list
                 </button>
             </div>
@@ -140,12 +140,26 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
+                console.log('🔄 Loading EV reviews...');
                 const response = await fetch('http://localhost:3000/api/reviews/electric');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
 
                 const reviews = await response.json();
+                console.log('✅ EV Reviews loaded:', reviews.length);
 
                 const container = document.getElementById('reviews-electric');
-                reviews.forEach(review => {
+                container.innerHTML = ''; // Clear any existing content
+
+                if (reviews.length === 0) {
+                    container.innerHTML = '<p>No electric vehicle reviews available yet.</p>';
+                    return;
+                }
+
+                // Show first 6 reviews (or all if less than 6)
+                reviews.slice(0, 6).forEach(review => {
                     const card = document.createElement('div');
                     card.className = 'card';
 
@@ -155,7 +169,7 @@
                         : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
 
                     card.innerHTML = `
-                        <a href="../reviews-page/review-template.html?id=${review.id}">
+                        <a href="../reviews-page/review.html?id=${review.id}">
                             <div class="image-section">
                                 <img src="${imageUrl}" alt="${review.car_name}">
                             </div>
@@ -171,7 +185,9 @@
                     container.appendChild(card);
                 });
             } catch (error) {
-                console.error('Failed to load latest reviews:', error);
+                console.error('❌ Failed to load EV reviews:', error);
+                const container = document.getElementById('reviews-electric');
+                container.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
             }
         });
     </script>
@@ -190,18 +206,25 @@
     
     <script>
         document.addEventListener('DOMContentLoaded', () => {
+            console.log('🔄 Loading EV news...');
             fetch("http://localhost:3000/api/news/electric")
                 .then(res => {
-                    if (!res.ok) throw new Error('Failed to fetch news');
+                    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
                     return res.json();
                 })
                 .then(data => {
-                    console.log("✅ EV News:", data);
+                    console.log("✅ EV News loaded:", data.length);
                     const cardsContainer = document.getElementById('ev-news-cards');
                     if (!cardsContainer) return;
 
-                    cardsContainer.innerHTML = ''; // Clear previous if needed
+                    cardsContainer.innerHTML = ''; // Clear previous content
 
+                    if (data.length === 0) {
+                        cardsContainer.innerHTML = '<p>No electric vehicle news available yet.</p>';
+                        return;
+                    }
+
+                    // Show first 6 news articles (or all if less than 6)
                     data.slice(0, 6).forEach(article => {
                         const card = document.createElement('div');
                         card.className = 'card';
@@ -227,7 +250,13 @@
                         cardsContainer.appendChild(card);
                     });
                 })
-                .catch(err => console.error("❌ Error loading EV news:", err));
+                .catch(err => {
+                    console.error("❌ Error loading EV news:", err);
+                    const cardsContainer = document.getElementById('ev-news-cards');
+                    if (cardsContainer) {
+                        cardsContainer.innerHTML = '<p>Failed to load news. Please try again later.</p>';
+                    }
+                });
         });
     </script>
 
