@@ -80,7 +80,7 @@
     </section>
 
     <!-- Car categories section with horizontal scrolling -->
-        <section class="car-types"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
+    <section class="car-types"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
         <div class="category-container">
             <div class="categories">
                 <div class="category">
@@ -156,8 +156,8 @@
                         card.className = 'card';
 
                         // Use first image from GCS if available, otherwise fallback to placeholder
-                        const imageUrl = (review.images && review.images.length > 0) 
-                            ? review.images[0] 
+                        const imageUrl = (review.images && review.images.length > 0)
+                            ? review.images[0]
                             : "../images/2025-crv/63_2024HondaCRVEX-L.avif";
 
                         card.innerHTML = `
@@ -226,8 +226,8 @@
                         });
 
                         // Use first image from GCS if available, otherwise fallback to placeholder
-                        const imageUrl = (item.images && item.images.length > 0) 
-                            ? item.images[0] 
+                        const imageUrl = (item.images && item.images.length > 0)
+                            ? item.images[0]
                             : "../images/2025-crv/29_2024HondaCRVEX-L.avif";
 
                         card.innerHTML = `
@@ -284,8 +284,8 @@
                     card.className = 'card';
 
                     // Use first image from GCS if available, otherwise fallback to placeholder
-                    const imageUrl = (review.images && review.images.length > 0) 
-                        ? review.images[0] 
+                    const imageUrl = (review.images && review.images.length > 0)
+                        ? review.images[0]
                         : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
 
                     card.innerHTML = `

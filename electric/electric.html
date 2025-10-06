@@ -200,63 +200,87 @@
                 <div class="cards" id="ev-news-cards">
                     <!-- News cards injected here -->
                 </div>
+                <button class="full-button" onclick="window.location.href='../news-template/news-home.html'">
+                    See full list
+                </button>
             </div>
         </div>
     </section>
     
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            console.log('🔄 Loading EV news...');
-            fetch("http://localhost:3000/api/news/electric")
-                .then(res => {
-                    if (!res.ok) throw new Error(`HTTP ${res.status}: ${res.statusText}`);
-                    return res.json();
-                })
-                .then(data => {
-                    console.log("✅ EV News loaded:", data.length);
-                    const cardsContainer = document.getElementById('ev-news-cards');
-                    if (!cardsContainer) return;
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                console.log('🔄 Loading EV news...');
+                
+                // Check if container exists
+                const cardsContainer = document.getElementById('ev-news-cards');
+                if (!cardsContainer) {
+                    console.error('❌ News container not found!');
+                    return;
+                }
 
-                    cardsContainer.innerHTML = ''; // Clear previous content
+                // Make the API request
+                const response = await fetch("http://localhost:3000/api/news/electric");
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
 
-                    if (data.length === 0) {
-                        cardsContainer.innerHTML = '<p>No electric vehicle news available yet.</p>';
-                        return;
-                    }
+                const data = await response.json();
+                console.log("✅ EV News loaded:", data.length, "articles");
 
-                    // Show first 6 news articles (or all if less than 6)
-                    data.slice(0, 6).forEach(article => {
-                        const card = document.createElement('div');
-                        card.className = 'card';
+                // Clear previous content
+                cardsContainer.innerHTML = '';
 
-                        // Use first image from GCS if available, otherwise fallback to placeholder
-                        const imageUrl = (article.images && article.images.length > 0) 
-                            ? article.images[0] 
-                            : "../images/Comparison.png";
+                if (data.length === 0) {
+                    cardsContainer.innerHTML = '<p>No electric vehicle news available yet.</p>';
+                    return;
+                }
 
-                        card.innerHTML = `
-                <a href="../news-template/news-page-template.html?id=${article.id}">
-                  <div class="image-section">
-                    <img src="${imageUrl}" alt="${article.news_title}">
-                  </div>
-                  <div class="content">
-                    <p>${article.tag || 'UPDATE'}</p>
-                    <h3>${article.news_title}</h3>
-                    <h5>${new Date(article.date).toLocaleDateString()}</h5>
-                    <hr>
-                  </div>
-                </a>
-              `;
-                        cardsContainer.appendChild(card);
-                    });
-                })
-                .catch(err => {
-                    console.error("❌ Error loading EV news:", err);
-                    const cardsContainer = document.getElementById('ev-news-cards');
-                    if (cardsContainer) {
-                        cardsContainer.innerHTML = '<p>Failed to load news. Please try again later.</p>';
-                    }
+                // Show first 6 news articles (or all if less than 6)
+                data.slice(0, 6).forEach((article, index) => {
+                    console.log(`📄 Processing article ${index + 1}:`, article.news_title);
+                    
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    // Use first image from GCS if available, otherwise fallback to placeholder
+                    const imageUrl = (article.images && article.images.length > 0) 
+                        ? article.images[0] 
+                        : "../images/Comparison.png";
+
+                    card.innerHTML = `
+                        <a href="../news-template/news-page-template.html?id=${article.id}">
+                            <div class="image-section">
+                                <img src="${imageUrl}" alt="${article.news_title}" loading="lazy">
+                            </div>
+                            <div class="content">
+                                <p>${article.tag || 'UPDATE'}</p>
+                                <h3>${article.news_title}</h3>
+                                <h5>${new Date(article.date).toLocaleDateString()}</h5>
+                                <hr>
+                            </div>
+                        </a>
+                    `;
+                    
+                    cardsContainer.appendChild(card);
                 });
+
+                console.log(`✅ Successfully rendered ${data.length} news articles`);
+
+            } catch (error) {
+                console.error("❌ Error loading EV news:", error);
+                const cardsContainer = document.getElementById('ev-news-cards');
+                if (cardsContainer) {
+                    cardsContainer.innerHTML = `
+                        <div style="color: red; text-align: center; padding: 20px;">
+                            <p>Failed to load news articles.</p>
+                            <p>Error: ${error.message}</p>
+                            <p>Please check if the server is running on port 3000.</p>
+                        </div>
+                    `;
+                }
+            }
         });
     </script>
 

@@ -163,6 +163,24 @@ router.get('/news/summary', async (req, res) => {
   }
 });
 
+// Route: GET /news/electric - Specific route must come BEFORE the parameterized route
+// Description: Get latest 6 articles with tag = 'ev'
+router.get('/news/electric', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'ev'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching EV news:', error);
+    res.status(500).json({ error: 'Failed to fetch EV news' });
+  }
+});
+
 // Route: GET /news/:id
 // Description: Retrieves a specific news article by ID
 router.get('/news/:id', async (req, res) => {
@@ -180,24 +198,6 @@ router.get('/news/:id', async (req, res) => {
   } catch (err) {
     console.error('Error fetching news article:', err);
     res.status(500).json({ error: 'Failed to fetch news article' });
-  }
-});
-
-// Route: GET /news/electric
-// Description: Get latest 6 articles with tag = 'ev'
-router.get('/news/electric', async (req, res) => {
-  try {
-    const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images
-      FROM news
-      WHERE LOWER(tag) = 'ev'
-      ORDER BY created_at DESC
-      LIMIT 6
-    `);
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Error fetching EV news:', error);
-    res.status(500).json({ error: 'Failed to fetch EV news' });
   }
 });
 

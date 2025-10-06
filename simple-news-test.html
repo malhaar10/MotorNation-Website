@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple News Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        .error { color: red; }
+        .success { color: green; }
+        .card { border: 1px solid #ccc; margin: 10px; padding: 10px; }
+    </style>
+</head>
+<body>
+    <h1>News API Test</h1>
+    <button onclick="testAPI()">Test News API</button>
+    <div id="status"></div>
+    <div id="results"></div>
+
+    <script>
+        async function testAPI() {
+            const statusDiv = document.getElementById('status');
+            const resultsDiv = document.getElementById('results');
+            
+            statusDiv.innerHTML = '<p>🔄 Testing...</p>';
+            resultsDiv.innerHTML = '';
+            
+            try {
+                console.log('Making fetch request...');
+                
+                const response = await fetch('http://localhost:3000/api/news/electric');
+                
+                console.log('Response received:', response);
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const data = await response.json();
+                
+                console.log('Data received:', data);
+                
+                statusDiv.innerHTML = `<p class="success">✅ Success! Found ${data.length} articles</p>`;
+                
+                data.forEach((article, index) => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+                    card.innerHTML = `
+                        <h3>${article.news_title}</h3>
+                        <p>Date: ${new Date(article.date).toLocaleDateString()}</p>
+                        <p>Tag: ${article.tag}</p>
+                    `;
+                    resultsDiv.appendChild(card);
+                });
+                
+            } catch (error) {
+                console.error('Error:', error);
+                statusDiv.innerHTML = `<p class="error">❌ Error: ${error.message}</p>`;
+            }
+        }
+        
+        // Also test on page load
+        document.addEventListener('DOMContentLoaded', () => {
+            console.log('Page loaded, testing API...');
+            testAPI();
+        });
+    </script>
+</body>
+</html>

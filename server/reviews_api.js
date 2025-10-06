@@ -101,6 +101,24 @@ router.get('/reviews/summary', async (req, res) => {
   }
 });
 
+// Route: GET /reviews/electric - Specific route must come BEFORE the parameterized route
+router.get('/reviews/electric', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev'
+         OR LOWER(tag) = 'electric' OR LOWER(tag2) = 'electric'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching EV reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Route: GET /reviews/:id
 // Description: Retrieves a specific review by ID
 router.get('/reviews/:id', async (req, res) => {
@@ -118,23 +136,6 @@ router.get('/reviews/:id', async (req, res) => {
   } catch (err) {
     console.error('Error fetching review:', err);
     res.status(500).json({ error: 'Failed to fetch review' });
-  }
-});
-
-router.get('/reviews/electric', async (req, res) => {
-  try {
-    const result = await pool.query(`
-      SELECT id, car_name, model_year, images
-      FROM reviews
-      WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev'
-         OR LOWER(tag) = 'electric' OR LOWER(tag2) = 'electric'
-      ORDER BY model_year DESC
-      LIMIT 6
-    `);
-    res.json(result.rows);
-  } catch (error) {
-    console.error('Error fetching EV reviews:', error);
-    res.status(500).json({ error: 'Internal server error' });
   }
 });
 
