@@ -14,7 +14,7 @@ router.get('/search', async (req, res) => {
     try {
         const [reviewsResult, newsResult] = await Promise.all([
             poolReview.query(
-                `SELECT id, car_name, model_year, tag, tag2
+                `SELECT id, car_name, model_year, tag, tag2, images
                  FROM reviews
                  WHERE LOWER(tag) ILIKE $1
                     OR LOWER(tag2) ILIKE $1
@@ -24,7 +24,7 @@ router.get('/search', async (req, res) => {
                 [`%${keyword}%`]
             ),
             poolNews.query(
-                `SELECT id, news_title, date, tag, tag2
+                `SELECT id, news_title, date, tag, tag2, images
                  FROM news
                  WHERE LOWER(tag) ILIKE $1
                     OR LOWER(tag2) ILIKE $1
