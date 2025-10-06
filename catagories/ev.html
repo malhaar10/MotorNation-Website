@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotorNation</title>
     <link rel="stylesheet" href="../page_header.css">
-    <link rel="stylesheet" href="../catagories/catagories.css">
+    <link rel="stylesheet" href="../electric/electric.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
@@ -30,7 +30,6 @@
                     <li><a href="../index.html">HOME</a></li>
                     <li><a href="../reviews-page/reviews-home.html">REVIEWS</a></li>
                     <li><a href="../news-template/news-home.html">NEWS</a></li>
-                    <li><a href="../electric/electric.html">ELECTRIC</a></li>
                     <!-- <li><a href="../gallery/gallery.html">GALLERY</a></li> -->
                     <li><a href="../videos/video.html">VIDEOS</a></li>
                     <li><a href="../search.html">SEARCH</a></li>
@@ -39,10 +38,10 @@
         </nav>
 
     </section>
-
-    <section class="car-types"><button class="scroll-btn left" onclick="scrollCards(this, -1)">❮</button>
+    <section class="car-types">
         <div class="category-container">
-            <div class="categories">
+            <button class="scroll-btn left" onclick="scrollCategories(-1)">❮</button>
+            <div class="categories" id="categoryScroll">
                 <div class="category">
                     <a href="../catagories/performance.html" class="category-item"><img src="../assets/performance.avif"
                             alt="Performance"><span>PERFORMANCE</span></a>
@@ -67,9 +66,6 @@
                     <a href="../catagories/sedan.html" class="category-item"><img src="../assets/sedan.avif"
                             alt="Sedans"><span>SEDANs</span></a>
                 </div>
-                <!-- <div class="category">
-                    <a href="../catagories/ev.html" class="category-item"><img src="../assets/electric.avif" alt="EVs"><span>EVs</span></a>
-                </div> -->
                 <div class="category">
                     <a href="../catagories/hatchback.html" class="category-item"><img src="../assets/hatchback.avif"
                             alt="Hatchbacks"><span>HATCHBACKs</span></a>
@@ -79,176 +75,175 @@
                             alt="Luxury"><span>LUXURY</span></a>
                 </div>
             </div>
-        </div><button class="scroll-btn right" onclick="scrollCards(this, 1)">❯</button>
+            <button class="scroll-btn right" onclick="scrollCategories(1)">❯</button>
+        </div>
     </section>
 
     <section class="latest-news">
         <h1>ELECTRIC VEHICLES</h1><br><br>
-        <hr class="hr2">
-        <hr>
-        <h2>SUVs</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/2025-lincoln-navigator-black-label_sunrise-copper_01-4.avif">
-                </div>
-                <p class="name">2025 Lincoln Navigator</p>
-                <p class="price">Price: $89,050</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-                <p class="name">Ferrari</p>
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
-        <hr class="hr2">
-        <hr>
-        <h2>SEDANs</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                </div>
-
-                <p class="name">Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-
-                <p class="name">Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
-        <hr class="hr2">
-        <hr>
-        <h2>PICKUPs</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                </div>
-
-                <p class="name">Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-
-                <p class="name">Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
-        <hr class="hr2">
-        <hr>
-        <h2>CARs</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                </div>
-
-                <p class="name">Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-
-                <p class="name">Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
-        <hr class="hr2">
-        <hr>
-        <h2>PERFORMANCE</h2>
-        <div class="cards">
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/audi-rs-e-tron-gt-1.jpg">
-                </div>
-
-                <p class="name">Most Powerful Audi yet! The RS E-tron GT produces 912 horsepower.</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/XPB_1285768_HiRes.jpg">
-                </div>
-
-                <p class="name">Ferrari wins 24 Hours of Le-Mans for a second consecutive time!</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <div class="card">
-                <div class="image-section">
-                    <img src="../images/fiat1.jpg">
-                </div>
-
-                <p class="name">Fiat reveals Grande Panda: A Retro styled compact SUV</p>
-
-                <p class="price">Price: $0000</p>
-            </div>
-            <button class="full-button">See full list >>></button>
-        </div>
-        <br>
     </section>
+
+    <section class="latest-news">
+        <hr>
+        <h2>REVIEWS</h2>
+        <a class="latest-head">LATEST REVIEWS</a>
+        <div class="container">
+            <div class="blog-section">
+                <div class="cards" id="reviews-electric">
+                    <!-- Cards will be injected here dynamically -->
+                </div>
+                <button class="full-button" onclick="window.location.href='/reviews-page/reviews-home.html'">
+                    See full list
+                </button>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                console.log('🔄 Loading EV reviews...');
+                const response = await fetch('http://localhost:3000/api/reviews/electric');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const reviews = await response.json();
+                console.log('✅ EV Reviews loaded:', reviews.length);
+
+                const container = document.getElementById('reviews-electric');
+                container.innerHTML = ''; // Clear any existing content
+
+                if (reviews.length === 0) {
+                    container.innerHTML = '<p>No electric vehicle reviews available yet.</p>';
+                    return;
+                }
+
+                // Show first 6 reviews (or all if less than 6)
+                reviews.slice(0, 6).forEach(review => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    // Use first image from GCS if available, otherwise fallback to placeholder
+                    const imageUrl = (review.images && review.images.length > 0) 
+                        ? review.images[0] 
+                        : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
+
+                    card.innerHTML = `
+                        <a href="../reviews-page/review.html?id=${review.id}">
+                            <div class="image-section">
+                                <img src="${imageUrl}" alt="${review.car_name}">
+                            </div>
+                            <div class="content">
+                                <p>${review.model_year}</p>
+                                <h3>${review.car_name}</h3>
+                                <h5>Latest Review</h5>
+                                <hr>
+                            </div>
+                        </a>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('❌ Failed to load EV reviews:', error);
+                const container = document.getElementById('reviews-electric');
+                container.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
+            }
+        });
+    </script>
+    
+    <section class="latest-news">
+        <hr>
+        <h2>LATEST NEWS</h2>
+        <div class="container">
+            <div class="blog-section">
+                <div class="cards" id="ev-news-cards">
+                    <!-- News cards injected here -->
+                </div>
+                <button class="full-button" onclick="window.location.href='../news-template/news-home.html'">
+                    See full list
+                </button>
+            </div>
+        </div>
+    </section>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                console.log('🔄 Loading EV news...');
+                
+                // Check if container exists
+                const cardsContainer = document.getElementById('ev-news-cards');
+                if (!cardsContainer) {
+                    console.error('❌ News container not found!');
+                    return;
+                }
+
+                // Make the API request
+                const response = await fetch("http://localhost:3000/api/news/electric");
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const data = await response.json();
+                console.log("✅ EV News loaded:", data.length, "articles");
+
+                // Clear previous content
+                cardsContainer.innerHTML = '';
+
+                if (data.length === 0) {
+                    cardsContainer.innerHTML = '<p>No electric vehicle news available yet.</p>';
+                    return;
+                }
+
+                // Show first 6 news articles (or all if less than 6)
+                data.slice(0, 6).forEach((article, index) => {
+                    console.log(`📄 Processing article ${index + 1}:`, article.news_title);
+                    
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    // Use first image from GCS if available, otherwise fallback to placeholder
+                    const imageUrl = (article.images && article.images.length > 0) 
+                        ? article.images[0] 
+                        : "../images/Comparison.png";
+
+                    card.innerHTML = `
+                        <a href="../news-template/news-page-template.html?id=${article.id}">
+                            <div class="image-section">
+                                <img src="${imageUrl}" alt="${article.news_title}" loading="lazy">
+                            </div>
+                            <div class="content">
+                                <p>${article.tag || 'UPDATE'}</p>
+                                <h3>${article.news_title}</h3>
+                                <h5>${new Date(article.date).toLocaleDateString()}</h5>
+                                <hr>
+                            </div>
+                        </a>
+                    `;
+                    
+                    cardsContainer.appendChild(card);
+                });
+
+                console.log(`✅ Successfully rendered ${data.length} news articles`);
+
+            } catch (error) {
+                console.error("❌ Error loading EV news:", error);
+                const cardsContainer = document.getElementById('ev-news-cards');
+                if (cardsContainer) {
+                    cardsContainer.innerHTML = `
+                        <div style="color: red; text-align: center; padding: 20px;">
+                            <p>Failed to load news articles.</p>
+                            <p>Error: ${error.message}</p>
+                            <p>Please check if the server is running on port 3000.</p>
+                        </div>
+                    `;
+                }
+            }
+        });
+    </script>
 
     <section class="hr">
         <hr>
@@ -268,10 +263,12 @@
             <a href="">Careers</a>
         </div>
     </section>
+
     <script>
-        function scrollCards(button, direction) {
-            const container = button.closest('.car-types').querySelector('.categories');
-            const scrollAmount = container.clientWidth * 0.8; // adjust scroll step if needed
+        function scrollCategories(direction) {
+            const container = document.getElementById('categoryScroll');
+            const scrollAmount = container.clientWidth * 0.5; // You can tweak this
+
             container.scrollBy({
                 left: direction * scrollAmount,
                 behavior: 'smooth'
@@ -314,6 +311,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>
