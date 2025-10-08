@@ -199,8 +199,14 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background-color 0.3s ease;
+    transition: all 0.3s ease;
     z-index: 10;
+    opacity: 0;
+}
+
+.car-types:hover .scroll-btn,
+.latest-news:hover .scroll-btn {
+    opacity: 1;
 }
 
 .scroll-btn:hover {
@@ -263,9 +269,17 @@ body {
     position: relative;
 }
 
+.blog-section .image-section {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
 .blog-section .image-section img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     transition: filter 0.3s ease;
     border-radius: 16px;
 }
@@ -426,9 +440,17 @@ body {
     position: relative;
 }
 
+.blog-section1 .image-section {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 16px;
+}
+
 .blog-section1 .image-section img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     transition: filter 0.3s ease;
     border-radius: 16px;
 }
@@ -759,6 +781,11 @@ body {
         object-fit: cover;
     }
 
+    .blog-section .image-section,
+    .blog-section1 .image-section {
+        height: 180px;
+    }
+
     .card .content {
         padding: 15px;
     }
@@ -851,5 +878,10 @@ body {
 
     .card h3 {
         font-size: 16px;
+    }
+
+    .blog-section .image-section,
+    .blog-section1 .image-section {
+        height: 160px;
     }
 }

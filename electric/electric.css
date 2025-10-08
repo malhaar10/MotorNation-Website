@@ -84,6 +84,13 @@ body {
     cursor: pointer;
     padding: 0.5rem 1rem;
     z-index: 10;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.car-types:hover .scroll-btn,
+.latest-news:hover .scroll-btn {
+    opacity: 1;
 }
 
 .scroll-btn.left {
@@ -171,14 +178,20 @@ body {
   color: lightskyblue;
 }
 
-.latest-news .image-section img {
-  width: 100%;
-  height: auto;
-  transition: filter 0.3s ease;
-  border-radius: 16px;
+.latest-news .image-section {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+    border-radius: 16px;
 }
 
-.latest-news .name {
+.latest-news .image-section img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: filter 0.3s ease;
+    border-radius: 16px;
+}.latest-news .name {
   color: white;
   font-weight: bold;
   font-size: 25px;
@@ -364,5 +377,10 @@ hr {
 
     .latest-news h3 {
         font-size: 18px;
+    }
+
+    /* Responsive image container heights */
+    .latest-news .image-section {
+        height: 180px;
     }
 }
