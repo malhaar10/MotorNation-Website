@@ -84,6 +84,79 @@
 
     <section class="latest-news">
         <h1>SEDANs</h1><br><br>
+    </section>
+
+    <section class="latest-news">
+        <hr>
+        <h2>REVIEWS</h2>
+        <a class="latest-head">LATEST REVIEWS</a>
+        <div class="container">
+            <div class="blog-section">
+                <div class="cards" id="reviews-sedan">
+                    <!-- Cards will be injected here dynamically -->
+                </div>
+                <button class="full-button" onclick="window.location.href='/reviews-page/reviews-home.html'">
+                    See full list
+                </button>
+            </div>
+        </div>
+    </section>
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            try {
+                console.log('🔄 Loading sedan reviews...');
+                const response = await fetch('http://localhost:3000/api/reviews/sedan');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+
+                const reviews = await response.json();
+                console.log('✅ Sedan Reviews loaded:', reviews.length);
+
+                const container = document.getElementById('reviews-sedan');
+                container.innerHTML = ''; // Clear any existing content
+
+                if (reviews.length === 0) {
+                    container.innerHTML = '<p>No sedan reviews available yet.</p>';
+                    return;
+                }
+
+                // Show first 6 reviews (or all if less than 6)
+                reviews.slice(0, 6).forEach(review => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
+
+                    // Use first image from GCS if available, otherwise fallback to placeholder
+                    const imageUrl = (review.images && review.images.length > 0) 
+                        ? review.images[0] 
+                        : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
+
+                    card.innerHTML = `
+                        <a href="../reviews-page/review.html?id=${review.id}">
+                            <div class="image-section">
+                                <img src="${imageUrl}" alt="${review.car_name}">
+                            </div>
+                            <div class="content">
+                                <p>${review.model_year}</p>
+                                <h3>${review.car_name}</h3>
+                                <h5>Latest Review</h5>
+                                <hr>
+                            </div>
+                        </a>
+                    `;
+
+                    container.appendChild(card);
+                });
+            } catch (error) {
+                console.error('❌ Failed to load sedan reviews:', error);
+                const container = document.getElementById('reviews-sedan');
+                container.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
+            }
+        });
+    </script>
+    
+    <section class="latest-news">
         <hr class="hr2">
         <hr>
         <h2>COMPACT SEDANs</h2>

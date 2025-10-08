@@ -136,6 +136,134 @@ router.get('/reviews/hatchback', async (req, res) => {
   }
 });
 
+// Route: GET /reviews/luxury - Specific route must come BEFORE the parameterized route
+router.get('/reviews/luxury', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching luxury reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route: GET /reviews/hybrids - Specific route must come BEFORE the parameterized route
+router.get('/reviews/hybrids', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid'
+         OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching hybrid reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route: GET /reviews/minivan - Specific route must come BEFORE the parameterized route
+router.get('/reviews/minivan', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'minivan' OR LOWER(tag2) = 'minivan'
+         OR LOWER(tag) = 'mpv' OR LOWER(tag2) = 'mpv'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching minivan reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route: GET /reviews/pickups - Specific route must come BEFORE the parameterized route
+router.get('/reviews/pickups', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup'
+         OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck'
+         OR LOWER(tag) = 'pickups' OR LOWER(tag2) = 'pickups'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching pickup reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route: GET /reviews/performance - Specific route must come BEFORE the parameterized route
+router.get('/reviews/performance', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'performance' OR LOWER(tag2) = 'performance'
+         OR LOWER(tag) = 'sports' OR LOWER(tag2) = 'sports'
+         OR LOWER(tag) = 'supercar' OR LOWER(tag2) = 'supercar'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching performance reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route: GET /reviews/sedan - Specific route must come BEFORE the parameterized route
+router.get('/reviews/sedan', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan'
+         OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching sedan reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route: GET /reviews/suv - Specific route must come BEFORE the parameterized route
+router.get('/reviews/suv', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv'
+         OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs'
+         OR LOWER(tag) = 'crossover' OR LOWER(tag2) = 'crossover'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching SUV reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Route: GET /reviews/:id
 // Description: Retrieves a specific review by ID
 router.get('/reviews/:id', async (req, res) => {
@@ -228,4 +356,3 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
 });
 
 module.exports = router;
-
