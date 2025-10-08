@@ -41,9 +41,6 @@
     <section>
         <article class="news-article">
             <div class="article-content">
-                <div class="article-text">
-                    <h2>TITLE</h2>
-                </div>
                 <div class="article-image">
                     <div class="main-image-container">
                         <button class="slider-btn prev-btn" onclick="prevImage()">❮</button>
@@ -79,31 +76,10 @@
                 </div>
 
                 <div class="article-text">
-                    <h2 id="overview"></h2>
-                    <p>Compact crossovers such as the 2025 Honda CR-V are in high demand, as they offer comfortable
-                        seating, decent fuel efficiency, and an easy-to-park profile. Honda's cheerful entry in this
-                        competitive SUV segment earns its place at the top of our list because it also offers agile
-                        handling to accompany its practicality. Equipped with front- or all-wheel drive and a 190-hp
-                        turbocharged engine, the nonhybrid CR-V is reasonably powered; we review the 204-hp hybrid
-                        version separately. While the Mazda CX-50 offers more luxury and the Ford Bronco Sport is more
-                        capable off-road, the CR-V is a better all-arounder for its pleasant driving dynamics, solid
-                        build quality, and just-right balance of infotainment knobs and screens.</p><br>
-                    <p>Compact crossovers such as the 2025 Honda CR-V are in high demand, as they offer comfortable
-                        seating, decent fuel efficiency, and an easy-to-park profile. Honda's cheerful entry in this
-                        competitive SUV segment earns its place at the top of our list because it also offers agile
-                        handling to accompany its practicality. Equipped with front- or all-wheel drive and a 190-hp
-                        turbocharged engine, the nonhybrid CR-V is reasonably powered; we review the 204-hp hybrid
-                        version separately. While the Mazda CX-50 offers more luxury and the Ford Bronco Sport is more
-                        capable off-road, the CR-V is a better all-arounder for its pleasant driving dynamics, solid
-                        build quality, and just-right balance of infotainment knobs and screens.</p><br>
-                    <p>Compact crossovers such as the 2025 Honda CR-V are in high demand, as they offer comfortable
-                        seating, decent fuel efficiency, and an easy-to-park profile. Honda's cheerful entry in this
-                        competitive SUV segment earns its place at the top of our list because it also offers agile
-                        handling to accompany its practicality. Equipped with front- or all-wheel drive and a 190-hp
-                        turbocharged engine, the nonhybrid CR-V is reasonably powered; we review the 204-hp hybrid
-                        version separately. While the Mazda CX-50 offers more luxury and the Ford Bronco Sport is more
-                        capable off-road, the CR-V is a better all-arounder for its pleasant driving dynamics, solid
-                        build quality, and just-right balance of infotainment knobs and screens.</p><br>
+                    <h2>TITLE</h2>
+                </div>
+
+                <div class="article-text">
                 </div>
             </div>
         </article>
@@ -136,7 +112,7 @@
         const newsId = params.get("id");
 
         if (newsId) {
-            fetch(`/api/news/${newsId}`)
+            fetch(`http://localhost:3000/api/news/${newsId}`)
                 .then(res => res.json())
                 .then(data => {
                     // Update article title and content

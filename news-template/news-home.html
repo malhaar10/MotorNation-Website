@@ -111,6 +111,46 @@ fetch('http://localhost:3000/api/news/summary')
 
 </script>
 
+<script>
+// Load latest news for featured section
+async function loadLatestNews() {
+    try {
+        const response = await fetch('http://localhost:3000/api/news/summary?limit=1');
+        const news = await response.json();
+
+        if (!Array.isArray(news) || news.length === 0) {
+            document.getElementById('featured-news').innerHTML = '<p>No news available.</p>';
+            return;
+        }
+
+        const latest = news[0];
+        
+        // Use first image from GCS if available, otherwise fallback to placeholder
+        const imagePath = (latest.images && latest.images.length > 0) 
+            ? latest.images[0] 
+            : '../images/Comparison.png';
+
+        document.getElementById('featured-news').innerHTML = `
+            <a href="../news-template/news-page-template.html?id=${latest.id}">
+              <img src="${imagePath}" alt="${latest.news_title}">
+            </a>
+            <div class="text-content">
+              <h4>BREAKING</h4>
+              <h3><a href="../news-template/news-page-template.html?id=${latest.id}">
+                ${latest.news_title.toUpperCase()}
+              </a></h3>
+              <p>${new Date(latest.date).toLocaleDateString()}</p>
+            </div>
+          `;
+    } catch (err) {
+        console.error('Error loading latest news:', err);
+        document.getElementById('featured-news').innerHTML = '<p>Failed to load news.</p>';
+    }
+}
+
+window.addEventListener('DOMContentLoaded', loadLatestNews);
+</script>
+
 <!-- Mobile navigation menu toggle functionality -->
 <script>
     var navLinks = document.getElementById("navLinks");
