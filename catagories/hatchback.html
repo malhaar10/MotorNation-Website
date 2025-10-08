@@ -160,7 +160,7 @@
         <h2>LATEST NEWS</h2>
         <div class="container">
             <div class="blog-section">
-                <div class="cards" id="ev-news-cards">
+                <div class="cards" id="hatchback-news-cards">
                     <!-- News cards injected here -->
                 </div>
                 <button class="full-button" onclick="window.location.href='../news-template/news-home.html'">
@@ -173,30 +173,30 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                console.log('🔄 Loading EV news...');
+                console.log('🔄 Loading hatchback news...');
                 
                 // Check if container exists
-                const cardsContainer = document.getElementById('ev-news-cards');
+                const cardsContainer = document.getElementById('hatchback-news-cards');
                 if (!cardsContainer) {
                     console.error('❌ News container not found!');
                     return;
                 }
 
                 // Make the API request
-                const response = await fetch("http://localhost:3000/api/news/electric");
+                const response = await fetch("http://localhost:3000/api/news/hatchback");
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const data = await response.json();
-                console.log("✅ EV News loaded:", data.length, "articles");
+                console.log("✅ Hatchback News loaded:", data.length, "articles");
 
                 // Clear previous content
                 cardsContainer.innerHTML = '';
 
                 if (data.length === 0) {
-                    cardsContainer.innerHTML = '<p>No electric vehicle news available yet.</p>';
+                    cardsContainer.innerHTML = '<p>No hatchback news available yet.</p>';
                     return;
                 }
 
@@ -232,8 +232,8 @@
                 console.log(`✅ Successfully rendered ${data.length} news articles`);
 
             } catch (error) {
-                console.error("❌ Error loading EV news:", error);
-                const cardsContainer = document.getElementById('ev-news-cards');
+                console.error("❌ Error loading hatchback news:", error);
+                const cardsContainer = document.getElementById('hatchback-news-cards');
                 if (cardsContainer) {
                     cardsContainer.innerHTML = `
                         <div style="color: red; text-align: center; padding: 20px;">

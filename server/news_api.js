@@ -181,6 +181,151 @@ router.get('/news/electric', async (req, res) => {
   }
 });
 
+router.get('/news/hatchback', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'hatchback' OR LOWER(tag2) = 'hatchback'
+         OR LOWER(tag) = 'hatchbacks' OR LOWER(tag2) = 'hatchbacks'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching hatchback news:', error);
+    res.status(500).json({ error: 'Failed to fetch hatchback news' });
+  }
+});
+
+// Route: GET /news/luxury - Specific route must come BEFORE the parameterized route
+router.get('/news/luxury', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching luxury news:', error);
+    res.status(500).json({ error: 'Failed to fetch luxury news' });
+  }
+});
+
+// Route: GET /news/hybrids - Specific route must come BEFORE the parameterized route
+router.get('/news/hybrids', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid'
+         OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching hybrid news:', error);
+    res.status(500).json({ error: 'Failed to fetch hybrid news' });
+  }
+});
+
+// Route: GET /news/minivan - Specific route must come BEFORE the parameterized route
+router.get('/news/minivan', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'minivan' OR LOWER(tag2) = 'minivan'
+         OR LOWER(tag) = 'mpv' OR LOWER(tag2) = 'mpv'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching minivan news:', error);
+    res.status(500).json({ error: 'Failed to fetch minivan news' });
+  }
+});
+
+// Route: GET /news/pickups - Specific route must come BEFORE the parameterized route
+router.get('/news/pickups', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup'
+         OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck'
+         OR LOWER(tag) = 'pickups' OR LOWER(tag2) = 'pickups'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching pickup news:', error);
+    res.status(500).json({ error: 'Failed to fetch pickup news' });
+  }
+});
+
+// Route: GET /news/performance - Specific route must come BEFORE the parameterized route
+router.get('/news/performance', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'performance' OR LOWER(tag2) = 'performance'
+         OR LOWER(tag) = 'sports' OR LOWER(tag2) = 'sports'
+         OR LOWER(tag) = 'supercar' OR LOWER(tag2) = 'supercar'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching performance news:', error);
+    res.status(500).json({ error: 'Failed to fetch performance news' });
+  }
+});
+
+// Route: GET /news/sedan - Specific route must come BEFORE the parameterized route
+router.get('/news/sedan', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan'
+         OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching sedan news:', error);
+    res.status(500).json({ error: 'Failed to fetch sedan news' });
+  }
+});
+
+// Route: GET /news/suv - Specific route must come BEFORE the parameterized route
+router.get('/news/suv', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, news_title, date, tag, tag2, images
+      FROM news
+      WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv'
+         OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs'
+         OR LOWER(tag) = 'crossover' OR LOWER(tag2) = 'crossover'
+      ORDER BY created_at DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching SUV news:', error);
+    res.status(500).json({ error: 'Failed to fetch SUV news' });
+  }
+});
+
 // Route: GET /news/:id
 // Description: Retrieves a specific news article by ID
 router.get('/news/:id', async (req, res) => {
