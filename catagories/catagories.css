@@ -116,6 +116,16 @@ body {
     margin: 0 10vw;
     padding-top: -50px;
 }
+
+/* Remove all text decoration from links in cards */
+.latest-news a,
+.latest-news a:hover,
+.latest-news a:visited,
+.latest-news a:link,
+.latest-news a:active {
+    text-decoration: none !important;
+    color: inherit;
+}
 .latest-news .hr2{
     width: 75vw;
     background-color: lightskyblue;
@@ -156,6 +166,21 @@ body {
     position: relative;
     padding: 7px;
     border-radius: 16px;
+}
+
+/* Ensure card links have no underlines */
+.latest-news .card a {
+    text-decoration: none !important;
+    color: inherit;
+    border: none;
+    outline: none;
+}
+
+.latest-news .card a:hover,
+.latest-news .card a:visited,
+.latest-news .card a:link,
+.latest-news .card a:active {
+    text-decoration: none !important;
 }
 .latest-news .image-section img {
     width: 100%;

@@ -100,6 +100,16 @@ body {
   padding-top: 20px;
 }
 
+/* Remove all text decoration from links in cards */
+.latest-news a,
+.latest-news a:hover,
+.latest-news a:visited,
+.latest-news a:link,
+.latest-news a:active {
+  text-decoration: none !important;
+  color: inherit;
+}
+
 .latest-news h1 {
   text-align: left;
   color: white;
@@ -131,18 +141,30 @@ body {
 }
 
 .latest-news .card a {
-  text-decoration: none;
+  text-decoration: none !important;
+  color: white;
+  border: none;
+  outline: none;
+}
+
+.latest-news .card a:hover,
+.latest-news .card a:visited,
+.latest-news .card a:link,
+.latest-news .card a:active {
+  text-decoration: none !important;
   color: white;
 }
 
 .latest-news .card a h3 {
   font-size: 16px;
   margin-top: 10px;
+  text-decoration: none !important;
 }
 
 .latest-news .card a p {
   font-size: 14px;
   color: lightskyblue;
+  text-decoration: none !important;
 }
 
 .latest-news .card:hover h3 {
