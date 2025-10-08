@@ -174,7 +174,6 @@ body {
 
 .blog-section .card {
     width: calc(33.333% - 20px); /* 3 cards per row with spacing */
-    background-color: #111;
     border-radius: 12px;
     overflow: hidden;
     transition: transform 0.3s ease;
@@ -197,6 +196,7 @@ body {
     color: lightskyblue;
     font-size: 12px;
     padding-top: 5px;
+    /* margin-left: 7px; */
 }
 .blog-section h3{
     color: #fff;

@@ -152,6 +152,12 @@ body {
   cursor: pointer;
   padding: 0.5rem 1rem;
   z-index: 10;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.cards-container:hover .scroll-btn {
+  opacity: 1;
 }
 
 .scroll-btn.left {

@@ -82,48 +82,6 @@
     <section class="latest-news">
         <h1>ELECTRIC VEHICLES</h1><br><br>
         <hr>
-        <h2>VIDEOS</h2>
-        <div class="cards">
-            <!-- JS inserts cards here -->
-            <button class="full-button">
-                <a href="electric.html">See full list</a>
-            </button>
-        </div>
-        <br>
-    </section>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const container = document.querySelector('.latest-news .cards');
-            const playlistId = 'PLeHErLXrPBfRQOO_SRtKs0CtK5C6IKYc_'; // Replace with actual playlist ID
-
-            fetch(`http://localhost:3000/getPlaylistVideos?playlistId=${playlistId}`)
-                .then(res => res.json())
-                .then(videos => {
-                    videos.forEach(video => {
-                        const card = document.createElement('div');
-                        card.className = 'card';
-
-                        card.innerHTML = `
-                    <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank" style="text-decoration: none;">
-                        <div class="image-section">
-                            <img src="${video.thumbnail}" alt="${video.title}">
-                        </div>
-                        <h3>${video.title}</h3>
-                    </a>
-                `;
-                        container.insertBefore(card, container.querySelector('.full-button'));
-                    });
-                })
-                .catch(err => {
-                    console.error('Failed to load playlist videos:', err);
-                    container.innerHTML = '<p style="color:red;">Could not load videos.</p>';
-                });
-        });
-    </script>
-
-    <section class="latest-news">
-        <hr>
         <h2>REVIEWS</h2>
         <a class="latest-head">LATEST REVIEWS</a>
         <div class="container">
@@ -281,6 +239,48 @@
                     `;
                 }
             }
+        });
+    </script>
+
+    <section class="latest-news">
+        <hr>
+        <h2>VIDEOS</h2>
+        <div class="cards" id="ev-videos-cards">
+            <!-- JS inserts cards here -->
+            <button class="full-button">
+                <a href="electric.html">See full list</a>
+            </button>
+        </div>
+        <br>
+    </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const container = document.getElementById('ev-videos-cards');
+            const playlistId = 'PLeHErLXrPBfRQOO_SRtKs0CtK5C6IKYc_'; // Replace with actual playlist ID
+
+            fetch(`http://localhost:3000/getPlaylistVideos?playlistId=${playlistId}`)
+                .then(res => res.json())
+                .then(videos => {
+                    videos.forEach(video => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+
+                        card.innerHTML = `
+                    <a href="https://www.youtube.com/watch?v=${video.videoId}" target="_blank" style="text-decoration: none;">
+                        <div class="image-section">
+                            <img src="${video.thumbnail}" alt="${video.title}">
+                        </div>
+                        <h3>${video.title}</h3>
+                    </a>
+                `;
+                        container.insertBefore(card, container.querySelector('.full-button'));
+                    });
+                })
+                .catch(err => {
+                    console.error('Failed to load playlist videos:', err);
+                    container.innerHTML = '<p style="color:red;">Could not load videos.</p>';
+                });
         });
     </script>
 
