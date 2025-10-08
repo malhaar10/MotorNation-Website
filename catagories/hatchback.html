@@ -82,7 +82,7 @@
     </section>
 
     <section class="latest-news">
-        <h1>ELECTRIC VEHICLES</h1><br><br>
+        <h1>HATCHBACKs</h1><br><br>
     </section>
 
     <section class="latest-news">
@@ -103,21 +103,21 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                console.log('🔄 Loading EV reviews...');
-                const response = await fetch('http://localhost:3000/api/reviews/electric');
+                console.log('🔄 Loading hatchback reviews...');
+                const response = await fetch('http://localhost:3000/api/reviews/hatchback');
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
 
                 const reviews = await response.json();
-                console.log('✅ EV Reviews loaded:', reviews.length);
+                console.log('✅ Hatchback Reviews loaded:', reviews.length);
 
                 const container = document.getElementById('reviews-electric');
                 container.innerHTML = ''; // Clear any existing content
 
                 if (reviews.length === 0) {
-                    container.innerHTML = '<p>No electric vehicle reviews available yet.</p>';
+                    container.innerHTML = '<p>No hatchback reviews available yet.</p>';
                     return;
                 }
 
@@ -148,7 +148,7 @@
                     container.appendChild(card);
                 });
             } catch (error) {
-                console.error('❌ Failed to load EV reviews:', error);
+                console.error('❌ Failed to load hatchback reviews:', error);
                 const container = document.getElementById('reviews-electric');
                 container.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
             }
@@ -173,7 +173,7 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                console.log('🔄 Loading Hatchback news...');
+                console.log('🔄 Loading EV news...');
                 
                 // Check if container exists
                 const cardsContainer = document.getElementById('ev-news-cards');
@@ -190,7 +190,7 @@
                 }
 
                 const data = await response.json();
-                console.log("✅Hatchback News loaded:", data.length, "articles");
+                console.log("✅ EV News loaded:", data.length, "articles");
 
                 // Clear previous content
                 cardsContainer.innerHTML = '';
@@ -232,7 +232,7 @@
                 console.log(`✅ Successfully rendered ${data.length} news articles`);
 
             } catch (error) {
-                console.error("❌ Error loading Hatchback news:", error);
+                console.error("❌ Error loading EV news:", error);
                 const cardsContainer = document.getElementById('ev-news-cards');
                 if (cardsContainer) {
                     cardsContainer.innerHTML = `
@@ -313,6 +313,7 @@
             }
         });
     </script>
+
 </body>
 
 </html>

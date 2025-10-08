@@ -119,6 +119,23 @@ router.get('/reviews/electric', async (req, res) => {
   }
 });
 
+// Route: GET /reviews/hatchback - Specific route must come BEFORE the parameterized route
+router.get('/reviews/hatchback', async (req, res) => {
+  try {
+    const result = await pool.query(`
+      SELECT id, car_name, model_year, images
+      FROM reviews
+      WHERE LOWER(tag) = 'hatchback' OR LOWER(tag2) = 'hatchback'
+      ORDER BY model_year DESC
+      LIMIT 6
+    `);
+    res.json(result.rows);
+  } catch (error) {
+    console.error('Error fetching hatchback reviews:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
 // Route: GET /reviews/:id
 // Description: Retrieves a specific review by ID
 router.get('/reviews/:id', async (req, res) => {
@@ -211,3 +228,4 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
 });
 
 module.exports = router;
+
