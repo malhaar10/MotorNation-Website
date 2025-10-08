@@ -153,16 +153,14 @@ body {
 }
 
 .latest-news .cards {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: flex-start;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
     gap: 40px;
     margin: 25px auto;
     width: 100%;
 }
 
 .latest-news .card {
-    width: 29%;
     position: relative;
     padding: 7px;
     border-radius: 16px;
@@ -332,6 +330,63 @@ body {
     .cards {
         grid-template-columns: 1fr;
         gap: 20px;
+    }
+
+    /* ========== Mobile Card Limits ========== */
+    /* Limit cards to 3 per section while maintaining side margins */
+    .latest-news {
+        width: 80vw; /* Keep same side margins as desktop */
+        margin: 0 10vw; /* Keep same side margins as desktop */
+    }
+
+    .latest-news .cards {
+        display: grid;
+        grid-template-columns: 1fr; /* Single column layout for mobile */
+        gap: 20px;
+        margin: 25px auto;
+        width: 100%;
+    }
+
+    /* Limit review cards to 3 for all categories */
+    #reviews-luxury .card:nth-child(n+4),
+    #reviews-hybrids .card:nth-child(n+4),
+    #reviews-minivan .card:nth-child(n+4),
+    #reviews-pickups .card:nth-child(n+4),
+    #reviews-performance .card:nth-child(n+4),
+    #reviews-sedan .card:nth-child(n+4),
+    #reviews-suv .card:nth-child(n+4),
+    #reviews-electric .card:nth-child(n+4) {
+        display: none;
+    }
+
+    /* Limit news cards to 3 for all categories */
+    #luxury-news-cards .card:nth-child(n+4),
+    #hybrid-news-cards .card:nth-child(n+4),
+    #minivan-news-cards .card:nth-child(n+4),
+    #pickup-news-cards .card:nth-child(n+4),
+    #performance-news-cards .card:nth-child(n+4),
+    #sedan-news-cards .card:nth-child(n+4),
+    #suv-news-cards .card:nth-child(n+4),
+    #ev-news-cards .card:nth-child(n+4),
+    #hatchback-news-cards .card:nth-child(n+4) {
+        display: none;
+    }
+
+    /* Adjust typography for mobile */
+    .latest-news h1 {
+        font-size: 36px;
+    }
+
+    .latest-news h2 {
+        font-size: 28px;
+    }
+
+    .latest-news p {
+        font-size: 24px;
+    }
+
+    .latest-news h3 {
+        font-size: 18px;
     }
 }
 
