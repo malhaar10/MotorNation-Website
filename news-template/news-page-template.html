@@ -15,6 +15,10 @@
     
     <!-- Search functionality script -->
     <script src="../search-functionality.js"></script>
+    
+    <!-- Cache Manager and API Client -->
+    <script src="../js/cache-manager.js"></script>
+    <script src="../js/api-client.js"></script>
 </head>
 
 <body>
@@ -112,9 +116,13 @@
         const newsId = params.get("id");
 
         if (newsId) {
-            fetch(`http://localhost:3000/api/news/${newsId}`)
-                .then(res => res.json())
-                .then(data => {
+            // Initialize cache manager and use cached API client
+            document.addEventListener('DOMContentLoaded', async () => {
+                CacheManager.init();
+                
+                try {
+                    // Use cached API client instead of direct fetch
+                    const data = await ApiClient.getNewsById(newsId);
                     // Update article title and content
                     document.querySelector(".article-text h2").textContent = data.news_title;
                     const paragraphs = [data.para1, data.para2, data.para3];
@@ -153,10 +161,10 @@
                             });
                         }
                     }
-                })
-                .catch(err => {
+                } catch (err) {
                     console.error("Failed to load news article", err);
-                });
+                }
+            });
         }
     </script>
 

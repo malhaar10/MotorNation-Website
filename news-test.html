@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News Test</title>
+</head>
+<body>
+    <h1>News API Test</h1>
+    <div id="news-container">
+        <p>Loading news...</p>
+    </div>
+
+    <!-- Cache Manager and API Client -->
+    <script src="js/cache-manager.js"></script>
+    <script src="js/api-client.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🔄 Starting news test...');
+            CacheManager.init();
+            
+            const container = document.getElementById('news-container');
+            
+            try {
+                console.log('📡 Fetching news summary...');
+                const newsItems = await ApiClient.getNewsSummary();
+                console.log('✅ News data received:', newsItems);
+                
+                if (!newsItems || newsItems.length === 0) {
+                    container.innerHTML = '<p style="color: orange;">No news items found</p>';
+                    return;
+                }
+                
+                container.innerHTML = '';
+                newsItems.forEach((item, index) => {
+                    const div = document.createElement('div');
+                    div.style.border = '1px solid #ccc';
+                    div.style.margin = '10px';
+                    div.style.padding = '10px';
+                    
+                    div.innerHTML = `
+                        <h3>${item.news_title || 'No title'}</h3>
+                        <p><strong>ID:</strong> ${item.id}</p>
+                        <p><strong>Date:</strong> ${item.date}</p>
+                        <p><strong>Tag:</strong> ${item.tag || 'No tag'}</p>
+                        <p><strong>Images:</strong> ${item.images ? item.images.length : 0} image(s)</p>
+                    `;
+                    
+                    container.appendChild(div);
+                });
+                
+            } catch (error) {
+                console.error('❌ Error:', error);
+                container.innerHTML = `<p style="color: red;">Error: ${error.message}</p>`;
+            }
+        });
+    </script>
+</body>
+</html>

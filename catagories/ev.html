@@ -2,7 +2,14 @@
 <html lang="en">
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, in        document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize cache manager
+            CacheManager.init();
+            
+            try {
+                console.log('🔄 Loading electric reviews...');
+                // Use cached API client instead of direct fetch
+                const reviews = await ApiClient.getCategoryReviews('electric');e=1.0">
     <title>MotorNation</title>
     <link rel="stylesheet" href="../page_header.css">
     <link rel="stylesheet" href="../catagories/catagories.css">
@@ -15,6 +22,10 @@
     
     <!-- Search functionality script -->
     <script src="../search-functionality.js"></script>
+    
+    <!-- Cache Manager and API Client -->
+    <script src="../js/cache-manager.js"></script>
+    <script src="../js/api-client.js"></script>
 </head>
 
 <body>

@@ -15,6 +15,10 @@
 
     <!-- Search functionality script -->
     <script src="../search-functionality.js"></script>
+    
+    <!-- Cache Manager and API Client -->
+    <script src="../js/cache-manager.js"></script>
+    <script src="../js/api-client.js"></script>
 </head>
 
 <body>
@@ -134,6 +138,9 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+            // Initialize cache manager
+            CacheManager.init();
+            
             try {
                 const isMobile = window.innerWidth <= 768;
                 const limit = isMobile ? 3 : 6;
@@ -142,12 +149,8 @@
                 console.log('Is mobile:', isMobile);
                 console.log('Limit set to:', limit);
 
-                const url = `http://localhost:3000/api/reviews/summary?limit=${limit}`;
-                console.log('Fetching from URL:', url);
-
-                const response = await fetch(url);
-                const reviews = await response.json();
-
+                // Use cached API client instead of direct fetch
+                const reviews = await ApiClient.getReviewsSummary(limit);
                 console.log('Received reviews count:', reviews.length);
 
                 const container = document.getElementById('review-cards-container');
@@ -184,8 +187,8 @@
     <script>
         async function loadLatestReview() {
             try {
-                const response = await fetch('http://localhost:3000/api/reviews/summary?limit=1'); // Use summary endpoint for consistency
-                const reviews = await response.json();
+                // Use cached API client instead of direct fetch
+                const reviews = await ApiClient.getReviewsSummary(1);
 
                 if (!Array.isArray(reviews) || reviews.length === 0) {
                     document.getElementById('latest-review').innerHTML = '<p>No reviews available.</p>';

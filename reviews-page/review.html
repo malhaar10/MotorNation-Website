@@ -15,6 +15,10 @@
     
     <!-- Search functionality script -->
     <script src="../search-functionality.js"></script>
+    
+    <!-- Cache Manager and API Client -->
+    <script src="../js/cache-manager.js"></script>
+    <script src="../js/api-client.js"></script>
 </head>
 
 <body>
@@ -201,6 +205,9 @@
     </section>
     <script>
     document.addEventListener('DOMContentLoaded', async () => {
+        // Initialize cache manager
+        CacheManager.init();
+        
         const params = new URLSearchParams(window.location.search);
         const id = params.get('id');
 
@@ -210,8 +217,8 @@
         }
 
         try {
-            const response = await fetch(`http://localhost:3000/api/reviews/${id}`);
-            const review = await response.json();
+            // Use cached API client instead of direct fetch
+            const review = await ApiClient.getReviewById(id);
 
             if (!review) {
                 console.warn('No review found for ID:', id);

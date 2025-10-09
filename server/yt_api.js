@@ -20,6 +20,9 @@ const searchApi = require('./search_api');
 app.use(cors());
 app.use(express.json());
 
+// === Serve Static Files ===
+app.use(express.static('../'));
+
 // === Mount API Routes ===
 app.use('/api', reviewsApi);
 app.use('/api', newsApi);

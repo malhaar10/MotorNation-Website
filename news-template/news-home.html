@@ -15,6 +15,10 @@
     
     <!-- Search functionality script -->
     <script src="../search-functionality.js"></script>
+    
+    <!-- Cache Manager and API Client -->
+    <script src="../js/cache-manager.js"></script>
+    <script src="../js/api-client.js"></script>
 </head>
 
 <body>
@@ -75,51 +79,56 @@
     </section>
 
     <script>
-fetch('http://localhost:3000/api/news/summary')
-  .then(res => res.json())
-  .then(data => {
-    const cardsContainer = document.getElementById('news-cards');
+        // Initialize cache manager and fetch news
+        document.addEventListener('DOMContentLoaded', async () => {
+            CacheManager.init();
+            
+            try {
+                // Use cached API client instead of direct fetch
+                const data = await ApiClient.getNewsSummary();
+                const cardsContainer = document.getElementById('news-cards');
 
-    // Display the first 6 news articles (all articles returned by summary endpoint)
-    data.forEach(article => {
-      const card = document.createElement('div');
-      card.className = 'card';
+                // Display the first 6 news articles (all articles returned by summary endpoint)
+                data.forEach(article => {
+                    const card = document.createElement('div');
+                    card.className = 'card';
 
-      // Use first image from GCS if available, otherwise fallback to placeholder
-      const imageUrl = (article.images && article.images.length > 0) 
-        ? article.images[0] 
-        : "../images/Comparison.png";
+                    // Use first image from GCS if available, otherwise fallback to placeholder
+                    const imageUrl = (article.images && article.images.length > 0) 
+                        ? article.images[0] 
+                        : "../images/Comparison.png";
 
-      card.innerHTML = `
-        <a href="../news-template/news-page-template.html?id=${article.id}">
-          <div class="image-section">
-            <img src="${imageUrl}" alt="${article.news_title}">
-          </div>
-          <div class="content">
-            <p>${article.tag || 'UPDATE'}</p>
-            <h3>${article.news_title}</h3>
-            <h5>${new Date(article.date).toLocaleDateString()}</h5>
-            <hr>
-          </div>
-        </a>
-      `;
+                    card.innerHTML = `
+                        <a href="../news-template/news-page-template.html?id=${article.id}">
+                            <div class="image-section">
+                                <img src="${imageUrl}" alt="${article.news_title}">
+                            </div>
+                            <div class="content">
+                                <p>${article.tag || 'UPDATE'}</p>
+                                <h3>${article.news_title}</h3>
+                                <h5>${new Date(article.date).toLocaleDateString()}</h5>
+                                <hr>
+                            </div>
+                        </a>
+                    `;
 
-      cardsContainer.appendChild(card);
-    });
-  })
-  .catch(err => console.error('❌ Failed to load news summary:', err));
+                    cardsContainer.appendChild(card);
+                });
+            } catch (err) {
+                console.error('❌ Failed to load news summary:', err);
+            }
+        });
+    </script>
 
-</script>
+    <script>
+        // Load latest news for featured section
+        async function loadLatestNews() {
+            try {
+                // Use cached API client instead of direct fetch
+                const news = await ApiClient.getNewsSummary(1);
 
-<script>
-// Load latest news for featured section
-async function loadLatestNews() {
-    try {
-        const response = await fetch('http://localhost:3000/api/news/summary?limit=1');
-        const news = await response.json();
-
-        if (!Array.isArray(news) || news.length === 0) {
-            document.getElementById('featured-news').innerHTML = '<p>No news available.</p>';
+                if (!Array.isArray(news) || news.length === 0) {
+                    document.getElementById('featured-news').innerHTML = '<p>No news available.</p>';
             return;
         }
 
