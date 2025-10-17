@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('./reviews_db');
+const { pool } = require('./reviews_db');
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');

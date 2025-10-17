@@ -6,7 +6,7 @@ const NodeCache = require('node-cache');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.SERVER_PORT || 3000;
 const API_KEY = process.env.YT_API_KEY;
 const cache = new NodeCache({ stdTTL: 86400 }); // Cache with 24-hour TTL
 
