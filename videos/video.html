@@ -183,7 +183,7 @@
             sections.forEach(section => {
                 const playlistId = section.getAttribute('data-playlist-id');
 
-                fetch(`http://localhost:3000/getPlaylistVideos?playlistId=${playlistId}`)
+                fetch(`https://motornation-336079007565.us-central1.run.app/getPlaylistVideos?playlistId=${playlistId}`)
                     .then(res => res.json())
                     .then(videos => {
                         section.innerHTML = ''; // Clear placeholder
