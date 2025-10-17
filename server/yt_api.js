@@ -6,7 +6,7 @@ const NodeCache = require('node-cache');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.SERVER_PORT || 3000;
+const PORT = process.env.PORT || process.env.SERVER_PORT || 3000;
 const API_KEY = process.env.YT_API_KEY;
 const cache = new NodeCache({ stdTTL: 86400 }); // Cache with 24-hour TTL
 
@@ -22,6 +22,21 @@ app.use(express.json());
 
 // === Serve Static Files ===
 app.use(express.static('../'));
+
+// === Root Route ===
+app.get('/', (req, res) => {
+  res.send(`
+    <h1>🚀 MotorNation API Server</h1>
+    <p>API is running successfully!</p>
+    <h3>Available Endpoints:</h3>
+    <ul>
+      <li><a href="/api/reviews/summary">/api/reviews/summary</a> - Get reviews summary</li>
+      <li><a href="/api/news/summary">/api/news/summary</a> - Get news summary</li>
+      <li>/getChannelVideos?channelId=UC9HmzxcrnW3CGZVf0iPK6Eg - Get YouTube videos</li>
+    </ul>
+    <p>For the full website, you'll need to deploy the frontend separately to Cloud Storage.</p>
+  `);
+});
 
 // === Mount API Routes ===
 app.use('/api', reviewsApi);
