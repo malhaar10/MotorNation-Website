@@ -191,7 +191,6 @@ router.get('/news/summary', async (req, res) => {
       ORDER BY created_at DESC
       LIMIT 6
     `);
-    res.json(result.rows);
     console.log(`✅ News API: Successfully fetched ${result.rows.length} news summaries`);
     res.json(result.rows);
   } catch (err) {
@@ -220,7 +219,6 @@ router.get('/news/electric', async (req, res) => {
       ORDER BY created_at DESC
       LIMIT 6
     `);
-    res.json(result.rows);
     console.log(`✅ News API: Successfully fetched ${result.rows.length} EV news articles`);
     res.json(result.rows);
   } catch (error) {
@@ -396,7 +394,6 @@ router.get('/news/:id', async (req, res) => {
       return res.status(404).json({ error: 'News article not found' });
     }
     
-    res.json(result.rows[0]);
     console.log(`✅ News API: Successfully fetched news article: ${result.rows[0].news_title}`);
     res.json(result.rows[0]);
   } catch (err) {

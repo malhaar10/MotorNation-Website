@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const { pool } = require('./reviews_db');
+const pool = require('./reviews_db');
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
@@ -173,7 +173,6 @@ router.get('/reviews/hatchback', async (req, res) => {
       ORDER BY model_year DESC
       LIMIT 6
     `);
-    res.json(result.rows);
     console.log(`✅ Reviews API: Successfully fetched ${result.rows.length} hatchback reviews`);
     res.json(result.rows);
   } catch (error) {
@@ -201,7 +200,6 @@ router.get('/reviews/luxury', async (req, res) => {
       ORDER BY model_year DESC
       LIMIT 6
     `);
-    res.json(result.rows);
     console.log(`✅ Reviews API: Successfully fetched ${result.rows.length} luxury reviews`);
     res.json(result.rows);
   } catch (error) {
