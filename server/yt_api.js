@@ -221,7 +221,68 @@ app.get('/api/playlist/latest', async (req, res) => {
   }
 });
 
+// === Global Error Handling Middleware ===
+app.use((err, req, res, next) => {
+  console.error('❌ GLOBAL ERROR HANDLER CAUGHT:', {
+    error: err.message,
+    stack: err.stack,
+    timestamp: new Date().toISOString(),
+    method: req.method,
+    url: req.originalUrl,
+    headers: req.headers,
+    body: req.body,
+    query: req.query,
+    params: req.params
+  });
+  
+  // Don't expose internal error details to client in production
+  const isDevelopment = process.env.NODE_ENV === 'development';
+  
+  res.status(err.status || 500).json({
+    error: isDevelopment ? err.message : 'Internal Server Error',
+    ...(isDevelopment && { stack: err.stack })
+  });
+});
+
+// === 404 Handler ===
+app.use('*', (req, res) => {
+  console.error(`❌ 404 Not Found: ${req.method} ${req.originalUrl}`);
+  res.status(404).json({ error: 'Route not found' });
+});
+
+// === Process Level Error Handlers ===
+process.on('uncaughtException', (err) => {
+  console.error('❌ UNCAUGHT EXCEPTION:', {
+    error: err.message,
+    stack: err.stack,
+    timestamp: new Date().toISOString()
+  });
+  
+  // Give the process time to log before exiting
+  setTimeout(() => {
+    process.exit(1);
+  }, 1000);
+});
+
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('❌ UNHANDLED REJECTION:', {
+    reason: reason,
+    promise: promise,
+    timestamp: new Date().toISOString()
+  });
+  
+  // Don't exit on unhandled rejections in production, just log them
+  // process.exit(1);
+});
+
 // === Start Server ===
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
+}).on('error', (err) => {
+  console.error('❌ SERVER STARTUP ERROR:', {
+    error: err.message,
+    stack: err.stack,
+    port: PORT,
+    timestamp: new Date().toISOString()
+  });
 });

@@ -33,10 +33,8 @@ const upload = multer({
 // Helper function to upload file to Google Cloud Storage
 async function uploadToGCS(file, filename) {
   return new Promise((resolve, reject) => {
-    console.log(`📤 Starting upload to bucket: ${process.env.GOOGLE_CLOUD_BUCKET_NAME_NEWS}`);
-    console.log(`📤 Filename: ${filename}`);
-    console.log(`📤 File size: ${file.buffer.length} bytes`);
-    console.log(`📤 Content type: ${file.mimetype}`);
+    console.log(`📤 News API: Starting upload to bucket: ${process.env.GOOGLE_CLOUD_BUCKET_NAME_NEWS}`);
+    console.log(`📤 News API: Filename: ${filename}, Size: ${file.buffer.length} bytes, Type: ${file.mimetype}`);
     
     const blob = bucket.file(filename);
     const blobStream = blob.createWriteStream({
@@ -46,25 +44,39 @@ async function uploadToGCS(file, filename) {
     });
 
     blobStream.on('error', (err) => {
-      console.error(`📤 Stream error for ${filename}:`, err);
+      console.error(`❌ News API: Stream error for ${filename}:`, {
+        error: err.message,
+        stack: err.stack,
+        filename: filename,
+        fileSize: file.buffer.length,
+        mimetype: file.mimetype,
+        bucket: process.env.GOOGLE_CLOUD_BUCKET_NAME_NEWS,
+        timestamp: new Date().toISOString()
+      });
       reject(err);
     });
 
     blobStream.on('finish', async () => {
       try {
-        console.log(`📤 Upload finished for ${filename}`);
+        console.log(`✅ News API: Upload finished for ${filename}`);
         // For uniform bucket-level access, files are automatically public
         // if the bucket is configured for public access
         const publicUrl = `https://storage.googleapis.com/${process.env.GOOGLE_CLOUD_BUCKET_NAME_NEWS}/${filename}`;
-        console.log(`📤 Generated URL: ${publicUrl}`);
+        console.log(`✅ News API: Generated URL: ${publicUrl}`);
         resolve(publicUrl);
       } catch (err) {
-        console.error(`📤 URL generation error for ${filename}:`, err);
+        console.error(`❌ News API: URL generation error for ${filename}:`, {
+          error: err.message,
+          stack: err.stack,
+          filename: filename,
+          bucket: process.env.GOOGLE_CLOUD_BUCKET_NAME_NEWS,
+          timestamp: new Date().toISOString()
+        });
         reject(err);
       }
     });
 
-    console.log(`📤 Starting to write buffer for ${filename}...`);
+    console.log(`📤 News API: Starting to write buffer for ${filename}...`);
     blobStream.end(file.buffer);
   });
 }
@@ -117,7 +129,15 @@ router.post('/news', upload.array('images', 10), async (req, res) => {
           imageUrls.push(publicUrl);
           console.log(`✅ Successfully uploaded: ${filename} -> ${publicUrl}`);
         } catch (uploadError) {
-          console.error(`❌ Error uploading file ${file.originalname}:`, uploadError);
+          console.error(`❌ News API: Error uploading file ${file.originalname}:`, {
+            error: uploadError.message,
+            stack: uploadError.stack,
+            filename: file.originalname,
+            fileSize: file.size,
+            mimetype: file.mimetype,
+            bucket: process.env.GOOGLE_CLOUD_BUCKET_NAME_NEWS,
+            timestamp: new Date().toISOString()
+          });
           // Continue with other files even if one fails
         }
       }
@@ -141,7 +161,22 @@ router.post('/news', upload.array('images', 10), async (req, res) => {
       message: `Article created successfully with ${imageUrls.length} images uploaded`
     });
   } catch (err) {
-    console.error('Error adding news:', err);
+    console.error('❌ News API: Error adding news:', {
+      error: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString(),
+      method: 'POST',
+      endpoint: '/api/news',
+      body: {
+        news_title: req.body.news_title,
+        author: req.body.author,
+        tag: req.body.tag,
+        tag2: req.body.tag2,
+        filesCount: req.files ? req.files.length : 0
+      },
+      headers: req.headers['user-agent']
+    });
     res.status(500).json({ error: 'Failed to add news article' });
   }
 });
@@ -157,8 +192,19 @@ router.get('/news/summary', async (req, res) => {
       LIMIT 6
     `);
     res.json(result.rows);
+    console.log(`✅ News API: Successfully fetched ${result.rows.length} news summaries`);
+    res.json(result.rows);
   } catch (err) {
-    console.error('Error fetching news summary:', err);
+    console.error('❌ News API: Error fetching news summary:', {
+      error: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: '/api/news/summary',
+      query: req.query,
+      headers: req.headers['user-agent']
+    });
     res.status(500).json({ error: 'Failed to fetch news summary' });
   }
 });
@@ -175,8 +221,19 @@ router.get('/news/electric', async (req, res) => {
       LIMIT 6
     `);
     res.json(result.rows);
+    console.log(`✅ News API: Successfully fetched ${result.rows.length} EV news articles`);
+    res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching EV news:', error);
+    console.error('❌ News API: Error fetching EV news:', {
+      error: error.message,
+      stack: error.stack,
+      code: error.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: '/api/news/electric',
+      query: req.query,
+      headers: req.headers['user-agent']
+    });
     res.status(500).json({ error: 'Failed to fetch EV news' });
   }
 });
@@ -340,8 +397,20 @@ router.get('/news/:id', async (req, res) => {
     }
     
     res.json(result.rows[0]);
+    console.log(`✅ News API: Successfully fetched news article: ${result.rows[0].news_title}`);
+    res.json(result.rows[0]);
   } catch (err) {
-    console.error('Error fetching news article:', err);
+    console.error('❌ News API: Error fetching news article:', {
+      error: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: `/api/news/${req.params.id}`,
+      params: req.params,
+      query: req.query,
+      headers: req.headers['user-agent']
+    });
     res.status(500).json({ error: 'Failed to fetch news article' });
   }
 });

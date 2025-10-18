@@ -46,7 +46,13 @@ async function uploadToGCS(file, filename) {
     });
 
     blobStream.on('error', (err) => {
-      console.error(`📤 Stream error for ${filename}:`, err);
+      console.error(`❌ Reviews API: Stream error for ${filename}:`, {
+        error: err.message,
+        stack: err.stack,
+        filename: filename,
+        bucket: process.env.GOOGLE_CLOUD_BUCKET_NAME_REVIEWS,
+        timestamp: new Date().toISOString()
+      });
       reject(err);
     });
 
@@ -59,7 +65,13 @@ async function uploadToGCS(file, filename) {
         console.log(`📤 Generated URL: ${publicUrl}`);
         resolve(publicUrl);
       } catch (err) {
-        console.error(`📤 URL generation error for ${filename}:`, err);
+        console.error(`❌ Reviews API: URL generation error for ${filename}:`, {
+          error: err.message,
+          stack: err.stack,
+          filename: filename,
+          bucket: process.env.GOOGLE_CLOUD_BUCKET_NAME_REVIEWS,
+          timestamp: new Date().toISOString()
+        });
         reject(err);
       }
     });
@@ -73,18 +85,28 @@ async function uploadToGCS(file, filename) {
 router.get('/reviews', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM reviews ORDER BY created_at DESC');
+    console.log(`✅ Reviews API: Successfully fetched ${result.rows.length} reviews`);
     res.json(result.rows);
   } catch (err) {
-    console.error('Error fetching reviews:', err);
+    console.error('❌ Reviews API: Error fetching reviews:', {
+      error: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: '/api/reviews',
+      query: req.query,
+      headers: req.headers['user-agent']
+    });
     res.status(500).json({ error: 'Failed to fetch reviews' });
   }
 });
 
 router.get('/reviews/summary', async (req, res) => {
   try {
-    console.log('Query params received:', req.query);
+    console.log('📊 Reviews API: Query params received:', req.query);
     const limit = parseInt(req.query.limit) || 6;
-    console.log('Limit set to:', limit);
+    console.log('📊 Reviews API: Limit set to:', limit);
 
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
@@ -92,11 +114,23 @@ router.get('/reviews/summary', async (req, res) => {
       ORDER BY created_at DESC
       LIMIT $1`, [limit]);
 
-    console.log('Query executed, returning', result.rows.length, 'rows');
-    console.log('First row data:', JSON.stringify(result.rows[0], null, 2));
+    console.log('✅ Reviews API: Query executed, returning', result.rows.length, 'rows');
+    if (result.rows.length > 0) {
+      console.log('📊 Reviews API: First row data:', JSON.stringify(result.rows[0], null, 2));
+    }
     res.json(result.rows);
   } catch (err) {
-    console.error('Error fetching review summaries:', err);
+    console.error('❌ Reviews API: Error fetching review summaries:', {
+      error: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: '/api/reviews/summary',
+      query: req.query,
+      limit: parseInt(req.query.limit) || 6,
+      headers: req.headers['user-agent']
+    });
     res.status(500).json({ error: 'Failed to fetch review summaries' });
   }
 });
@@ -112,10 +146,20 @@ router.get('/reviews/electric', async (req, res) => {
       ORDER BY model_year DESC
       LIMIT 6
     `);
+    console.log(`✅ Reviews API: Successfully fetched ${result.rows.length} electric reviews`);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching EV reviews:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('❌ Reviews API: Error fetching EV reviews:', {
+      error: error.message,
+      stack: error.stack,
+      code: error.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: '/api/reviews/electric',
+      query: req.query,
+      headers: req.headers['user-agent']
+    });
+    res.status(500).json({ error: 'Failed to fetch electric reviews' });
   }
 });
 
@@ -130,9 +174,20 @@ router.get('/reviews/hatchback', async (req, res) => {
       LIMIT 6
     `);
     res.json(result.rows);
+    console.log(`✅ Reviews API: Successfully fetched ${result.rows.length} hatchback reviews`);
+    res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching hatchback reviews:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('❌ Reviews API: Error fetching hatchback reviews:', {
+      error: error.message,
+      stack: error.stack,
+      code: error.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: '/api/reviews/hatchback',
+      query: req.query,
+      headers: req.headers['user-agent']
+    });
+    res.status(500).json({ error: 'Failed to fetch hatchback reviews' });
   }
 });
 
@@ -147,9 +202,20 @@ router.get('/reviews/luxury', async (req, res) => {
       LIMIT 6
     `);
     res.json(result.rows);
+    console.log(`✅ Reviews API: Successfully fetched ${result.rows.length} luxury reviews`);
+    res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching luxury reviews:', error);
-    res.status(500).json({ error: 'Internal server error' });
+    console.error('❌ Reviews API: Error fetching luxury reviews:', {
+      error: error.message,
+      stack: error.stack,
+      code: error.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: '/api/reviews/luxury',
+      query: req.query,
+      headers: req.headers['user-agent']
+    });
+    res.status(500).json({ error: 'Failed to fetch luxury reviews' });
   }
 });
 
@@ -269,17 +335,31 @@ router.get('/reviews/suv', async (req, res) => {
 router.get('/reviews/:id', async (req, res) => {
   try {
     const { id } = req.params;
+    console.log(`📊 Reviews API: Fetching review with ID: ${id}`);
+    
     const result = await pool.query(`
       SELECT * FROM reviews WHERE id = $1
     `, [id]);
     
     if (result.rows.length === 0) {
+      console.log(`❌ Reviews API: Review not found for ID: ${id}`);
       return res.status(404).json({ error: 'Review not found' });
     }
     
+    console.log(`✅ Reviews API: Successfully fetched review: ${result.rows[0].car_name}`);
     res.json(result.rows[0]);
   } catch (err) {
-    console.error('Error fetching review:', err);
+    console.error('❌ Reviews API: Error fetching review:', {
+      error: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString(),
+      method: 'GET',
+      endpoint: `/api/reviews/${req.params.id}`,
+      params: req.params,
+      query: req.query,
+      headers: req.headers['user-agent']
+    });
     res.status(500).json({ error: 'Failed to fetch review' });
   }
 });
@@ -324,7 +404,15 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
           imageUrls.push(publicUrl);
           console.log(`✅ Successfully uploaded: ${filename} -> ${publicUrl}`);
         } catch (uploadError) {
-          console.error(`❌ Error uploading file ${file.originalname}:`, uploadError);
+          console.error(`❌ Reviews API: Error uploading file ${file.originalname}:`, {
+            error: uploadError.message,
+            stack: uploadError.stack,
+            filename: file.originalname,
+            fileSize: file.size,
+            mimetype: file.mimetype,
+            bucket: process.env.GOOGLE_CLOUD_BUCKET_NAME_REVIEWS,
+            timestamp: new Date().toISOString()
+          });
           // Continue with other files even if one fails
         }
       }
@@ -350,7 +438,22 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
       message: `Review created successfully with ${imageUrls.length} images uploaded`
     });
   } catch (err) {
-    console.error('Error inserting review:', err);
+    console.error('❌ Reviews API: Error inserting review:', {
+      error: err.message,
+      stack: err.stack,
+      code: err.code,
+      timestamp: new Date().toISOString(),
+      method: 'POST',
+      endpoint: '/api/reviews',
+      body: {
+        car_name: req.body.car_name,
+        model_year: req.body.model_year,
+        tag: req.body.tag,
+        tag2: req.body.tag2,
+        filesCount: req.files ? req.files.length : 0
+      },
+      headers: req.headers['user-agent']
+    });
     res.status(500).json({ error: 'Failed to create review' });
   }
 });
