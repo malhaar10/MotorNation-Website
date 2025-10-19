@@ -146,14 +146,17 @@
     <!-- Script to fetch and display reviews from API -->
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
-            // Initialize cache manager
-            CacheManager.init();
-            
             const container = document.querySelector('.latest-news .cards');
 
             try {
-                // Fetch reviews summary using cached API client
-                const reviews = await ApiClient.getReviewsSummary();
+                // Direct fetch from production API
+                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/reviews/summary');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const reviews = await response.json();
                 container.innerHTML = ''; // Clear existing content
 
                 // Create card for each review
@@ -216,8 +219,14 @@
             const newsContainer = document.getElementById('latest-news-cards');
 
             try {
-                // Fetch news summary using cached API client
-                const newsItems = await ApiClient.getNewsSummary();
+                // Direct fetch from production API
+                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/news/summary');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const newsItems = await response.json();
                 newsContainer.innerHTML = ''; // Clear placeholder content
 
                 // Create card for each news item
@@ -277,8 +286,14 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
-                // Fetch electric vehicle reviews using cached API client
-                const reviews = await ApiClient.getCategoryReviews('electric');
+                // Direct fetch from production API
+                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/reviews/electric');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const reviews = await response.json();
                 const container = document.getElementById('reviews-electric');
 
                 // Create card for each electric vehicle review
@@ -309,6 +324,8 @@
                 });
             } catch (error) {
                 console.error('Failed to load electric reviews:', error);
+                const container = document.getElementById('reviews-electric');
+                container.innerHTML = '<p style="color: red;">Could not load electric reviews.</p>';
             }
         });
     </script>
