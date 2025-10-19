@@ -74,13 +74,10 @@
         <div id="results"></div>
     </div>
 
-    <!-- Include the cache manager and API client -->
-    <script src="js/cache-manager.js?v=2"></script>
-    <script src="js/api-client.js?v=2"></script>
+    <!-- Cache manager and API client removed - files deleted -->
 
     <script>
-        // Initialize cache manager
-        CacheManager.init();
+        // Cache manager removed
 
         function updateStatus(message, type = 'info') {
             const status = document.getElementById('status');
@@ -101,10 +98,9 @@
         }
 
         async function clearCache() {
-            updateStatus('Clearing cache...', 'info');
-            CacheManager.clearAllCache();
-            addResult('Cache Cleared', 'All cached data has been removed', 'success');
-            updateStatus('Cache cleared successfully', 'success');
+            updateStatus('Cache functionality removed', 'info');
+            addResult('Cache Cleared', 'No caching - all requests are fresh', 'success');
+            updateStatus('No cache to clear - direct API calls only', 'success');
         }
 
         async function testReviewsSummary() {
@@ -112,7 +108,13 @@
             updateStatus('Testing Reviews Summary...', 'info');
             
             try {
-                const reviews = await ApiClient.getReviewsSummary(3);
+                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/reviews/summary?limit=3');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const reviews = await response.json();
                 addResult('Reviews Summary (Limit 3)', reviews, 'success');
                 updateStatus(`✅ Reviews Summary: ${reviews.length} items loaded`, 'success');
             } catch (error) {
@@ -126,7 +128,13 @@
             updateStatus('Testing News Summary...', 'info');
             
             try {
-                const news = await ApiClient.getNewsSummary(3);
+                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/news/summary?limit=3');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const news = await response.json();
                 addResult('News Summary (Limit 3)', news, 'success');
                 updateStatus(`✅ News Summary: ${news.length} items loaded`, 'success');
             } catch (error) {
@@ -140,7 +148,13 @@
             updateStatus('Testing Electric Reviews...', 'info');
             
             try {
-                const reviews = await ApiClient.getCategoryReviews('electric');
+                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/reviews/electric');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const reviews = await response.json();
                 addResult('Electric Reviews', reviews, 'success');
                 updateStatus(`✅ Electric Reviews: ${reviews.length} items loaded`, 'success');
             } catch (error) {
@@ -179,7 +193,8 @@
         // Display current API base URL
         document.addEventListener('DOMContentLoaded', () => {
             addResult('Current API Configuration', {
-                baseUrl: ApiClient.BASE_URL,
+                baseUrl: 'https://motornation-336079007565.us-central1.run.app/api',
+                caching: 'Disabled - Direct fetch calls only',
                 timestamp: new Date().toISOString()
             }, 'info');
         });

@@ -13,12 +13,7 @@
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
     
-    <!-- Search functionality script -->
-    <script src="../search-functionality.js"></script>
-    
-    <!-- Cache Manager and API Client -->
-    <script src="../js/cache-manager.js"></script>
-    <script src="../js/api-client.js"></script>
+    <!-- All caching removed - using direct fetch calls only -->
 </head>
 
 <body>
@@ -104,12 +99,18 @@
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
             // Initialize cache manager
-            CacheManager.init();
+
             
             try {
                 console.log('🔄 Loading hatchback reviews...');
                 // Use cached API client instead of direct fetch
-                const reviews = await ApiClient.getCategoryReviews('hatchback');
+                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/reviews/hatchback');
+                
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                
+                const reviews = await response.json();
                 console.log('✅ Hatchback Reviews loaded:', reviews.length);
 
                 const container = document.getElementById('reviews-electric');
