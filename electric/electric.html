@@ -15,6 +15,10 @@
     
     <!-- Search functionality script -->
     <script src="../search-functionality.js"></script>
+    
+    <!-- Cache Manager and API Client -->
+    <script src="../js/cache-manager.js"></script>
+    <script src="../js/api-client.js"></script>
 </head>
 
 <body>
@@ -99,7 +103,7 @@
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 console.log('🔄 Loading EV reviews...');
-                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/reviews/electric');
+                const response = await fetch('http://localhost:3000/api/reviews/electric');
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -178,7 +182,7 @@
                 }
 
                 // Make the API request
-                const response = await fetch("https://motornation-336079007565.us-central1.run.app/api/news/electric");
+                const response = await fetch("http://localhost:3000/api/news/electric");
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -259,7 +263,7 @@
             const container = document.getElementById('ev-videos-cards');
             const playlistId = 'PLeHErLXrPBfRQOO_SRtKs0CtK5C6IKYc_'; // Replace with actual playlist ID
 
-            fetch(`https://motornation-336079007565.us-central1.run.app/getPlaylistVideos?playlistId=${playlistId}`)
+            fetch(`http://localhost:3000/getPlaylistVideos?playlistId=${playlistId}`)
                 .then(res => res.json())
                 .then(videos => {
                     videos.forEach(video => {

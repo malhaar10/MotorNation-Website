@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const pool = require('./news_db'); // PostgreSQL connection pool
+const pool = require('./db'); // PostgreSQL connection pool
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');

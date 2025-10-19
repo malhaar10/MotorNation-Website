@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const poolReview = require('./reviews_db');
-const poolNews = require('./news_db');
+const pool = require('./db');
 
 router.get('/search', async (req, res) => {
     const keyword = req.query.tag?.toLowerCase();
@@ -13,7 +12,7 @@ router.get('/search', async (req, res) => {
 
     try {
         const [reviewsResult, newsResult] = await Promise.all([
-            poolReview.query(
+            pool.query(
                 `SELECT id, car_name, model_year, tag, tag2, images
                  FROM reviews
                  WHERE LOWER(tag) ILIKE $1
@@ -23,7 +22,7 @@ router.get('/search', async (req, res) => {
                  LIMIT 7`,
                 [`%${keyword}%`]
             ),
-            poolNews.query(
+            pool.query(
                 `SELECT id, news_title, date, tag, tag2, images
                  FROM news
                  WHERE LOWER(tag) ILIKE $1

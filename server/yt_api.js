@@ -11,7 +11,7 @@ const API_KEY = process.env.YT_API_KEY;
 const cache = new NodeCache({ stdTTL: 86400 }); // Cache with 24-hour TTL
 
 // === Database and API route imports ===
-const pool = require('./reviews_db');
+const pool = require('./db');
 const reviewsApi = require('./reviews_api');
 const newsApi = require('./news_api');
 const searchApi = require('./search_api');
