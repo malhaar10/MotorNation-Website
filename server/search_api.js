@@ -5,15 +5,13 @@ const poolNews = require('./news_db');
 
 router.get('/search', async (req, res) => {
     const keyword = req.query.tag?.toLowerCase();
-    console.log("📊 Search API: Received search keyword:", keyword);
+    console.log("Received search keyword:", keyword); // TEST PRINT
 
     if (!keyword) {
-        console.log("❌ Search API: Missing required 'tag' parameter");
-        return res.status(400).json({ error: 'Tag parameter is required' });
+        return res.status(400).json({ error: 'Tag is required' });
     }
 
     try {
-        console.log(`📊 Search API: Starting parallel search for keyword: "${keyword}"`);
         const [reviewsResult, newsResult] = await Promise.all([
             poolReview.query(
                 `SELECT id, car_name, model_year, tag, tag2, images
@@ -37,27 +35,16 @@ router.get('/search', async (req, res) => {
             ),
         ]);
 
-        console.log(`✅ Search API: Found ${reviewsResult.rows.length} reviews and ${newsResult.rows.length} news articles for "${keyword}"`);
+        console.log("Reviews found:", reviewsResult.rows.length); // TEST PRINT
+        console.log("News found:", newsResult.rows.length); // TEST PRINT
 
         res.json({
             reviews: reviewsResult.rows,
-            news: newsResult.rows,
-            keyword: keyword,
-            totalResults: reviewsResult.rows.length + newsResult.rows.length
+            news: newsResult.rows
         });
     } catch (error) {
-        console.error('❌ Search API: Search error:', {
-            error: error.message,
-            stack: error.stack,
-            code: error.code,
-            timestamp: new Date().toISOString(),
-            method: 'GET',
-            endpoint: '/api/search',
-            query: req.query,
-            keyword: keyword,
-            headers: req.headers['user-agent']
-        });
-        res.status(500).json({ error: 'Search operation failed' });
+        console.error('Search error:', error);
+        res.status(500).json({ error: 'Internal server error' });
     }
 });
 

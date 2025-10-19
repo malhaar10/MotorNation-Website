@@ -3,7 +3,7 @@
  * Wraps all API calls with automatic caching using CacheManager
  */
 class ApiClient {
-    static BASE_URL = 'https://motornation-336079007565.us-central1.run.app/api';
+    static BASE_URL = 'http://localhost:3000/api';
     static DEFAULT_OPTIONS = {
         headers: {
             'Content-Type': 'application/json'

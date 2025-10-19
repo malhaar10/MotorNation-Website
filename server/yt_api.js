@@ -6,7 +6,7 @@ const NodeCache = require('node-cache');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || process.env.SERVER_PORT || 3000;
+const PORT = process.env.PORT || 3000;
 const API_KEY = process.env.YT_API_KEY;
 const cache = new NodeCache({ stdTTL: 86400 }); // Cache with 24-hour TTL
 
@@ -22,21 +22,6 @@ app.use(express.json());
 
 // === Serve Static Files ===
 app.use(express.static('../'));
-
-// === Root Route ===
-app.get('/', (req, res) => {
-  res.send(`
-    <h1>🚀 MotorNation API Server</h1>
-    <p>API is running successfully!</p>
-    <h3>Available Endpoints:</h3>
-    <ul>
-      <li><a href="/api/reviews/summary">/api/reviews/summary</a> - Get reviews summary</li>
-      <li><a href="/api/news/summary">/api/news/summary</a> - Get news summary</li>
-      <li>/getChannelVideos?channelId=UC9HmzxcrnW3CGZVf0iPK6Eg - Get YouTube videos</li>
-    </ul>
-    <p>For the full website, you'll need to deploy the frontend separately to Cloud Storage.</p>
-  `);
-});
 
 // === Mount API Routes ===
 app.use('/api', reviewsApi);
@@ -221,68 +206,7 @@ app.get('/api/playlist/latest', async (req, res) => {
   }
 });
 
-// === Global Error Handling Middleware ===
-app.use((err, req, res, next) => {
-  console.error('❌ GLOBAL ERROR HANDLER CAUGHT:', {
-    error: err.message,
-    stack: err.stack,
-    timestamp: new Date().toISOString(),
-    method: req.method,
-    url: req.originalUrl,
-    headers: req.headers,
-    body: req.body,
-    query: req.query,
-    params: req.params
-  });
-  
-  // Don't expose internal error details to client in production
-  const isDevelopment = process.env.NODE_ENV === 'development';
-  
-  res.status(err.status || 500).json({
-    error: isDevelopment ? err.message : 'Internal Server Error',
-    ...(isDevelopment && { stack: err.stack })
-  });
-});
-
-// === 404 Handler ===
-app.use('*', (req, res) => {
-  console.error(`❌ 404 Not Found: ${req.method} ${req.originalUrl}`);
-  res.status(404).json({ error: 'Route not found' });
-});
-
-// === Process Level Error Handlers ===
-process.on('uncaughtException', (err) => {
-  console.error('❌ UNCAUGHT EXCEPTION:', {
-    error: err.message,
-    stack: err.stack,
-    timestamp: new Date().toISOString()
-  });
-  
-  // Give the process time to log before exiting
-  setTimeout(() => {
-    process.exit(1);
-  }, 1000);
-});
-
-process.on('unhandledRejection', (reason, promise) => {
-  console.error('❌ UNHANDLED REJECTION:', {
-    reason: reason,
-    promise: promise,
-    timestamp: new Date().toISOString()
-  });
-  
-  // Don't exit on unhandled rejections in production, just log them
-  // process.exit(1);
-});
-
 // === Start Server ===
 app.listen(PORT, () => {
   console.log(`🚀 Server running on http://localhost:${PORT}`);
-}).on('error', (err) => {
-  console.error('❌ SERVER STARTUP ERROR:', {
-    error: err.message,
-    stack: err.stack,
-    port: PORT,
-    timestamp: new Date().toISOString()
-  });
 });

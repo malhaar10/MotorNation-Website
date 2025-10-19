@@ -120,7 +120,7 @@
             searchQuery.textContent = `Showing results for: "${tag}"`;
 
             try {
-                const fullUrl = `https://motornation-336079007565.us-central1.run.app/api/search?tag=${encodeURIComponent(tag)}`;
+                const fullUrl = `http://localhost:3000/api/search?tag=${encodeURIComponent(tag)}`;
                 console.log("Fetching from:", fullUrl);
 
                 const res = await fetch(fullUrl);
