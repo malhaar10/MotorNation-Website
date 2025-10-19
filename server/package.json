@@ -1,14 +1,19 @@
 {
-  "name": "server",
+  "name": "motornation-backend",
   "version": "1.0.0",
+  "description": "MotorNation Backend API Server for Google Cloud Run",
   "main": "yt_api.js",
   "scripts": {
+    "start": "node yt_api.js",
+    "dev": "nodemon yt_api.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "keywords": [],
-  "author": "",
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": ["automotive", "api", "nodejs", "cloud-run"],
+  "author": "Malhaar",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "@google-cloud/storage": "^7.17.1",
     "axios": "^1.11.0",

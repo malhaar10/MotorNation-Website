@@ -6,7 +6,7 @@ const NodeCache = require('node-cache');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 8080; // Cloud Run uses 8080 by default
 const API_KEY = process.env.YT_API_KEY;
 const cache = new NodeCache({ stdTTL: 86400 }); // Cache with 24-hour TTL
 
@@ -17,25 +17,71 @@ const newsApi = require('./news_api');
 const searchApi = require('./search_api');
 
 // === Middleware Setup ===
-app.use(cors());
-app.use(express.json());
+app.use(cors({
+  origin: process.env.FRONTEND_URL || '*', // Configure for production
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
+app.use(express.json({ limit: '10mb' }));
 
 // === Serve Static Files ===
 app.use(express.static('../'));
+
+// === Health Check Endpoints for Cloud Run ===
+app.get('/health', (req, res) => {
+  res.status(200).json({ 
+    status: 'healthy', 
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    environment: process.env.NODE_ENV || 'development'
+  });
+});
+
+app.get('/health/db', async (req, res) => {
+  try {
+    const start = Date.now();
+    await pool.query('SELECT 1');
+    const duration = Date.now() - start;
+    res.status(200).json({ 
+      database: 'connected',
+      responseTime: `${duration}ms`,
+      timestamp: new Date().toISOString()
+    });
+  } catch (error) {
+    console.error('❌ Database health check failed:', error);
+    res.status(503).json({ 
+      database: 'disconnected', 
+      error: error.message,
+      timestamp: new Date().toISOString()
+    });
+  }
+});
 
 // === Mount API Routes ===
 app.use('/api', reviewsApi);
 app.use('/api', newsApi);
 app.use('/api', searchApi);
 
-// === Test DB Connection ===
-pool.query('SELECT 1', (err) => {
-  if (err) {
-    console.error('❌ DB test connection failed:', err.stack);
-  } else {
-    console.log('✅ DB test connection successful');
+// === Enhanced DB Connection Test ===
+async function testDatabaseConnection() {
+  try {
+    const client = await pool.connect();
+    const result = await client.query('SELECT NOW() as current_time, version() as pg_version');
+    console.log('✅ DB connection successful');
+    console.log(`📍 Database time: ${result.rows[0].current_time}`);
+    console.log(`🐘 PostgreSQL version: ${result.rows[0].pg_version.split(' ')[0]}`);
+    client.release();
+  } catch (err) {
+    console.error('❌ DB connection failed:', err.stack);
+    // Don't exit in production, let health checks handle it
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(1);
+    }
   }
-});
+}
+
+// Test database connection on startup
+testDatabaseConnection();
 
 // === GET /getPlaylistVideos ===
 app.get('/getPlaylistVideos', async (req, res) => {

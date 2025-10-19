@@ -1,0 +1,31 @@
+steps:
+  # Build step - Install dependencies and prepare application
+  - name: 'gcr.io/cloud-builders/npm'
+    dir: 'server'
+    args: ['install']
+    
+  # Deploy to Cloud Run from source
+  - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
+    dir: 'server'
+    entrypoint: 'gcloud'
+    args:
+      - 'run'
+      - 'deploy'
+      - 'motornation-backend'
+      - '--source=.'
+      - '--platform=managed'
+      - '--region=us-central1'
+      - '--allow-unauthenticated'
+      - '--port=8080'
+      - '--memory=1Gi'
+      - '--cpu=1'
+      - '--max-instances=10'
+      - '--concurrency=80'
+      - '--set-env-vars=NODE_ENV=production,PORT=8080'
+
+# Options for the build
+options:
+  logging: CLOUD_LOGGING_ONLY
+  
+# Timeout for the entire build
+timeout: '1200s'
