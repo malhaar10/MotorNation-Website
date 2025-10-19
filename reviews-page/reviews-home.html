@@ -4,16 +4,26 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotorNation</title>
-    <link rel="stylesheet" href="../page_header.css">
-    <link rel="stylesheet" href="../reviews-page/reviews-home.css">
+    <!-- Force browser to reload all resources -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="../page_header.css?v=3">
+    <link rel="stylesheet" href="../reviews-page/reviews-home.css?v=3">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="swiper-bundle.min.css">
+    <link rel="stylesheet" href="../swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
 
     <!-- All caching removed - using direct fetch calls only -->
+    <script>
+        // Override any cached references to old cache manager
+        window.CacheManager = undefined;
+        window.ApiClient = undefined;
+        console.log('🚫 Cache manager disabled - using direct fetch calls only');
+    </script>
 </head>
 
 <body>
