@@ -24,8 +24,44 @@ app.use(cors({
 }));
 app.use(express.json({ limit: '10mb' }));
 
-// === Serve Static Files ===
-app.use(express.static('../'));
+// === API Info Root Route (must come before static file serving) ===
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: "MotorNation API Server",
+    version: "1.0.0",
+    description: "Backend API for MotorNation automotive content platform",
+    endpoints: {
+      health: "/health",
+      database_health: "/health/db",
+      news_summary: "/api/news/summary",
+      reviews_summary: "/api/reviews/summary",
+      search: "/api/search?tag=keyword",
+      youtube_videos: "/getPlaylistVideos?playlistId=PLAYLIST_ID",
+      news_categories: {
+        electric: "/api/news/electric",
+        luxury: "/api/news/luxury",
+        performance: "/api/news/performance",
+        hybrid: "/api/news/hybrids",
+        suv: "/api/news/suv"
+      },
+      review_categories: {
+        electric: "/api/reviews/electric",
+        luxury: "/api/reviews/luxury",
+        performance: "/api/reviews/performance",
+        hybrid: "/api/reviews/hybrids",
+        suv: "/api/reviews/suv"
+      }
+    },
+    status: "running",
+    timestamp: new Date().toISOString(),
+    uptime: `${Math.floor(process.uptime())} seconds`
+  });
+});
+
+// === Serve Static Files (only in development) ===
+if (process.env.NODE_ENV !== 'production') {
+  app.use(express.static('../'));
+}
 
 // === Health Check Endpoints for Cloud Run ===
 app.get('/health', (req, res) => {
