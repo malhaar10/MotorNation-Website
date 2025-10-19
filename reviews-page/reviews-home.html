@@ -143,6 +143,9 @@
     </script>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+            console.log('🚀 Reviews page loading - cache manager disabled');
+            console.log('📍 Using production API endpoint');
+            
             try {
                 const isMobile = window.innerWidth <= 768;
                 const limit = isMobile ? 3 : 6;
@@ -151,8 +154,11 @@
                 console.log('Is mobile:', isMobile);
                 console.log('Limit set to:', limit);
 
+                const apiUrl = `https://motornation-336079007565.us-central1.run.app/api/reviews/summary?limit=${limit}`;
+                console.log('🌐 Fetching from:', apiUrl);
+                
                 // Direct fetch from production API
-                const response = await fetch(`https://motornation-336079007565.us-central1.run.app/api/reviews/summary?limit=${limit}`);
+                const response = await fetch(apiUrl);
                 
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
@@ -187,8 +193,12 @@
             `;
                     container.appendChild(card);
                 });
+                
+                console.log('✅ Successfully loaded', reviews.length, 'reviews');
             } catch (error) {
-                console.error('Failed to load latest reviews:', error);
+                console.error('❌ Failed to load latest reviews:', error);
+                const container = document.getElementById('review-cards-container');
+                container.innerHTML = '<p style="color: red; text-align: center;">Failed to load reviews. Please check your internet connection.</p>';
             }
         });
     </script>
