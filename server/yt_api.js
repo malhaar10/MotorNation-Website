@@ -6,7 +6,7 @@ const NodeCache = require('node-cache');
 const cors = require('cors');
 
 const app = express();
-const PORT = process.env.PORT || 8080; // Cloud Run uses 8080 by default
+const PORT = process.env.SERVER_PORT || process.env.PORT || 8080; // SERVER_PORT for local, PORT for Cloud Run
 const API_KEY = process.env.YT_API_KEY;
 const cache = new NodeCache({ stdTTL: 86400 }); // Cache with 24-hour TTL
 
