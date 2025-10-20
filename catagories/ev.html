@@ -96,54 +96,68 @@
     </section>
     <script>
         document.addEventListener('DOMContentLoaded', async () => {
+            const category = 'electric';
+
+            // Reviews
             try {
-                console.log('🔄 Loading EV reviews...');
-                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/reviews/electric');
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                console.log(`🔄 Loading ${category} reviews...`);
+                const resp = await fetch(`https://motornation-336079007565.us-central1.run.app/api/reviews/${category}`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+                const reviews = await resp.json();
+                const container = document.getElementById(`reviews-${category}`);
+                if (!container) return;
+                container.innerHTML = '';
+                if (!reviews || reviews.length === 0) {
+                    container.innerHTML = `<p>No ${category} reviews available yet.</p>`;
+                } else {
+                    reviews.slice(0,6).forEach(r => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        const imageUrl = (r.images && r.images.length) ? r.images[0] : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
+                        card.innerHTML = `
+                            <a href="../reviews-page/review.html?id=${r.id}">
+                                <div class="image-section"><img src="${imageUrl}" alt="${r.car_name}" loading="lazy"></div>
+                                <div class="content"><p>${r.model_year}</p><h3>${r.car_name}</h3><hr></div>
+                            </a>
+                        `;
+                        container.appendChild(card);
+                    });
                 }
-
-                const reviews = await response.json();
-                console.log('✅ EV Reviews loaded:', reviews.length);
-
+            } catch (err) {
+                console.error(`❌ Failed to load ${category} reviews:`, err);
                 const container = document.getElementById('reviews-electric');
-                container.innerHTML = ''; // Clear any existing content
+                if (container) container.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
+            }
 
-                if (reviews.length === 0) {
-                    container.innerHTML = '<p>No electric vehicle reviews available yet.</p>';
-                    return;
+            // News
+            try {
+                console.log(`🔄 Loading ${category} news...`);
+                const cardsContainer = document.getElementById(`${category}-news-cards`);
+                if (!cardsContainer) return;
+                const resp = await fetch(`https://motornation-336079007565.us-central1.run.app/api/news/${category}`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+                const data = await resp.json();
+                cardsContainer.innerHTML = '';
+                if (!data || data.length === 0) {
+                    cardsContainer.innerHTML = `<p>No ${category} news available yet.</p>`;
+                } else {
+                    data.slice(0,6).forEach(a => {
+                        const card = document.createElement('div');
+                        card.className = 'card';
+                        const imageUrl = (a.images && a.images.length) ? a.images[0] : "../images/Comparison.png";
+                        card.innerHTML = `
+                            <a href="../news-template/news-page-template.html?id=${a.id}">
+                                <div class="image-section"><img src="${imageUrl}" alt="${a.news_title}" loading="lazy"></div>
+                                <div class="content"><p>${a.tag || 'UPDATE'}</p><h3>${a.news_title}</h3><h5>${new Date(a.date).toLocaleDateString()}</h5><hr></div>
+                            </a>
+                        `;
+                        cardsContainer.appendChild(card);
+                    });
                 }
-
-                // Show first 6 reviews (or all if less than 6)
-                reviews.slice(0, 6).forEach(review => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-
-                    // Use first image from GCS if available, otherwise fallback to placeholder
-                    const imageUrl = (review.images && review.images.length > 0) 
-                        ? review.images[0] 
-                        : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
-
-                    card.innerHTML = `
-                        <a href="../reviews-page/review.html?id=${review.id}">
-                            <div class="image-section">
-                                <img src="${imageUrl}" alt="${review.car_name}">
-                            </div>
-                            <div class="content">
-                                <p>${review.model_year}</p>
-                                <h3>${review.car_name}</h3>
-                                <hr>
-                            </div>
-                        </a>
-                    `;
-
-                    container.appendChild(card);
-                });
-            } catch (error) {
-                console.error('❌ Failed to load EV reviews:', error);
-                const container = document.getElementById('reviews-electric');
-                container.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
+            } catch (err) {
+                console.error('❌ Error loading electric news:', err);
+                const cardsContainer = document.getElementById('electric-news-cards');
+                if (cardsContainer) cardsContainer.innerHTML = `<div style="color:red;padding:20px;text-align:center;"><p>Failed to load news.</p><p>${err.message}</p></div>`;
             }
         });
     </script>
@@ -153,14 +167,14 @@
         <h2>LATEST NEWS</h2>
         <div class="container">
             <div class="blog-section">
-                <div class="cards" id="ev-news-cards">
+                <div class="cards" id="electric-news-cards">
                     <!-- News cards injected here -->
                 </div>
             </div>
         </div>
     </section>
     
-    <script>
+    <!-- <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
                 console.log('🔄 Loading EV news...');
@@ -235,7 +249,7 @@
                 }
             }
         });
-    </script>
+    </script> -->
 
     <section class="hr">
         <hr>

@@ -189,6 +189,7 @@ app.get('/getChannelVideos', async (req, res) => {
   const { channelId } = req.query;
   if (!channelId) return res.status(400).json({ error: 'channelId is required' });
 
+  // Retry logic for network issues
   const maxRetries = 3;
   let lastError;
 
@@ -205,24 +206,10 @@ app.get('/getChannelVideos', async (req, res) => {
           type: 'video',
           key: API_KEY,
         },
-        timeout: 10000,
+        timeout: 10000, // 10 second timeout
       });
 
-      // Defensive: extract only defined videoIds
-      const items = Array.isArray(searchResponse.data?.items) ? searchResponse.data.items : [];
-      const ids = items.map(i => i?.id?.videoId).filter(Boolean);
-
-      if (ids.length === 0) {
-        console.warn('⚠️ No videoIds returned from search API', {
-          channelId,
-          itemsSample: items.slice(0,3),
-          attempt
-        });
-        // Return empty list (front-end can handle empty results)
-        return res.json([]);
-      }
-
-      const videoIds = ids.join(',');
+      const videoIds = searchResponse.data.items.map(item => item.id.videoId).join(',');
 
       const videosResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
         params: {
@@ -230,14 +217,14 @@ app.get('/getChannelVideos', async (req, res) => {
           id: videoIds,
           key: API_KEY,
         },
-        timeout: 10000,
+        timeout: 10000, // 10 second timeout
       });
 
-      const videos = (videosResponse.data?.items || []).map(item => ({
+      const videos = videosResponse.data.items.map(item => ({
         videoId: item.id,
-        title: item.snippet?.title || '',
-        thumbnail: item.snippet?.thumbnails?.medium?.url || '',
-        publishedAt: item.snippet?.publishedAt || null,
+        title: item.snippet.title,
+        thumbnail: item.snippet.thumbnails.medium.url,
+        publishedAt: item.snippet.publishedAt,
       }));
 
       return res.json(videos);
@@ -246,21 +233,26 @@ app.get('/getChannelVideos', async (req, res) => {
       console.error(`❌ Error fetching channel videos (attempt ${attempt}/${maxRetries}):`, {
         message: error.message,
         code: error.code,
-        status: error.response?.status,
-        responseData: error.response?.data,
-        configUrl: error.config?.url
+        response: error.response?.data,
+        config: {
+          url: error.config?.url,
+          timeout: error.config?.timeout
+        }
       });
-
+      
+      // Wait before retrying (except on last attempt)
       if (attempt < maxRetries) {
+        console.log(`⏳ Waiting 2 seconds before retry...`);
         await new Promise(resolve => setTimeout(resolve, 2000));
       }
     }
   }
 
+  // All retries failed
   console.error('❌ All retry attempts failed for channel videos');
-  res.status(502).json({ 
+  res.status(500).json({ 
     error: 'Failed to fetch latest channel videos after multiple attempts',
-    details: lastError?.response?.data || lastError?.message || 'Unknown error'
+    details: lastError?.message || 'Unknown error'
   });
 });
 
