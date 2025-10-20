@@ -110,13 +110,17 @@ router.post('/news', upload.array('images', 10), async (req, res) => {
       
       for (const file of req.files) {
         // Log the entire file object for debugging
-        console.log('DEBUG file object:', file);
+        console.log('🖼️ DEBUG file object:', file);
+        if (!file.originalname || !file.buffer) {
+          console.error('🚫 File missing originalname or buffer:', file);
+          continue;
+        }
         try {
           // Generate unique filename with UUID (no folders)
-          const fileExtension = file.originalname ? file.originalname.split('.').pop() : 'bin';
+          const fileExtension = file.originalname.split('.').pop();
           const filename = `${uuidv4()}.${fileExtension}`;
           
-          console.log(`Attempting to upload: ${filename}`);
+          console.log(`🚀 Attempting to upload: ${filename}`);
           // Upload to Google Cloud Storage
           const publicUrl = await uploadToGCS(file, filename);
           imageUrls.push(publicUrl);
