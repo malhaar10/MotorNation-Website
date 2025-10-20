@@ -2,13 +2,11 @@
 require('dotenv').config();
 const express = require('express');
 const axios = require('axios');
-const NodeCache = require('node-cache');
 const cors = require('cors');
 
 const app = express();
 const PORT = process.env.SERVER_PORT || process.env.PORT || 8080; // SERVER_PORT for local, PORT for Cloud Run
 const API_KEY = process.env.YT_API_KEY;
-const cache = new NodeCache({ stdTTL: 86400 }); // Cache with 24-hour TTL
 
 // === Database and API route imports ===
 const pool = require('./db');
@@ -23,6 +21,18 @@ app.use(cors({
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
 app.use(express.json({ limit: '10mb' }));
+
+// === No-Cache Middleware ===
+app.use((req, res, next) => {
+  // Disable all caching
+  res.set({
+    'Cache-Control': 'no-store, no-cache, must-revalidate, proxy-revalidate',
+    'Pragma': 'no-cache',
+    'Expires': '0',
+    'Surrogate-Control': 'no-store'
+  });
+  next();
+});
 
 // === API Info Root Route (must come before static file serving) ===
 app.get('/', (req, res) => {
@@ -124,9 +134,6 @@ app.get('/getPlaylistVideos', async (req, res) => {
   const { playlistId } = req.query;
   if (!playlistId) return res.status(400).json({ error: 'playlistId is required' });
 
-  const cached = cache.get(`playlist-${playlistId}`);
-  if (cached) return res.json(cached);
-
   // Retry logic for network issues
   const maxRetries = 3;
   let lastError;
@@ -151,7 +158,6 @@ app.get('/getPlaylistVideos', async (req, res) => {
         thumbnail: item.snippet.thumbnails.medium.url,
       }));
 
-      cache.set(`playlist-${playlistId}`, videos);
       console.log(`✅ Successfully fetched ${videos.length} playlist videos`);
       return res.json(videos);
     } catch (error) {
@@ -182,10 +188,6 @@ app.get('/getPlaylistVideos', async (req, res) => {
 app.get('/getChannelVideos', async (req, res) => {
   const { channelId } = req.query;
   if (!channelId) return res.status(400).json({ error: 'channelId is required' });
-
-  const cacheKey = `channel-${channelId}`;
-  const cached = cache.get(cacheKey);
-  if (cached) return res.json(cached);
 
   // Retry logic for network issues
   const maxRetries = 3;
@@ -225,7 +227,6 @@ app.get('/getChannelVideos', async (req, res) => {
         publishedAt: item.snippet.publishedAt,
       }));
 
-      cache.set(cacheKey, videos);
       return res.json(videos);
     } catch (error) {
       lastError = error;
@@ -258,10 +259,6 @@ app.get('/getChannelVideos', async (req, res) => {
 // === GET /api/playlist/latest ===
 app.get('/api/playlist/latest', async (req, res) => {
   const playlistId = 'YOUR_PLAYLIST_ID'; // Replace this with your actual ID
-  const cacheKey = `playlist-${playlistId}`;
-
-  const cached = cache.get(cacheKey);
-  if (cached) return res.json(cached);
 
   try {
     const response = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
@@ -280,7 +277,6 @@ app.get('/api/playlist/latest', async (req, res) => {
       videoId: item.snippet.resourceId.videoId,
     }));
 
-    cache.set(cacheKey, videos);
     res.json(videos);
   } catch (error) {
     console.error('❌ Error fetching playlist videos:', error.response?.data || error.message);
