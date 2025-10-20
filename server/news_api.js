@@ -6,10 +6,27 @@ const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
 require('dotenv').config();
 
+// Ensure key file handling is robust: some deployments put the JSON content
+// into the env var instead of a filesystem path. If so, write it to a temp
+// file and pass that path to the Storage constructor to avoid ENOENT.
+const fs = require('fs');
+let keyFilename = process.env.GOOGLE_CLOUD_KEY_FILE || '';
+try {
+  if (keyFilename.trim().startsWith('{')) {
+    // env contains JSON content, write to temp file
+    const tmpPath = '/tmp/gcloud-key.json';
+    fs.writeFileSync(tmpPath, keyFilename, { encoding: 'utf8' });
+    console.log(`🔐 Wrote GCP key JSON from env to ${tmpPath}`);
+    keyFilename = tmpPath;
+  }
+} catch (e) {
+  console.error('⚠️ Failed to prepare GCP key file from env:', e);
+}
+
 // Configure Google Cloud Storage
 const storage = new Storage({
   projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
-  keyFilename: process.env.GOOGLE_CLOUD_KEY_FILE,
+  keyFilename: keyFilename || undefined,
 });
 
 const bucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME_NEWS);
