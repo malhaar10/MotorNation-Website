@@ -169,3 +169,13 @@ hr {
     border: 1px solid lightskyblue;
     height: 2px;
 }
+.main-image-container .slider-btn {
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s;
+}
+
+.main-image-container:hover .slider-btn {
+    opacity: 1;
+    pointer-events: auto;
+}

@@ -74,6 +74,9 @@ async function uploadToGCS(file, filename) {
 // Required: news_title, para1, para2, para3, tag, tag2
 // Optional: author, images (files)
 router.post('/news', upload.array('images', 10), async (req, res) => {
+  // Debug logs to help diagnose file upload issues
+  console.log('DEBUG req.files:', req.files);
+  console.log('DEBUG req.body:', req.body);
   const {
     news_title,
     para1,

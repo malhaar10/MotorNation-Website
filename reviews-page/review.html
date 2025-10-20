@@ -12,10 +12,10 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    
+
     <!-- Search functionality script -->
     <script src="../search-functionality.js"></script>
-    
+
     <!-- All caching removed - using direct fetch calls only -->
 </head>
 
@@ -54,28 +54,7 @@
                     </div>
                     <div class="image-gallery-container">
                         <!-- <button class="gallery-nav prev">❮</button> -->
-                        <div class="image-gallery">
-                            <img src="../images/2025-crv\63_2024HondaCRVEX-L.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 0)">
-                            <img src="../images/2025-crv\13_2024HondaCRVEX-L.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 1)">
-                            <img src="../images\2025-crv\18_2024HondaCRVEX-L.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 2)">
-                            <img src="../images/2025-crv/29_2024HondaCRVEX-L.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 3)">
-                            <img src="../images\2025-crv\45_2024HondaCRVEX-L.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 4)">
-                            <img src="../images\2025-crv\62_2024HondaCRVEX-L.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 5)">
-                            <img src="../images\2025-crv\76_2024HondaCRVEX-L.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 6)">
-                            <img src="../images/2025-crv/engine.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 7)">
-                            <img src="../images/2025-crv/infotainment.jpg" class="thumbnail"
-                                onclick="changeImage(this.src, 8)">
-                            <img src="../images/2025-crv/interior.avif" class="thumbnail"
-                                onclick="changeImage(this.src, 9)">
-                        </div>
+                        <div class="image-gallery"></div>
                         <!-- <button class="gallery-nav next">❯</button> -->
                     </div>
                 </div>
@@ -87,27 +66,27 @@
                     <p id="pricing-text">
                     <h2 id="drivetrain">POWERTRAIN</h2>
                     <div class="article-image">
-                        <img src="../images/2025-crv/engine.avif" id="drivetrainImage"><br>
+                        <img id="drivetrainImage" style="display: none;"><br>
                     </div>
                     <p id="drivetrain-text">
                     <h2 id="interior">INTERIOR</h2>
                     <div class="article-image">
-                        <img src="../images/2025-crv/interior.avif" id="interiorImage"><br>
+                        <img id="interiorImage" style="display: none;"><br>
                     </div>
                     <p id="interior-text">
                     <h2 id="technology">TECHNOLOGY</h2>
                     <div class="article-image">
-                        <img src="../images/2025-crv/infotainment.jpg" id="technologyImage"><br>
+                        <img id="technologyImage" style="display: none;"><br>
                     </div>
                     <p id="technology-text">
                     <h2 id="safety">SAFETY</h2>
                     <div class="article-image">
-                        <img src="../images/2025-crv/infotainment.jpg" id="technologyImage"><br>
+                        <img id="technologyImage" style="display: none;"><br>
                     </div>
                     <p id="safety-text">
                     <h2 id="warranty">WARRANTY</h2>
                     <div class="article-image">
-                        <img src="../images/2025-crv/infotainment.jpg" id="technologyImage"><br>
+                        <img id="technologyImage" style="display: none;"><br>
                     </div>
                     <p id="warranty-text"><br>
                 </div>
@@ -150,6 +129,16 @@
             images.forEach((img, index) => {
                 img.classList.toggle('active', index === currentIndex);
             });
+        }
+
+        const prevBtn = document.querySelector('.prev-btn');
+        const nextBtn = document.querySelector('.next-btn');
+        if (images.length === 0) {
+            if (prevBtn) prevBtn.style.display = 'none';
+            if (nextBtn) nextBtn.style.display = 'none';
+        } else {
+            if (prevBtn) prevBtn.style.display = '';
+            if (nextBtn) nextBtn.style.display = '';
         }
 
         // Initialize on page load
@@ -202,157 +191,157 @@
         </div>
     </section>
     <script>
-    document.addEventListener('DOMContentLoaded', async () => {
-        const params = new URLSearchParams(window.location.search);
-        const id = params.get('id');
+        document.addEventListener('DOMContentLoaded', async () => {
+            const params = new URLSearchParams(window.location.search);
+            const id = params.get('id');
 
-        if (!id) {
-            console.warn('No review ID provided in URL.');
-            return;
-        }
-
-        try {
-            const response = await fetch(`https://motornation-336079007565.us-central1.run.app/api/reviews/${id}`);
-            if (!response.ok) {
-                throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-            }
-            const review = await response.json();
-
-            if (!review) {
-                console.warn('No review found for ID:', id);
+            if (!id) {
+                console.warn('No review ID provided in URL.');
                 return;
             }
 
-            // Update the title
-            document.getElementById('review-title').textContent = review.title || review.car_name || '';
+            try {
+                const response = await fetch(`https://motornation-336079007565.us-central1.run.app/api/reviews/${id}`);
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+                const review = await response.json();
 
-            // Fill in review sections
-            document.getElementById('overview-text').textContent = review.overview || '';
-            document.getElementById('pricing-text').textContent = review.pricing || '';
-            document.getElementById('drivetrain-text').textContent = review.drivetrain || '';
-            document.getElementById('interior-text').textContent = review.interior || '';
-            document.getElementById('technology-text').textContent = review.technology || '';
-            document.getElementById('safety-text').textContent = review.safety || '';
-            document.getElementById('warranty-text').textContent = review.warranty || '';
+                if (!review) {
+                    console.warn('No review found for ID:', id);
+                    return;
+                }
 
-            // Update images if available from GCS
-            if (review.images && review.images.length > 0) {
-                updateImagesFromDatabase(review.images);
-            } else {
-                // Hide all images if none are available
-                hideSectionImages();
+                // Update the title
+                document.getElementById('review-title').textContent = review.title || review.car_name || '';
+
+                // Fill in review sections
+                document.getElementById('overview-text').textContent = review.overview || '';
+                document.getElementById('pricing-text').textContent = review.pricing || '';
+                document.getElementById('drivetrain-text').textContent = review.drivetrain || '';
+                document.getElementById('interior-text').textContent = review.interior || '';
+                document.getElementById('technology-text').textContent = review.technology || '';
+                document.getElementById('safety-text').textContent = review.safety || '';
+                document.getElementById('warranty-text').textContent = review.warranty || '';
+
+                // Update images if available from GCS
+                if (review.images && review.images.length > 0) {
+                    updateImagesFromDatabase(review.images);
+                } else {
+                    // Hide all images if none are available
+                    hideSectionImages();
+                }
+            } catch (error) {
+                console.error('Failed to load review data:', error);
             }
-        } catch (error) {
-            console.error('Failed to load review data:', error);
-        }
-    });
-
-    // Function to update images from database
-    function updateImagesFromDatabase(imageUrls) {
-        const mainImage = document.getElementById('mainImage');
-        const imageGallery = document.querySelector('.image-gallery');
-        const drivetrainImg = document.getElementById('drivetrainImage');
-        const interiorImg = document.getElementById('interiorImage');
-        const technologyImg = document.getElementById('technologyImage');
-
-        // Main image
-        if (imageUrls.length > 0) {
-            mainImage.src = imageUrls[0];
-            mainImage.alt = document.getElementById('review-title').textContent || 'Review Image';
-            mainImage.style.display = '';
-        } else {
-            mainImage.style.display = 'none';
-        }
-
-        // Drivetrain image
-        if (imageUrls.length > 1 && drivetrainImg) {
-            drivetrainImg.src = imageUrls[1];
-            drivetrainImg.style.display = '';
-        } else if (drivetrainImg) {
-            drivetrainImg.style.display = 'none';
-        }
-
-        // Interior image
-        if (imageUrls.length > 2 && interiorImg) {
-            interiorImg.src = imageUrls[2];
-            interiorImg.style.display = '';
-        } else if (interiorImg) {
-            interiorImg.style.display = 'none';
-        }
-
-        // Technology image
-        if (imageUrls.length > 3 && technologyImg) {
-            technologyImg.src = imageUrls[3];
-            technologyImg.style.display = '';
-        } else if (technologyImg) {
-            technologyImg.style.display = 'none';
-        }
-
-        // Thumbnails
-        imageGallery.innerHTML = '';
-        imageUrls.forEach((imageUrl, index) => {
-            const img = document.createElement('img');
-            img.src = imageUrl;
-            img.className = 'thumbnail';
-            img.onclick = () => changeImage(imageUrl, index);
-            if (index === 0) img.classList.add('active');
-            imageGallery.appendChild(img);
         });
 
-        // Update the global images array for slider functionality
-        images = Array.from(document.querySelectorAll('.image-gallery img'));
-        currentIndex = 0;
-        updateThumbnailSelection();
-    }
+        // Function to update images from database
+        function updateImagesFromDatabase(imageUrls) {
+            const mainImage = document.getElementById('mainImage');
+            const imageGallery = document.querySelector('.image-gallery');
+            const drivetrainImg = document.getElementById('drivetrainImage');
+            const interiorImg = document.getElementById('interiorImage');
+            const technologyImg = document.getElementById('technologyImage');
 
-    // Hide all section images if no images are available
-    function hideSectionImages() {
-        const mainImage = document.getElementById('mainImage');
-        const drivetrainImg = document.getElementById('drivetrainImage');
-        const interiorImg = document.getElementById('interiorImage');
-        const technologyImg = document.getElementById('technologyImage');
-        if (mainImage) mainImage.style.display = 'none';
-        if (drivetrainImg) drivetrainImg.style.display = 'none';
-        if (interiorImg) interiorImg.style.display = 'none';
-        if (technologyImg) technologyImg.style.display = 'none';
-    }
-</script>
+            // Main image
+            if (imageUrls.length > 0) {
+                mainImage.src = imageUrls[0];
+                mainImage.alt = document.getElementById('review-title').textContent || 'Review Image';
+                mainImage.style.display = '';
+            } else {
+                mainImage.style.display = 'none';
+            }
 
-<!-- Mobile navigation menu toggle functionality -->
-<script>
-    var navLinks = document.getElementById("navLinks");
+            // Drivetrain image
+            if (imageUrls.length > 1 && drivetrainImg) {
+                drivetrainImg.src = imageUrls[1];
+                drivetrainImg.style.display = '';
+            } else if (drivetrainImg) {
+                drivetrainImg.style.display = 'none';
+            }
 
-    // Show mobile navigation menu
-    function showMenu() {
-        navLinks.style.right = "0";
-        // Prevent body scrolling when menu is open
-        document.body.style.overflow = "hidden";
-    }
+            // Interior image
+            if (imageUrls.length > 2 && interiorImg) {
+                interiorImg.src = imageUrls[2];
+                interiorImg.style.display = '';
+            } else if (interiorImg) {
+                interiorImg.style.display = 'none';
+            }
 
-    // Hide mobile navigation menu
-    function hideMenu() {
-        navLinks.style.right = "-200px";
-        // Restore body scrolling
-        document.body.style.overflow = "auto";
-    }
+            // Technology image
+            if (imageUrls.length > 3 && technologyImg) {
+                technologyImg.src = imageUrls[3];
+                technologyImg.style.display = '';
+            } else if (technologyImg) {
+                technologyImg.style.display = 'none';
+            }
 
-    // Close menu when clicking outside (optional)
-    document.addEventListener('click', function (event) {
-        const navbar = document.getElementById('navbar');
-        const isClickInsideNav = navbar.contains(event.target);
+            // Thumbnails
+            imageGallery.innerHTML = '';
+            imageUrls.forEach((imageUrl, index) => {
+                const img = document.createElement('img');
+                img.src = imageUrl;
+                img.className = 'thumbnail';
+                img.onclick = () => changeImage(imageUrl, index);
+                if (index === 0) img.classList.add('active');
+                imageGallery.appendChild(img);
+            });
 
-        if (!isClickInsideNav && navLinks.style.right === "0px") {
-            hideMenu();
+            // Update the global images array for slider functionality
+            images = Array.from(document.querySelectorAll('.image-gallery img'));
+            currentIndex = 0;
+            updateThumbnailSelection();
         }
-    });
 
-    // Close menu when window is resized to desktop size
-    window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) {
-            hideMenu();
+        // Hide all section images if no images are available
+        function hideSectionImages() {
+            const mainImage = document.getElementById('mainImage');
+            const drivetrainImg = document.getElementById('drivetrainImage');
+            const interiorImg = document.getElementById('interiorImage');
+            const technologyImg = document.getElementById('technologyImage');
+            if (mainImage) mainImage.style.display = 'none';
+            if (drivetrainImg) drivetrainImg.style.display = 'none';
+            if (interiorImg) interiorImg.style.display = 'none';
+            if (technologyImg) technologyImg.style.display = 'none';
         }
-    });
-</script>
+    </script>
+
+    <!-- Mobile navigation menu toggle functionality -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        // Show mobile navigation menu
+        function showMenu() {
+            navLinks.style.right = "0";
+            // Prevent body scrolling when menu is open
+            document.body.style.overflow = "hidden";
+        }
+
+        // Hide mobile navigation menu
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+            // Restore body scrolling
+            document.body.style.overflow = "auto";
+        }
+
+        // Close menu when clicking outside (optional)
+        document.addEventListener('click', function (event) {
+            const navbar = document.getElementById('navbar');
+            const isClickInsideNav = navbar.contains(event.target);
+
+            if (!isClickInsideNav && navLinks.style.right === "0px") {
+                hideMenu();
+            }
+        });
+
+        // Close menu when window is resized to desktop size
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) {
+                hideMenu();
+            }
+        });
+    </script>
 
 
 
