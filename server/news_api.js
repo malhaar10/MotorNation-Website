@@ -109,9 +109,11 @@ router.post('/news', upload.array('images', 10), async (req, res) => {
       console.log(`Processing ${req.files.length} uploaded images...`);
       
       for (const file of req.files) {
+        // Log the entire file object for debugging
+        console.log('DEBUG file object:', file);
         try {
           // Generate unique filename with UUID (no folders)
-          const fileExtension = file.originalname.split('.').pop();
+          const fileExtension = file.originalname ? file.originalname.split('.').pop() : 'bin';
           const filename = `${uuidv4()}.${fileExtension}`;
           
           console.log(`Attempting to upload: ${filename}`);
