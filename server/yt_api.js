@@ -75,8 +75,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 // === Health Check Endpoints for Cloud Run ===
 app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'healthy', 
+  res.status(200).json({
+    status: 'healthy',
     timestamp: new Date().toISOString(),
     uptime: process.uptime(),
     environment: process.env.NODE_ENV || 'development'
@@ -88,15 +88,15 @@ app.get('/health/db', async (req, res) => {
     const start = Date.now();
     await pool.query('SELECT 1');
     const duration = Date.now() - start;
-    res.status(200).json({ 
+    res.status(200).json({
       database: 'connected',
       responseTime: `${duration}ms`,
       timestamp: new Date().toISOString()
     });
   } catch (error) {
     console.error('❌ Database health check failed:', error);
-    res.status(503).json({ 
-      database: 'disconnected', 
+    res.status(503).json({
+      database: 'disconnected',
       error: error.message,
       timestamp: new Date().toISOString()
     });
@@ -141,7 +141,7 @@ app.get('/getPlaylistVideos', async (req, res) => {
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       console.log(`🔄 Attempting to fetch playlist videos (attempt ${attempt}/${maxRetries})`);
-      
+
       const response = await axios.get('https://www.googleapis.com/youtube/v3/playlistItems', {
         params: {
           part: 'snippet',
@@ -167,7 +167,7 @@ app.get('/getPlaylistVideos', async (req, res) => {
         code: error.code,
         response: error.response?.data
       });
-      
+
       // Wait before retrying (except on last attempt)
       if (attempt < maxRetries) {
         console.log(`⏳ Waiting 2 seconds before retry...`);
@@ -178,7 +178,7 @@ app.get('/getPlaylistVideos', async (req, res) => {
 
   // All retries failed
   console.error('❌ All retry attempts failed for playlist videos');
-  res.status(500).json({ 
+  res.status(500).json({
     error: 'Failed to fetch playlist videos after multiple attempts',
     details: lastError?.message || 'Unknown error'
   });
@@ -189,14 +189,13 @@ app.get('/getChannelVideos', async (req, res) => {
   const { channelId } = req.query;
   if (!channelId) return res.status(400).json({ error: 'channelId is required' });
 
-  // Retry logic for network issues
   const maxRetries = 3;
   let lastError;
 
   for (let attempt = 1; attempt <= maxRetries; attempt++) {
     try {
       console.log(`🔄 Attempting to fetch channel videos (attempt ${attempt}/${maxRetries})`);
-      
+
       const searchResponse = await axios.get('https://www.googleapis.com/youtube/v3/search', {
         params: {
           part: 'id',
@@ -206,10 +205,20 @@ app.get('/getChannelVideos', async (req, res) => {
           type: 'video',
           key: API_KEY,
         },
-        timeout: 10000, // 10 second timeout
+        timeout: 10000,
       });
 
-      const videoIds = searchResponse.data.items.map(item => item.id.videoId).join(',');
+      // Defensive: only keep valid video IDs
+      const ids = (searchResponse.data.items || [])
+        .map(item => item.id && item.id.videoId)
+        .filter(Boolean);
+
+      if (ids.length === 0) {
+        console.warn(`⚠️ No video IDs found for channel ${channelId}`);
+        return res.json([]); // or: return res.status(204).end();
+      }
+
+      const videoIds = ids.join(',');
 
       const videosResponse = await axios.get('https://www.googleapis.com/youtube/v3/videos', {
         params: {
@@ -217,14 +226,14 @@ app.get('/getChannelVideos', async (req, res) => {
           id: videoIds,
           key: API_KEY,
         },
-        timeout: 10000, // 10 second timeout
+        timeout: 10000,
       });
 
-      const videos = videosResponse.data.items.map(item => ({
+      const videos = (videosResponse.data.items || []).map(item => ({
         videoId: item.id,
-        title: item.snippet.title,
-        thumbnail: item.snippet.thumbnails.medium.url,
-        publishedAt: item.snippet.publishedAt,
+        title: item.snippet?.title,
+        thumbnail: item.snippet?.thumbnails?.medium?.url,
+        publishedAt: item.snippet?.publishedAt,
       }));
 
       return res.json(videos);
@@ -233,28 +242,31 @@ app.get('/getChannelVideos', async (req, res) => {
       console.error(`❌ Error fetching channel videos (attempt ${attempt}/${maxRetries}):`, {
         message: error.message,
         code: error.code,
-        response: error.response?.data,
-        config: {
-          url: error.config?.url,
-          timeout: error.config?.timeout
-        }
+        responseData: error.response?.data,
+        configUrl: error.config?.url
       });
-      
-      // Wait before retrying (except on last attempt)
+
       if (attempt < maxRetries) {
-        console.log(`⏳ Waiting 2 seconds before retry...`);
         await new Promise(resolve => setTimeout(resolve, 2000));
       }
     }
   }
 
-  // All retries failed
   console.error('❌ All retry attempts failed for channel videos');
-  res.status(500).json({ 
+  res.status(500).json({
     error: 'Failed to fetch latest channel videos after multiple attempts',
-    details: lastError?.message || 'Unknown error'
+    details: lastError?.response?.data || lastError?.message
   });
 });
+// ...existing code...
+
+// All retries failed
+console.error('❌ All retry attempts failed for channel videos');
+res.status(500).json({
+  error: 'Failed to fetch latest channel videos after multiple attempts',
+  details: lastError?.message || 'Unknown error'
+});
+
 
 // === GET /api/playlist/latest ===
 app.get('/api/playlist/latest', async (req, res) => {
