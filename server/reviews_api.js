@@ -6,10 +6,27 @@ const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
 require('dotenv').config();
 
+// Ensure key file handling is robust: some deployments put the JSON content
+// into the env var instead of a filesystem path. If so, write it to a temp
+// file and pass that path to the Storage constructor to avoid ENOENT.
+const fs = require('fs');
+let keyFilename = process.env.GOOGLE_CLOUD_KEY_FILE || '';
+try {
+  if (keyFilename.trim().startsWith('{')) {
+    // env contains JSON content, write to temp file
+    const tmpPath = '/tmp/gcloud-key-reviews.json';
+    fs.writeFileSync(tmpPath, keyFilename, { encoding: 'utf8' });
+    console.log(`🔐 Wrote GCP key JSON for reviews from env to ${tmpPath}`);
+    keyFilename = tmpPath;
+  }
+} catch (e) {
+  console.error('⚠️ Failed to prepare GCP key file from env for reviews:', e);
+}
+
 // Configure Google Cloud Storage
 const storage = new Storage({
   projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
-  keyFilename: process.env.GOOGLE_CLOUD_KEY_FILE,
+  keyFilename: keyFilename || undefined,
 });
 
 const bucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME_REVIEWS);
@@ -285,6 +302,9 @@ router.get('/reviews/:id', async (req, res) => {
 });
 
 router.post('/reviews', upload.array('images', 10), async (req, res) => {
+  // Debug logs to help diagnose file upload issues
+  console.log('DEBUG req.files (reviews):', req.files);
+  console.log('DEBUG req.body (reviews):', req.body);
   const {
     car_name,
     model_year,
@@ -313,18 +333,23 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
       console.log(`Processing ${req.files.length} uploaded images for review...`);
       
       for (const file of req.files) {
+        console.log('🖼️ DEBUG file object (reviews):', file);
+        if (!file.originalname || !file.buffer) {
+          console.error('🚫 File missing originalname or buffer (reviews):', file);
+          continue;
+        }
         try {
           // Generate unique filename with UUID (no folders)
           const fileExtension = file.originalname.split('.').pop();
           const filename = `${uuidv4()}.${fileExtension}`;
           
-          console.log(`Attempting to upload: ${filename}`);
+          console.log(`🚀 Attempting to upload (reviews): ${filename}`);
           // Upload to Google Cloud Storage
           const publicUrl = await uploadToGCS(file, filename);
           imageUrls.push(publicUrl);
-          console.log(`✅ Successfully uploaded: ${filename} -> ${publicUrl}`);
+          console.log(`✅ Successfully uploaded (reviews): ${filename} -> ${publicUrl}`);
         } catch (uploadError) {
-          console.error(`❌ Error uploading file ${file.originalname}:`, uploadError);
+          console.error(`❌ Error uploading file ${file.originalname} (reviews):`, uploadError);
           // Continue with other files even if one fails
         }
       }
