@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    
+
     <!-- All caching removed - using direct fetch calls only -->
 </head>
 
@@ -100,38 +100,39 @@
         document.addEventListener('DOMContentLoaded', async () => {
             const category = 'hatchback';
 
-            // Reviews
+            // Reviews flow
             try {
                 console.log(`🔄 Loading ${category} reviews...`);
                 const resp = await fetch(`https://motornation-336079007565.us-central1.run.app/api/reviews/${category}`);
                 if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
                 const reviews = await resp.json();
-                const container = document.getElementById(`reviews-${category}`);
+
+                const container = document.getElementById(`reviews-${category}`) || document.getElementById(`reviews-${category}s`);
                 if (!container) return;
                 container.innerHTML = '';
                 if (!reviews || reviews.length === 0) {
                     container.innerHTML = `<p>No ${category} reviews available yet.</p>`;
                 } else {
-                    reviews.slice(0,6).forEach(r => {
+                    reviews.slice(0, 6).forEach(r => {
                         const card = document.createElement('div');
                         card.className = 'card';
                         const imageUrl = (r.images && r.images.length) ? r.images[0] : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
                         card.innerHTML = `
-                            <a href="../reviews-page/review.html?id=${r.id}">
-                                <div class="image-section"><img src="${imageUrl}" alt="${r.car_name}" loading="lazy"></div>
-                                <div class="content"><p>${r.model_year}</p><h3>${r.car_name}</h3><hr></div>
-                            </a>
-                        `;
+                    <a href="../reviews-page/review.html?id=${r.id}">
+                        <div class="image-section"><img src="${imageUrl}" alt="${r.car_name}" loading="lazy"></div>
+                        <div class="content"><p>${r.model_year}</p><h3>${r.car_name}</h3><hr></div>
+                    </a>
+                `;
                         container.appendChild(card);
                     });
                 }
             } catch (err) {
                 console.error(`❌ Failed to load ${category} reviews:`, err);
-                const container = document.getElementById('reviews-hatchback');
+                const container = document.getElementById('reviews-hatchback') || document.getElementById('reviews-hatchbacks');
                 if (container) container.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
             }
 
-            // News
+            // News flow (separate)
             try {
                 console.log(`🔄 Loading ${category} news...`);
                 const cardsContainer = document.getElementById(`${category}-news-cards`);
@@ -143,27 +144,35 @@
                 if (!data || data.length === 0) {
                     cardsContainer.innerHTML = `<p>No ${category} news available yet.</p>`;
                 } else {
-                    data.slice(0,6).forEach(a => {
+                    data.slice(0, 6).forEach(a => {
                         const card = document.createElement('div');
                         card.className = 'card';
                         const imageUrl = (a.images && a.images.length) ? a.images[0] : "../images/Comparison.png";
                         card.innerHTML = `
-                            <a href="../news-template/news-page-template.html?id=${a.id}">
-                                <div class="image-section"><img src="${imageUrl}" alt="${a.news_title}" loading="lazy"></div>
-                                <div class="content"><p>${a.tag || 'UPDATE'}</p><h3>${a.news_title}</h3><h5>${new Date(a.date).toLocaleDateString()}</h5><hr></div>
-                            </a>
-                        `;
+                    <a href="../news-template/news-page-template.html?id=${a.id}">
+                        <div class="image-section"><img src="${imageUrl}" alt="${a.news_title}" loading="lazy"></div>
+                        <div class="content"><p>${a.tag || 'UPDATE'}</p><h3>${a.news_title}</h3><h5>${new Date(a.date).toLocaleDateString()}</h5><hr></div>
+                    </a>
+                `;
                         cardsContainer.appendChild(card);
                     });
                 }
-            } catch (err) {
-                console.error('❌ Error loading hatchback news:', err);
+                console.log(`✅ Successfully rendered ${data.length} news articles`);
+            } catch (error) {
+                console.error("❌ Error loading hatchback news:", error);
                 const cardsContainer = document.getElementById('hatchback-news-cards');
-                if (cardsContainer) cardsContainer.innerHTML = `<div style="color:red;padding:20px;text-align:center;"><p>Failed to load news.</p><p>${err.message}</p></div>`;
+                if (cardsContainer) {
+                    cardsContainer.innerHTML = `
+                <div style="color: red; text-align: center; padding: 20px;">
+                    <p>Failed to load news articles.</p>
+                    <p>Error: ${error.message}</p>
+                </div>
+            `;
+                }
             }
         });
     </script>
-    
+
     <section class="latest-news">
         <hr>
         <h2>LATEST NEWS</h2>
@@ -175,7 +184,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {

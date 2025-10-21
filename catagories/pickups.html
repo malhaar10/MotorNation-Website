@@ -12,7 +12,7 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="swiper-bundle.min.css">
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
-    
+
     <!-- All caching removed - using direct fetch calls only -->
 </head>
 
@@ -97,7 +97,7 @@
             </div>
         </div>
     </section>
-<script>
+    <script>
         document.addEventListener('DOMContentLoaded', async () => {
             const category = 'pickups';
 
@@ -114,16 +114,16 @@
                     container.innerHTML = `<p>No ${category} reviews available yet.</p>`;
                     return;
                 }
-                reviews.slice(0,6).forEach(r => {
+                reviews.slice(0, 6).forEach(r => {
                     const card = document.createElement('div');
                     card.className = 'card';
                     const imageUrl = (r.images && r.images.length) ? r.images[0] : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
                     card.innerHTML = `
-                        <a href="../reviews-page/review.html?id=${r.id}">
-                            <div class="image-section"><img src="${imageUrl}" alt="${r.car_name}" loading="lazy"></div>
-                            <div class="content"><p>${r.model_year}</p><h3>${r.car_name}</h3><hr></div>
-                        </a>
-                    `;
+                <a href="../reviews-page/review.html?id=${r.id}">
+                    <div class="image-section"><img src="${imageUrl}" alt="${r.car_name}" loading="lazy"></div>
+                    <div class="content"><p>${r.model_year}</p><h3>${r.car_name}</h3><hr></div>
+                </a>
+            `;
                     container.appendChild(card);
                 });
                 console.log('✅ Pickup reviews rendered');
@@ -133,40 +133,46 @@
                 if (container) container.innerHTML = '<p>Failed to load reviews. Please try again later.</p>';
             }
 
-            // News
+            // News (separate flow; try both pickup / pickups ID variants)
             try {
                 console.log(`🔄 Loading ${category} news...`);
-                const cardsContainer = document.getElementById(`${category}-news-cards`);
-                if (!cardsContainer) return;
-                const resp = await fetch(`https://motornation-336079007565.us-central1.run.app/api/news/${category}`);
-                if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
-                const data = await resp.json();
-                cardsContainer.innerHTML = '';
-                if (!data || data.length === 0) {
-                    cardsContainer.innerHTML = `<p>No ${category} news available yet.</p>`;
+                const cardsContainer = document.getElementById('pickup-news-cards') || document.getElementById('pickups-news-cards') || document.getElementById(`${category}-news-cards`);
+                if (!cardsContainer) {
+                    console.error('❌ News container not found for pickups');
                     return;
                 }
-                data.slice(0,6).forEach(a => {
+
+                const resp = await fetch(`https://motornation-336079007565.us-central1.run.app/api/news/pickups`);
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+                const data = await resp.json();
+
+                cardsContainer.innerHTML = '';
+                if (!data || data.length === 0) {
+                    cardsContainer.innerHTML = '<p>No pickup truck news available yet.</p>';
+                    return;
+                }
+
+                data.slice(0, 6).forEach((article) => {
                     const card = document.createElement('div');
                     card.className = 'card';
-                    const imageUrl = (a.images && a.images.length) ? a.images[0] : "../images/Comparison.png";
+                    const imageUrl = (article.images && article.images.length) ? article.images[0] : "../images/Comparison.png";
                     card.innerHTML = `
-                        <a href="../news-template/news-page-template.html?id=${a.id}">
-                            <div class="image-section"><img src="${imageUrl}" alt="${a.news_title}" loading="lazy"></div>
-                            <div class="content"><p>${a.tag || 'UPDATE'}</p><h3>${a.news_title}</h3><h5>${new Date(a.date).toLocaleDateString()}</h5><hr></div>
-                        </a>
-                    `;
+                <a href="../news-template/news-page-template.html?id=${article.id}">
+                    <div class="image-section"><img src="${imageUrl}" alt="${article.news_title}" loading="lazy"></div>
+                    <div class="content"><p>${article.tag || 'UPDATE'}</p><h3>${article.news_title}</h3><h5>${new Date(article.date).toLocaleDateString()}</h5><hr></div>
+                </a>
+            `;
                     cardsContainer.appendChild(card);
                 });
                 console.log('✅ Pickup news rendered');
             } catch (err) {
                 console.error('❌ Error loading pickup news:', err);
-                const cardsContainer = document.getElementById('pickups-news-cards');
+                const cardsContainer = document.getElementById('pickup-news-cards') || document.getElementById('pickups-news-cards');
                 if (cardsContainer) cardsContainer.innerHTML = `<div style="color:red;padding:20px;text-align:center;"><p>Failed to load news.</p><p>${err.message}</p></div>`;
             }
         });
     </script>
-    
+
     <section class="latest-news">
         <hr>
         <h2>LATEST NEWS</h2>
@@ -178,7 +184,7 @@
             </div>
         </div>
     </section>
-    
+
     <!-- <script>
         document.addEventListener('DOMContentLoaded', async () => {
             try {
