@@ -7,6 +7,7 @@
     <!-- Meta and title configuration -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotorNation</title>
+    <link rel="icon" type="image/png" href="/assets/miniLogo.avif">
     <!-- Cache busting meta tag -->
     <meta name="cache-control" content="no-cache, no-store, must-revalidate">
     <meta name="expires" content="0">
@@ -35,7 +36,6 @@
         // Override any cached references to old cache manager
         window.CacheManager = undefined;
         window.ApiClient = undefined;
-        console.log('🚫 Cache manager disabled - using direct fetch calls only');
     </script>
 </head>
 
