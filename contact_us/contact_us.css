@@ -1,0 +1,50 @@
+* {
+    margin: 0;
+    padding: 0;
+    font-family: 'Oswald', sans-serif;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: black;
+}
+.heading{
+    padding-left: 10vw;
+    font-size: 2rem;
+    color: white
+}
+
+.info{
+    padding-left: 10vw;
+    padding-right: 10vw;
+    text-align: center;
+}
+
+.info p{
+    color: white;
+    font-size: larger;
+}
+
+.info h3{
+    color: white;
+    font-size: larger;
+    font-style: italic;
+}
+
+.info a{
+    color: rgb(0, 136, 255);
+    text-decoration: none;
+}
+
+@media (max-width: 768px) {
+    .team-container{
+        justify-content: center;
+    }
+    .team-member{
+        flex: 0 1 320px;
+        width: 320px;
+    }
+    .team-member img{
+        height: 200px;
+    }
+}
