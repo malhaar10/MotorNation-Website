@@ -156,6 +156,22 @@ hr {
     color: rgb(128, 206, 255);
     width: 40px;
 }
+.blog-section .full-button{
+    margin-top: 5vh;
+    height: 7vh;
+    width: 10vw;
+    margin-left: 35vw;
+    background:transparent;
+    border-color: white;
+    border-width: 1px;
+    border-radius: 12px;
+    color: white;
+    font-size: large;
+}
+.blog-section .full-button:hover{
+    background-color: lightskyblue;
+    color: black;
+}
 .hr hr{
     margin-top: 100px;
     width: 80%;

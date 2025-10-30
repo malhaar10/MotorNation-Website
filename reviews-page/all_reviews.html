@@ -8,7 +8,7 @@
     <title>MotorNation</title>
     <link rel="icon" type="image/png" href="/assets/miniLogo.avif">
     <link rel="stylesheet" href="../page_header.css">
-    <link rel="stylesheet" href="../reviews-page/review.css">
+    <link rel="stylesheet" href="../reviews-page/reviews-home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
@@ -38,6 +38,18 @@
         </nav>
     </section>
 
+    <section class="latest-news">
+        <a class="latest-head">ALL REVIEWS</a>
+        <div class="container">
+            <div class="blog-section">
+                <div class="cards" id="all-review-cards">
+                    <!-- Cards will be injected here dynamically -->
+                </div>
+                <button id="loadMoreBtn" class="full-button">Load more</button>
+            </div>
+        </div>
+    </section> 
+
     <section class="hr">
         <hr>
     </section>
@@ -57,6 +69,76 @@
             <a href="">Careers</a>
         </div>
     </section>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', async () => {
+            const container = document.getElementById('all-review-cards');
+            const loadBtn = document.getElementById('loadMoreBtn');
+            const initialCount = 12;
+            const pageSize = 6;
+            let reviews = [];
+            let cursor = 0;
+
+            function createCard(r) {
+                const card = document.createElement('div');
+                card.className = 'card';
+                const imageUrl = (r.images && r.images.length > 0) ? r.images[0] : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
+                card.innerHTML = `
+                    <a href="../reviews-page/review.html?id=${r.id}">
+                        <div class="image-section">
+                            <img src="${imageUrl}" alt="${r.car_name}" loading="lazy">
+                        </div>
+                        <div class="content">
+                            <p>REVIEW</p>
+                            <h3>${r.car_name}</h3>
+                            <h5>${r.model_year} • ${r.tag || ''}${r.tag2 ? ', ' + r.tag2 : ''}</h5>
+                            <hr>
+                        </div>
+                    </a>
+                `;
+                return card;
+            }
+
+            function appendNext(n) {
+                const end = Math.min(reviews.length, cursor + n);
+                for (let i = cursor; i < end; i++) {
+                    container.appendChild(createCard(reviews[i]));
+                }
+                cursor = end;
+                if (cursor >= reviews.length) {
+                    loadBtn.style.display = 'none';
+                } else {
+                    loadBtn.style.display = '';
+                }
+            }
+
+            try {
+                // Use production API like other pages. Replace with relative '/api/reviews' if hosted same origin.
+                const resp = await fetch('https://motornation-336079007565.us-central1.run.app/api/reviews');
+                if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+                reviews = await resp.json();
+                container.innerHTML = '';
+
+                if (!reviews || reviews.length === 0) {
+                    container.innerHTML = '<p>No reviews available.</p>';
+                    loadBtn.style.display = 'none';
+                    return;
+                }
+
+                // initial render (10)
+                appendNext(initialCount);
+
+                // click handler to load more (6 each click)
+                loadBtn.addEventListener('click', () => appendNext(pageSize));
+            } catch (err) {
+                console.error('Error loading all reviews:', err);
+                container.innerHTML = '<p>Error loading reviews. Try again later.</p>';
+                loadBtn.style.display = 'none';
+            }
+        });
+    </script>
+</body>
+
 
 </body>
 

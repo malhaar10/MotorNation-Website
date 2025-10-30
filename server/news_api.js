@@ -372,4 +372,15 @@ router.get('/news/:id', async (req, res) => {
   }
 });
 
+// GET /api/reviews - Fetch all reviews
+router.get('/news', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM news ORDER BY created_at DESC');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('Error fetching news:', err);
+    res.status(500).json({ error: 'Failed to fetch news' });
+  }
+});
+
 module.exports = router;
