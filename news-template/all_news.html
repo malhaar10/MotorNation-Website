@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-5348410100766462"
+     crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorNation</title>
+    <link rel="icon" type="image/png" href="/assets/miniLogo.avif">
+    <!-- Force browser to reload all resources -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+    <meta http-equiv="Pragma" content="no-cache">
+    <meta http-equiv="Expires" content="0">
+    <link rel="stylesheet" href="../page_header.css?v=3">
+    <link rel="stylesheet" href="../news-template/news-home.css?v=3">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="../swiper-bundle.min.css">
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVD46ERHKP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VVD46ERHKP');
+</script>
+
+<body>
+    <section class="header">
+        <div class="logo-container">
+            <a href="../index.html"><img src="../assets/MotorNation.avif" alt="MotorNation Logo"></a>
+        </div>
+        <nav id="navbar">
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times close-btn" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="../reviews-page/reviews-home.html">REVIEWS</a></li>
+                    <li><a href="../electric/electric.html">ELECTRIC</a></li>
+                    <!-- <li><a href="../gallery/gallery.html">GALLERY</a></li> -->
+                    <li><a href="../videos/video.html">VIDEOS</a></li>
+                    <li><a href="../search.html">SEARCH</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </section>
+
+    <section class="latest-news">
+        <h3>ALL NEWS</h3>
+        <div class="container">
+            <div class="blog-section">
+                <div class="cards" id="all-news-cards">
+                    <!-- Cards injected here -->
+                </div>
+                <button id="loadMoreBtn" class="full-button">Load more</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="hr">
+        <hr>
+    </section>
+
+    <section class="contact-card">
+        <img src="../assets/MotorNation.avif" alt="MotorNation logo">
+        <div class="social-icons">
+            <a href="../assets/facebook.png"><i class="fa fa-facebook"></i></a>
+            <a href="../assets/twitter.png"><i class="fa fa-twitter"></i></a>
+            <a href="../assets/instagram.png"><i class="fa fa-instagram"></i></a>
+            <a href="../assets/youtube.png"><i class="fa fa-youtube"></i></a>
+        </div>
+        <div class="contact-links">
+            <a href="../about_us/about_us.html">About us</a>
+            <a href="../contact_us/contact_us.html">Contact us</a>
+            <a href="">Terms & Conditions</a>
+            <a href="">Careers</a>
+        </div>
+    </section>
+<script>
+document.addEventListener('DOMContentLoaded', async () => {
+    const container = document.getElementById('all-news-cards');
+    const loadBtn = document.getElementById('loadMoreBtn');
+    const initialCount = 10;
+    const pageSize = 6;
+    let news = [];
+    let cursor = 0;
+
+    function createCard(a) {
+        const card = document.createElement('div');
+        card.className = 'card';
+        const imageUrl = (a.images && a.images.length > 0) ? a.images[0] : "../images/Comparison.png";
+        const dateString = a.date ? new Date(a.date).toLocaleDateString() : '';
+        card.innerHTML = `
+            <a href="../news-template/news-page-template.html?id=${a.id}">
+                <div class="image-section">
+                    <img src="${imageUrl}" alt="${a.news_title}" loading="lazy">
+                </div>
+                <div class="content">
+                    <p>NEWS</p>
+                    <h3>${a.news_title}</h3>
+                    <h5>${a.tag || ''}${a.tag2 ? ', ' + a.tag2 : ''}</h5>
+                    <hr>
+                </div>
+            </a>
+        `;
+        return card;
+    }
+
+    function appendNext(n) {
+        const end = Math.min(news.length, cursor + n);
+        for (let i = cursor; i < end; i++) {
+            container.appendChild(createCard(news[i]));
+        }
+        cursor = end;
+        if (cursor >= news.length) {
+            loadBtn.style.display = 'none';
+        } else {
+            loadBtn.style.display = '';
+        }
+    }
+
+    try {
+    // Fetch from same origin API mount. Use absolute production URL only when needed.
+    // This will work locally when the API server mounts routes at /api (see server/yt_api.js).
+    const resp = await fetch('/api/news');
+        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        news = await resp.json();
+        container.innerHTML = '';
+
+        if (!news || news.length === 0) {
+            container.innerHTML = '<p>No news available.</p>';
+            loadBtn.style.display = 'none';
+            return;
+        }
+
+        // initial render
+        appendNext(initialCount);
+
+        // click handler to load more
+        loadBtn.addEventListener('click', () => appendNext(pageSize));
+    } catch (err) {
+        console.error('Error loading all news:', err);
+        container.innerHTML = '<p>Error loading news. Try again later.</p>';
+        loadBtn.style.display = 'none';
+    }
+});
+</script>
+</body>
+
+</html>
