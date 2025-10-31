@@ -101,11 +101,14 @@ router.post('/news', upload.array('images', 10), async (req, res) => {
     para3,
     tag,
     tag2,
+    tag3,
+    tag4,
+    tag5,
     author = null,
   } = req.body;
 
   // Required fields must be non-empty strings
-  const requiredFields = ['news_title', 'para1', 'para2', 'para3', 'tag', 'tag2'];
+  const requiredFields = ['news_title', 'para1', 'para2', 'para3', 'tag', 'tag2', 'tag3', 'tag4', 'tag5'];
   const missingFields = requiredFields.filter(field => {
     const value = req.body[field];
     return typeof value !== 'string' || value.trim() === '';
@@ -156,10 +159,10 @@ router.post('/news', upload.array('images', 10), async (req, res) => {
 
     // Insert into database with image URLs array
     const result = await pool.query(
-      `INSERT INTO news (id, news_title, para1, para2, para3, author, tag, tag2, images)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)
+      `INSERT INTO news (id, news_title, para1, para2, para3, author, tag, tag2, tag3, tag4, tag5, images)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)
        RETURNING *`,
-      [id, news_title, para1, para2, para3, author, tag, tag2, imageUrls.length > 0 ? imageUrls : null]
+      [id, news_title, para1, para2, para3, author, tag, tag2, tag3, tag4, tag5, imageUrls.length > 0 ? imageUrls : null]
     );
 
     res.status(201).json({
