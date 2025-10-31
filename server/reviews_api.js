@@ -316,7 +316,10 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
     safety,
     warranty,
     tag,
-    tag2
+    tag2,
+    tag3,
+    tag4,
+    tag5,
   } = req.body;
 
   if (!car_name || !model_year || !overview || !pricing || !drivetrain ||
@@ -363,11 +366,11 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
     const result = await pool.query(
       `INSERT INTO reviews (
         id, car_name, model_year, overview, pricing, drivetrain,
-        interior, technology, safety, warranty, tag, tag2, images
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13)
+        interior, technology, safety, warranty, tag, tag2, tag3, tag4, tag5, images
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16)
       RETURNING *`,
       [id, car_name, model_year, overview, pricing, drivetrain,
-        interior, technology, safety, warranty, tag, tag2, imageUrls.length > 0 ? imageUrls : null]
+        interior, technology, safety, warranty, tag, tag2, tag3, tag4, tag5,imageUrls.length > 0 ? imageUrls : null]
     );
 
     res.status(201).json({

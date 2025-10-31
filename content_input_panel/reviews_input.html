@@ -118,6 +118,21 @@
         </div>
 
         <div>
+            <label for="tag3">Tag 3</label>
+            <input type="text" id="tag3" name="tag3">
+        </div>
+
+        <div>
+            <label for="tag4">Tag 4</label>
+            <input type="text" id="tag4" name="tag4">
+        </div>
+
+        <div>
+            <label for="tag5">Tag 5</label>
+            <input type="text" id="tag5" name="tag5">
+        </div>
+
+        <div>
             <label for="images">Upload Images (Max 10)</label>
             <input type="file" id="images" name="images" multiple accept="image/*" style="
                 padding: 12px;
@@ -129,7 +144,7 @@
                 background-color: white;
             ">
             <small style="color: #ccc; font-size: 14px; margin-top: 5px; display: block;">
-                Select up to 10 image files (JPG, PNG, GIF, etc.). Each file should be under 10MB.
+                Select up to 10 image files (.AVIF only). Each file should be under 10MB.
             </small>
             <div id="imagePreview" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
         </div>
@@ -197,6 +212,9 @@
             const warranty = document.getElementById('warranty').value.trim();
             const tag1 = document.getElementById('tag1').value.trim();
             const tag2 = document.getElementById('tag2').value.trim();
+            const tag3 = document.getElementById('tag3').value.trim();
+            const tag4 = document.getElementById('tag4').value.trim();
+            const tag5 = document.getElementById('tag5').value.trim();
             const images = document.getElementById('images').files;
 
             // Create FormData for multipart form submission
@@ -212,6 +230,9 @@
             formData.append('warranty', warranty);
             formData.append('tag', tag1);
             formData.append('tag2', tag2);
+            formData.append('tag3', tag3);
+            formData.append('tag4', tag4);
+            formData.append('tag5', tag5);
 
             // Append image files
             Array.from(images).forEach((file, index) => {
@@ -244,6 +265,9 @@
                     document.getElementById('warranty').value = '';
                     document.getElementById('tag1').value = '';
                     document.getElementById('tag2').value = '';
+                    document.getElementById('tag3').value = '';
+                    document.getElementById('tag4').value = '';
+                    document.getElementById('tag5').value = '';
                     document.getElementById('images').value = '';
                     document.getElementById('imagePreview').innerHTML = '';
                 } else {
