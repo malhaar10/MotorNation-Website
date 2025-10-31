@@ -13,20 +13,26 @@ router.get('/search', async (req, res) => {
     try {
         const [reviewsResult, newsResult] = await Promise.all([
             pool.query(
-                `SELECT id, car_name, model_year, tag, tag2, images
+                `SELECT id, car_name, model_year, tag, tag2, tag3, tag4, tag5, images
                  FROM reviews
                  WHERE LOWER(tag) ILIKE $1
                     OR LOWER(tag2) ILIKE $1
+                    OR LOWER(tag3) ILIKE $1
+                    OR LOWER(tag4) ILIKE $1
+                    OR LOWER(tag5) ILIKE $1
                     OR LOWER(car_name) ILIKE $1
                  ORDER BY model_year DESC
                  LIMIT 7`,
                 [`%${keyword}%`]
             ),
             pool.query(
-                `SELECT id, news_title, date, tag, tag2, images
+                `SELECT id, news_title, date, tag, tag2, tag3, tag4, tag5, images
                  FROM news
                  WHERE LOWER(tag) ILIKE $1
                     OR LOWER(tag2) ILIKE $1
+                    OR LOWER(tag3) ILIKE $1
+                    OR LOWER(tag4) ILIKE $1
+                    OR LOWER(tag5) ILIKE $1
                     OR LOWER(news_title) ILIKE $1
                  ORDER BY date DESC
                  LIMIT 7`,

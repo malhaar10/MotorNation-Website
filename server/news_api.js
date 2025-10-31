@@ -180,7 +180,7 @@ router.post('/news', upload.array('images', 10), async (req, res) => {
 router.get('/news/summary', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images
+      SELECT id, news_title, date, tag, tag2, tag3, tag4, tag5, images
       FROM news
       ORDER BY created_at DESC
       LIMIT 6
@@ -199,7 +199,7 @@ router.get('/news/electric', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'ev'
+      WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev' OR LOWER(tag3) = 'ev' OR LOWER(tag4) = 'ev' OR LOWER(tag5) = 'ev'
       ORDER BY created_at DESC
       LIMIT 6
     `);
@@ -215,8 +215,8 @@ router.get('/news/hatchback', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'hatchback' OR LOWER(tag2) = 'hatchback'
-         OR LOWER(tag) = 'hatchbacks' OR LOWER(tag2) = 'hatchbacks'
+      WHERE LOWER(tag) = 'hatchback' OR LOWER(tag2) = 'hatchback' OR LOWER(tag3) = 'hatchback' OR LOWER(tag4) = 'hatchback' OR LOWER(tag5) = 'hatchback'
+         OR LOWER(tag) = 'hatchbacks' OR LOWER(tag2) = 'hatchbacks' OR LOWER(tag3) = 'hatchbacks' OR LOWER(tag4) = 'hatchbacks' OR LOWER(tag5) = 'hatchbacks'
       ORDER BY created_at DESC
       LIMIT 6
     `);
@@ -233,7 +233,7 @@ router.get('/news/luxury', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury'
+      WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury' OR LOWER(tag3) = 'luxury' OR LOWER(tag4) = 'luxury' OR LOWER(tag5) = 'luxury'
       ORDER BY created_at DESC
       LIMIT 6
     `);
@@ -250,8 +250,8 @@ router.get('/news/hybrids', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid'
-         OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids'
+      WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid' OR LOWER(tag3) = 'hybrid' OR LOWER(tag4) = 'hybrid' OR LOWER(tag5) = 'hybrid'
+         OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids' OR LOWER(tag3) = 'hybrids' OR LOWER(tag4) = 'hybrids' OR LOWER(tag5) = 'hybrids'
       ORDER BY created_at DESC
       LIMIT 6
     `);
@@ -268,8 +268,8 @@ router.get('/news/minivan', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'minivan' OR LOWER(tag2) = 'minivan'
-         OR LOWER(tag) = 'mpv' OR LOWER(tag2) = 'mpv'
+      WHERE LOWER(tag) = 'minivan' OR LOWER(tag2) = 'minivan' OR LOWER(tag3) = 'minivan' OR LOWER(tag4) = 'minivan' OR LOWER(tag5) = 'minivan'
+         OR LOWER(tag) = 'mpv' OR LOWER(tag2) = 'mpv' OR LOWER(tag3) = 'mpv' OR LOWER(tag4) = 'mpv' OR LOWER(tag5) = 'mpv'
       ORDER BY created_at DESC
       LIMIT 6
     `);
@@ -286,9 +286,9 @@ router.get('/news/pickups', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup'
-         OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck'
-         OR LOWER(tag) = 'pickups' OR LOWER(tag2) = 'pickups'
+      WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup' OR LOWER(tag3) = 'pickup' OR LOWER(tag4) = 'pickup' OR LOWER(tag5) = 'pickup'
+         OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck' OR LOWER(tag3) = 'truck' OR LOWER(tag4) = 'truck' OR LOWER(tag5) = 'truck'
+         OR LOWER(tag) = 'pickups' OR LOWER(tag2) = 'pickups' OR LOWER(tag3) = 'pickups' OR LOWER(tag4) = 'pickups' OR LOWER(tag5) = 'pickups'
       ORDER BY created_at DESC
       LIMIT 6
     `);
@@ -305,9 +305,9 @@ router.get('/news/performance', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'performance' OR LOWER(tag2) = 'performance'
-         OR LOWER(tag) = 'sports' OR LOWER(tag2) = 'sports'
-         OR LOWER(tag) = 'supercar' OR LOWER(tag2) = 'supercar'
+      WHERE LOWER(tag) = 'performance' OR LOWER(tag2) = 'performance' OR LOWER(tag3) = 'performance' OR LOWER(tag4) = 'performance' OR LOWER(tag5) = 'performance'
+         OR LOWER(tag) = 'sports' OR LOWER(tag2) = 'sports' OR LOWER(tag3) = 'sports' OR LOWER(tag4) = 'sports' OR LOWER(tag5) = 'sports'
+         OR LOWER(tag) = 'supercar' OR LOWER(tag2) = 'supercar' OR LOWER(tag3) = 'supercar' OR LOWER(tag4) = 'supercar' OR LOWER(tag5) = 'supercar'
       ORDER BY created_at DESC
       LIMIT 6
     `);
@@ -324,8 +324,8 @@ router.get('/news/sedan', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan'
-         OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans'
+      WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan' OR LOWER(tag3) = 'sedan' OR LOWER(tag4) = 'sedan' OR LOWER(tag5) = 'sedan'
+         OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans' OR LOWER(tag3) = 'sedans' OR LOWER(tag4) = 'sedans' OR LOWER(tag5) = 'sedans'
       ORDER BY created_at DESC
       LIMIT 6
     `);
@@ -342,9 +342,9 @@ router.get('/news/suv', async (req, res) => {
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, images
       FROM news
-      WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv'
-         OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs'
-         OR LOWER(tag) = 'crossover' OR LOWER(tag2) = 'crossover'
+      WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv' OR LOWER(tag3) = 'suv' OR LOWER(tag4) = 'suv' OR LOWER(tag5) = 'suv'
+         OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs' OR LOWER(tag3) = 'suvs' OR LOWER(tag4) = 'suvs' OR LOWER(tag5) = 'suvs'
+         OR LOWER(tag) = 'crossover' OR LOWER(tag2) = 'crossover' OR LOWER(tag3) = 'crossover' OR LOWER(tag4) = 'crossover' OR LOWER(tag5) = 'crossover'
       ORDER BY created_at DESC
       LIMIT 6
     `);

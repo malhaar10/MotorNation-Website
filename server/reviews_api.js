@@ -124,8 +124,8 @@ router.get('/reviews/electric', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev'
-         OR LOWER(tag) = 'electric' OR LOWER(tag2) = 'electric'
+      WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev' OR LOWER(tag3) = 'ev' OR LOWER(tag4) = 'ev' OR LOWER(tag5) = 'ev'
+         OR LOWER(tag) = 'electric' OR LOWER(tag2) = 'electric' OR LOWER(tag3) = 'electric' OR LOWER(tag4) = 'electric' OR LOWER(tag5) = 'electric'
       ORDER BY model_year DESC
       LIMIT 6
     `);
@@ -142,7 +142,7 @@ router.get('/reviews/hatchback', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'hatchback' OR LOWER(tag2) = 'hatchback'
+      WHERE LOWER(tag) = 'hatchback' OR LOWER(tag2) = 'hatchback' OR LOWER(tag3) = 'hatchback' OR LOWER(tag4) = 'hatchback' OR LOWER(tag5) = 'hatchback'
       ORDER BY model_year DESC
       LIMIT 6
     `);
@@ -159,7 +159,7 @@ router.get('/reviews/luxury', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury'
+      WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury' OR LOWER(tag3) = 'luxury' OR LOWER(tag4) = 'luxury' OR LOWER(tag5) = 'luxury'
       ORDER BY model_year DESC
       LIMIT 6
     `);
@@ -176,8 +176,8 @@ router.get('/reviews/hybrids', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid'
-         OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids'
+      WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid' OR LOWER(tag3) = 'hybrid' OR LOWER(tag4) = 'hybrid' OR LOWER(tag5) = 'hybrid'
+         OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids' OR LOWER(tag3) = 'hybrids' OR LOWER(tag4) = 'hybrids' OR LOWER(tag5) = 'hybrids'
       ORDER BY model_year DESC
       LIMIT 6
     `);
@@ -194,8 +194,8 @@ router.get('/reviews/minivan', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'minivan' OR LOWER(tag2) = 'minivan'
-         OR LOWER(tag) = 'mpv' OR LOWER(tag2) = 'mpv'
+      WHERE LOWER(tag) = 'minivan' OR LOWER(tag2) = 'minivan' OR LOWER(tag3) = 'minivan' OR LOWER(tag4) = 'minivan' OR LOWER(tag5) = 'minivan'
+         OR LOWER(tag) = 'mpv' OR LOWER(tag2) = 'mpv' OR LOWER(tag3) = 'mpv' OR LOWER(tag4) = 'mpv' OR LOWER(tag5) = 'mpv'
       ORDER BY model_year DESC
       LIMIT 6
     `);
@@ -212,9 +212,9 @@ router.get('/reviews/pickups', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup'
-         OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck'
-         OR LOWER(tag) = 'pickups' OR LOWER(tag2) = 'pickups'
+      WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup' OR LOWER(tag3) = 'pickup' OR LOWER(tag4) = 'pickup' OR LOWER(tag5) = 'pickup'
+         OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck' OR LOWER(tag3) = 'truck' OR LOWER(tag4) = 'truck' OR LOWER(tag5) = 'truck'
+         OR LOWER(tag) = 'pickups' OR LOWER(tag2) = 'pickups' OR LOWER(tag3) = 'pickups' OR LOWER(tag4) = 'pickups' OR LOWER(tag5) = 'pickups'
       ORDER BY model_year DESC
       LIMIT 6
     `);
@@ -231,9 +231,9 @@ router.get('/reviews/performance', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'performance' OR LOWER(tag2) = 'performance'
-         OR LOWER(tag) = 'sports' OR LOWER(tag2) = 'sports'
-         OR LOWER(tag) = 'supercar' OR LOWER(tag2) = 'supercar'
+      WHERE LOWER(tag) = 'performance' OR LOWER(tag2) = 'performance' OR LOWER(tag3) = 'performance' OR LOWER(tag4) = 'performance' OR LOWER(tag5) = 'performance'
+         OR LOWER(tag) = 'sports' OR LOWER(tag2) = 'sports' OR LOWER(tag3) = 'sports' OR LOWER(tag4) = 'sports' OR LOWER(tag5) = 'sports'
+         OR LOWER(tag) = 'supercar' OR LOWER(tag2) = 'supercar' OR LOWER(tag3) = 'supercar' OR LOWER(tag4) = 'supercar' OR LOWER(tag5) = 'supercar'
       ORDER BY model_year DESC
       LIMIT 6
     `);
@@ -250,8 +250,8 @@ router.get('/reviews/sedan', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan'
-         OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans'
+      WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan' OR LOWER(tag3) = 'sedan' OR LOWER(tag4) = 'sedan' OR LOWER(tag5) = 'sedan'
+         OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans' OR LOWER(tag3) = 'sedans' OR LOWER(tag4) = 'sedans' OR LOWER(tag5) = 'sedans'
       ORDER BY model_year DESC
       LIMIT 6
     `);
@@ -268,9 +268,9 @@ router.get('/reviews/suv', async (req, res) => {
     const result = await pool.query(`
       SELECT id, car_name, model_year, images
       FROM reviews
-      WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv'
-         OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs'
-         OR LOWER(tag) = 'crossover' OR LOWER(tag2) = 'crossover'
+      WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv' OR LOWER(tag3) = 'suv' OR LOWER(tag4) = 'suv' OR LOWER(tag5) = 'suv'
+         OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs' OR LOWER(tag3) = 'suvs' OR LOWER(tag4) = 'suvs' OR LOWER(tag5) = 'suvs'
+         OR LOWER(tag) = 'crossover' OR LOWER(tag2) = 'crossover' OR LOWER(tag3) = 'crossover' OR LOWER(tag4) = 'crossover' OR LOWER(tag5) = 'crossover'
       ORDER BY model_year DESC
       LIMIT 6
     `);
