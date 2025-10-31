@@ -109,76 +109,100 @@
     </section><br>
 
     <script>
+        // Lightweight helper that prefers the indexed gallery setter when available
         function changeImage(src) {
-            document.getElementById('mainImage').src = src;
+            const mainImage = document.getElementById('mainImage');
+            if (!mainImage) return;
+            if (window.setMainImage && window.galleryImages) {
+                const idx = window.galleryImages.indexOf(src);
+                if (idx !== -1) {
+                    window.setMainImage(idx);
+                    return;
+                }
+            }
+            mainImage.src = src;
         }
     </script>
     <script>
-        // Initialize global variables
-        let images = [];
-        let currentIndex = 0;
+        // Global gallery state and controls (use URLs array for simplicity)
+        window.galleryImages = window.galleryImages || [];
+        window.currentImageIndex = window.currentImageIndex || 0;
 
-        function changeImage(src, index) {
-            document.getElementById('mainImage').src = src;
-            currentIndex = index;
-            updateThumbnailSelection();
+        window.setMainImage = function(i) {
+            if (!window.galleryImages || window.galleryImages.length === 0) return;
+            if (i < 0) i = 0;
+            if (i >= window.galleryImages.length) i = window.galleryImages.length - 1;
+            window.currentImageIndex = i;
+            const mainImageEl = document.getElementById('mainImage');
+            if (mainImageEl) {
+                mainImageEl.src = window.galleryImages[i];
+                mainImageEl.alt = document.getElementById('review-title')?.textContent || 'Review Image';
+                mainImageEl.style.display = '';
+            }
+            // update thumbnail active state
+            const thumbs = document.querySelectorAll('.image-gallery img');
+            thumbs.forEach(t => t.classList.toggle('active', parseInt(t.dataset.index, 10) === i));
+            updateArrowsVisibility();
+        };
+
+        window.nextImage = function() {
+            if (!window.galleryImages || window.galleryImages.length === 0) return;
+            let next = (window.currentImageIndex || 0) + 1;
+            if (next >= window.galleryImages.length) next = 0; // wrap-around
+            window.setMainImage(next);
+        };
+
+        window.prevImage = function() {
+            if (!window.galleryImages || window.galleryImages.length === 0) return;
+            let prev = (window.currentImageIndex || 0) - 1;
+            if (prev < 0) prev = window.galleryImages.length - 1; // wrap-around
+            window.setMainImage(prev);
+        };
+
+        function updateArrowsVisibility() {
+            const prevBtn = document.querySelector('.prev-btn');
+            const nextBtn = document.querySelector('.next-btn');
+            const count = window.galleryImages ? window.galleryImages.length : 0;
+            if (count <= 1) {
+                if (prevBtn) prevBtn.style.display = 'none';
+                if (nextBtn) nextBtn.style.display = 'none';
+            } else {
+                if (prevBtn) prevBtn.style.display = '';
+                if (nextBtn) nextBtn.style.display = '';
+            }
         }
 
-        function nextImage() {
-            if (images.length === 0) return;
-            currentIndex = (currentIndex + 1) % images.length;
-            changeImage(images[currentIndex].src, currentIndex);
-        }
-
-        function prevImage() {
-            if (images.length === 0) return;
-            currentIndex = (currentIndex - 1 + images.length) % images.length;
-            changeImage(images[currentIndex].src, currentIndex);
-        }
-
-        function updateThumbnailSelection() {
-            images.forEach((img, index) => {
-                img.classList.toggle('active', index === currentIndex);
-            });
-        }
-
-        const prevBtn = document.querySelector('.prev-btn');
-        const nextBtn = document.querySelector('.next-btn');
-        if (images.length === 0) {
-            if (prevBtn) prevBtn.style.display = 'none';
-            if (nextBtn) nextBtn.style.display = 'none';
-        } else {
-            if (prevBtn) prevBtn.style.display = '';
-            if (nextBtn) nextBtn.style.display = '';
-        }
-
-        // Initialize on page load
+        // Initialize on page load (ensure arrows/thumbs state is correct)
         document.addEventListener('DOMContentLoaded', () => {
-            // Get initial images from gallery (fallback for hardcoded images)
-            images = Array.from(document.querySelectorAll('.image-gallery img'));
-            currentIndex = 0;
-            updateThumbnailSelection();
+            // If there are pre-rendered thumbnails, pick them up
+            const existingThumbs = Array.from(document.querySelectorAll('.image-gallery img'));
+            if (existingThumbs.length > 0 && (!window.galleryImages || window.galleryImages.length === 0)) {
+                window.galleryImages = existingThumbs.map(im => im.src);
+            }
+            window.currentImageIndex = 0;
+            if (window.galleryImages.length > 0) window.setMainImage(0);
+            else updateArrowsVisibility();
         });
 
-        // Gallery scroll buttons
-        document.querySelector('.gallery-nav.prev').addEventListener('click', () => {
-            document.querySelector('.image-gallery').scrollBy({
-                left: -120,
-                behavior: 'smooth'
+        // Gallery scroll buttons (only attach if buttons exist)
+        const galleryPrev = document.querySelector('.gallery-nav.prev');
+        const galleryNext = document.querySelector('.gallery-nav.next');
+        const imageGalleryEl = document.querySelector('.image-gallery');
+        if (galleryPrev && imageGalleryEl) {
+            galleryPrev.addEventListener('click', () => {
+                imageGalleryEl.scrollBy({ left: -120, behavior: 'smooth' });
             });
-        });
-
-        document.querySelector('.gallery-nav.next').addEventListener('click', () => {
-            document.querySelector('.image-gallery').scrollBy({
-                left: 120,
-                behavior: 'smooth'
+        }
+        if (galleryNext && imageGalleryEl) {
+            galleryNext.addEventListener('click', () => {
+                imageGalleryEl.scrollBy({ left: 120, behavior: 'smooth' });
             });
-        });
+        }
 
         // Keyboard navigation
         document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowLeft') prevImage();
-            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft' && window.prevImage) window.prevImage();
+            if (e.key === 'ArrowRight' && window.nextImage) window.nextImage();
         });
 
         // Initialize thumbnail selection
@@ -294,15 +318,19 @@
                 const img = document.createElement('img');
                 img.src = imageUrl;
                 img.className = 'thumbnail';
-                img.onclick = () => changeImage(imageUrl, index);
+                img.dataset.index = index;
+                img.addEventListener('click', () => {
+                    if (window.setMainImage) window.setMainImage(index);
+                    else changeImage(imageUrl);
+                });
                 if (index === 0) img.classList.add('active');
                 imageGallery.appendChild(img);
             });
 
-            // Update the global images array for slider functionality
-            images = Array.from(document.querySelectorAll('.image-gallery img'));
-            currentIndex = 0;
-            updateThumbnailSelection();
+            // Update global galleryImages and initialize main image / arrows
+            window.galleryImages = imageUrls.slice();
+            window.currentImageIndex = 0;
+            if (window.setMainImage) window.setMainImage(0);
         }
 
         // Hide all section images if no images are available

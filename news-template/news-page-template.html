@@ -55,9 +55,9 @@
             <div class="article-content">
                 <div class="article-image">
                     <div class="main-image-container">
-                        <button class="slider-btn prev-btn" onclick="prevImage()">❮</button>
+                        <button class="slider-btn prev-btn" onclick="prevImage()">&lsaquo;</button>
                         <img id="mainImage" style="display: none;">
-                        <button class="slider-btn next-btn" onclick="nextImage()">❯</button>
+                        <button class="slider-btn next-btn" onclick="nextImage()">&rsaquo;</button>
                     </div>
                     <div class="image-gallery-container">
                         <!-- <button class="gallery-nav prev">❮</button> -->
@@ -96,7 +96,18 @@
     </section>
     <script>
         function changeImage(src) {
-            document.getElementById('mainImage').src = src;
+            const mainImage = document.getElementById('mainImage');
+            if (!mainImage) return;
+            // If we have a gallery array and a setter, prefer using it (keeps index in sync)
+            if (window.galleryImages && Array.isArray(window.galleryImages) && window.setMainImage) {
+                const idx = window.galleryImages.indexOf(src);
+                if (idx !== -1) {
+                    window.setMainImage(idx);
+                    return;
+                }
+            }
+            // Fallback: just set src
+            mainImage.src = src;
         }
     </script>
     <script>
@@ -150,30 +161,76 @@
                         const imageGallery = document.querySelector('.image-gallery');
                         if (imageGallery) {
                             imageGallery.innerHTML = '';
+                            // Build thumbnails and attach index-based click handlers
                             data.images.forEach((imageUrl, index) => {
                                 const img = document.createElement('img');
                                 img.src = imageUrl;
                                 img.className = 'thumbnail';
                                 img.alt = `${data.news_title} - Image ${index + 1}`;
-                                img.onclick = () => changeImage(imageUrl, index);
+                                img.dataset.index = index;
+                                img.addEventListener('click', () => {
+                                    if (window.setMainImage) {
+                                        window.setMainImage(index);
+                                    } else {
+                                        changeImage(imageUrl);
+                                    }
+                                });
                                 imageGallery.appendChild(img);
                             });
-                        }
 
-                        // Hide/show arrows based on images
-                        // Place this after you update the image gallery (inside your main script)
-                        const prevBtn = document.querySelector('.prev-btn');
-                        const nextBtn = document.querySelector('.next-btn');
-                        const galleryImages = Array.from(document.querySelectorAll('.image-gallery img'));
-                        const imageCount = galleryImages.length;
+                            // Expose gallery state and controls globally so buttons and other scripts can use them
+                            window.galleryImages = data.images.slice();
+                            window.galleryTitle = data.news_title || '';
+                            window.currentImageIndex = 0;
 
-                        // Hide arrows if no image or only one image
-                        if (imageCount <= 1 || mainImage.style.display === 'none') {
-                            if (prevBtn) prevBtn.style.display = 'none';
-                            if (nextBtn) nextBtn.style.display = 'none';
-                        } else {
-                            if (prevBtn) prevBtn.style.display = '';
-                            if (nextBtn) nextBtn.style.display = '';
+                            // Define setter and navigation functions on window so the inline onclick on buttons works
+                            window.setMainImage = function(i) {
+                                if (!window.galleryImages || window.galleryImages.length === 0) return;
+                                if (i < 0) i = 0;
+                                if (i >= window.galleryImages.length) i = window.galleryImages.length - 1;
+                                window.currentImageIndex = i;
+                                const mainImageEl = document.getElementById('mainImage');
+                                if (mainImageEl) {
+                                    mainImageEl.src = window.galleryImages[i];
+                                    mainImageEl.alt = `${window.galleryTitle} - Image ${i + 1}`;
+                                    mainImageEl.style.display = '';
+                                }
+                                // Update thumbnail active state (optional visual feedback)
+                                const thumbs = document.querySelectorAll('.image-gallery img');
+                                thumbs.forEach(t => t.classList.toggle('active', parseInt(t.dataset.index, 10) === i));
+                                // Update arrows visibility
+                                updateArrowsVisibility();
+                            };
+
+                            window.nextImage = function() {
+                                if (!window.galleryImages) return;
+                                let next = (window.currentImageIndex || 0) + 1;
+                                if (next >= window.galleryImages.length) next = 0; // wrap-around or clamp as desired
+                                window.setMainImage(next);
+                            };
+
+                            window.prevImage = function() {
+                                if (!window.galleryImages) return;
+                                let prev = (window.currentImageIndex || 0) - 1;
+                                if (prev < 0) prev = window.galleryImages.length - 1; // wrap-around
+                                window.setMainImage(prev);
+                            };
+
+                            function updateArrowsVisibility() {
+                                const prevBtn = document.querySelector('.prev-btn');
+                                const nextBtn = document.querySelector('.next-btn');
+                                const count = window.galleryImages ? window.galleryImages.length : 0;
+                                if (count <= 1) {
+                                    if (prevBtn) prevBtn.style.display = 'none';
+                                    if (nextBtn) nextBtn.style.display = 'none';
+                                } else {
+                                    if (prevBtn) prevBtn.style.display = '';
+                                    if (nextBtn) nextBtn.style.display = '';
+                                }
+                            }
+
+                            // Initialize main image and arrows
+                            window.setMainImage(0);
                         }
                     }
                 } catch (err) {
