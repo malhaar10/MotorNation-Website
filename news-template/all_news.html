@@ -79,15 +79,15 @@
         <div class="contact-links">
             <a href="../about_us/about_us.html">About us</a>
             <a href="../contact_us/contact_us.html">Contact us</a>
-            <a href="">Terms & Conditions</a>
-            <a href="">Careers</a>
+            <a href="../TnC/tnc.html">Terms & Conditions</a>
+            <a href="../careers/careers.html">Careers</a>
         </div>
     </section>
 <script>
 document.addEventListener('DOMContentLoaded', async () => {
     const container = document.getElementById('all-news-cards');
     const loadBtn = document.getElementById('loadMoreBtn');
-    const initialCount = 10;
+    const initialCount = 12;
     const pageSize = 6;
     let news = [];
     let cursor = 0;
@@ -95,7 +95,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     function createCard(a) {
         const card = document.createElement('div');
         card.className = 'card';
-        const imageUrl = (a.images && a.images.length > 0) ? a.images[0] : "../images/Comparison.png";
+        // Prefer `images` (newer schema), fallback to `image_urls` (older field), then a local placeholder
+        const imageUrl = (Array.isArray(a.images) && a.images.length > 0) ? a.images[0]
+            : (Array.isArray(a.image_urls) && a.image_urls.length > 0) ? a.image_urls[0]
+            : "../images/Comparison.png";
         const dateString = a.date ? new Date(a.date).toLocaleDateString() : '';
         card.innerHTML = `
             <a href="../news-template/news-page-template.html?id=${a.id}">
@@ -119,18 +122,56 @@ document.addEventListener('DOMContentLoaded', async () => {
             container.appendChild(createCard(news[i]));
         }
         cursor = end;
+        console.log('appendNext: cursor', cursor, 'news.length', news.length);
         if (cursor >= news.length) {
             loadBtn.style.display = 'none';
         } else {
-            loadBtn.style.display = '';
+            // set an explicit display value so inline style is visible across browsers
+            loadBtn.style.display = 'inline-block';
+        }
+        // Ensure the load button remains visible after cards are appended.
+        // Use a small timeout so the browser lays out the new cards first.
+        if (loadBtn.style.display !== 'none') {
+            setTimeout(() => {
+                try {
+                    loadBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } catch (e) {
+                    // fallback: no-op if scrollIntoView not supported
+                }
+            }, 80);
         }
     }
 
     try {
-    // Fetch from same origin API mount. Use absolute production URL only when needed.
-    // This will work locally when the API server mounts routes at /api (see server/yt_api.js).
-    const resp = await fetch('/api/news');
-        if (!resp.ok) throw new Error(`HTTP ${resp.status}: ${resp.statusText}`);
+        // Choose an API URL that works both in production and local dev.
+        // When the frontend and API are served from the same origin (e.g. you started the Node
+        // server locally which mounts routes at /api) the relative path `/api/news` will work.
+        // When the page is opened from a different origin (file:// or a static host) fall back
+        // to the known production endpoint.
+        const prodApi = 'https://motornation-336079007565.us-central1.run.app/api/news';
+        const localApi = '/api/news';
+
+        // Heuristic: use local API when hostname is localhost or when a port is present (dev server).
+        const useLocal = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' || window.location.port !== '';
+        const fetchUrl = useLocal ? localApi : prodApi;
+
+        console.log('location.host:', window.location.host, 'hostname:', window.location.hostname, 'port:', window.location.port);
+        console.log('Attempting to fetch news from', fetchUrl);
+
+        let resp = await fetch(fetchUrl).catch(e => ({ ok: false, status: 0, error: e }));
+
+        // If local fetch failed (404/0) and we tried local, attempt production fallback to help debugging
+        if ((!resp.ok) && fetchUrl === localApi) {
+            console.warn(`Local API fetch failed (status ${resp.status}). Trying production API: ${prodApi}`);
+            resp = await fetch(prodApi).catch(e => ({ ok: false, status: 0, error: e }));
+            console.log('Production fetch attempt status:', resp.status);
+        }
+
+        if (!resp.ok) {
+            const errInfo = resp.error ? resp.error.message : `HTTP ${resp.status}`;
+            throw new Error(`Failed to fetch news: ${errInfo}`);
+        }
+
         news = await resp.json();
         container.innerHTML = '';
 

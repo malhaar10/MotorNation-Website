@@ -91,8 +91,11 @@ hr {
     color: #fff;
     font-size: 50px;
 }
+/* .latest-news .full-button{
+} */
 .container{
-    width: 90;
+    /* fixed: missing unit (was `width: 90;`) */
+    width: 90%;
 }
 .blog-section{
     width: 100%;
@@ -157,16 +160,19 @@ hr {
     width: 40px;
 }
 .blog-section .full-button{
-    margin-top: 5vh;
-    height: 7vh;
-    width: 10vw;
-    margin-left: 35vw;
-    background:transparent;
-    border-color: white;
-    border-width: 1px;
+    /* Make the load more button centered and reliably visible */
+    display: block;
+    margin: 5vh auto;
+    min-height: 48px;
+    min-width: 160px;
+    padding: 10px 18px;
+    background: transparent;
+    border: 1px solid white;
     border-radius: 12px;
     color: white;
     font-size: large;
+    position: relative;
+    z-index: 10;
 }
 .blog-section .full-button:hover{
     background-color: lightskyblue;
