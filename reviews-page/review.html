@@ -71,6 +71,15 @@
                 </div>
 
                 <div class="article-text">
+                    <h2 id="pros">PROS</h2>
+                    <p id="pros-text"></p>
+
+                    <h2 id="cons">CONS</h2>
+                    <p id="cons-text"></p>
+
+                    <h2 id="mn_take">MN TAKE</h2>
+                    <p id="mn_take-text"></p>
+
                     <h2 id="overview">OVERVIEW</h2>
                     <p id="overview-text">
                     <h2 id="pricing">PRICING</h2>
@@ -251,6 +260,9 @@
                 document.getElementById('review-title').textContent = review.title || review.car_name || '';
 
                 // Fill in review sections
+                document.getElementById('pros-text').textContent = review.pros || '';
+                document.getElementById('cons-text').textContent = review.cons || '';
+                document.getElementById('mn_take-text').textContent = review.mn_take || '';
                 document.getElementById('overview-text').textContent = review.overview || '';
                 document.getElementById('pricing-text').textContent = review.pricing || '';
                 document.getElementById('drivetrain-text').textContent = review.drivetrain || '';

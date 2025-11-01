@@ -133,6 +133,21 @@
         </div>
 
         <div>
+            <label for="pros">Pros</label>
+            <input type="text" id="pros" name="pros">
+        </div>
+
+        <div>
+            <label for="cons">Cons</label>
+            <input type="text" id="cons" name="cons">
+        </div>
+
+        <div>
+            <label for="mn_take">MotorNation's Take</label>
+            <input type="text" id="mn_take" name="mn_take">
+        </div>
+
+        <div>
             <label for="images">Upload Images (Max 10)</label>
             <input type="file" id="images" name="images" multiple accept="image/*" style="
                 padding: 12px;
@@ -215,6 +230,9 @@
             const tag3 = document.getElementById('tag3').value.trim();
             const tag4 = document.getElementById('tag4').value.trim();
             const tag5 = document.getElementById('tag5').value.trim();
+            const pros = document.getElementById('pros').value.trim();
+            const cons = document.getElementById('cons').value.trim();
+            const mn_take = document.getElementById('mn_take').value.trim();
             const images = document.getElementById('images').files;
 
             // Create FormData for multipart form submission
@@ -233,6 +251,9 @@
             formData.append('tag3', tag3);
             formData.append('tag4', tag4);
             formData.append('tag5', tag5);
+            formData.append('pros', pros);
+            formData.append('cons', cons);
+            formData.append('mn_take', mn_take);
 
             // Append image files
             Array.from(images).forEach((file, index) => {
@@ -268,6 +289,9 @@
                     document.getElementById('tag3').value = '';
                     document.getElementById('tag4').value = '';
                     document.getElementById('tag5').value = '';
+                    document.getElementById('pros').value = '';
+                    document.getElementById('cons').value = '';
+                    document.getElementById('mn_take').value = '';
                     document.getElementById('images').value = '';
                     document.getElementById('imagePreview').innerHTML = '';
                 } else {
