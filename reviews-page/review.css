@@ -57,6 +57,31 @@ body {
     line-height: 1.6;
 }
 
+/* Summary row for pros / cons / mn_take (side-by-side on desktop, stacked on mobile) */
+.summary-row {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 1.25rem;
+}
+.summary-item {
+    flex: 1 1 0;
+    min-width: 0; /* prevents overflow when text is long */
+    background: rgba(255,255,255,0.02);
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+}
+.summary-item h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.5rem;
+}
+.summary-item p {
+    color: #ddd;
+    font-size: 0.95rem;
+    margin: 0;
+}
+
 .image-gallery {
     width: 85%;
     margin: 0 auto; 
@@ -115,12 +140,23 @@ body {
     cursor: pointer;
     font-size: 18px;
     border-radius: 4px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, opacity 0.2s;
+    opacity: 0; /* hidden by default */
+    pointer-events: none; /* avoid accidental clicks when hidden */
 }
 
-.slider-btn:hover {
+.main-image-container:hover .slider-btn,
+.slider-btn:focus {
     background: rgba(0, 0, 0, 0.8);
     border-radius: 12px;
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Ensure arrows are accessible when focused (keyboard users) */
+.slider-btn:focus {
+    outline: 2px solid lightskyblue;
+    outline-offset: 2px;
 }
 
 .prev-btn {
@@ -201,5 +237,18 @@ hr{
     .article-text p {
         font-size: 14px;
         line-height: 1.5;
+    }
+    /* On mobile/touch devices, make slider buttons visible (no hover) */
+    .slider-btn {
+        opacity: 1;
+        pointer-events: auto;
+    }
+    /* Stack summary fields on mobile */
+    .summary-row {
+        flex-direction: column;
+        gap: 0.75rem;
+    }
+    .summary-item {
+        padding: 0.75rem;
     }
 }
