@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Permalink Test</title>
+</head>
+<body>
+    <h1>News Template Permalink Test</h1>
+    <div id="results"></div>
+    
+    <script>
+        function testPermalinkDetection() {
+            const results = document.getElementById('results');
+            
+            // Test different URL patterns
+            const testCases = [
+                {
+                    path: '/news/sample-article-slug',
+                    expected: 'Should detect as permalink',
+                    isPermalink: true
+                },
+                {
+                    path: '/news/',
+                    expected: 'Should NOT detect as permalink (root)',
+                    isPermalink: false
+                },
+                {
+                    path: '/news',
+                    expected: 'Should NOT detect as permalink (no slash)',
+                    isPermalink: false
+                },
+                {
+                    path: '/news-template/news-page-template.html',
+                    expected: 'Should NOT detect as permalink (old format)',
+                    isPermalink: false
+                },
+                {
+                    path: '/news/infiniti-qx80-r-spec-concept-packs-a-1000-hp-gt-r-engine-the-ultimate-luxury-super-suv',
+                    expected: 'Should detect as permalink (real article)',
+                    isPermalink: true
+                }
+            ];
+            
+            results.innerHTML = '<h2>Permalink Detection Tests:</h2>';
+            
+            testCases.forEach((test, index) => {
+                // Simulate the logic from your template
+                const isPermalink = test.path.startsWith('/news/') && test.path !== '/news/' && test.path !== '/news';
+                const passed = isPermalink === test.isPermalink;
+                
+                results.innerHTML += `
+                    <div style="margin: 10px; padding: 10px; border: 1px solid ${passed ? 'green' : 'red'};">
+                        <strong>Test ${index + 1}:</strong> ${test.path}<br>
+                        <em>Expected:</em> ${test.expected}<br>
+                        <em>Result:</em> ${isPermalink ? 'Detected as permalink' : 'NOT detected as permalink'}<br>
+                        <em>Status:</em> <span style="color: ${passed ? 'green' : 'red'}">${passed ? 'PASS ✅' : 'FAIL ❌'}</span>
+                    </div>
+                `;
+            });
+            
+            // Test slug extraction
+            results.innerHTML += '<h2>Slug Extraction Tests:</h2>';
+            
+            const slugTests = [
+                '/news/sample-article-slug',
+                '/news/infiniti-qx80-r-spec-concept-packs-a-1000-hp-gt-r-engine-the-ultimate-luxury-super-suv'
+            ];
+            
+            slugTests.forEach((path, index) => {
+                const slug = path.split('/news/')[1];
+                results.innerHTML += `
+                    <div style="margin: 10px; padding: 10px; border: 1px solid blue;">
+                        <strong>Slug Test ${index + 1}:</strong><br>
+                        <em>Path:</em> ${path}<br>
+                        <em>Extracted Slug:</em> "${slug}"<br>
+                        <em>API URL:</em> https://motornation-336079007565.us-central1.run.app/api/news/slug/${slug}
+                    </div>
+                `;
+            });
+        }
+        
+        // Test API connectivity
+        async function testAPIConnectivity() {
+            const testSlug = 'infiniti-qx80-r-spec-concept-packs-a-1000-hp-gt-r-engine-the-ultimate-luxury-super-suv';
+            const apiUrl = `https://motornation-336079007565.us-central1.run.app/api/news/slug/${testSlug}`;
+            
+            try {
+                const response = await fetch(apiUrl);
+                const data = await response.json();
+                
+                document.getElementById('results').innerHTML += `
+                    <h2>API Connectivity Test:</h2>
+                    <div style="margin: 10px; padding: 10px; border: 1px solid green;">
+                        <strong>API Test:</strong> ✅ SUCCESS<br>
+                        <em>URL:</em> ${apiUrl}<br>
+                        <em>Status:</em> ${response.status}<br>
+                        <em>Article Title:</em> "${data.news_title}"<br>
+                        <em>Article Slug:</em> "${data.slug}"
+                    </div>
+                `;
+            } catch (error) {
+                document.getElementById('results').innerHTML += `
+                    <h2>API Connectivity Test:</h2>
+                    <div style="margin: 10px; padding: 10px; border: 1px solid red;">
+                        <strong>API Test:</strong> ❌ FAILED<br>
+                        <em>URL:</em> ${apiUrl}<br>
+                        <em>Error:</em> ${error.message}
+                    </div>
+                `;
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', () => {
+            testPermalinkDetection();
+            testAPIConnectivity();
+        });
+    </script>
+</body>
+</html>
