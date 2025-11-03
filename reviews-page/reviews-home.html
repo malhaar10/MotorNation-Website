@@ -184,7 +184,7 @@
                         : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
                     
                     card.innerHTML = `
-            <a href="../reviews-page/review.html?id=${review.id}">
+            <a href="${review.slug ? `/reviews/${review.slug}` : `../reviews-page/review.html?id=${review.id}`}">
                 <div class="image-section">
                     <img src="${imageUrl}" alt="${review.car_name}">
                 </div>
@@ -231,12 +231,12 @@
                     : '../images/2025-crv/29_2024HondaCRVEX-L.avif';
 
                 document.getElementById('latest-review').innerHTML = `
-            <a href="../reviews-page/review.html?id=${latest.id}">
+            <a href="${latest.slug ? `/reviews/${latest.slug}` : `../reviews-page/review.html?id=${latest.id}`}">
               <img src="${imagePath}" alt="${latest.car_name}">
             </a>
             <div class="text-content">
               <h4>NEW</h4>
-              <h3><a href="../reviews-page/review.html?id=${latest.id}">
+              <h3><a href="${latest.slug ? `/reviews/${latest.slug}` : `../reviews-page/review.html?id=${latest.id}`}">
                 ${latest.car_name.toUpperCase()}
               </a></h3>
               <p>${new Date().toLocaleDateString()}</p>

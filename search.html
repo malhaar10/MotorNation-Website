@@ -108,11 +108,19 @@
     </section>
 
     <script>
-        function redirectToPage(type, id) {
+        function redirectToPage(type, id, slug = null) {
             if (type === 'review') {
-                window.location.href = `reviews-page/review.html?id=${id}`;
+                if (slug) {
+                    window.location.href = `/reviews/${slug}`;
+                } else {
+                    window.location.href = `reviews-page/review.html?id=${id}`;
+                }
             } else if (type === 'news') {
-                window.location.href = `news-template/news-page-template.html?id=${id}`;
+                if (slug) {
+                    window.location.href = `/news/${slug}`;
+                } else {
+                    window.location.href = `news-template/news-page-template.html?id=${id}`;
+                }
             }
         }
 
@@ -169,7 +177,7 @@
                             : "images/2025-crv/63_2024HondaCRVEX-L.avif";
                             
                         html += `
-                            <div class="card" onclick="redirectToPage('review', '${r.id}')" style="cursor: pointer;">
+                            <div class="card" onclick="redirectToPage('review', '${r.id}', '${r.slug || ''}')" style="cursor: pointer;">
                                 <div class="image-section">
                                     <img src="${imageUrl}" alt="${r.car_name}" loading="lazy">
                                 </div>
@@ -213,7 +221,7 @@
                             : "images/2025-crv/29_2024HondaCRVEX-L.avif";
 
                         html += `
-                            <div class="card" onclick="redirectToPage('news', '${n.id}')" style="cursor: pointer;">
+                            <div class="card" onclick="redirectToPage('news', '${n.id}', '${n.slug || ''}')" style="cursor: pointer;">
                                 <div class="image-section">
                                     <img src="${imageUrl}" alt="${n.news_title}" loading="lazy">
                                 </div>

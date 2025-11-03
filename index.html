@@ -319,7 +319,7 @@
                         : `<div style="display: flex; align-items: center; justify-content: center; height: 200px; background-color: #f5f5f5; color: #666; font-weight: bold;">No images</div>`;
 
                     card.innerHTML = `
-                        <a href="reviews-page/review.html?id=${review.id}">
+                        <a href="${review.slug ? `/reviews/${review.slug}` : `reviews-page/review.html?id=${review.id}`}">
                             <div class="image-section">
                                 ${imageSection}
                             </div>

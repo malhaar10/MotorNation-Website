@@ -4,6 +4,7 @@ const pool = require('./db');
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
+const { generateSlug } = require('./utils/slug-generator');
 require('dotenv').config();
 
 // Ensure key file handling is robust: some deployments put the JSON content
@@ -104,7 +105,7 @@ router.get('/reviews/summary', async (req, res) => {
     console.log('Limit set to:', limit);
 
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       ORDER BY created_at DESC
       LIMIT $1`, [limit]);
@@ -122,7 +123,7 @@ router.get('/reviews/summary', async (req, res) => {
 router.get('/reviews/electric', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev' OR LOWER(tag3) = 'ev' OR LOWER(tag4) = 'ev' OR LOWER(tag5) = 'ev'
          OR LOWER(tag) = 'electric' OR LOWER(tag2) = 'electric' OR LOWER(tag3) = 'electric' OR LOWER(tag4) = 'electric' OR LOWER(tag5) = 'electric'
@@ -140,7 +141,7 @@ router.get('/reviews/electric', async (req, res) => {
 router.get('/reviews/hatchback', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'hatchback' OR LOWER(tag2) = 'hatchback' OR LOWER(tag3) = 'hatchback' OR LOWER(tag4) = 'hatchback' OR LOWER(tag5) = 'hatchback'
       ORDER BY model_year DESC
@@ -157,7 +158,7 @@ router.get('/reviews/hatchback', async (req, res) => {
 router.get('/reviews/luxury', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury' OR LOWER(tag3) = 'luxury' OR LOWER(tag4) = 'luxury' OR LOWER(tag5) = 'luxury'
       ORDER BY model_year DESC
@@ -174,7 +175,7 @@ router.get('/reviews/luxury', async (req, res) => {
 router.get('/reviews/hybrids', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid' OR LOWER(tag3) = 'hybrid' OR LOWER(tag4) = 'hybrid' OR LOWER(tag5) = 'hybrid'
          OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids' OR LOWER(tag3) = 'hybrids' OR LOWER(tag4) = 'hybrids' OR LOWER(tag5) = 'hybrids'
@@ -192,7 +193,7 @@ router.get('/reviews/hybrids', async (req, res) => {
 router.get('/reviews/minivan', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'minivan' OR LOWER(tag2) = 'minivan' OR LOWER(tag3) = 'minivan' OR LOWER(tag4) = 'minivan' OR LOWER(tag5) = 'minivan'
          OR LOWER(tag) = 'mpv' OR LOWER(tag2) = 'mpv' OR LOWER(tag3) = 'mpv' OR LOWER(tag4) = 'mpv' OR LOWER(tag5) = 'mpv'
@@ -210,7 +211,7 @@ router.get('/reviews/minivan', async (req, res) => {
 router.get('/reviews/pickups', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup' OR LOWER(tag3) = 'pickup' OR LOWER(tag4) = 'pickup' OR LOWER(tag5) = 'pickup'
          OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck' OR LOWER(tag3) = 'truck' OR LOWER(tag4) = 'truck' OR LOWER(tag5) = 'truck'
@@ -229,7 +230,7 @@ router.get('/reviews/pickups', async (req, res) => {
 router.get('/reviews/performance', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'performance' OR LOWER(tag2) = 'performance' OR LOWER(tag3) = 'performance' OR LOWER(tag4) = 'performance' OR LOWER(tag5) = 'performance'
          OR LOWER(tag) = 'sports' OR LOWER(tag2) = 'sports' OR LOWER(tag3) = 'sports' OR LOWER(tag4) = 'sports' OR LOWER(tag5) = 'sports'
@@ -248,7 +249,7 @@ router.get('/reviews/performance', async (req, res) => {
 router.get('/reviews/sedan', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan' OR LOWER(tag3) = 'sedan' OR LOWER(tag4) = 'sedan' OR LOWER(tag5) = 'sedan'
          OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans' OR LOWER(tag3) = 'sedans' OR LOWER(tag4) = 'sedans' OR LOWER(tag5) = 'sedans'
@@ -266,7 +267,7 @@ router.get('/reviews/sedan', async (req, res) => {
 router.get('/reviews/suv', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, car_name, model_year, images
+      SELECT id, car_name, model_year, images, slug
       FROM reviews
       WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv' OR LOWER(tag3) = 'suv' OR LOWER(tag4) = 'suv' OR LOWER(tag5) = 'suv'
          OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs' OR LOWER(tag3) = 'suvs' OR LOWER(tag4) = 'suvs' OR LOWER(tag5) = 'suvs'
@@ -278,6 +279,27 @@ router.get('/reviews/suv', async (req, res) => {
   } catch (error) {
     console.error('Error fetching SUV reviews:', error);
     res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Route: GET /reviews/slug/:slug
+// Description: Retrieves a specific review by slug
+router.get('/reviews/slug/:slug', async (req, res) => {
+  try {
+    const { slug } = req.params;
+    const result = await pool.query(
+      'SELECT * FROM reviews WHERE slug = $1',
+      [slug]
+    );
+    
+    if (result.rows.length === 0) {
+      return res.status(404).json({ error: 'Review not found' });
+    }
+    
+    res.json(result.rows[0]);
+  } catch (error) {
+    console.error('Error fetching review by slug:', error);
+    res.status(500).json({ error: 'Failed to fetch review' });
   }
 });
 
@@ -366,14 +388,32 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
       console.log('No files received for upload');
     }
 
+    // Generate slug from car_name and model_year
+    let slug = generateSlug(`${car_name} ${model_year}`);
+    let finalSlug = slug;
+    let counter = 1;
+    
+    // Check for duplicate slugs and append counter if needed
+    while (counter <= 100) {
+      const existingSlug = await pool.query(
+        'SELECT id FROM reviews WHERE slug = $1',
+        [finalSlug]
+      );
+      
+      if (existingSlug.rows.length === 0) break;
+      
+      finalSlug = `${slug}-${counter}`;
+      counter++;
+    }
+
     const result = await pool.query(
       `INSERT INTO reviews (
         id, car_name, model_year, overview, pricing, drivetrain,
-        interior, technology, safety, warranty, tag, tag2, tag3, tag4, tag5, pros, cons, mn_take,images
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19)
+        interior, technology, safety, warranty, tag, tag2, tag3, tag4, tag5, pros, cons, mn_take, images, slug
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20)
       RETURNING *`,
       [id, car_name, model_year, overview, pricing, drivetrain,
-        interior, technology, safety, warranty, tag, tag2, tag3, tag4, tag5, pros, cons, mn_take,imageUrls.length > 0 ? imageUrls : null]
+        interior, technology, safety, warranty, tag, tag2, tag3, tag4, tag5, pros, cons, mn_take, imageUrls.length > 0 ? imageUrls : null, finalSlug]
     );
 
     res.status(201).json({

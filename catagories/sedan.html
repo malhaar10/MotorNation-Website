@@ -133,7 +133,7 @@
                             card.className = 'card';
                             const imageUrl = (r.images && r.images.length) ? r.images[0] : "../images/2025-crv/18_2024HondaCRVEX-L.avif";
                             card.innerHTML = `
-                        <a href="../reviews-page/review.html?id=${r.id}">
+                        <a href="${r.slug ? `/reviews/${r.slug}` : `../reviews-page/review.html?id=${r.id}`}">
                             <div class="image-section"><img src="${imageUrl}" alt="${r.car_name}" loading="lazy"></div>
                             <div class="content"><p>${r.model_year}</p><h3>${r.car_name}</h3><hr></div>
                         </a>

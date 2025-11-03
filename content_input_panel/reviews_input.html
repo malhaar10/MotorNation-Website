@@ -72,6 +72,22 @@
             <input type="text" id="model_year" name="model_year">
         </div>
 
+        <!-- Slug field commented out - auto-generation handled by backend
+        <div>
+            <label for="slug">URL Slug (SEO-friendly URL)</label>
+            <input type="text" id="slug" name="slug" placeholder="e.g., honda-civic-2024">
+            <small style="color: #ccc; font-size: 12px; margin-top: 5px; display: block;">
+                Auto-generated from Car Name + Model Year. Edit if needed for SEO optimization.
+            </small>
+            <div style="margin-top: 8px; padding: 8px; background-color: #333; border-radius: 4px; border: 1px solid #555;">
+                <small style="color: #888; font-size: 11px;">URL Preview:</small>
+                <div id="slug-preview" style="color: #4CAF50; font-size: 12px; font-family: monospace; margin-top: 2px;">
+                    /reviews/your-slug-here
+                </div>
+            </div>
+        </div>
+        -->
+
         <div>
             <label for="overview">Overview</label>
             <textarea id="overview" name="overview"></textarea>
@@ -180,6 +196,69 @@
     </div>
 
     <script>
+        /* Slug generation logic commented out - handled by backend API
+        // Slug generation function
+        function generateSlug(text) {
+            if (!text) return '';
+            return text
+                .toLowerCase()
+                .trim()
+                .replace(/[^a-z0-9\s-]/g, '') // Remove special characters
+                .replace(/\s+/g, '-') // Replace spaces with hyphens
+                .replace(/-+/g, '-') // Replace multiple hyphens with single
+                .replace(/^-|-$/g, ''); // Remove leading/trailing hyphens
+        }
+
+        // Auto-generate slug when car name or model year changes
+        function updateSlug() {
+            const carName = document.getElementById('title').value;
+            const modelYear = document.getElementById('model_year').value;
+            const slugField = document.getElementById('slug');
+            
+            if (carName && modelYear) {
+                const autoSlug = generateSlug(`${carName} ${modelYear}`);
+                slugField.placeholder = autoSlug;
+                
+                // Only update if field is empty or hasn't been manually edited
+                if (!slugField.value || !slugField.dataset.manualEdit) {
+                    slugField.value = autoSlug;
+                    slugField.dataset.lastAuto = autoSlug;
+                }
+            }
+            
+            // Update preview regardless
+            updateSlugPreview();
+        }
+
+        // Update the slug preview
+        function updateSlugPreview() {
+            const slugField = document.getElementById('slug');
+            const preview = document.getElementById('slug-preview');
+            if (preview) {
+                preview.textContent = slugField.value ? `/reviews/${slugField.value}` : '/reviews/your-slug-here';
+            }
+        }
+
+        // Add event listeners for auto-slug generation
+        document.addEventListener('DOMContentLoaded', function() {
+            const carNameField = document.getElementById('title');
+            const modelYearField = document.getElementById('model_year');
+            const slugField = document.getElementById('slug');
+            
+            carNameField.addEventListener('input', updateSlug);
+            modelYearField.addEventListener('input', updateSlug);
+            
+            // Mark as manually edited when user types in slug field
+            slugField.addEventListener('input', function() {
+                slugField.dataset.manualEdit = 'true';
+                updateSlugPreview();
+            });
+            
+            // Initialize preview
+            updateSlugPreview();
+        });
+        */
+
         // Add image preview functionality
         document.getElementById('images').addEventListener('change', function(e) {
             const files = e.target.files;
@@ -218,6 +297,7 @@
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const title = document.getElementById('title').value.trim();
             const model_year = document.getElementById('model_year').value.trim();
+            // const slug = document.getElementById('slug').value.trim(); // Commented out - backend handles slug generation
             const overview = document.getElementById('overview').value.trim();
             const pricing = document.getElementById('pricing').value.trim();
             const drivetrain = document.getElementById('drivetrain').value.trim();
@@ -239,6 +319,7 @@
             const formData = new FormData();
             formData.append('car_name', title);
             formData.append('model_year', model_year);
+            // formData.append('slug', slug); // Commented out - backend auto-generates slug
             formData.append('overview', overview);
             formData.append('pricing', pricing);
             formData.append('drivetrain', drivetrain);

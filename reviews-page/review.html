@@ -242,53 +242,141 @@
         </div>
     </section>
     <script>
-        document.addEventListener('DOMContentLoaded', async () => {
-            const params = new URLSearchParams(window.location.search);
-            const id = params.get('id');
-
-            if (!id) {
-                console.warn('No review ID provided in URL.');
-                return;
-            }
+        async function loadReview() {
+            const API_BASE = 'https://motornation-336079007565.us-central1.run.app/api';
+            const urlParams = new URLSearchParams(window.location.search);
+            const path = window.location.pathname;
+            let reviewData = null;
+            let isPermalink = false;
 
             try {
-                const response = await fetch(`https://motornation-336079007565.us-central1.run.app/api/reviews/${id}`);
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                // Check if this is a permalink URL (/reviews/slug-here)
+                if (path.includes('/reviews/') && !urlParams.has('id')) {
+                    const slug = path.split('/reviews/')[1];
+                    console.log('Loading review by slug:', slug);
+                    isPermalink = true;
+                    
+                    const response = await fetch(`${API_BASE}/reviews/slug/${slug}`);
+                    if (response.ok) {
+                        reviewData = await response.json();
+                        
+                        // Update browser URL to clean permalink if needed
+                        const cleanUrl = `/reviews/${slug}`;
+                        if (window.location.pathname !== cleanUrl) {
+                            window.history.replaceState({}, '', cleanUrl);
+                        }
+                    } else {
+                        throw new Error(`Review not found for slug: ${slug}`);
+                    }
+                } else {
+                    // Legacy ID-based URL support
+                    const id = urlParams.get('id');
+                    if (!id) {
+                        console.warn('No review ID or slug provided in URL.');
+                        return;
+                    }
+                    
+                    console.log('Loading review by ID:', id);
+                    const response = await fetch(`${API_BASE}/reviews/${id}`);
+                    if (response.ok) {
+                        reviewData = await response.json();
+                        
+                        // Redirect to permalink URL if review has a slug
+                        if (reviewData.slug) {
+                            const permalinkUrl = `/reviews/${reviewData.slug}`;
+                            window.history.replaceState({}, '', permalinkUrl);
+                            isPermalink = true;
+                        }
+                    } else {
+                        throw new Error(`Review not found for ID: ${id}`);
+                    }
                 }
-                const review = await response.json();
 
-                if (!review) {
-                    console.warn('No review found for ID:', id);
+                if (!reviewData) {
+                    console.warn('No review data found');
                     return;
                 }
 
-                // Update the title
-                document.getElementById('review-title').textContent = review.title || review.car_name || '';
-
-                // Fill in review sections
-                document.getElementById('pros-text').textContent = review.pros || '';
-                document.getElementById('cons-text').textContent = review.cons || '';
-                document.getElementById('mn_take-text').textContent = review.mn_take || '';
-                document.getElementById('overview-text').textContent = review.overview || '';
-                document.getElementById('pricing-text').textContent = review.pricing || '';
-                document.getElementById('drivetrain-text').textContent = review.drivetrain || '';
-                document.getElementById('interior-text').textContent = review.interior || '';
-                document.getElementById('technology-text').textContent = review.technology || '';
-                document.getElementById('safety-text').textContent = review.safety || '';
-                document.getElementById('warranty-text').textContent = review.warranty || '';
-
-                // Update images if available from GCS
-                if (review.images && review.images.length > 0) {
-                    updateImagesFromDatabase(review.images);
-                } else {
-                    // Hide all images if none are available
-                    hideSectionImages();
-                }
+                // Update the page with review data
+                displayReview(reviewData, isPermalink);
+                
             } catch (error) {
                 console.error('Failed to load review data:', error);
             }
-        });
+        }
+
+        function displayReview(data, isPermalink) {
+            // Update page title and meta tags for SEO
+            const reviewTitle = `${data.car_name} ${data.model_year} Review - Motor Nation`;
+            document.title = reviewTitle;
+            
+            // Update meta tags for SEO
+            if (isPermalink && data.slug) {
+                updateMetaTags(data);
+            }
+
+            // Update the review title
+            document.getElementById('review-title').textContent = data.car_name || '';
+
+            // Fill in review sections
+            document.getElementById('pros-text').textContent = data.pros || '';
+            document.getElementById('cons-text').textContent = data.cons || '';
+            document.getElementById('mn_take-text').textContent = data.mn_take || '';
+            document.getElementById('overview-text').textContent = data.overview || '';
+            document.getElementById('pricing-text').textContent = data.pricing || '';
+            document.getElementById('drivetrain-text').textContent = data.drivetrain || '';
+            document.getElementById('interior-text').textContent = data.interior || '';
+            document.getElementById('technology-text').textContent = data.technology || '';
+            document.getElementById('safety-text').textContent = data.safety || '';
+            document.getElementById('warranty-text').textContent = data.warranty || '';
+
+            // Update images if available from GCS
+            if (data.images && data.images.length > 0) {
+                updateImagesFromDatabase(data.images);
+            } else {
+                // Hide all images if none are available
+                hideSectionImages();
+            }
+        }
+
+        function updateMetaTags(data) {
+            // Update canonical URL
+            const canonical = document.querySelector('link[rel="canonical"]') || 
+                             (() => {
+                                 const link = document.createElement('link');
+                                 link.rel = 'canonical';
+                                 document.head.appendChild(link);
+                                 return link;
+                             })();
+            canonical.href = `${window.location.origin}/reviews/${data.slug}`;
+            
+            // Update Open Graph meta tags
+            updateOGTag('og:title', `${data.car_name} ${data.model_year} Review - Motor Nation`);
+            updateOGTag('og:description', data.overview ? data.overview.substring(0, 155) : `Comprehensive review of the ${data.car_name} ${data.model_year}`);
+            updateOGTag('og:url', `${window.location.origin}/reviews/${data.slug}`);
+            
+            // Update description meta tag
+            const description = document.querySelector('meta[name="description"]') || 
+                               (() => {
+                                   const meta = document.createElement('meta');
+                                   meta.name = 'description';
+                                   document.head.appendChild(meta);
+                                   return meta;
+                               })();
+            description.content = data.overview ? data.overview.substring(0, 155) : `Comprehensive review of the ${data.car_name} ${data.model_year}`;
+        }
+
+        function updateOGTag(property, content) {
+            let tag = document.querySelector(`meta[property="${property}"]`);
+            if (!tag) {
+                tag = document.createElement('meta');
+                tag.property = property;
+                document.head.appendChild(tag);
+            }
+            tag.content = content;
+        }
+
+        document.addEventListener('DOMContentLoaded', loadReview);
 
         // Function to update images from database
         function updateImagesFromDatabase(imageUrls) {
