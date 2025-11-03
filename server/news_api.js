@@ -109,7 +109,7 @@ router.post('/news', upload.array('images', 10), async (req, res) => {
   } = req.body;
 
   // Required fields must be non-empty strings
-  const requiredFields = ['news_title', 'para1', 'para2', 'para3', 'tag', 'tag2', 'tag3', 'tag4', 'tag5'];
+  const requiredFields = ['news_title', 'para1', 'para2', 'para3', 'tag', 'tag2'];
   const missingFields = requiredFields.filter(field => {
     const value = req.body[field];
     return typeof value !== 'string' || value.trim() === '';
