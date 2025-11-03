@@ -348,8 +348,14 @@ router.post('/reviews', upload.array('images', 10), async (req, res) => {
   } = req.body;
 
   if (!car_name || !model_year || !overview || !pricing || !drivetrain ||
-    !interior || !technology || !safety || !warranty || !tag || !tag2) {
+    !interior || !technology || !safety || !warranty || !tag || !tag2 ||
+    !pros || !cons || !mn_take) {
     return res.status(400).json({ error: 'Missing required fields' });
+  }
+
+  // Check if at least one image is uploaded
+  if (!req.files || req.files.length === 0) {
+    return res.status(400).json({ error: 'At least one image is required' });
   }
 
   try {
