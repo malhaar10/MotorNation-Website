@@ -152,7 +152,7 @@
             
             try {
                 const isMobile = window.innerWidth <= 768;
-                const limit = isMobile ? 3 : 6;
+                const limit = isMobile ? 4 : 7; // Fetch 4 or 7 to skip first and show 3 or 6
 
                 console.log('Window width:', window.innerWidth);
                 console.log('Is mobile:', isMobile);
@@ -174,7 +174,8 @@
                 const container = document.getElementById('review-cards-container');
                 container.innerHTML = ''; // Clear any existing content
 
-                reviews.forEach(review => {
+                // Display reviews 2-7 (skip the first review as it's already shown in the highlight section)
+                reviews.slice(1).forEach(review => {
                     const card = document.createElement('div');
                     card.className = 'card';
                     

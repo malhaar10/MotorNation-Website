@@ -414,7 +414,7 @@ router.get('/news/:id', async (req, res) => {
   }
 });
 
-// GET /api/reviews - Fetch all reviews
+// GET /api/news - Fetch all news
 router.get('/news', async (req, res) => {
   try {
     const result = await pool.query('SELECT * FROM news ORDER BY created_at DESC');
