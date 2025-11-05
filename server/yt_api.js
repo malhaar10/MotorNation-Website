@@ -115,19 +115,20 @@ async function testDatabaseConnection() {
   try {
     const client = await pool.connect();
     const result = await client.query('SELECT NOW() as current_time, version() as pg_version');
-    console.log('✅ DB connection successful');
-    console.log(`📍 Database time: ${result.rows[0].current_time}`);
-    console.log(`🐘 PostgreSQL version: ${result.rows[0].pg_version.split(' ')[0]}`);
+    console.log('DB connection successful');
+    console.log(`Database time: ${result.rows[0].current_time}`);
+    console.log(`PostgreSQL version: ${result.rows[0].pg_version.split(' ')[0]}`);
     client.release();
   } catch (err) {
-    console.error('❌ DB connection failed:', err.message);
-    console.log('⚠️  Server will continue running without database (static files only)');
-    console.log('💡 Start PostgreSQL or set NODE_ENV=production to suppress this error');
-    // Don't exit - allow testing of static files and UI
+    console.error('❌ DB connection failed:', err.stack);
+    // Don't exit in production, let health checks handle it
+    if (process.env.NODE_ENV !== 'production') {
+      process.exit(1);
+    }
   }
 }
 
-// Test database connection on startup (non-blocking)
+// Test database connection on startup
 testDatabaseConnection();
 
 // === GET /getPlaylistVideos ===
