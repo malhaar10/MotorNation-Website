@@ -43,8 +43,8 @@
                 <ul>
                     <li><a href="../index.html">HOME</a></li>
                     <li><a href="../reviews-page/reviews-home.html">REVIEWS</a></li>
+                    <li><a href="../news-template/news-home.html">NEWS</a></li>
                     <li><a href="../electric/electric.html">ELECTRIC</a></li>
-                    <li><a href="../article-page/article-home.html">ARTICLES</a></li>
                     <li><a href="../videos/video.html">VIDEOS</a></li>
                     <li><a href="../search.html">SEARCH</a></li>
                 </ul>
@@ -60,7 +60,7 @@
     <hr>
     <section class="latest-news">
         <hr>
-        <h3>LATEST NEWS</h3>
+        <h3>LATEST ARTICLES</h3>
         <div class="container">
             <div class="blog-section">
                 <div class="cards" id="news-cards">
@@ -91,108 +91,6 @@
         </div>
     </section>
 
-    <script>
-        // Initialize cache manager and fetch news
-        document.addEventListener('DOMContentLoaded', async () => {
-
-            
-            try {
-                const isMobile = window.innerWidth <= 768;
-                const limit = isMobile ? 4 : 7; // Fetch 4 or 7 to skip first and show 3 or 6
-
-                console.log('Window width:', window.innerWidth);
-                console.log('Is mobile:', isMobile);
-                console.log('Limit set to:', limit);
-
-                // Use cached API client instead of direct fetch
-                const response = await fetch(`https://motornation-336079007565.us-central1.run.app/api/news/summary?limit=${limit}`);
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const data = await response.json();
-                console.log('Received news count:', data.length);
-
-                const cardsContainer = document.getElementById('news-cards');
-
-                // Display articles 2-7 (skip the first article as it's already shown in the highlight section)
-                data.slice(1).forEach(article => {
-                    const card = document.createElement('div');
-                    card.className = 'card';
-
-                    // Use first image from GCS if available, otherwise fallback to placeholder
-                    const imageUrl = (article.images && article.images.length > 0) 
-                        ? article.images[0] 
-                        : "../images/Comparison.png";
-
-                    card.innerHTML = `
-                        <a href="../news-template/news-page-template.html?id=${article.id}">
-                            <div class="image-section">
-                                <img src="${imageUrl}" alt="${article.news_title}">
-                            </div>
-                            <div class="content">
-                                <p>${article.tag || 'UPDATE'}</p>
-                                <h3>${article.news_title}</h3>
-                                <h5>${new Date(article.date).toLocaleDateString()}</h5>
-                                <hr>
-                            </div>
-                        </a>
-                    `;
-
-                    cardsContainer.appendChild(card);
-                });
-            } catch (err) {
-                console.error('❌ Failed to load news summary:', err);
-            }
-        });
-    </script>
-
-    <script>
-        // Load latest news for featured section
-        async function loadLatestNews() {
-            try {
-                // Use cached API client instead of direct fetch
-                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/news/summary?limit=1');
-                
-                if (!response.ok) {
-                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
-                }
-                
-                const news = await response.json();
-
-                if (!Array.isArray(news) || news.length === 0) {
-                    document.getElementById('featured-news').innerHTML = '<p>No news available.</p>';
-            return;
-        }
-
-        const latest = news[0];
-        
-        // Use first image from GCS if available, otherwise fallback to placeholder
-        const imagePath = (latest.images && latest.images.length > 0) 
-            ? latest.images[0] 
-            : '../images/Comparison.png';
-
-        document.getElementById('featured-news').innerHTML = `
-            <a href="../news-template/news-page-template.html?id=${latest.id}">
-              <img src="${imagePath}" alt="${latest.news_title}">
-            </a>
-            <div class="text-content">
-              <h4>BREAKING</h4>
-              <h3><a href="../news-template/news-page-template.html?id=${latest.id}">
-                ${latest.news_title.toUpperCase()}
-              </a></h3>
-              <p>${new Date(latest.date).toLocaleDateString()}</p>
-            </div>
-          `;
-    } catch (err) {
-        console.error('Error loading latest news:', err);
-        document.getElementById('featured-news').innerHTML = '<p>Failed to load news.</p>';
-    }
-}
-
-window.addEventListener('DOMContentLoaded', loadLatestNews);
-</script>
 
 <!-- Mobile navigation menu toggle functionality -->
 <script>
