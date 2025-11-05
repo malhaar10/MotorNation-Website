@@ -13,6 +13,7 @@ const pool = require('./db');
 const reviewsApi = require('./reviews_api');
 const newsApi = require('./news_api');
 const searchApi = require('./search_api');
+const articlesApi = require('./articles_api');
 
 // === Middleware Setup ===
 app.use(cors({
@@ -45,6 +46,7 @@ app.get('/', (req, res) => {
       database_health: "/health/db",
       news_summary: "/api/news/summary",
       reviews_summary: "/api/reviews/summary",
+      articles_summary: "/api/articles/summary",
       search: "/api/search?tag=keyword",
       youtube_videos: "/getPlaylistVideos?playlistId=PLAYLIST_ID",
       news_categories: {
@@ -60,6 +62,13 @@ app.get('/', (req, res) => {
         performance: "/api/reviews/performance",
         hybrid: "/api/reviews/hybrids",
         suv: "/api/reviews/suv"
+      },
+      article_categories: {
+        electric: "/api/articles/electric",
+        luxury: "/api/articles/luxury",
+        performance: "/api/articles/performance",
+        hybrid: "/api/articles/hybrids",
+        suv: "/api/articles/suv"
       }
     },
     status: "running",
@@ -107,6 +116,7 @@ app.get('/health/db', async (req, res) => {
 app.use('/api', reviewsApi);
 app.use('/api', newsApi);
 app.use('/api', searchApi);
+app.use('/api', articlesApi);
 
 // === Enhanced DB Connection Test ===
 async function testDatabaseConnection() {

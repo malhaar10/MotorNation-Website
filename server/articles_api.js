@@ -208,47 +208,47 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
     res.status(500).json({ error: 'Failed to add article' });
   }
 });
-/*
-// Route: GET /news/summary
-// Description: Retrieves summary of latest 6 articles (for home/news cards)
-router.get('/news/summary', async (req, res) => {
+
+// Route: GET /articles/summary
+// Description: Retrieves summary of latest 6 articles (for home/article cards)
+router.get('/articles/summary', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, tag3, tag4, tag5, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, tag3, tag4, tag5, images, slug, created_at
+      FROM articles
       ORDER BY created_at DESC
       LIMIT 6
     `);
     res.json(result.rows);
   } catch (err) {
-    console.error('Error fetching news summary:', err);
-    res.status(500).json({ error: 'Failed to fetch news summary' });
+    console.error('Error fetching articles summary:', err);
+    res.status(500).json({ error: 'Failed to fetch articles summary' });
   }
 });
-
-// Route: GET /news/electric - Specific route must come BEFORE the parameterized route
+/*
+// Route: GET /articles/electric - Specific route must come BEFORE the parameterized route
 // Description: Get latest 6 articles with tag = 'ev'
-router.get('/news/electric', async (req, res) => {
+router.get('/articles/electric', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev' OR LOWER(tag3) = 'ev' OR LOWER(tag4) = 'ev' OR LOWER(tag5) = 'ev'
       ORDER BY created_at DESC
       LIMIT 6
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching EV news:', error);
-    res.status(500).json({ error: 'Failed to fetch EV news' });
+    console.error('Error fetching EV articles:', error);
+    res.status(500).json({ error: 'Failed to fetch EV articles' });
   }
 });
 
-router.get('/news/hatchback', async (req, res) => {
+router.get('/articles/hatchback', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'hatchback' OR LOWER(tag2) = 'hatchback' OR LOWER(tag3) = 'hatchback' OR LOWER(tag4) = 'hatchback' OR LOWER(tag5) = 'hatchback'
          OR LOWER(tag) = 'hatchbacks' OR LOWER(tag2) = 'hatchbacks' OR LOWER(tag3) = 'hatchbacks' OR LOWER(tag4) = 'hatchbacks' OR LOWER(tag5) = 'hatchbacks'
       ORDER BY created_at DESC
@@ -256,34 +256,34 @@ router.get('/news/hatchback', async (req, res) => {
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching hatchback news:', error);
-    res.status(500).json({ error: 'Failed to fetch hatchback news' });
+    console.error('Error fetching hatchback articles:', error);
+    res.status(500).json({ error: 'Failed to fetch hatchback articles' });
   }
 });
 
-// Route: GET /news/luxury - Specific route must come BEFORE the parameterized route
-router.get('/news/luxury', async (req, res) => {
+// Route: GET /articles/luxury - Specific route must come BEFORE the parameterized route
+router.get('/articles/luxury', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury' OR LOWER(tag3) = 'luxury' OR LOWER(tag4) = 'luxury' OR LOWER(tag5) = 'luxury'
       ORDER BY created_at DESC
       LIMIT 6
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching luxury news:', error);
-    res.status(500).json({ error: 'Failed to fetch luxury news' });
+    console.error('Error fetching luxury articles:', error);
+    res.status(500).json({ error: 'Failed to fetch luxury articles' });
   }
 });
 
-// Route: GET /news/hybrids - Specific route must come BEFORE the parameterized route
-router.get('/news/hybrids', async (req, res) => {
+// Route: GET /articles/hybrids - Specific route must come BEFORE the parameterized route
+router.get('/articles/hybrids', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid' OR LOWER(tag3) = 'hybrid' OR LOWER(tag4) = 'hybrid' OR LOWER(tag5) = 'hybrid'
          OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids' OR LOWER(tag3) = 'hybrids' OR LOWER(tag4) = 'hybrids' OR LOWER(tag5) = 'hybrids'
       ORDER BY created_at DESC
@@ -291,17 +291,17 @@ router.get('/news/hybrids', async (req, res) => {
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching hybrid news:', error);
-    res.status(500).json({ error: 'Failed to fetch hybrid news' });
+    console.error('Error fetching hybrid articles:', error);
+    res.status(500).json({ error: 'Failed to fetch hybrid articles' });
   }
 });
 
-// Route: GET /news/minivan - Specific route must come BEFORE the parameterized route
-router.get('/news/minivan', async (req, res) => {
+// Route: GET /articles/minivan - Specific route must come BEFORE the parameterized route
+router.get('/articles/minivan', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'minivan' OR LOWER(tag2) = 'minivan' OR LOWER(tag3) = 'minivan' OR LOWER(tag4) = 'minivan' OR LOWER(tag5) = 'minivan'
          OR LOWER(tag) = 'mpv' OR LOWER(tag2) = 'mpv' OR LOWER(tag3) = 'mpv' OR LOWER(tag4) = 'mpv' OR LOWER(tag5) = 'mpv'
       ORDER BY created_at DESC
@@ -309,17 +309,17 @@ router.get('/news/minivan', async (req, res) => {
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching minivan news:', error);
-    res.status(500).json({ error: 'Failed to fetch minivan news' });
+    console.error('Error fetching minivan articles:', error);
+    res.status(500).json({ error: 'Failed to fetch minivan articles' });
   }
 });
 
-// Route: GET /news/pickups - Specific route must come BEFORE the parameterized route
-router.get('/news/pickups', async (req, res) => {
+// Route: GET /articles/pickups - Specific route must come BEFORE the parameterized route
+router.get('/articles/pickups', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup' OR LOWER(tag3) = 'pickup' OR LOWER(tag4) = 'pickup' OR LOWER(tag5) = 'pickup'
          OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck' OR LOWER(tag3) = 'truck' OR LOWER(tag4) = 'truck' OR LOWER(tag5) = 'truck'
          OR LOWER(tag) = 'pickups' OR LOWER(tag2) = 'pickups' OR LOWER(tag3) = 'pickups' OR LOWER(tag4) = 'pickups' OR LOWER(tag5) = 'pickups'
@@ -328,17 +328,17 @@ router.get('/news/pickups', async (req, res) => {
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching pickup news:', error);
-    res.status(500).json({ error: 'Failed to fetch pickup news' });
+    console.error('Error fetching pickup articles:', error);
+    res.status(500).json({ error: 'Failed to fetch pickup articles' });
   }
 });
 
-// Route: GET /news/performance - Specific route must come BEFORE the parameterized route
-router.get('/news/performance', async (req, res) => {
+// Route: GET /articles/performance - Specific route must come BEFORE the parameterized route
+router.get('/articles/performance', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'performance' OR LOWER(tag2) = 'performance' OR LOWER(tag3) = 'performance' OR LOWER(tag4) = 'performance' OR LOWER(tag5) = 'performance'
          OR LOWER(tag) = 'sports' OR LOWER(tag2) = 'sports' OR LOWER(tag3) = 'sports' OR LOWER(tag4) = 'sports' OR LOWER(tag5) = 'sports'
          OR LOWER(tag) = 'supercar' OR LOWER(tag2) = 'supercar' OR LOWER(tag3) = 'supercar' OR LOWER(tag4) = 'supercar' OR LOWER(tag5) = 'supercar'
@@ -347,17 +347,17 @@ router.get('/news/performance', async (req, res) => {
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching performance news:', error);
-    res.status(500).json({ error: 'Failed to fetch performance news' });
+    console.error('Error fetching performance articles:', error);
+    res.status(500).json({ error: 'Failed to fetch performance articles' });
   }
 });
 
-// Route: GET /news/sedan - Specific route must come BEFORE the parameterized route
-router.get('/news/sedan', async (req, res) => {
+// Route: GET /articles/sedan - Specific route must come BEFORE the parameterized route
+router.get('/articles/sedan', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan' OR LOWER(tag3) = 'sedan' OR LOWER(tag4) = 'sedan' OR LOWER(tag5) = 'sedan'
          OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans' OR LOWER(tag3) = 'sedans' OR LOWER(tag4) = 'sedans' OR LOWER(tag5) = 'sedans'
       ORDER BY created_at DESC
@@ -365,17 +365,17 @@ router.get('/news/sedan', async (req, res) => {
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching sedan news:', error);
-    res.status(500).json({ error: 'Failed to fetch sedan news' });
+    console.error('Error fetching sedan articles:', error);
+    res.status(500).json({ error: 'Failed to fetch sedan articles' });
   }
 });
 
-// Route: GET /news/suv - Specific route must come BEFORE the parameterized route
-router.get('/news/suv', async (req, res) => {
+// Route: GET /articles/suv - Specific route must come BEFORE the parameterized route
+router.get('/articles/suv', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, news_title, date, tag, tag2, images, slug
-      FROM news
+      SELECT id, article_title, tag, tag2, images, slug, created_at
+      FROM articles
       WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv' OR LOWER(tag3) = 'suv' OR LOWER(tag4) = 'suv' OR LOWER(tag5) = 'suv'
          OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs' OR LOWER(tag3) = 'suvs' OR LOWER(tag4) = 'suvs' OR LOWER(tag5) = 'suvs'
          OR LOWER(tag) = 'crossover' OR LOWER(tag2) = 'crossover' OR LOWER(tag3) = 'crossover' OR LOWER(tag4) = 'crossover' OR LOWER(tag5) = 'crossover'
@@ -384,19 +384,18 @@ router.get('/news/suv', async (req, res) => {
     `);
     res.json(result.rows);
   } catch (error) {
-    console.error('Error fetching SUV news:', error);
-    res.status(500).json({ error: 'Failed to fetch SUV news' });
+    console.error('Error fetching SUV articles:', error);
+    res.status(500).json({ error: 'Failed to fetch SUV articles' });
   }
 });
 */
-
-// Route: GET /news/slug/:slug
-// Description: Retrieves a specific news article by slug
-router.get('/news/slug/:slug', async (req, res) => {
+// Route: GET /articles/slug/:slug
+// Description: Retrieves a specific article by slug
+router.get('/articles/slug/:slug', async (req, res) => {
   try {
     const { slug } = req.params;
     const result = await pool.query(
-      'SELECT * FROM news WHERE slug = $1',
+      'SELECT * FROM articles WHERE slug = $1',
       [slug]
     );
     
@@ -411,34 +410,34 @@ router.get('/news/slug/:slug', async (req, res) => {
   }
 });
 
-// Route: GET /news/:id
-// Description: Retrieves a specific news article by ID
-router.get('/news/:id', async (req, res) => {
+// Route: GET /articles/:id
+// Description: Retrieves a specific article by ID
+router.get('/articles/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const result = await pool.query(`
-      SELECT * FROM news WHERE id = $1
+      SELECT * FROM articles WHERE id = $1
     `, [id]);
     
     if (result.rows.length === 0) {
-      return res.status(404).json({ error: 'News article not found' });
+      return res.status(404).json({ error: 'Article not found' });
     }
     
     res.json(result.rows[0]);
   } catch (err) {
-    console.error('Error fetching news article:', err);
-    res.status(500).json({ error: 'Failed to fetch news article' });
+    console.error('Error fetching article:', err);
+    res.status(500).json({ error: 'Failed to fetch article' });
   }
 });
 
-// GET /api/news - Fetch all news
-router.get('/news', async (req, res) => {
+// GET /api/articles - Fetch all articles
+router.get('/articles', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM news ORDER BY created_at DESC');
+    const result = await pool.query('SELECT * FROM articles ORDER BY created_at DESC');
     res.json(result.rows);
   } catch (err) {
-    console.error('Error fetching news:', err);
-    res.status(500).json({ error: 'Failed to fetch news' });
+    console.error('Error fetching articles:', err);
+    res.status(500).json({ error: 'Failed to fetch articles' });
   }
 });
 
