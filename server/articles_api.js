@@ -40,10 +40,6 @@ if (!process.env.GOOGLE_CLOUD_BUCKET_NAME_ARTICLES) {
 const bucketName = process.env.GOOGLE_CLOUD_BUCKET_NAME_ARTICLES;
 const bucket = bucketName ? storage.bucket(bucketName) : null;
 
-console.log('✅ Articles API initialized');
-console.log('   Bucket:', bucketName || 'NOT CONFIGURED');
-console.log('   Project:', process.env.GOOGLE_CLOUD_PROJECT_ID || 'NOT SET');
-
 // Configure multer for file uploads (store in memory)
 const upload = multer({
   storage: multer.memoryStorage(),
@@ -70,11 +66,6 @@ async function uploadToGCS(file, filename) {
       return;
     }
     
-    console.log(`📤 Starting upload to bucket: ${process.env.GOOGLE_CLOUD_BUCKET_NAME_ARTICLES}`);
-    console.log(`📤 Filename: ${filename}`);
-    console.log(`📤 File size: ${file.buffer.length} bytes`);
-    console.log(`📤 Content type: ${file.mimetype}`);
-    
     const blob = bucket.file(filename);
     const blobStream = blob.createWriteStream({
       metadata: {
@@ -89,19 +80,16 @@ async function uploadToGCS(file, filename) {
 
     blobStream.on('finish', async () => {
       try {
-        console.log(`📤 Upload finished for ${filename}`);
         // For uniform bucket-level access, files are automatically public
         // if the bucket is configured for public access
         const publicUrl = `https://storage.googleapis.com/${process.env.GOOGLE_CLOUD_BUCKET_NAME_ARTICLES}/${filename}`;
-        console.log(`📤 Generated URL: ${publicUrl}`);
         resolve(publicUrl);
       } catch (err) {
-        console.error(`📤 URL generation error for ${filename}:`, err);
+        console.error(`URL generation error for ${filename}:`, err);
         reject(err);
       }
     });
 
-    console.log(`📤 Starting to write buffer for ${filename}...`);
     blobStream.end(file.buffer);
   });
 }
@@ -110,9 +98,6 @@ async function uploadToGCS(file, filename) {
 // Description: Adds a new article to the database with image upload support.
 // Optional: author, images (files)
 router.post('/articles', upload.array('images', 10), async (req, res) => {
-  // Debug logs to help diagnose file upload issues
-  console.log('DEBUG req.files:', req.files);
-  console.log('DEBUG req.body:', req.body);
   const {
     article_title,
     ptitle1,
@@ -162,13 +147,9 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
 
     // Process uploaded images if any
     if (req.files && req.files.length > 0) {
-      console.log(`Processing ${req.files.length} uploaded images...`);
-      
       for (const file of req.files) {
-        // Log the entire file object for debugging
-        console.log('🖼️ DEBUG file object:', file);
         if (!file.originalname || !file.buffer) {
-          console.error('🚫 File missing originalname or buffer:', file);
+          console.error('File missing originalname or buffer');
           continue;
         }
         try {
@@ -176,21 +157,13 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
           const fileExtension = file.originalname.split('.').pop();
           const filename = `${uuidv4()}.${fileExtension}`;
           
-          console.log(`Attempting to upload: ${filename}`);
-          // Upload to Google Cloud Storage
           const publicUrl = await uploadToGCS(file, filename);
           imageUrls.push(publicUrl);
-          console.log(`Successfully uploaded: ${filename} -> ${publicUrl}`);
         } catch (uploadError) {
           console.error(`Error uploading file ${file.originalname}:`, uploadError);
           // Continue with other files even if one fails
         }
       }
-      
-      console.log(`Final imageUrls array:`, imageUrls);
-      console.log(`Number of successfully uploaded images: ${imageUrls.length}`);
-    } else {
-      console.log('No files received for upload');
     }
 
     // Insert into database with image URLs array
@@ -198,7 +171,6 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
     let slug = generateSlug(article_title);
     
     if (!slug) {
-      console.error('❌ Failed to generate slug from title:', article_title);
       return res.status(400).json({ 
         error: 'Invalid article title - cannot generate URL slug',
         details: 'Article title must contain at least some alphanumeric characters'
@@ -222,7 +194,6 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
     }
     
     if (counter >= MAX_SLUG_ATTEMPTS) {
-      console.error('❌ Failed to generate unique slug after', MAX_SLUG_ATTEMPTS, 'attempts');
       return res.status(500).json({ 
         error: 'Unable to generate unique article URL',
         details: 'Please try a different article title'
@@ -241,15 +212,10 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
       message: `Article created successfully with ${imageUrls.length} images uploaded`
     });
   } catch (err) {
-    console.error('❌ Error adding article:', err);
-    console.error('❌ Error stack:', err.stack);
-    console.error('❌ Error message:', err.message);
-    
-    // Send more specific error message
-    const errorMessage = err.message || 'Failed to add article';
+    console.error('Error adding article:', err.message);
     res.status(500).json({ 
       error: 'Failed to add article',
-      details: errorMessage,
+      details: err.message,
       code: err.code
     });
   }
