@@ -12,6 +12,7 @@ const API_KEY = process.env.YT_API_KEY;
 const pool = require('./db');
 const reviewsApi = require('./reviews_api');
 const newsApi = require('./news_api');
+const articlesApi = require('./articles_api');
 const searchApi = require('./search_api');
 
 // === Middleware Setup ===
@@ -106,6 +107,7 @@ app.get('/health/db', async (req, res) => {
 // === Mount API Routes ===
 app.use('/api', reviewsApi);
 app.use('/api', newsApi);
+app.use('/api', articlesApi);
 app.use('/api', searchApi);
 
 // === Enhanced DB Connection Test ===
@@ -118,15 +120,14 @@ async function testDatabaseConnection() {
     console.log(`🐘 PostgreSQL version: ${result.rows[0].pg_version.split(' ')[0]}`);
     client.release();
   } catch (err) {
-    console.error('❌ DB connection failed:', err.stack);
-    // Don't exit in production, let health checks handle it
-    if (process.env.NODE_ENV !== 'production') {
-      process.exit(1);
-    }
+    console.error('❌ DB connection failed:', err.message);
+    console.log('⚠️  Server will continue running without database (static files only)');
+    console.log('💡 Start PostgreSQL or set NODE_ENV=production to suppress this error');
+    // Don't exit - allow testing of static files and UI
   }
 }
 
-// Test database connection on startup
+// Test database connection on startup (non-blocking)
 testDatabaseConnection();
 
 // === GET /getPlaylistVideos ===
@@ -294,5 +295,5 @@ app.get('/api/playlist/latest', async (req, res) => {
 
 // === Start Server ===
 app.listen(PORT, () => {
-  console.log(`🚀 Server running on http://localhost:${PORT}`);
+  console.log(`Server running on http://localhost:${PORT}`);
 });
