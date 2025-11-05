@@ -12,7 +12,6 @@ const API_KEY = process.env.YT_API_KEY;
 const pool = require('./db');
 const reviewsApi = require('./reviews_api');
 const newsApi = require('./news_api');
-const articlesApi = require('./articles_api');
 const searchApi = require('./search_api');
 
 // === Middleware Setup ===
@@ -107,7 +106,6 @@ app.get('/health/db', async (req, res) => {
 // === Mount API Routes ===
 app.use('/api', reviewsApi);
 app.use('/api', newsApi);
-app.use('/api', articlesApi);
 app.use('/api', searchApi);
 
 // === Enhanced DB Connection Test ===
@@ -115,9 +113,9 @@ async function testDatabaseConnection() {
   try {
     const client = await pool.connect();
     const result = await client.query('SELECT NOW() as current_time, version() as pg_version');
-    console.log('DB connection successful');
-    console.log(`Database time: ${result.rows[0].current_time}`);
-    console.log(`PostgreSQL version: ${result.rows[0].pg_version.split(' ')[0]}`);
+    console.log('✅ DB connection successful');
+    console.log(`📍 Database time: ${result.rows[0].current_time}`);
+    console.log(`🐘 PostgreSQL version: ${result.rows[0].pg_version.split(' ')[0]}`);
     client.release();
   } catch (err) {
     console.error('❌ DB connection failed:', err.stack);
@@ -296,5 +294,5 @@ app.get('/api/playlist/latest', async (req, res) => {
 
 // === Start Server ===
 app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`🚀 Server running on http://localhost:${PORT}`);
 });
