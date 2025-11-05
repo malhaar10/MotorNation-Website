@@ -335,15 +335,31 @@
                 document.getElementById('submitBtn').disabled = true;
                 document.getElementById('submitBtn').textContent = 'Uploading...';
 
+                console.log('🚀 Submitting article...');
+                console.log('📝 Form data contains:', {
+                    article_title: title,
+                    ptitle1: ptitle1,
+                    para1: para1.substring(0, 50) + '...',
+                    ptitle2: ptitle2,
+                    para2: para2.substring(0, 50) + '...',
+                    ptitle3: ptitle3,
+                    para3: para3.substring(0, 50) + '...',
+                    tag: tag1,
+                    tag2: tag2,
+                    images: images.length + ' files'
+                });
+
                 const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/articles', {
                     method: 'POST',
                     body: formData // No Content-Type header - browser will set it automatically for FormData
                 });
 
+                console.log('📡 Response status:', response.status, response.statusText);
+
                 if (response.ok) {
                     const data = await response.json();
+                    console.log('✅ Success! Created article:', data);
                     alert('Article submitted successfully!');
-                    console.log('Created article:', data);
                     
                     // Reset form
                     document.getElementById('title').value = '';
@@ -376,11 +392,26 @@
                     document.getElementById('images').value = '';
                     document.getElementById('imagePreview').innerHTML = '';
                 } else {
-                    const err = await response.json();
-                    alert('Failed to submit article: ' + err.error);
+                    const errorText = await response.text();
+                    console.error('❌ Server responded with error:', {
+                        status: response.status,
+                        statusText: response.statusText,
+                        body: errorText
+                    });
+                    
+                    let errorMessage = 'Failed to submit article';
+                    try {
+                        const err = JSON.parse(errorText);
+                        errorMessage = err.error || err.message || errorText;
+                    } catch (e) {
+                        errorMessage = errorText || response.statusText;
+                    }
+                    
+                    alert('❌ Failed to submit article:\n\n' + errorMessage + '\n\nCheck browser console (F12) for details.');
                 }
             } catch (error) {
-                alert('Could not connect to server: ' + error.message);
+                console.error('❌ Network error:', error);
+                alert('❌ Could not connect to server:\n\n' + error.message + '\n\nCheck browser console (F12) for details.');
             } finally {
                 document.getElementById('submitBtn').disabled = false;
                 document.getElementById('submitBtn').textContent = 'Enter';

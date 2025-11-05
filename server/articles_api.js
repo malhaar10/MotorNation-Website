@@ -13,7 +13,7 @@ require('dotenv').config();
 const fs = require('fs');
 let keyFilename = process.env.GOOGLE_CLOUD_KEY_FILE || '';
 try {
-  if (keyFilename.trim().startsWith('{')) {
+  if (keyFilename && keyFilename.trim().startsWith('{')) {
     // env contains JSON content, write to temp file
     const tmpPath = '/tmp/gcloud-key.json';
     fs.writeFileSync(tmpPath, keyFilename, { encoding: 'utf8' });
@@ -25,12 +25,24 @@ try {
 }
 
 // Configure Google Cloud Storage
+// For Cloud Run, authentication happens automatically via service account
 const storage = new Storage({
   projectId: process.env.GOOGLE_CLOUD_PROJECT_ID,
   keyFilename: keyFilename || undefined,
 });
 
-const bucket = storage.bucket(process.env.GOOGLE_CLOUD_BUCKET_NAME_ARTICLES);
+// Validate required environment variables
+if (!process.env.GOOGLE_CLOUD_BUCKET_NAME_ARTICLES) {
+  console.error('❌ CRITICAL: GOOGLE_CLOUD_BUCKET_NAME_ARTICLES environment variable is not set!');
+  console.error('⚠️  Article image uploads will fail. Please set this in Cloud Run environment variables.');
+}
+
+const bucketName = process.env.GOOGLE_CLOUD_BUCKET_NAME_ARTICLES;
+const bucket = bucketName ? storage.bucket(bucketName) : null;
+
+console.log('✅ Articles API initialized');
+console.log('   Bucket:', bucketName || 'NOT CONFIGURED');
+console.log('   Project:', process.env.GOOGLE_CLOUD_PROJECT_ID || 'NOT SET');
 
 // Configure multer for file uploads (store in memory)
 const upload = multer({
@@ -51,6 +63,13 @@ const upload = multer({
 // Helper function to upload file to Google Cloud Storage
 async function uploadToGCS(file, filename) {
   return new Promise((resolve, reject) => {
+    if (!bucket) {
+      const error = new Error('GCS bucket not configured. Set GOOGLE_CLOUD_BUCKET_NAME_ARTICLES environment variable.');
+      console.error('❌', error.message);
+      reject(error);
+      return;
+    }
+    
     console.log(`📤 Starting upload to bucket: ${process.env.GOOGLE_CLOUD_BUCKET_NAME_ARTICLES}`);
     console.log(`📤 Filename: ${filename}`);
     console.log(`📤 File size: ${file.buffer.length} bytes`);
@@ -177,10 +196,20 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
     // Insert into database with image URLs array
     // Generate slug from title
     let slug = generateSlug(article_title);
+    
+    if (!slug) {
+      console.error('❌ Failed to generate slug from title:', article_title);
+      return res.status(400).json({ 
+        error: 'Invalid article title - cannot generate URL slug',
+        details: 'Article title must contain at least some alphanumeric characters'
+      });
+    }
+    
     let finalSlug = slug;
     let counter = 1;
+    const MAX_SLUG_ATTEMPTS = 100;
 
-    while (true) {
+    while (counter < MAX_SLUG_ATTEMPTS) {
       const existingSlug = await pool.query(
         'SELECT id FROM articles WHERE slug = $1',
         [finalSlug]
@@ -190,6 +219,14 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
       
       finalSlug = `${slug}-${counter}`;
       counter++;
+    }
+    
+    if (counter >= MAX_SLUG_ATTEMPTS) {
+      console.error('❌ Failed to generate unique slug after', MAX_SLUG_ATTEMPTS, 'attempts');
+      return res.status(500).json({ 
+        error: 'Unable to generate unique article URL',
+        details: 'Please try a different article title'
+      });
     }
 
     const result = await pool.query(
@@ -204,8 +241,17 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
       message: `Article created successfully with ${imageUrls.length} images uploaded`
     });
   } catch (err) {
-    console.error('Error adding article:', err);
-    res.status(500).json({ error: 'Failed to add article' });
+    console.error('❌ Error adding article:', err);
+    console.error('❌ Error stack:', err.stack);
+    console.error('❌ Error message:', err.message);
+    
+    // Send more specific error message
+    const errorMessage = err.message || 'Failed to add article';
+    res.status(500).json({ 
+      error: 'Failed to add article',
+      details: errorMessage,
+      code: err.code
+    });
   }
 });
 
