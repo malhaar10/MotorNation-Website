@@ -12,7 +12,7 @@
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="0">
-    <link rel="stylesheet" href="../page_header.css?v=3">
+    <link rel="stylesheet" href="../page_header.css?">
     <link rel="stylesheet" href="../article-page/article-home.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -184,7 +184,6 @@
               <h3><a href="../article-page/article.html?id=${latest.id}">
                 ${latest.article_title.toUpperCase()}
               </a></h3>
-              <p>${new Date(latest.date).toLocaleDateString()}</p>
             </div>
           `;
     } catch (err) {

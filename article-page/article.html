@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9276332511991978"
+     crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Article</title>
+    <link rel="icon" type="image/png" href="/assets/miniLogo.avif">
+    <link rel="stylesheet" href="../page_header.css">
+    <link rel="stylesheet" href="article.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+
+    <!-- Search functionality script -->
+    <script src="../search-functionality.js"></script>
+</head>
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-VVD46ERHKP"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-VVD46ERHKP');
+</script>
+
+<body>
+    <section class="header">
+        <div class="logo-container">
+            <a href="../index.html"><img src="../assets/MotorNation.avif" alt="MotorNation Logo"></a>
+        </div>
+        <nav id="navbar">
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times close-btn" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="../reviews-page/reviews-home.html">REVIEWS</a></li>
+                    <li><a href="../news-template/news-home.html">NEWS</a></li>
+                    <li><a href="../electric/electric.html">ELECTRIC</a></li>
+                    <li><a href="../videos/video.html">VIDEOS</a></li>
+                    <li><a href="../search.html">SEARCH</a></li>
+                </ul>
+            </div>
+        </nav>
+
+    </section>
+    <section>
+        <article class="news-article">
+            <div class="article-content">
+                <div class="article-image">
+                    <div class="main-image-container">
+                        <button class="slider-btn prev-btn" onclick="prevImage()">&lsaquo;</button>
+                        <img id="mainImage" style="display: none;">
+                        <button class="slider-btn next-btn" onclick="nextImage()">&rsaquo;</button>
+                    </div>
+                    <div class="image-gallery-container">
+                        <!-- <button class="gallery-nav prev">❮</button> -->
+                        <div class="image-gallery">
+                        </div>
+                        <!-- <button class="gallery-nav next">❯</button> -->
+                    </div>
+                </div>
+
+                <div class="article-text">
+                    <h2>TITLE</h2>
+                </div>
+
+                <div class="article-text">
+                </div>
+            </div>
+        </article>
+    </section>
+    <section class="hr">
+        <hr>
+    </section>
+    <section class="contact-card">
+        <img src="../assets/MotorNation.avif" alt="MotorNation logo">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/motornationofficial"><i class="fa fa-facebook"></i></a>
+            <a href="https://x.com/MotorNation_?t=WVuJZhDNnad4yikXOYNUng&s=09"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.instagram.com/motornation_group?igsh=MWJjMGNma3AwMW45Ng=="><i class="fa fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UC9HmzxcrnW3CGZVf0iPK6Eg"><i class="fa fa-youtube"></i></a>
+        </div>
+        <div class="contact-links">
+            <a href="../about_us/about_us.html">About us</a>
+            <a href="../contact_us/contact_us.html">Contact us</a>
+            <a href="../TnC/tnc.html">Terms & Conditions</a>
+            <a href="../careers/careers.html">Careers</a>
+        </div>
+    </section>
+    <script>
+        function changeImage(src) {
+            const mainImage = document.getElementById('mainImage');
+            if (!mainImage) return;
+            // If we have a gallery array and a setter, prefer using it (keeps index in sync)
+            if (window.galleryImages && Array.isArray(window.galleryImages) && window.setMainImage) {
+                const idx = window.galleryImages.indexOf(src);
+                if (idx !== -1) {
+                    window.setMainImage(idx);
+                    return;
+                }
+            }
+            // Fallback: just set src
+            mainImage.src = src;
+        }
+    </script>
+    <script>
+        // Permalink-aware article loading
+        async function loadArticle() {
+            const path = window.location.pathname;
+            const urlParams = new URLSearchParams(window.location.search);
+            
+            let articleData = null;
+            let isPermalink = false;
+            
+            try {
+                // Check if this is a permalink URL (/articles/slug-here)
+                if (path.startsWith('/articles/') && path !== '/articles/' && path !== '/articles') {
+                    const slug = path.split('/articles/')[1];
+                    console.log('Loading article by slug:', slug);
+                    
+                    const response = await fetch(`https://motornation-336079007565.us-central1.run.app/api/articles/slug/${slug}`);
+                    if (response.ok) {
+                        articleData = await response.json();
+                        isPermalink = true;
+                        
+                        // Update browser URL to clean format (removes any query params)
+                        const cleanUrl = `/articles/${slug}`;
+                        if (window.location.href !== window.location.origin + cleanUrl) {
+                            window.history.replaceState({}, '', cleanUrl);
+                        }
+                    } else if (response.status === 404) {
+                        showNotFoundError();
+                        return;
+                    }
+                }
+                // Fallback to old ID-based system
+                else {
+                    const articleId = urlParams.get('id');
+                    if (articleId) {
+                        console.log('Loading article by ID (legacy):', articleId);
+                        
+                        const response = await fetch(`https://motornation-336079007565.us-central1.run.app/api/articles/${articleId}`);
+                        if (response.ok) {
+                            articleData = await response.json();
+                            
+                            // Redirect to permalink URL if article has a slug
+                            if (articleData.slug) {
+                                const permalinkUrl = `/articles/${articleData.slug}`;
+                                window.history.replaceState({}, '', permalinkUrl);
+                                isPermalink = true;
+                            }
+                        } else if (response.status === 404) {
+                            showNotFoundError();
+                            return;
+                        }
+                    }
+                }
+                
+                if (articleData) {
+                    displayArticle(articleData);
+                    updateMetaTags(articleData, isPermalink);
+                } else {
+                    showNotFoundError();
+                }
+                
+            } catch (error) {
+                console.error('Error loading article:', error);
+                showNotFoundError();
+            }
+        }
+
+        function displayArticle(data) {
+            // Update article title and content
+            document.querySelector(".article-text h2").textContent = data.article_title;
+            
+            const container = document.querySelector(".article-text");
+
+            // Clear existing content and add main title
+            container.innerHTML = `<h2>${data.article_title}</h2>`;
+            
+            // Add author if available
+            if (data.author) {
+                const authorDiv = document.createElement("p");
+                authorDiv.className = "article-author";
+                authorDiv.innerHTML = `<strong>By ${data.author}</strong>`;
+                container.appendChild(authorDiv);
+                container.appendChild(document.createElement("br"));
+            }
+
+            // Add all content sections with paired titles and paragraphs
+            for (let i = 1; i <= 10; i++) {
+                const ptitle = data[`ptitle${i}`];
+                const para = data[`para${i}`];
+                
+                // Add title if it exists
+                if (ptitle) {
+                    const titleElement = document.createElement("h3");
+                    titleElement.textContent = ptitle;
+                    container.appendChild(titleElement);
+                }
+                
+                // Add paragraph if it exists
+                if (para) {
+                    const paraElement = document.createElement("p");
+                    paraElement.textContent = para;
+                    container.appendChild(paraElement);
+                    container.appendChild(document.createElement("br"));
+                }
+            }
+
+            // Update images if available
+            if (data.images && data.images.length > 0) {
+                // Update main image
+                const mainImage = document.getElementById('mainImage');
+                if (mainImage) {
+                    if (data.images.length > 0) {
+                        mainImage.src = data.images[0];
+                        mainImage.alt = data.article_title;
+                        mainImage.style.display = '';
+                    } else {
+                        mainImage.style.display = 'none';
+                    }
+                }
+
+                // Update image gallery
+                const imageGallery = document.querySelector('.image-gallery');
+                if (imageGallery) {
+                    imageGallery.innerHTML = '';
+                    // Build thumbnails and attach index-based click handlers
+                    data.images.forEach((imageUrl, index) => {
+                        const img = document.createElement('img');
+                        img.src = imageUrl;
+                        img.className = 'thumbnail';
+                        img.alt = `${data.article_title} - Image ${index + 1}`;
+                        img.dataset.index = index;
+                        img.addEventListener('click', () => {
+                            if (window.setMainImage) {
+                                window.setMainImage(index);
+                            } else {
+                                changeImage(imageUrl);
+                            }
+                        });
+                        imageGallery.appendChild(img);
+                    });
+
+                    // Expose gallery state and controls globally so buttons and other scripts can use them
+                    window.galleryImages = data.images.slice();
+                    window.galleryTitle = data.article_title || '';
+                    window.currentImageIndex = 0;
+
+                    // Define setter and navigation functions on window so the inline onclick on buttons works
+                    window.setMainImage = function(i) {
+                        if (!window.galleryImages || window.galleryImages.length === 0) return;
+                        if (i < 0) i = 0;
+                        if (i >= window.galleryImages.length) i = window.galleryImages.length - 1;
+                        window.currentImageIndex = i;
+                        const mainImageEl = document.getElementById('mainImage');
+                        if (mainImageEl) {
+                            mainImageEl.src = window.galleryImages[i];
+                            mainImageEl.alt = `${window.galleryTitle} - Image ${i + 1}`;
+                            mainImageEl.style.display = '';
+                        }
+                        // Update thumbnail active state (optional visual feedback)
+                        const thumbs = document.querySelectorAll('.image-gallery img');
+                        thumbs.forEach(t => t.classList.toggle('active', parseInt(t.dataset.index, 10) === i));
+                        // Update arrows visibility
+                        updateArrowsVisibility();
+                    };
+
+                    window.nextImage = function() {
+                        if (!window.galleryImages) return;
+                        let next = (window.currentImageIndex || 0) + 1;
+                        if (next >= window.galleryImages.length) next = 0; // wrap-around or clamp as desired
+                        window.setMainImage(next);
+                    };
+
+                    window.prevImage = function() {
+                        if (!window.galleryImages) return;
+                        let prev = (window.currentImageIndex || 0) - 1;
+                        if (prev < 0) prev = window.galleryImages.length - 1; // wrap-around
+                        window.setMainImage(prev);
+                    };
+
+                    function updateArrowsVisibility() {
+                        const prevBtn = document.querySelector('.prev-btn');
+                        const nextBtn = document.querySelector('.next-btn');
+                        const count = window.galleryImages ? window.galleryImages.length : 0;
+                        if (count <= 1) {
+                            if (prevBtn) prevBtn.style.display = 'none';
+                            if (nextBtn) nextBtn.style.display = 'none';
+                        } else {
+                            if (prevBtn) prevBtn.style.display = '';
+                            if (nextBtn) nextBtn.style.display = '';
+                        }
+                    }
+
+                    // Initialize main image and arrows
+                    window.setMainImage(0);
+                }
+            }
+        }
+
+        function updateMetaTags(data, isPermalink) {
+            // Update page title
+            document.title = `${data.article_title} | MotorNation`;
+            
+            // Update meta description
+            let metaDesc = document.querySelector('meta[name="description"]');
+            if (!metaDesc) {
+                metaDesc = document.createElement('meta');
+                metaDesc.name = 'description';
+                document.head.appendChild(metaDesc);
+            }
+            metaDesc.content = (data.para1 || '').slice(0, 160) + '...';
+            
+            // Update canonical URL (only for permalink URLs)
+            if (isPermalink && data.slug) {
+                let canonical = document.querySelector('link[rel="canonical"]');
+                if (!canonical) {
+                    canonical = document.createElement('link');
+                    canonical.rel = 'canonical';
+                    document.head.appendChild(canonical);
+                }
+                canonical.href = `${window.location.origin}/articles/${data.slug}`;
+                
+                // Update Open Graph tags
+                updateOGTag('og:title', data.article_title);
+                updateOGTag('og:description', (data.para1 || '').slice(0, 160));
+                updateOGTag('og:url', `${window.location.origin}/articles/${data.slug}`);
+                updateOGTag('og:type', 'article');
+                if (data.images && data.images.length > 0) {
+                    updateOGTag('og:image', data.images[0]);
+                }
+                
+                // Add Twitter Card tags
+                updateOGTag('twitter:card', 'summary_large_image');
+                updateOGTag('twitter:site', '@MotorNation_');
+                updateOGTag('twitter:title', data.article_title);
+                updateOGTag('twitter:description', (data.para1 || '').slice(0, 160));
+                if (data.images && data.images.length > 0) {
+                    updateOGTag('twitter:image', data.images[0]);
+                }
+                
+                // Add JSON-LD structured data
+                addArticleSchema(data);
+            }
+        }
+
+        function updateOGTag(property, content) {
+            const isTwitter = property.startsWith('twitter:');
+            const attribute = isTwitter ? 'name' : 'property';
+            
+            let tag = document.querySelector(`meta[${attribute}="${property}"]`);
+            if (!tag) {
+                tag = document.createElement('meta');
+                tag.setAttribute(attribute, property);
+                document.head.appendChild(tag);
+            }
+            tag.content = content;
+        }
+
+        function addArticleSchema(data) {
+            // Remove existing schema if present
+            const existingSchema = document.querySelector('script[type="application/ld+json"]');
+            if (existingSchema) {
+                existingSchema.remove();
+            }
+            
+            const schema = {
+                "@context": "https://schema.org",
+                "@type": "Article",
+                "headline": data.article_title,
+                "image": data.images || [],
+                "datePublished": data.date || new Date().toISOString(),
+                "author": {
+                    "@type": data.author ? "Person" : "Organization",
+                    "name": data.author || "MotorNation"
+                },
+                "publisher": {
+                    "@type": "Organization",
+                    "name": "MotorNation",
+                    "logo": {
+                        "@type": "ImageObject",
+                        "url": `${window.location.origin}/assets/MotorNation.avif`
+                    }
+                },
+                "mainEntityOfPage": {
+                    "@type": "WebPage",
+                    "@id": `${window.location.origin}/articles/${data.slug}`
+                }
+            };
+            
+            const scriptTag = document.createElement('script');
+            scriptTag.type = 'application/ld+json';
+            scriptTag.textContent = JSON.stringify(schema);
+            document.head.appendChild(scriptTag);
+        }
+
+        function showNotFoundError() {
+            const container = document.querySelector(".article-text");
+            container.innerHTML = `
+                <div style="text-align: center; padding: 50px;">
+                    <h1>Article Not Found</h1>
+                    <p>The article you're looking for doesn't exist or may have been moved.</p>
+                    <a href="../index.html" style="color: #007bff; text-decoration: none;">Return to Home</a>
+                </div>
+            `;
+            document.title = "Article Not Found | MotorNation";
+        }
+
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', loadArticle);
+    </script>
+
+    <!-- Mobile navigation menu toggle functionality -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        // Show mobile navigation menu
+        function showMenu() {
+            navLinks.style.right = "0";
+            // Prevent body scrolling when menu is open
+            document.body.style.overflow = "hidden";
+        }
+
+        // Hide mobile navigation menu
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+            // Restore body scrolling
+            document.body.style.overflow = "auto";
+        }
+
+        // Close menu when clicking outside (optional)
+        document.addEventListener('click', function (event) {
+            const navbar = document.getElementById('navbar');
+            const isClickInsideNav = navbar.contains(event.target);
+
+            if (!isClickInsideNav && navLinks.style.right === "0px") {
+                hideMenu();
+            }
+        });
+
+        // Close menu when window is resized to desktop size
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) {
+                hideMenu();
+            }
+        });
+    </script>
+
+</body>
+
+</html>
