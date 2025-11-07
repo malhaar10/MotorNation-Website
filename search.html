@@ -112,17 +112,9 @@
     <script>
         function redirectToPage(type, id, slug = null) {
             if (type === 'review') {
-                if (slug) {
-                    window.location.href = `/reviews/${slug}`;
-                } else {
-                    window.location.href = `reviews-page/review.html?id=${id}`;
-                }
+                window.location.href = `reviews-page/review.html?id=${id}`;
             } else if (type === 'news') {
-                if (slug) {
-                    window.location.href = `/news/${slug}`;
-                } else {
-                    window.location.href = `news-template/news-page-template.html?id=${id}`;
-                }
+                window.location.href = `news-template/news-page-template.html?id=${id}`;
             }
         }
 
