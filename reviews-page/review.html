@@ -251,46 +251,23 @@
             let isPermalink = false;
 
             try {
-                // Check if this is a permalink URL (/reviews/slug-here)
-                if (path.includes('/reviews/') && !urlParams.has('id')) {
-                    const slug = path.split('/reviews/')[1];
-                    console.log('Loading review by slug:', slug);
-                    isPermalink = true;
+                // Only support ID-based URLs for now (?id=xxx)
+                // Slug-based URLs (/reviews/slug) require server-side routing configuration
+                const id = urlParams.get('id');
+                if (!id) {
+                    console.warn('No review ID provided in URL.');
+                    return;
+                }
+                
+                console.log('Loading review by ID:', id);
+                const response = await fetch(`${API_BASE}/reviews/${id}`);
+                if (response.ok) {
+                    reviewData = await response.json();
                     
-                    const response = await fetch(`${API_BASE}/reviews/slug/${slug}`);
-                    if (response.ok) {
-                        reviewData = await response.json();
-                        
-                        // Update browser URL to clean permalink if needed
-                        const cleanUrl = `/reviews/${slug}`;
-                        if (window.location.pathname !== cleanUrl) {
-                            window.history.replaceState({}, '', cleanUrl);
-                        }
-                    } else {
-                        throw new Error(`Review not found for slug: ${slug}`);
-                    }
+                    // Keep using ID-based URLs (no redirect to permalink)
+                    // Permalink URLs (/reviews/slug) require server-side routing
                 } else {
-                    // Legacy ID-based URL support
-                    const id = urlParams.get('id');
-                    if (!id) {
-                        console.warn('No review ID or slug provided in URL.');
-                        return;
-                    }
-                    
-                    console.log('Loading review by ID:', id);
-                    const response = await fetch(`${API_BASE}/reviews/${id}`);
-                    if (response.ok) {
-                        reviewData = await response.json();
-                        
-                        // Redirect to permalink URL if review has a slug
-                        if (reviewData.slug) {
-                            const permalinkUrl = `/reviews/${reviewData.slug}`;
-                            window.history.replaceState({}, '', permalinkUrl);
-                            isPermalink = true;
-                        }
-                    } else {
-                        throw new Error(`Review not found for ID: ${id}`);
-                    }
+                    throw new Error(`Review not found for ID: ${id}`);
                 }
 
                 if (!reviewData) {
