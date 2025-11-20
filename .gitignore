@@ -6,3 +6,5 @@ template-base/base.css
 template-base/base.html
 .env.template
 createdb
+ads.txt
+robots.txt
