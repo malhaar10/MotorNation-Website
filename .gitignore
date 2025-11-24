@@ -8,3 +8,4 @@ template-base/base.html
 createdb
 ads.txt
 robots.txt
+local-test
