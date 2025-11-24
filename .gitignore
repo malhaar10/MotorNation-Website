@@ -9,3 +9,5 @@ createdb
 ads.txt
 robots.txt
 local-test
+sitemap.xml
+.vscode
