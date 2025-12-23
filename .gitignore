@@ -12,3 +12,4 @@ local-test
 sitemap.xml
 .vscode
 hostinger-recovery-codes.txt
+production/server/node_modules

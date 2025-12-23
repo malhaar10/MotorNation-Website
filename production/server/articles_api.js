@@ -445,7 +445,7 @@ router.get('/articles/:id', async (req, res) => {
 // GET /api/articles - Fetch all articles
 router.get('/articles', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM articles ORDER BY created_at DESC');
+    const result = await pool.query('SELECT * FROM articles ORDER BY created_at');
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching articles:', err);
