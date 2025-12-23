@@ -117,9 +117,8 @@
 
                 const cardsContainer = document.getElementById('news-cards');
 
-                // Reverse the array so newest articles appear first, then skip the first article (it's shown in featured section)
-                const reversedData = data.reverse();
-                reversedData.slice(1).forEach(article => {
+                // Skip the first article (it's shown in featured section), display rest in database order
+                data.slice(1).forEach(article => {
                     const card = document.createElement('div');
                     card.className = 'card';
 
@@ -167,8 +166,8 @@
             return;
         }
 
-        // Get the latest article (last one after reversing)
-        const latest = articles[articles.length - 1];
+        // Get the first (latest) article from database (already ordered by created_at DESC)
+        const latest = articles[0];
         
         // Use first image from GCS if available, otherwise fallback to placeholder
         const imagePath = (latest.images && latest.images.length > 0) 
