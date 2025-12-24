@@ -13,3 +13,57 @@ body {
     font-size: 2rem;
     color: white
 }
+
+.about_us_text{
+    padding-left: 10vw;
+    padding-right: 10vw;
+    line-height: 1.6;
+}
+
+.about_us_text p{
+    color: white;
+    font-size: larger;
+}
+
+.about_us_text h1{
+    color: white;
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+}
+
+.about_us_text h2{
+    color: white;
+    font-size: 1.8rem;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.about_us_text h3{
+    color: white;
+    font-size: 1.4rem;
+    margin-top: 15px;
+    margin-bottom: 8px;
+}
+
+.about_us_text ul {
+    color: white !important;
+    font-size: larger;
+    margin-left: 30px;
+    margin-bottom: 15px;
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+.about_us_text ul li {
+    color: white !important;
+    margin-bottom: 8px;
+}
+
+.about_us_text a {
+    color: #0066cc;
+    text-decoration: none;
+}
+
+.about_us_text a:hover {
+    text-decoration: underline;
+}
