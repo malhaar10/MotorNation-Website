@@ -155,6 +155,17 @@
             }
         }
 
+        // Helper function to format text content while preserving security
+        function formatText(text) {
+            if (!text) return '';
+            // Escape HTML to prevent XSS attacks
+            const escaped = text.replace(/&/g, '&amp;')
+                               .replace(/</g, '&lt;')
+                               .replace(/>/g, '&gt;');
+            // Convert line breaks to <br> tags
+            return escaped.replace(/\n/g, '<br>');
+        }
+
         function displayArticle(data) {
             // Update article title and content
             document.querySelector(".article-text h2").textContent = data.news_title;
@@ -166,7 +177,7 @@
 
             paragraphs.forEach(p => {
                 const para = document.createElement("p");
-                para.textContent = p;
+                para.innerHTML = formatText(p);
                 container.appendChild(para);
                 container.appendChild(document.createElement("br"));
             });

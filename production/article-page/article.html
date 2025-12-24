@@ -177,6 +177,17 @@
             }
         }
 
+        // Helper function to format text content while preserving security
+        function formatText(text) {
+            if (!text) return '';
+            // Escape HTML to prevent XSS attacks
+            const escaped = text.replace(/&/g, '&amp;')
+                               .replace(/</g, '&lt;')
+                               .replace(/>/g, '&gt;');
+            // Convert line breaks to <br> tags
+            return escaped.replace(/\n/g, '<br>');
+        }
+
         function displayArticle(data) {
             // Update article title and content
             document.querySelector(".article-text h2").textContent = data.article_title;
@@ -210,7 +221,7 @@
                 // Add paragraph if it exists
                 if (para) {
                     const paraElement = document.createElement("p");
-                    paraElement.textContent = para;
+                    paraElement.innerHTML = formatText(para);
                     container.appendChild(paraElement);
                     container.appendChild(document.createElement("br"));
                 }

@@ -283,6 +283,17 @@
             }
         }
 
+        // Helper function to format text content while preserving security
+        function formatText(text) {
+            if (!text) return '';
+            // Escape HTML to prevent XSS attacks
+            const escaped = text.replace(/&/g, '&amp;')
+                               .replace(/</g, '&lt;')
+                               .replace(/>/g, '&gt;');
+            // Convert line breaks to <br> tags
+            return escaped.replace(/\n/g, '<br>');
+        }
+
         function displayReview(data, isPermalink) {
             // Update page title and meta tags for SEO
             const reviewTitle = `${data.car_name} ${data.model_year} Review - Motor Nation`;
@@ -296,17 +307,17 @@
             // Update the review title
             document.getElementById('review-title').textContent = data.car_name || '';
 
-            // Fill in review sections
-            document.getElementById('pros-text').textContent = data.pros || '';
-            document.getElementById('cons-text').textContent = data.cons || '';
-            document.getElementById('mn_take-text').textContent = data.mn_take || '';
-            document.getElementById('overview-text').textContent = data.overview || '';
-            document.getElementById('pricing-text').textContent = data.pricing || '';
-            document.getElementById('drivetrain-text').textContent = data.drivetrain || '';
-            document.getElementById('interior-text').textContent = data.interior || '';
-            document.getElementById('technology-text').textContent = data.technology || '';
-            document.getElementById('safety-text').textContent = data.safety || '';
-            document.getElementById('warranty-text').textContent = data.warranty || '';
+            // Fill in review sections with formatted text
+            document.getElementById('pros-text').innerHTML = formatText(data.pros || '');
+            document.getElementById('cons-text').innerHTML = formatText(data.cons || '');
+            document.getElementById('mn_take-text').innerHTML = formatText(data.mn_take || '');
+            document.getElementById('overview-text').innerHTML = formatText(data.overview || '');
+            document.getElementById('pricing-text').innerHTML = formatText(data.pricing || '');
+            document.getElementById('drivetrain-text').innerHTML = formatText(data.drivetrain || '');
+            document.getElementById('interior-text').innerHTML = formatText(data.interior || '');
+            document.getElementById('technology-text').innerHTML = formatText(data.technology || '');
+            document.getElementById('safety-text').innerHTML = formatText(data.safety || '');
+            document.getElementById('warranty-text').innerHTML = formatText(data.warranty || '');
 
             // Update images if available from GCS
             if (data.images && data.images.length > 0) {
