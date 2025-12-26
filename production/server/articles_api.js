@@ -4,7 +4,7 @@ const pool = require('./db'); // PostgreSQL connection pool
 const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
-const { generateSlug } = require('./utils/slug-generator');
+const { generatePermalink } = require('./utils/slug-generator');
 require('dotenv').config();
 
 // Ensure key file handling is robust: some deployments put the JSON content
@@ -167,44 +167,34 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
     }
 
     // Insert into database with image URLs array
-    // Generate slug from title
-    let slug = generateSlug(article_title);
+    // Generate permalink from title (immutable, unique)
+    const permalink = generatePermalink(article_title);
     
-    if (!slug) {
+    if (!permalink) {
       return res.status(400).json({ 
-        error: 'Invalid article title - cannot generate URL slug',
+        error: 'Invalid article title - cannot generate permalink',
         details: 'Article title must contain at least some alphanumeric characters'
       });
     }
     
-    let finalSlug = slug;
-    let counter = 1;
-    const MAX_SLUG_ATTEMPTS = 100;
-
-    while (counter < MAX_SLUG_ATTEMPTS) {
-      const existingSlug = await pool.query(
-        'SELECT id FROM articles WHERE slug = $1',
-        [finalSlug]
-      );
-      
-      if (existingSlug.rows.length === 0) break;
-      
-      finalSlug = `${slug}-${counter}`;
-      counter++;
-    }
+    // Check for duplicate permalink (extremely unlikely with 6-char UUID, but good practice)
+    const existingPermalink = await pool.query(
+      'SELECT id FROM articles WHERE permalink = $1',
+      [permalink]
+    );
     
-    if (counter >= MAX_SLUG_ATTEMPTS) {
-      return res.status(500).json({ 
-        error: 'Unable to generate unique article URL',
-        details: 'Please try a different article title'
+    if (existingPermalink.rows.length > 0) {
+      return res.status(409).json({ 
+        error: 'Permalink conflict (extremely rare)',
+        details: 'Please try creating the article again'
       });
     }
 
     const result = await pool.query(
-      `INSERT INTO articles (id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, images, slug)
+      `INSERT INTO articles (id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, images, permalink)
        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30)
        RETURNING *`,
-      [id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, imageUrls.length > 0 ? imageUrls : null, finalSlug]
+      [id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, imageUrls.length > 0 ? imageUrls : null, permalink]
     );
 
     res.status(201).json({
@@ -226,7 +216,7 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
 router.get('/articles/summary', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, article_title, tag, tag2, tag3, tag4, tag5, images, slug, created_at
+      SELECT id, article_title, tag, tag2, tag3, tag4, tag5, images, permalink, created_at
       FROM articles
       ORDER BY created_at DESC
       LIMIT 6
@@ -243,7 +233,7 @@ router.get('/articles/summary', async (req, res) => {
 router.get('/articles/electric', async (req, res) => {
   try {
     const result = await pool.query(`
-      SELECT id, article_title, tag, tag2, images, slug, created_at
+      SELECT id, article_title, tag, tag2, images, permalink, created_at
       FROM articles
       WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev' OR LOWER(tag3) = 'ev' OR LOWER(tag4) = 'ev' OR LOWER(tag5) = 'ev'
       ORDER BY created_at DESC
