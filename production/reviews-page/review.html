@@ -58,6 +58,18 @@
                 <div class="article-text">
                     <h2 id="review-title"></h2>
                 </div>
+                
+                <!-- Section Navigation -->
+                <nav class="section-nav">
+                    <a href="#overview" class="section-link">Overview</a>
+                    <a href="#pricing" class="section-link">Pricing</a>
+                    <a href="#drivetrain" class="section-link">Powertrain</a>
+                    <a href="#interior" class="section-link">Interior</a>
+                    <a href="#technology" class="section-link">Technology</a>
+                    <a href="#safety" class="section-link">Safety</a>
+                    <a href="#warranty" class="section-link">Warranty</a>
+                </nav>
+                
                 <div class="article-image">
                     <div class="main-image-container">
                         <button class="slider-btn prev-btn" onclick="prevImage()">&lsaquo;</button>
@@ -124,6 +136,48 @@
     <section class="hr">
         <hr>
     </section><br>
+
+    <script>
+        // Smooth scroll with offset for section navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const sectionLinks = document.querySelectorAll('.section-link');
+            
+            // Helper function to calculate optimal offset
+            function calculateOffset() {
+                const sectionNav = document.querySelector('.section-nav');
+                const navHeight = sectionNav ? sectionNav.offsetHeight : 0;
+                
+                // Get the sticky position from computed styles
+                const stickyTop = window.getComputedStyle(sectionNav).top;
+                const stickyTopValue = parseInt(stickyTop) || 80;
+                
+                // Position title higher - adjust the value below to fine-tune
+                return stickyTopValue + navHeight - 130;
+            }
+            
+            // Log the calculated offset for debugging (remove in production)
+            console.log('Calculated scroll offset:', calculateOffset() + 'px');
+            
+            sectionLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    if (targetElement) {
+                        const offset = calculateOffset(); // Dynamic calculation
+                        const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - offset;
+                        window.scrollTo({
+                            top: targetPosition,
+                            behavior: 'smooth'
+                        });
+                        
+                        // Visual feedback in console
+                        console.log(`Scrolling to ${targetId} with offset: ${offset}px`);
+                    }
+                });
+            });
+        });
+    </script>
 
     <script>
         // Lightweight helper that prefers the indexed gallery setter when available
