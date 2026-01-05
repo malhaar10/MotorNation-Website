@@ -16,10 +16,17 @@ body {
     background-color: black;
 }
 
+.header {
+    background-color: black;
+    position: relative;
+}
+
 .header .logo-container {
     background-color: black;
     padding: 4vh 10vw 4vh 10vw;
     height: auto;
+    position: relative;
+    z-index: 2;
 }
 
 .header .logo-container img {
@@ -64,7 +71,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    align-items: flex-end;
     padding: 5vh;
+    position: relative;
+    z-index: 2;
+    background-image: url('assets/coming-soon-banner.avif');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
 
 .header .text-box .l1 {
@@ -80,6 +94,173 @@ body {
     margin-bottom: clamp(5px, 1vh, 15px);
     margin-top: 0;
     line-height: 1.1;
+}
+
+/*----Car Search Box----*/
+.car-search-box {
+    margin-top: 3vh;
+    background-color: rgba(20, 20, 20, 0.95);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
+    max-width: 450px;
+    width: 100%;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    align-self: flex-end;
+}
+
+.search-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.search-dropdown {
+    flex: 1;
+    padding: 15px;
+    font-size: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
+    background-color: rgba(40, 40, 40, 0.9);
+    color: #ffffff;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-family: 'Oswald', sans-serif;
+    font-weight: 400;
+}
+
+.search-dropdown:hover {
+    border-color: #007bff;
+    background-color: rgba(50, 50, 50, 0.9);
+}
+
+.search-dropdown:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    background-color: rgba(50, 50, 50, 0.9);
+}
+
+.search-dropdown option {
+    background-color: #2a2a2a;
+    color: #ffffff;
+}
+
+.search-dropdown.full-width {
+    width: 100%;
+}
+
+.search-button {
+    width: 100%;
+    padding: 15px;
+    font-size: 18px;
+    font-weight: 600;
+    background-color: #007bff;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+.search-button:active {
+    transform: scale(0.98);
+}
+
+/*----Price Slider Styles----*/
+.price-slider-container {
+    flex-direction: column;
+    margin-bottom: 20px;
+}
+
+.slider-wrapper {
+    width: 100%;
+}
+
+.slider-label {
+    display: block;
+    color: #ffffff;
+    font-size: 14px;
+    font-weight: 400;
+    margin-bottom: 20px;
+    text-align: left;
+    letter-spacing: 0.5px;
+}
+
+#price-display {
+    color: #007bff;
+    font-weight: 600;
+    font-size: 18px;
+}
+
+.single-slider {
+    position: relative;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center;
+}
+
+.price-slider {
+    width: 100%;
+    height: 6px;
+    -webkit-appearance: none;
+    appearance: none;
+    background: #007bff;
+    border-radius: 3px;
+    outline: none;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+.price-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    cursor: grab;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease;
+}
+
+.price-slider::-moz-range-thumb {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    border: 2px solid #ffffff;
+    border-radius: 50%;
+    cursor: grab;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.4);
+    transition: all 0.2s ease;
+}
+
+.price-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 3px 12px rgba(0, 123, 255, 0.6);
+}
+
+.price-slider::-moz-range-thumb:hover {
+    transform: scale(1.15);
+    box-shadow: 0 3px 12px rgba(0, 123, 255, 0.6);
+}
+
+.price-slider::-webkit-slider-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.1);
+}
+
+.price-slider::-moz-range-thumb:active {
+    cursor: grabbing;
+    transform: scale(1.1);
 }
 
 /*----Latest-News----*/
@@ -616,6 +797,7 @@ body {
         margin: 0 5vw;
         height: auto;
         min-height: 40vh;
+        background-image: none;
     }
 
     .header .text-box .l1 {
@@ -626,6 +808,27 @@ body {
     .header .text-box .l2 {
         font-size: clamp(4vw, 6vw, 8vw);
         line-height: 1.2;
+    }
+
+    /* Car Search Box Mobile Styles */
+    .car-search-box {
+        padding: 20px;
+        margin-top: 2vh;
+    }
+
+    .search-row {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-dropdown {
+        padding: 12px;
+        font-size: 14px;
+    }
+
+    .search-button {
+        padding: 12px;
+        font-size: 16px;
     }
 
     /* Hide desktop search */

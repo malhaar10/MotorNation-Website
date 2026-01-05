@@ -70,10 +70,55 @@
         </nav>
 
         <!-- Hero text section -->
-        <div class="text-box">
-            <p class="l1">Driven by Passion,</p>
-            <p class="l2">Fueled by insight</p>
-            <p class="l1">Your Ultimate Car Hub</p>
+        <div class="text-box">            
+            <!-- Car Search Box -->
+            <div class="car-search-box">
+                <div class="search-row">
+                    <select class="search-dropdown" id="brand-select">
+                        <option value="">Select Brand</option>
+                        <option value="toyota">Toyota</option>
+                        <option value="honda">Honda</option>
+                        <option value="ford">Ford</option>
+                        <option value="chevrolet">Chevrolet</option>
+                        <option value="bmw">BMW</option>
+                        <option value="mercedes">Mercedes-Benz</option>
+                        <option value="audi">Audi</option>
+                        <option value="nissan">Nissan</option>
+                        <option value="hyundai">Hyundai</option>
+                        <option value="kia">Kia</option>
+                        <option value="volkswagen">Volkswagen</option>
+                        <option value="mazda">Mazda</option>
+                        <option value="subaru">Subaru</option>
+                        <option value="tesla">Tesla</option>
+                    </select>
+                    
+                    <select class="search-dropdown" id="type-select">
+                        <option value="">Select Type</option>
+                        <option value="sedan">Sedan</option>
+                        <option value="suv">SUV</option>
+                        <option value="hatchback">Hatchback</option>
+                        <option value="pickup">Pickup</option>
+                        <option value="minivan">Minivan</option>
+                        <option value="performance">Performance</option>
+                        <option value="electric">Electric</option>
+                        <option value="hybrid">Hybrid</option>
+                        <option value="luxury">Luxury</option>
+                    </select>
+                </div>
+                
+                <div class="search-row price-slider-container">
+                    <div class="slider-wrapper">
+                        <label for="price-slider" class="slider-label">
+                            Maximum Price: <span id="price-display">$200,000+</span>
+                        </label>
+                        <div class="single-slider">
+                            <input type="range" id="price-slider" class="price-slider" min="0" max="200000" step="5000" value="200000">
+                        </div>
+                    </div>
+                </div>
+                
+                <button class="search-button" onclick="searchCars()">Launching soon!</button>
+            </div>
         </div>
     </section>
 
@@ -570,6 +615,73 @@
             if (window.innerWidth > 768) {
                 hideMenu();
             }
+        });
+    </script>
+
+    <!-- Car Search Functionality -->
+    <script>
+        // Initialize price slider
+        document.addEventListener('DOMContentLoaded', function() {
+            const priceSlider = document.getElementById('price-slider');
+            const priceDisplay = document.getElementById('price-display');
+
+            function formatPrice(value) {
+                if (value >= 200000) {
+                    return '$200,000+';
+                }
+                return '$' + value.toLocaleString();
+            }
+
+            function updatePriceDisplay() {
+                const value = parseInt(priceSlider.value);
+                priceDisplay.textContent = formatPrice(value);
+            }
+
+            priceSlider.addEventListener('input', updatePriceDisplay);
+
+            // Initialize display
+            updatePriceDisplay();
+        });
+
+        function searchCars() {
+            const brand = document.getElementById('brand-select').value;
+            const type = document.getElementById('type-select').value;
+            const maxPrice = document.getElementById('price-slider').value;
+
+            // Build search parameters
+            const params = new URLSearchParams();
+            if (brand) params.append('brand', brand);
+            if (type) params.append('type', type);
+            params.append('maxPrice', maxPrice);
+
+            // Log search parameters (you can replace this with actual search logic)
+            console.log('Search Parameters:', {
+                brand: brand || 'Any',
+                type: type || 'Any',
+                maxPrice: `Up to $${parseInt(maxPrice).toLocaleString()}`
+            });
+
+            // Redirect to search page with parameters (uncomment when search page is ready)
+            // window.location.href = `search.html?${params.toString()}`;
+
+            // For now, show an alert with the search criteria
+            let message = 'Searching for cars with:\n';
+            message += `Brand: ${brand || 'Any'}\n`;
+            message += `Type: ${type || 'Any'}\n`;
+            message += `Maximum Price: $${parseInt(maxPrice).toLocaleString()}`;
+            alert(message);
+        }
+
+        // Allow Enter key to trigger search
+        document.addEventListener('DOMContentLoaded', function() {
+            const dropdowns = document.querySelectorAll('.search-dropdown');
+            dropdowns.forEach(dropdown => {
+                dropdown.addEventListener('keypress', function(event) {
+                    if (event.key === 'Enter') {
+                        searchCars();
+                    }
+                });
+            });
         });
     </script>
 
