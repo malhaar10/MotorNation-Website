@@ -45,7 +45,14 @@
                     <li><a href="../electric/electric.html">ELECTRIC</a></li>
                     <li><a href="../article-page/article-home.html">ARTICLES</a></li>
                     <li><a href="../videos/video.html">VIDEOS</a></li>
-                    <li><a href="../search.html">SEARCH</a></li>
+                    <li class="search-bar-item">
+                        <div class="nav-search-container">
+                            <input type="text" id="nav-search-input" placeholder="Search..." class="nav-search-input">
+                            <button onclick="performSearch()" class="nav-search-btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>
@@ -330,6 +337,25 @@
                 hideMenu();
             }
         });
+
+        // Navigation search bar functionality
+        const navSearchInput = document.getElementById('nav-search-input');
+        if (navSearchInput) {
+            navSearchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
+        }
+
+        // Function to perform navigation search
+        function performSearch() {
+            const searchQuery = document.getElementById('nav-search-input').value.trim();
+            if (searchQuery) {
+                // Redirect to search page with tag parameter (matches backend API)
+                window.location.href = `../search.html?tag=${encodeURIComponent(searchQuery)}`;
+            }
+        }
     </script>
 </body>
 

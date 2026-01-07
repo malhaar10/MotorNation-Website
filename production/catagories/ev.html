@@ -42,7 +42,14 @@
                     <li><a href="../news-template/news-home.html">NEWS</a></li>
                     <li><a href="../article-page/article-home.html">ARTICLES</a></li>
                     <li><a href="../videos/video.html">VIDEOS</a></li>
-                    <li><a href="../search.html">SEARCH</a></li>
+                    <li class="search-bar-item">
+                        <div class="nav-search-container">
+                            <input type="text" id="nav-search-input" placeholder="Search..." class="nav-search-input">
+                            <button onclick="performSearch()" class="nav-search-btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </li>
                 </ul>
             </div>
         </nav>

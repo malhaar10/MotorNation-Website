@@ -363,3 +363,76 @@ hr {
         font-size: 22px;
     }
 }
+/* Navigation Search Bar Styling */
+.search-bar-item {
+    display: inline-block;
+    padding: 0 !important;
+    margin-left: 10px;
+}
+
+.nav-search-container {
+    display: flex;
+    align-items: center;
+    background-color: white;
+    border-radius: 25px;
+    padding: 5px 10px;
+    transition: background-color 0.3s;
+}
+
+.nav-search-container:hover {
+    background-color: #f0f0f0;
+}
+
+.nav-search-input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: black;
+    font-size: 16px;
+    padding: 5px 10px;
+    width: 200px;
+    font-family: 'Oswald', sans-serif;
+}
+
+.nav-search-input::placeholder {
+    color: rgba(0, 0, 0, 0.5);
+}
+
+.nav-search-btn {
+    background: transparent;
+    border: none;
+    color: #333;
+    cursor: pointer;
+    padding: 5px 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: color 0.3s;
+}
+
+.nav-search-btn:hover {
+    color: #007bff;
+}
+
+.nav-search-btn i {
+    font-size: 18px;
+}
+
+/* Mobile responsive adjustments for search bar */
+@media (max-width: 900px) {
+    .search-bar-item {
+        display: block;
+        width: 100%;
+        padding: 10px 0 !important;
+    }
+    
+    .nav-search-container {
+        width: 100%;
+        max-width: 300px;
+        margin: 0 auto;
+    }
+    
+    .nav-search-input {
+        width: 100%;
+    }
+}

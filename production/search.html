@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MotorNation</title>
+    <title>Search</title>
     <link rel="icon" type="image/png" href="/assets/miniLogo.avif">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9276332511991978"
      crossorigin="anonymous"></script>
@@ -56,6 +56,14 @@
                     <li><a href="article-page/article-home.html">ARTICLES</a></li>
                     <li><a href="electric/electric.html">ELECTRIC</a></li>
                     <li><a href="videos/video.html">VIDEOS</a></li>
+                    <li class="search-bar-item">
+                        <div class="nav-search-container">
+                            <input type="text" id="nav-search-input" placeholder="Search..." class="nav-search-input">
+                            <button onclick="performNavSearch()" class="nav-search-btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </li>
                     <!-- <li><a href="content_input_panel/input_home.html">CONTENT_INPUT</a></li> -->
                 </ul>
             </div>
@@ -248,6 +256,25 @@
                 window.location.href = `search.html?tag=${encodeURIComponent(tag)}`;
             }
         });
+
+        // Navigation search bar functionality
+        const navSearchInput = document.getElementById('nav-search-input');
+        if (navSearchInput) {
+            navSearchInput.addEventListener('keypress', function(event) {
+                if (event.key === 'Enter') {
+                    performNavSearch();
+                }
+            });
+        }
+
+        // Function to perform navigation search
+        function performNavSearch() {
+            const searchQuery = document.getElementById('nav-search-input').value.trim();
+            if (searchQuery) {
+                // Redirect to search page with tag parameter (matches backend API)
+                window.location.href = `search.html?tag=${encodeURIComponent(searchQuery)}`;
+            }
+        }
 
         // Mobile navigation menu toggle functionality
         var navLinks = document.getElementById("navLinks");
