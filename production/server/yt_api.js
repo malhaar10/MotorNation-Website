@@ -14,6 +14,7 @@ const reviewsApi = require('./reviews_api');
 const newsApi = require('./news_api');
 const searchApi = require('./search_api');
 const articlesApi = require('./articles_api');
+const specsApi = require('./specs_api');
 
 // === Middleware Setup ===
 app.use(cors({
@@ -117,6 +118,7 @@ app.use('/api', reviewsApi);
 app.use('/api', newsApi);
 app.use('/api', searchApi);
 app.use('/api', articlesApi);
+app.use('/api', specsApi);
 
 // === Enhanced DB Connection Test ===
 async function testDatabaseConnection() {
