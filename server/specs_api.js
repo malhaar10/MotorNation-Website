@@ -91,7 +91,7 @@ async function uploadToGCS(file, filename) {
 // GET /api/specs - Fetch all specs
 router.get('/specs', async (req, res) => {
   try {
-    const result = await pool.query('SELECT * FROM specs ORDER BY created_at DESC');
+    const result = await pool.query('SELECT * FROM specifications ORDER BY created_at DESC');
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching specs:', err);
@@ -108,7 +108,7 @@ router.get('/specs/summary', async (req, res) => {
 
     const result = await pool.query(`
       SELECT id, car_name, model_year, photos, slug
-      FROM specs
+      FROM specifications
       ORDER BY created_at DESC
       LIMIT $1`, [limit]);
 
@@ -126,7 +126,7 @@ router.get('/specs/slug/:slug', async (req, res) => {
   try {
     const { slug } = req.params;
     const result = await pool.query(
-      'SELECT * FROM specs WHERE slug = $1',
+      'SELECT * FROM specifications WHERE slug = $1',
       [slug]
     );
     
@@ -146,7 +146,7 @@ router.get('/specs/:id', async (req, res) => {
   try {
     const { id } = req.params;
     const result = await pool.query(`
-      SELECT * FROM specs WHERE id = $1
+      SELECT * FROM specifications WHERE id = $1
     `, [id]);
     
     if (result.rows.length === 0) {
@@ -244,7 +244,7 @@ router.post('/specs', upload.array('photos', 10), async (req, res) => {
     // Check for duplicate slugs and append counter if needed
     while (counter <= 100) {
       const existingSlug = await pool.query(
-        'SELECT id FROM specs WHERE slug = $1',
+        'SELECT id FROM specifications WHERE slug = $1',
         [finalSlug]
       );
       
@@ -256,7 +256,7 @@ router.post('/specs', upload.array('photos', 10), async (req, res) => {
 
     // Insert into database
     const result = await pool.query(
-      `INSERT INTO specs (
+      `INSERT INTO specifications (
         id, car_name, model_year, pricing, transmission, fuel_type,
         horsepower, torque, fuel_economy, seating_capacity, touch_screen_size,
         driver_display, safety_features, camera, additional_features,
@@ -289,7 +289,7 @@ router.get('/specs/electric', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT id, car_name, model_year, photos, slug
-      FROM specs
+      FROM specifications
       WHERE LOWER(tag) = 'ev' OR LOWER(tag2) = 'ev' OR LOWER(tag3) = 'ev' OR LOWER(tag4) = 'ev' OR LOWER(tag5) = 'ev'
          OR LOWER(tag) = 'electric' OR LOWER(tag2) = 'electric' OR LOWER(tag3) = 'electric' OR LOWER(tag4) = 'electric' OR LOWER(tag5) = 'electric'
          OR LOWER(fuel_type) LIKE '%electric%'
@@ -308,7 +308,7 @@ router.get('/specs/hybrid', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT id, car_name, model_year, photos, slug
-      FROM specs
+      FROM specifications
       WHERE LOWER(tag) = 'hybrid' OR LOWER(tag2) = 'hybrid' OR LOWER(tag3) = 'hybrid' OR LOWER(tag4) = 'hybrid' OR LOWER(tag5) = 'hybrid'
          OR LOWER(tag) = 'hybrids' OR LOWER(tag2) = 'hybrids' OR LOWER(tag3) = 'hybrids' OR LOWER(tag4) = 'hybrids' OR LOWER(tag5) = 'hybrids'
          OR LOWER(fuel_type) LIKE '%hybrid%'
@@ -327,7 +327,7 @@ router.get('/specs/suv', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT id, car_name, model_year, photos, slug
-      FROM specs
+      FROM specifications
       WHERE LOWER(tag) = 'suv' OR LOWER(tag2) = 'suv' OR LOWER(tag3) = 'suv' OR LOWER(tag4) = 'suv' OR LOWER(tag5) = 'suv'
          OR LOWER(tag) = 'suvs' OR LOWER(tag2) = 'suvs' OR LOWER(tag3) = 'suvs' OR LOWER(tag4) = 'suvs' OR LOWER(tag5) = 'suvs'
          OR LOWER(tag) = 'crossover' OR LOWER(tag2) = 'crossover' OR LOWER(tag3) = 'crossover' OR LOWER(tag4) = 'crossover' OR LOWER(tag5) = 'crossover'
@@ -346,7 +346,7 @@ router.get('/specs/sedan', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT id, car_name, model_year, photos, slug
-      FROM specs
+      FROM specifications
       WHERE LOWER(tag) = 'sedan' OR LOWER(tag2) = 'sedan' OR LOWER(tag3) = 'sedan' OR LOWER(tag4) = 'sedan' OR LOWER(tag5) = 'sedan'
          OR LOWER(tag) = 'sedans' OR LOWER(tag2) = 'sedans' OR LOWER(tag3) = 'sedans' OR LOWER(tag4) = 'sedans' OR LOWER(tag5) = 'sedans'
       ORDER BY model_year DESC
@@ -364,7 +364,7 @@ router.get('/specs/pickup', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT id, car_name, model_year, photos, slug
-      FROM specs
+      FROM specifications
       WHERE LOWER(tag) = 'pickup' OR LOWER(tag2) = 'pickup' OR LOWER(tag3) = 'pickup' OR LOWER(tag4) = 'pickup' OR LOWER(tag5) = 'pickup'
          OR LOWER(tag) = 'truck' OR LOWER(tag2) = 'truck' OR LOWER(tag3) = 'truck' OR LOWER(tag4) = 'truck' OR LOWER(tag5) = 'truck'
          OR LOWER(tag) = 'pickups' OR LOWER(tag2) = 'pickups' OR LOWER(tag3) = 'pickups' OR LOWER(tag4) = 'pickups' OR LOWER(tag5) = 'pickups'
@@ -383,7 +383,7 @@ router.get('/specs/luxury', async (req, res) => {
   try {
     const result = await pool.query(`
       SELECT id, car_name, model_year, photos, slug
-      FROM specs
+      FROM specifications
       WHERE LOWER(tag) = 'luxury' OR LOWER(tag2) = 'luxury' OR LOWER(tag3) = 'luxury' OR LOWER(tag4) = 'luxury' OR LOWER(tag5) = 'luxury'
       ORDER BY model_year DESC
       LIMIT 6
