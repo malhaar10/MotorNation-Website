@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9276332511991978"
+     crossorigin="anonymous"></script>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MotorNation</title>
+    <link rel="icon" type="image/png" href="/assets/miniLogo.avif">
+    <link rel="stylesheet" href="../page_header.css">
+    <link rel="stylesheet" href="../specifications/specs.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    <script src="../search-functionality.js"></script>
+</head>
+
+<body>
+    <section class="header">
+        <div class="logo-container">
+            <a href="../index.html"><img src="../assets/MotorNation.avif" alt="MotorNation Logo"></a>
+        </div>
+        <nav id="navbar">
+            <i class="fa fa-bars" onclick="showMenu()"></i>
+            <div class="nav-links" id="navLinks">
+                <i class="fa fa-times close-btn" onclick="hideMenu()"></i>
+                <ul>
+                    <li><a href="../index.html">HOME</a></li>
+                    <li><a href="../news-template/news-home.html">NEWS</a></li>
+                    <li><a href="../article-page/article-home.html">ARTICLES</a></li>
+                    <li><a href="../electric/electric.html">ELECTRIC</a></li>
+                    <li><a href="../videos/video.html">VIDEOS</a></li>
+                    <li class="search-bar-item">
+                        <div class="nav-search-container">
+                            <input type="text" id="nav-search-input" placeholder="Search..." class="nav-search-input">
+                            <button onclick="performSearch()" class="nav-search-btn">
+                                <i class="fa fa-search"></i>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </section>
+
+
+
+    <section class="hr">
+        <hr>
+    </section>
+    
+    <section class="contact-card">
+        <img src="../assets/MotorNation.avif" alt="MotorNation logo">
+        <div class="social-icons">
+            <a href="https://www.facebook.com/motornationofficial"><i class="fa fa-facebook"></i></a>
+            <a href="https://x.com/MotorNation_?t=WVuJZhDNnad4yikXOYNUng&s=09"><i class="fa fa-twitter"></i></a>
+            <a href="https://www.instagram.com/motornation_group?igsh=MWJjMGNma3AwMW45Ng=="><i class="fa fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UC9HmzxcrnW3CGZVf0iPK6Eg"><i class="fa fa-youtube"></i></a>
+        </div>
+        <div class="contact-links">
+            <a href="../about_us/about_us.html">About us</a>
+            <a href="../contact_us/contact_us.html">Contact us</a>
+            <a href="../TnC/tnc.html">Terms & Conditions</a>
+            <a href="../careers/careers.html">Careers</a>
+        </div>
+    </section>
+
+    <script>
+         // Function to perform navigation search
+        function performSearch() {
+            const searchQuery = document.getElementById('nav-search-input').value.trim();
+            if (searchQuery) {
+                // Redirect to search page with tag parameter (matches backend API)
+                window.location.href = `../search.html?tag=${encodeURIComponent(searchQuery)}`;
+            }
+        }
+    </script>
+</body>
+
+
+</body>
+
+</html>

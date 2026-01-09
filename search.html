@@ -129,19 +129,51 @@
         window.addEventListener('load', async () => {
             const params = new URLSearchParams(window.location.search);
             const tag = params.get('tag');
+            const brand = params.get('brand');
+            const type = params.get('type');
+            const maxPrice = params.get('maxPrice');
 
             const container = document.getElementById('results');
             const searchQuery = document.getElementById('searchQuery');
 
-            if (!tag) {
+            // Check if this is a car search (has brand, type, or maxPrice)
+            const isCarSearch = brand || type || maxPrice;
+
+            if (!tag && !isCarSearch) {
                 container.innerHTML = '<div class="results-container"><div class="no-results">No search term provided.</div></div>';
                 return;
             }
 
-            searchQuery.textContent = `Showing results for: "${tag}"`;
+            // Set search query text
+            if (isCarSearch) {
+                let searchText = 'Searching for cars';
+                const criteria = [];
+                if (brand) criteria.push(`Brand: ${brand}`);
+                if (type) criteria.push(`Type: ${type}`);
+                if (maxPrice) {
+                    const priceNum = parseInt(maxPrice);
+                    criteria.push(`Max Price: ${priceNum >= 200000 ? '$200,000+' : '$' + priceNum.toLocaleString()}`);
+                }
+                searchQuery.textContent = searchText + (criteria.length > 0 ? ' - ' + criteria.join(', ') : '');
+            } else {
+                searchQuery.textContent = `Showing results for: "${tag}"`;
+            }
 
             try {
-                const fullUrl = `https://motornation-336079007565.us-central1.run.app/api/search?tag=${encodeURIComponent(tag)}`;
+                let fullUrl;
+                
+                if (isCarSearch) {
+                    // Car search endpoint
+                    const searchParams = new URLSearchParams();
+                    if (brand) searchParams.append('brand', brand);
+                    if (type) searchParams.append('type', type);
+                    if (maxPrice) searchParams.append('maxPrice', maxPrice);
+                    fullUrl = `https://motornation-336079007565.us-central1.run.app/api/specs/search?${searchParams.toString()}`;
+                } else {
+                    // Tag search endpoint
+                    fullUrl = `https://motornation-336079007565.us-central1.run.app/api/search?tag=${encodeURIComponent(tag)}`;
+                }
+                
                 console.log("Fetching from:", fullUrl);
 
                 const res = await fetch(fullUrl);
@@ -156,6 +188,56 @@
                 const data = await res.json();
                 console.log("Fetched data:", data);
 
+                // Handle car search results (array of specs)
+                if (isCarSearch) {
+                    if (!data || data.length === 0) {
+                        container.innerHTML = `<div class="results-container"><div class="no-results">No cars found matching your criteria</div></div>`;
+                        return;
+                    }
+
+                    let html = '<section class="latest-news search-results-section">';
+                    html += '<div class="results-container">';
+                    html += '<div class="section-title">Car Specifications (' + data.length + ' results)</div>';
+                    html += '<div class="container">';
+                    html += '<div class="blog-section">';
+                    html += '<div class="cards">';
+
+                    data.forEach(spec => {
+                        // Use first photo from GCS if available
+                        const imageUrl = (spec.photos && spec.photos.length > 0) 
+                            ? spec.photos[0] 
+                            : null;
+
+                        const imageSection = imageUrl 
+                            ? `<img src="${imageUrl}" alt="${spec.car_name}" loading="lazy">`
+                            : `<div style="display: flex; align-items: center; justify-content: center; height: 200px; background-color: #f5f5f5; color: #666; font-weight: bold;">No images</div>`;
+
+                        const tags = [spec.tag, spec.tag2, spec.tag3, spec.tag4, spec.tag5]
+                            .filter(t => t)
+                            .join(', ');
+
+                        html += `
+                            <div class="card" onclick="window.location.href='specifications/specs-home.html?id=${spec.id}'" style="cursor: pointer;">
+                                <div class="image-section">
+                                    ${imageSection}
+                                </div>
+                                <div class="content">
+                                    <p>SPECIFICATIONS</p>
+                                    <h3>${spec.car_name}</h3>
+                                    <h5>${spec.model_year}${spec.pricing ? ' | ' + spec.pricing : ''}</h5>
+                                    ${tags ? '<p style="font-size: 0.85em; color: #666;">' + tags + '</p>' : ''}
+                                    <hr>
+                                </div>
+                            </div>
+                        `;
+                    });
+
+                    html += '</div></div></div></div></section>';
+                    container.innerHTML = html;
+                    return;
+                }
+
+                // Handle regular tag search results
                 if (data.reviews.length === 0 && data.news.length === 0) {
                     container.innerHTML = `<div class="results-container"><div class="no-results">No results found for: "${tag}"</div></div>`;
                     return;

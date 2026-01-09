@@ -124,7 +124,7 @@
                     </div>
                 </div>
                 
-                <button class="search-button" onclick="searchCars()">Launching soon!</button>
+                <button class="search-button" onclick="searchCars()">Search Cars</button>
             </div>
         </div>
     </section>
@@ -661,22 +661,8 @@
             if (type) params.append('type', type);
             params.append('maxPrice', maxPrice);
 
-            // Log search parameters (you can replace this with actual search logic)
-            console.log('Search Parameters:', {
-                brand: brand || 'Any',
-                type: type || 'Any',
-                maxPrice: `Up to $${parseInt(maxPrice).toLocaleString()}`
-            });
-
-            // Redirect to search page with parameters (uncomment when search page is ready)
-            // window.location.href = `search.html?${params.toString()}`;
-
-            // For now, show an alert with the search criteria
-            let message = 'Searching for cars with:\n';
-            message += `Brand: ${brand || 'Any'}\n`;
-            message += `Type: ${type || 'Any'}\n`;
-            message += `Maximum Price: $${parseInt(maxPrice).toLocaleString()}`;
-            alert(message);
+            // Redirect to search page with parameters
+            window.location.href = `search.html?${params.toString()}`;
         }
 
         // Allow Enter key to trigger search

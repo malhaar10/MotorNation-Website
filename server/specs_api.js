@@ -121,6 +121,88 @@ router.get('/specs/summary', async (req, res) => {
   }
 });
 
+// GET /api/specs/search - Search specs by brand, type, and price
+router.get('/specs/search', async (req, res) => {
+  try {
+    const { brand, type, maxPrice } = req.query;
+    console.log('=== SPECS SEARCH REQUEST ===');
+    console.log('Search params:', { brand, type, maxPrice });
+
+    // Build dynamic query
+    let queryText = `
+      SELECT id, car_name, model_year, pricing, photos, slug, tag, tag2, tag3, tag4, tag5
+      FROM specifications
+      WHERE 1=1
+    `;
+    const queryParams = [];
+    let paramIndex = 1;
+
+    // Filter by brand (check all tag fields)
+    if (brand) {
+      queryText += ` AND (
+        LOWER(tag) = $${paramIndex} OR 
+        LOWER(tag2) = $${paramIndex} OR 
+        LOWER(tag3) = $${paramIndex} OR 
+        LOWER(tag4) = $${paramIndex} OR 
+        LOWER(tag5) = $${paramIndex}
+      )`;
+      queryParams.push(brand.toLowerCase());
+      paramIndex++;
+    }
+
+    // Filter by type (check all tag fields)
+    if (type) {
+      queryText += ` AND (
+        LOWER(tag) = $${paramIndex} OR 
+        LOWER(tag2) = $${paramIndex} OR 
+        LOWER(tag3) = $${paramIndex} OR 
+        LOWER(tag4) = $${paramIndex} OR 
+        LOWER(tag5) = $${paramIndex}
+      )`;
+      queryParams.push(type.toLowerCase());
+      paramIndex++;
+    }
+
+    // Filter by price (handle pricing field which might be a string like "$45,000")
+    if (maxPrice) {
+      const maxPriceNum = parseInt(maxPrice);
+      console.log('Max price numeric value:', maxPriceNum);
+      if (maxPriceNum < 200000) {
+        // Use COALESCE with NULLIF to handle empty strings after regex replacement
+        queryText += ` AND (
+          CAST(
+            COALESCE(
+              NULLIF(REGEXP_REPLACE(COALESCE(pricing, '0'), '[^0-9]', '', 'g'), ''),
+              '0'
+            ) AS INTEGER
+          ) <= $${paramIndex}
+        )`;
+        queryParams.push(maxPriceNum);
+        paramIndex++;
+      }
+      // If maxPrice is 200000 or more, don't filter by price (show all)
+    }
+
+    queryText += ` ORDER BY created_at DESC LIMIT 5`;
+
+    console.log('Executing query:', queryText);
+    console.log('With params:', queryParams);
+
+    const result = await pool.query(queryText, queryParams);
+
+    console.log(`Found ${result.rows.length} matching specifications`);
+    console.log('=== END SPECS SEARCH ===');
+    res.json(result.rows);
+  } catch (err) {
+    console.error('=== ERROR IN SPECS SEARCH ===');
+    console.error('Error searching specs:', err);
+    console.error('Error message:', err.message);
+    console.error('Error stack:', err.stack);
+    console.error('=== END ERROR ===');
+    res.status(500).json({ error: 'Failed to search specifications', details: err.message });
+  }
+});
+
 // GET /api/specs/slug/:slug - Get spec by slug
 router.get('/specs/slug/:slug', async (req, res) => {
   try {
