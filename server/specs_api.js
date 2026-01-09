@@ -121,92 +121,6 @@ router.get('/specs/summary', async (req, res) => {
   }
 });
 
-// GET /api/specs/search - Search specs by brand, type, and price
-router.get('/specs/search', async (req, res) => {
-  try {
-    const { brand, type, maxPrice } = req.query;
-    console.log('=== SPECS SEARCH REQUEST ===');
-    console.log('Search params:', { brand, type, maxPrice });
-
-    // Build dynamic query
-    let queryText = `
-      SELECT id, car_name, model_year, pricing, photos, slug, tag, tag2, tag3, tag4, tag5
-      FROM specifications
-      WHERE 1=1
-    `;
-    const queryParams = [];
-    let paramIndex = 1;
-
-    // Filter by brand (check all tag fields)
-    if (brand) {
-      queryText += ` AND (
-        LOWER(tag) = $${paramIndex} OR 
-        LOWER(tag2) = $${paramIndex} OR 
-        LOWER(tag3) = $${paramIndex} OR 
-        LOWER(tag4) = $${paramIndex} OR 
-        LOWER(tag5) = $${paramIndex}
-      )`;
-      queryParams.push(brand.toLowerCase());
-      paramIndex++;
-    }
-
-    // Filter by type (check all tag fields)
-    if (type) {
-      queryText += ` AND (
-        LOWER(tag) = $${paramIndex} OR 
-        LOWER(tag2) = $${paramIndex} OR 
-        LOWER(tag3) = $${paramIndex} OR 
-        LOWER(tag4) = $${paramIndex} OR 
-        LOWER(tag5) = $${paramIndex}
-      )`;
-      queryParams.push(type.toLowerCase());
-      paramIndex++;
-    }
-
-    // Filter by price (handle pricing field which might be a string like "$45,000")
-    // Show cars with price LESS THAN OR EQUAL TO the user's maximum price input
-    if (maxPrice) {
-      const maxPriceNum = parseInt(maxPrice);
-      console.log('Max price numeric value:', maxPriceNum);
-      if (maxPriceNum < 200000) {
-        // Extract numeric value from pricing string and compare: car_price <= user_max_price
-        // Use COALESCE with NULLIF to handle empty strings after regex replacement
-        queryText += ` AND (
-          CAST(
-            COALESCE(
-              NULLIF(REGEXP_REPLACE(COALESCE(pricing, '0'), '[^0-9]', '', 'g'), ''),
-              '0'
-            ) AS INTEGER
-          ) <= $${paramIndex}
-        )`;
-        queryParams.push(maxPriceNum);
-        paramIndex++;
-        console.log(`Filtering: Show cars with price <= $${maxPriceNum.toLocaleString()}`);
-      } else {
-        console.log('Max price is 200000+, showing all cars regardless of price');
-      }
-    }
-
-    queryText += ` ORDER BY created_at DESC LIMIT 5`;
-
-    console.log('Executing query:', queryText);
-    console.log('With params:', queryParams);
-
-    const result = await pool.query(queryText, queryParams);
-
-    console.log(`Found ${result.rows.length} matching specifications`);
-    console.log('=== END SPECS SEARCH ===');
-    res.json(result.rows);
-  } catch (err) {
-    console.error('=== ERROR IN SPECS SEARCH ===');
-    console.error('Error searching specs:', err);
-    console.error('Error message:', err.message);
-    console.error('Error stack:', err.stack);
-    console.error('=== END ERROR ===');
-    res.status(500).json({ error: 'Failed to search specifications', details: err.message });
-  }
-});
-
 // GET /api/specs/slug/:slug - Get spec by slug
 router.get('/specs/slug/:slug', async (req, res) => {
   try {
@@ -255,6 +169,7 @@ router.post('/specs', upload.array('photos', 10), async (req, res) => {
   const {
     car_name,
     model_year,
+    trim_name,
     pricing,
     transmission,
     fuel_type,
@@ -322,8 +237,12 @@ router.post('/specs', upload.array('photos', 10), async (req, res) => {
       console.log('No files received for upload');
     }
 
-    // Generate slug from car_name and model_year
-    let slug = generateSlug(`${car_name} ${model_year}`);
+    // Generate slug from car_name, model_year, and trim_name
+    const slugParts = [car_name, model_year];
+    if (trim_name) {
+      slugParts.push(trim_name);
+    }
+    let slug = generateSlug(slugParts.join(' '));
     let finalSlug = slug;
     let counter = 1;
     
@@ -343,14 +262,14 @@ router.post('/specs', upload.array('photos', 10), async (req, res) => {
     // Insert into database
     const result = await pool.query(
       `INSERT INTO specifications (
-        id, car_name, model_year, pricing, transmission, fuel_type,
+        id, car_name, model_year, trim_name, pricing, transmission, fuel_type,
         horsepower, torque, fuel_economy, seating_capacity, touch_screen_size,
         driver_display, safety_features, camera, additional_features,
         towing, payload, tag, tag2, tag3, tag4, tag5, photos, slug
-      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24)
+      ) VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10,$11,$12,$13,$14,$15,$16,$17,$18,$19,$20,$21,$22,$23,$24,$25)
       RETURNING *`,
       [
-        id, car_name, model_year, pricing, transmission, fuel_type,
+        id, car_name, model_year, trim_name, pricing, transmission, fuel_type,
         horsepower, torque, fuel_economy, seating_capacity, touch_screen_size,
         driver_display, safety_features, camera, additional_features,
         towing, payload, tag, tag2, tag3, tag4, tag5, 

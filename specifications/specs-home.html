@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9276332511991978"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MotorNation</title>
     <link rel="icon" type="image/png" href="/assets/miniLogo.avif">
@@ -49,16 +49,99 @@
 
 
 
+
+
+    <!-- Vehicle Specifications Display Section -->
+    <section class="specs-display-section">
+        <div class="specs-container">
+            <div class="vehicle-card">
+                <div class="vehicle-header">
+                    <div class="vehicle-image">
+                        <img src="" alt="Vehicle Image" id="vehicle-image">
+                    </div>
+                    <div class="vehicle-basic-info">
+                        <h2 id="vehicle-name">Vehicle Name</h2>
+                        <p class="vehicle-price" id="vehicle-price">$0</p>
+                    </div>
+                </div>
+
+                <div class="vehicle-specs">
+                    <h3>Technical Specifications</h3>
+                    <div class="specs-grid">
+                        <div class="spec-item">
+                            <i class="fa fa-tachometer"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Horsepower</span>
+                                <span class="spec-value" id="horsepower">-- HP</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-cog"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Torque</span>
+                                <span class="spec-value" id="torque">-- lb-ft</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-users"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Seating Capacity</span>
+                                <span class="spec-value" id="seating">-- seats</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-tint"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Fuel Type</span>
+                                <span class="spec-value" id="fuel-type">--</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-exchange"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Transmission</span>
+                                <span class="spec-value" id="transmission">--</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-leaf"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Fuel Economy</span>
+                                <span class="spec-value" id="fuel-economy">-- MPG</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Additional Specifications Section -->
+    <section class="additional-specs-section">
+        <div class="additional-specs-container">
+            <h2 class="section-title" id="additional-title">More Specifications</h2>
+            
+            <div class="specs-cards-grid" id="specs-cards-container">
+                <div class="loading-message">Loading related specifications...</div>
+            </div>
+        </div>
+    </section>
+
     <section class="hr">
         <hr>
     </section>
-    
     <section class="contact-card">
         <img src="../assets/MotorNation.avif" alt="MotorNation logo">
         <div class="social-icons">
             <a href="https://www.facebook.com/motornationofficial"><i class="fa fa-facebook"></i></a>
             <a href="https://x.com/MotorNation_?t=WVuJZhDNnad4yikXOYNUng&s=09"><i class="fa fa-twitter"></i></a>
-            <a href="https://www.instagram.com/motornation_group?igsh=MWJjMGNma3AwMW45Ng=="><i class="fa fa-instagram"></i></a>
+            <a href="https://www.instagram.com/motornation_group?igsh=MWJjMGNma3AwMW45Ng=="><i
+                    class="fa fa-instagram"></i></a>
             <a href="https://www.youtube.com/channel/UC9HmzxcrnW3CGZVf0iPK6Eg"><i class="fa fa-youtube"></i></a>
         </div>
         <div class="contact-links">
@@ -70,7 +153,7 @@
     </section>
 
     <script>
-         // Function to perform navigation search
+        // Function to perform navigation search
         function performSearch() {
             const searchQuery = document.getElementById('nav-search-input').value.trim();
             if (searchQuery) {
@@ -78,6 +161,212 @@
                 window.location.href = `../search.html?tag=${encodeURIComponent(searchQuery)}`;
             }
         }
+
+        // API Configuration
+        const API_BASE = 'https://motornation-336079007565.us-central1.run.app/api';
+        const TEST_UUID = '2e2d9bf4-29d8-402c-aa0c-65d23f99f3a3'; // For testing only
+
+        // Function to fetch and display specifications
+        async function fetchAndDisplaySpecs() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const id = urlParams.get('id');
+            
+            try {
+                // Use provided ID or fallback to test UUID
+                const specId = id || TEST_UUID;
+                
+                console.log('Loading specification by ID:', specId);
+                const response = await fetch(`${API_BASE}/specs/${specId}`);
+                
+                if (!response.ok) {
+                    throw new Error(`Failed to fetch specifications: ${response.status}`);
+                }
+
+                const spec = await response.json();
+                
+                if (!spec) {
+                    console.warn('No specification data found');
+                    displayError('Specification not found.');
+                    return;
+                }
+
+                // Display the data
+                displaySpecification(spec);
+
+            } catch (error) {
+                console.error('Failed to load specification data:', error);
+                displayError('Failed to load vehicle specifications. Please try again later.');
+            }
+        }
+
+        // Function to display specification data
+        function displaySpecification(spec) {
+            // Update page title for SEO (include trim if available)
+            const trimForTitle = spec.trim_name ? ` ${spec.trim_name}` : '';
+            const specTitle = `${spec.car_name} ${spec.model_year}${trimForTitle} Specifications - MotorNation`;
+            document.title = specTitle;
+            
+            // Display vehicle image (use first photo from array)
+            const vehicleImage = document.getElementById('vehicle-image');
+            if (spec.photos && spec.photos.length > 0) {
+                vehicleImage.src = spec.photos[0];
+                const trimText = spec.trim_name ? ` ${spec.trim_name}` : '';
+                vehicleImage.alt = `${spec.car_name} ${spec.model_year}${trimText}`;
+            } else {
+                vehicleImage.src = '../assets/coming-soon-banner.avif';
+                vehicleImage.alt = 'Vehicle Image Not Available';
+            }
+
+            // Display vehicle name (car_name + model_year + trim_name)
+            const vehicleName = document.getElementById('vehicle-name');
+            const trimSuffix = spec.trim_name ? ` ${spec.trim_name}` : '';
+            vehicleName.textContent = `${spec.car_name} ${spec.model_year || ''}${trimSuffix}`.trim();
+
+            // Display price
+            const vehiclePrice = document.getElementById('vehicle-price');
+            vehiclePrice.textContent = spec.pricing || 'Price Not Available';
+
+            // Display horsepower
+            const horsepower = document.getElementById('horsepower');
+            horsepower.textContent = spec.horsepower || 'N/A';
+
+            // Display torque
+            const torque = document.getElementById('torque');
+            torque.textContent = spec.torque || 'N/A';
+
+            // Display seating capacity
+            const seating = document.getElementById('seating');
+            seating.textContent = spec.seating_capacity || 'N/A';
+
+            // Display fuel type (from database column 'fuel_type')
+            const fuelType = document.getElementById('fuel-type');
+            fuelType.textContent = spec.fuel_type || 'N/A';
+
+            // Display transmission
+            const transmission = document.getElementById('transmission');
+            transmission.textContent = spec.transmission || 'N/A';
+
+            // Display fuel economy
+            const fuelEconomy = document.getElementById('fuel-economy');
+            fuelEconomy.textContent = spec.fuel_economy || 'N/A';
+
+            // Fetch and display related specifications
+            fetchRelatedSpecs(spec.car_name, spec.id);
+        }
+
+        // Function to fetch related specifications (same car name, different years/trims)
+        async function fetchRelatedSpecs(carName, currentId) {
+            const container = document.getElementById('specs-cards-container');
+            const titleElement = document.getElementById('additional-title');
+            
+            try {
+                // Update section title
+                titleElement.textContent = `More ${carName} Specifications`;
+                
+                // Fetch all specifications
+                const response = await fetch(`${API_BASE}/specs`);
+                
+                if (!response.ok) {
+                    throw new Error('Failed to fetch specifications');
+                }
+                
+                const allSpecs = await response.json();
+                
+                // Filter by same car name, exclude current spec
+                let relatedSpecs = allSpecs.filter(spec => 
+                    spec.car_name.toLowerCase() === carName.toLowerCase() && 
+                    spec.id !== currentId
+                );
+                
+                // Sort by price (convert to number for proper sorting)
+                relatedSpecs.sort((a, b) => {
+                    const priceA = parsePrice(a.pricing);
+                    const priceB = parsePrice(b.pricing);
+                    return priceA - priceB;
+                });
+                
+                // Display the cards
+                displaySpecCards(relatedSpecs);
+                
+            } catch (error) {
+                console.error('Error fetching related specifications:', error);
+                container.innerHTML = '<div class="error-message">Failed to load related specifications.</div>';
+            }
+        }
+
+        // Helper function to parse price string to number
+        function parsePrice(priceString) {
+            if (!priceString) return Infinity; // Put items without price at the end
+            // Remove currency symbols, commas, and extract first number
+            const match = priceString.replace(/[^0-9.]/g, '');
+            return parseFloat(match) || Infinity;
+        }
+
+        // Function to display specification cards
+        function displaySpecCards(specs) {
+            const container = document.getElementById('specs-cards-container');
+            
+            if (specs.length === 0) {
+                container.innerHTML = '<div class="no-results">No other specifications found for this vehicle.</div>';
+                return;
+            }
+            
+            container.innerHTML = specs.map(spec => {
+                const imageSrc = (spec.photos && spec.photos.length > 0) 
+                    ? spec.photos[0] 
+                    : '../assets/coming-soon-banner.avif';
+                
+                // Create features summary
+                const features = [];
+                if (spec.horsepower) features.push(`${spec.horsepower}`);
+                if (spec.fuel_type) features.push(spec.fuel_type);
+                if (spec.transmission) features.push(spec.transmission);
+                const featuresText = features.length > 0 ? features.join(' • ') : 'Details available';
+                
+                // Include trim name in display
+                const cardTrimSuffix = spec.trim_name ? ` ${spec.trim_name}` : '';
+                const cardAltText = `${spec.car_name} ${spec.model_year}${cardTrimSuffix}`;
+                
+                return `
+                    <div class="spec-card" onclick="window.location.href='?id=${spec.id}'">
+                        <div class="spec-card-image">
+                            <img src="${imageSrc}" alt="${cardAltText}">
+                        </div>
+                        <div class="spec-card-content">
+                            <h3 class="spec-card-title">${spec.car_name} ${spec.model_year || ''}${cardTrimSuffix}</h3>
+                            <p class="spec-card-price">${spec.pricing || 'Price Not Available'}</p>
+                            <div class="spec-card-features">
+                                <div class="features-label">Key Features</div>
+                                <div class="features-text">${featuresText}</div>
+                            </div>
+                            <button class="view-details-btn">View Full Specifications</button>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+        }
+
+        // Function to display error message
+        function displayError(message) {
+            const vehicleName = document.getElementById('vehicle-name');
+            vehicleName.textContent = 'Error Loading Specifications';
+            vehicleName.style.color = '#ff6b6b';
+
+            const vehiclePrice = document.getElementById('vehicle-price');
+            vehiclePrice.textContent = message;
+            vehiclePrice.style.fontSize = '16px';
+            
+            // Hide additional specs section on error
+            const additionalSection = document.querySelector('.additional-specs-section');
+            if (additionalSection) {
+                additionalSection.style.display = 'none';
+            }
+        }
+
+        // Load specifications when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            fetchAndDisplaySpecs();
+        });
     </script>
 </body>
 

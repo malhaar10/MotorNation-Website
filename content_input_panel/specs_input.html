@@ -86,6 +86,14 @@
         </div>
 
         <div>
+            <label for="trim_name">Trim Name</label>
+            <input type="text" id="trim_name" name="trim_name" placeholder="e.g., LE, SE, XLE, Limited, Sport">
+            <small style="color: #ccc; font-size: 14px; margin-top: 5px; display: block;">
+                Specify the trim level or variant
+            </small>
+        </div>
+
+        <div>
             <label for="pricing">Pricing</label>
             <input type="text" id="pricing" name="pricing" placeholder="e.g., $35,000 - $45,000">
         </div>
@@ -263,6 +271,7 @@
         document.getElementById('submitBtn').addEventListener('click', async () => {
             const car_name = document.getElementById('car_name').value.trim();
             const model_year = document.getElementById('model_year').value.trim();
+            const trim_name = document.getElementById('trim_name').value.trim();
             const pricing = document.getElementById('pricing').value.trim();
             const transmission = document.getElementById('transmission').value.trim();
             const fuel_type = document.getElementById('fuel_type').value.trim();
@@ -294,6 +303,7 @@
             const formData = new FormData();
             formData.append('car_name', car_name);
             formData.append('model_year', model_year);
+            formData.append('trim_name', trim_name);
             formData.append('pricing', pricing);
             formData.append('transmission', transmission);
             formData.append('fuel_type', fuel_type);
@@ -337,6 +347,7 @@
                     // Reset form
                     document.getElementById('car_name').value = '';
                     document.getElementById('model_year').value = '';
+                    document.getElementById('trim_name').value = '';
                     document.getElementById('pricing').value = '';
                     document.getElementById('transmission').value = '';
                     document.getElementById('fuel_type').value = '';
