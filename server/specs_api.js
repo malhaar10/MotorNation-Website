@@ -164,10 +164,12 @@ router.get('/specs/search', async (req, res) => {
     }
 
     // Filter by price (handle pricing field which might be a string like "$45,000")
+    // Show cars with price LESS THAN OR EQUAL TO the user's maximum price input
     if (maxPrice) {
       const maxPriceNum = parseInt(maxPrice);
       console.log('Max price numeric value:', maxPriceNum);
       if (maxPriceNum < 200000) {
+        // Extract numeric value from pricing string and compare: car_price <= user_max_price
         // Use COALESCE with NULLIF to handle empty strings after regex replacement
         queryText += ` AND (
           CAST(
@@ -179,8 +181,10 @@ router.get('/specs/search', async (req, res) => {
         )`;
         queryParams.push(maxPriceNum);
         paramIndex++;
+        console.log(`Filtering: Show cars with price <= $${maxPriceNum.toLocaleString()}`);
+      } else {
+        console.log('Max price is 200000+, showing all cars regardless of price');
       }
-      // If maxPrice is 200000 or more, don't filter by price (show all)
     }
 
     queryText += ` ORDER BY created_at DESC LIMIT 5`;
