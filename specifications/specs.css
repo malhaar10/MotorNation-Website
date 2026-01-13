@@ -618,4 +618,295 @@ hr {
     .spec-value {
         font-size: 14px;
     }
+
+    .full-specs-section h3 {
+        font-size: 20px;
+    }
+
+    .features-content ul.features-list {
+        grid-template-columns: 1fr;
+        gap: 10px;
+    }
+
+    .features-content ul.features-list li {
+        font-size: 14px;
+        padding: 12px;
+    }
+}
+
+/* Additional Specifications Section */
+.additional-specs-section {
+    width: 80vw;
+    margin: 50px 10vw;
+    padding: 40px 0;
+}
+
+.additional-specs-container {
+    width: 100%;
+}
+
+.section-title {
+    color: #ffffff;
+    font-size: 32px;
+    margin-bottom: 30px;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 1px;
+}
+
+.specs-cards-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 30px;
+    width: 100%;
+}
+
+.spec-card {
+    background: linear-gradient(145deg, #1a1a1a, #2d2d2d);
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+    width: 100%;
+}
+
+.spec-card:hover {
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+.spec-card-image {
+    display: none;
+}
+
+.spec-card-image img {
+    display: none;
+}
+
+.spec-card:hover .spec-card-image img {
+    display: none;
+}
+
+.spec-card-content {
+    padding: 20px;
+}
+
+.spec-card-title {
+    color: #ffffff;
+    font-size: 22px;
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+
+.spec-card-price {
+    color: lightskyblue;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 15px;
+}
+
+.spec-card-features {
+    margin: 15px 0;
+    padding: 15px;
+    background: rgba(135, 206, 250, 0.1);
+    border-radius: 8px;
+}
+
+.features-label {
+    color: #999;
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+}
+
+.features-text {
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.6;
+}
+
+.view-details-btn {
+    width: 100%;
+    padding: 12px 20px;
+    background: lightskyblue;
+    color: #000000;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    margin-top: 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.view-details-btn:hover {
+    background: #ffffff;
+}
+
+.dropdown-icon {
+    font-size: 14px;
+}
+
+.additional-features-dropdown {
+    display: none;
+    margin-top: 15px;
+    padding: 15px;
+    background: rgba(135, 206, 250, 0.05);
+    border-radius: 8px;
+    border: 1px solid rgba(135, 206, 250, 0.2);
+}
+
+.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+}
+
+.features-list li {
+    color: #ffffff;
+    font-size: 14px;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(135, 206, 250, 0.1);
+}
+
+.features-list li:last-child {
+    border-bottom: none;
+}
+
+.go-to-specs-btn {
+    width: 100%;
+    padding: 10px 16px;
+    background: transparent;
+    color: lightskyblue;
+    border: 2px solid lightskyblue;
+    border-radius: 8px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.go-to-specs-btn:hover {
+    background: lightskyblue;
+    color: #000000;
+}
+
+/* Full Specifications Sections */
+.full-specs-section {
+    margin-top: 40px;
+    padding-top: 30px;
+    border-top: 2px solid rgba(135, 206, 250, 0.2);
+}
+
+.full-specs-section h3 {
+    color: lightskyblue;
+    font-size: 24px;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.features-content {
+    color: #ffffff;
+}
+
+.features-content ul.features-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 15px;
+}
+
+.features-content ul.features-list li {
+    padding: 15px;
+    background: rgba(135, 206, 250, 0.05);
+    border-left: 3px solid lightskyblue;
+    border-radius: 4px;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+.features-content p {
+    color: #ffffff;
+    font-size: 16px;
+    line-height: 1.8;
+    padding: 15px;
+    background: rgba(135, 206, 250, 0.05);
+    border-radius: 8px;
+}
+
+.loading-message,
+.error-message,
+.no-results {
+    text-align: center;
+    color: #999;
+    font-size: 18px;
+    padding: 40px 20px;
+    grid-column: 1 / -1;
+}
+
+.error-message {
+    color: #ff6b6b;
+}
+
+/* Responsive Design for Additional Specs */
+@media screen and (max-width: 1024px) {
+    .specs-cards-grid {
+        gap: 15px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .additional-specs-section {
+        width: 90vw;
+        margin: 30px 5vw;
+        padding: 20px 0;
+    }
+    
+    .section-title {
+        font-size: 26px;
+        margin-bottom: 20px;
+    }
+    
+    .specs-cards-grid {
+        gap: 15px;
+    }
+    
+    .spec-card-title {
+        font-size: 20px;
+    }
+    
+    .spec-card-price {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .section-title {
+        font-size: 22px;
+    }
+    
+    .spec-card-content {
+        padding: 15px;
+    }
+    
+    .spec-card-title {
+        font-size: 18px;
+    }
+    
+    .spec-card-price {
+        font-size: 16px;
+    }
+    
+    .features-text {
+        font-size: 13px;
+    }
+    
+    .view-details-btn {
+        font-size: 14px;
+        padding: 10px 16px;
+    }
 }

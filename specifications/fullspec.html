@@ -111,19 +111,60 @@
                                 <span class="spec-value" id="fuel-economy">-- MPG</span>
                             </div>
                         </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-desktop"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Touchscreen Size</span>
+                                <span class="spec-value" id="touchscreen">--</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-dashboard"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Driver Display</span>
+                                <span class="spec-value" id="driver-display">--</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-video-camera"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Camera</span>
+                                <span class="spec-value" id="camera">--</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-truck"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Towing Capacity</span>
+                                <span class="spec-value" id="towing">--</span>
+                            </div>
+                        </div>
+
+                        <div class="spec-item">
+                            <i class="fa fa-cubes"></i>
+                            <div class="spec-content">
+                                <span class="spec-label">Payload</span>
+                                <span class="spec-value" id="payload">--</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Safety Features Section -->
+                    <div class="full-specs-section" id="safety-section" style="display: none;">
+                        <h3>Safety Features</h3>
+                        <div class="features-content" id="safety-features"></div>
+                    </div>
+
+                    <!-- Additional Features Section -->
+                    <div class="full-specs-section" id="additional-section" style="display: none;">
+                        <h3>Additional Features</h3>
+                        <div class="features-content" id="additional-features"></div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Additional Specifications Section -->
-    <section class="additional-specs-section">
-        <div class="additional-specs-container">
-            <h2 class="section-title" id="additional-title">More Specifications</h2>
-            
-            <div class="specs-cards-grid" id="specs-cards-container">
-                <div class="loading-message">Loading related specifications...</div>
             </div>
         </div>
     </section>
@@ -246,163 +287,76 @@
             const fuelEconomy = document.getElementById('fuel-economy');
             fuelEconomy.textContent = spec.fuel_economy || 'N/A';
 
-            // Fetch and display related specifications
-            fetchRelatedSpecs(spec.car_name, spec.id);
-        }
+            // Display touchscreen size
+            const touchscreen = document.getElementById('touchscreen');
+            touchscreen.textContent = spec.touch_screen_size || 'N/A';
 
-        // Function to fetch related specifications (same car name, different years/trims)
-        async function fetchRelatedSpecs(carName, currentId) {
-            const container = document.getElementById('specs-cards-container');
-            const titleElement = document.getElementById('additional-title');
-            
-            try {
-                // Update section title
-                titleElement.textContent = `More ${carName} Specifications`;
-                
-                // Fetch all specifications
-                const response = await fetch(`${API_BASE}/specs`);
-                
-                if (!response.ok) {
-                    throw new Error('Failed to fetch specifications');
-                }
-                
-                const allSpecs = await response.json();
-                
-                // Filter by same car name, exclude current spec
-                let relatedSpecs = allSpecs.filter(spec => 
-                    spec.car_name.toLowerCase() === carName.toLowerCase() && 
-                    spec.id !== currentId
-                );
-                
-                // Sort by price (convert to number for proper sorting)
-                relatedSpecs.sort((a, b) => {
-                    const priceA = parsePrice(a.pricing);
-                    const priceB = parsePrice(b.pricing);
-                    return priceA - priceB;
-                });
-                
-                // Display the cards
-                displaySpecCards(relatedSpecs);
-                
-            } catch (error) {
-                console.error('Error fetching related specifications:', error);
-                container.innerHTML = '<div class="error-message">Failed to load related specifications.</div>';
-            }
-        }
+            // Display driver display
+            const driverDisplay = document.getElementById('driver-display');
+            driverDisplay.textContent = spec.driver_display || 'N/A';
 
-        // Helper function to parse price string to number
-        function parsePrice(priceString) {
-            if (!priceString) return Infinity; // Put items without price at the end
-            // Remove currency symbols, commas, and extract first number
-            const match = priceString.replace(/[^0-9.]/g, '');
-            return parseFloat(match) || Infinity;
-        }
+            // Display camera
+            const camera = document.getElementById('camera');
+            camera.textContent = spec.camera || 'N/A';
 
-        // Function to display specification cards
-        function displaySpecCards(specs) {
-            const container = document.getElementById('specs-cards-container');
-            
-            if (specs.length === 0) {
-                container.innerHTML = '<div class="no-results">No other specifications found for this vehicle.</div>';
-                return;
-            }
-            
-            container.innerHTML = specs.map((spec, index) => {
-                const imageSrc = (spec.photos && spec.photos.length > 0) 
-                    ? spec.photos[0] 
-                    : '../assets/coming-soon-banner.avif';
+            // Display towing capacity
+            const towing = document.getElementById('towing');
+            towing.textContent = spec.towing || 'N/A';
+
+            // Display payload
+            const payload = document.getElementById('payload');
+            payload.textContent = spec.payload || 'N/A';
+
+            // Display safety features
+            if (spec.safety_features) {
+                const safetySection = document.getElementById('safety-section');
+                const safetyContent = document.getElementById('safety-features');
+                safetySection.style.display = 'block';
                 
-                // Create features summary
-                const features = [];
-                if (spec.horsepower) features.push(`${spec.horsepower}`);
-                if (spec.fuel_type) features.push(spec.fuel_type);
-                if (spec.transmission) features.push(spec.transmission);
-                const featuresText = features.length > 0 ? features.join(' • ') : 'Details available';
-                
-                // Include trim name in display
-                const cardTrimSuffix = spec.trim_name ? ` ${spec.trim_name}` : '';
-                const cardAltText = `${spec.car_name} ${spec.model_year}${cardTrimSuffix}`;
-                
-                // Get additional features from database column
-                let additionalFeaturesHTML = '<li>No additional features available</li>';
-                
-                if (spec.additional_features) {
-                    // Check if it's an array
-                    if (Array.isArray(spec.additional_features)) {
-                        if (spec.additional_features.length > 0) {
-                            additionalFeaturesHTML = spec.additional_features
-                                .map(feature => `<li>${feature}</li>`)
-                                .join('');
-                        }
-                    } 
-                    // Check if it's a string (could be comma-separated or newline-separated)
-                    else if (typeof spec.additional_features === 'string') {
-                        const featuresArray = spec.additional_features
-                            .split(/[,\n]/)
-                            .map(f => f.trim())
-                            .filter(f => f.length > 0);
-                        
-                        if (featuresArray.length > 0) {
-                            additionalFeaturesHTML = featuresArray
-                                .map(feature => `<li>${feature}</li>`)
-                                .join('');
-                        }
+                if (Array.isArray(spec.safety_features)) {
+                    safetyContent.innerHTML = '<ul class="features-list">' + 
+                        spec.safety_features.map(feature => `<li>${feature}</li>`).join('') + 
+                        '</ul>';
+                } else if (typeof spec.safety_features === 'string') {
+                    const featuresArray = spec.safety_features
+                        .split(/[,\n]/)
+                        .map(f => f.trim())
+                        .filter(f => f.length > 0);
+                    
+                    if (featuresArray.length > 0) {
+                        safetyContent.innerHTML = '<ul class="features-list">' + 
+                            featuresArray.map(feature => `<li>${feature}</li>`).join('') + 
+                            '</ul>';
+                    } else {
+                        safetyContent.innerHTML = '<p>' + spec.safety_features + '</p>';
                     }
                 }
-                
-                return `
-                    <div class="spec-card" data-card-id="${index}">
-                        <div class="spec-card-image">
-                            <img src="${imageSrc}" alt="${cardAltText}">
-                        </div>
-                        <div class="spec-card-content">
-                            <h3 class="spec-card-title">${spec.car_name} ${spec.model_year || ''}${cardTrimSuffix}</h3>
-                            <p class="spec-card-price">${spec.pricing || 'Price Not Available'}</p>
-                            <div class="spec-card-features">
-                                <div class="features-label">Key Features</div>
-                                <div class="features-text">${featuresText}</div>
-                            </div>
-                            <button class="view-details-btn" onclick="event.stopPropagation(); toggleDropdown(${index})">
-                                <span>View Additional Features</span>
-                                <i class="fa fa-chevron-down dropdown-icon" id="icon-${index}"></i>
-                            </button>
-                            <div class="additional-features-dropdown" id="dropdown-${index}">
-                                <ul class="features-list">
-                                    ${additionalFeaturesHTML}
-                                </ul>
-                                <button class="go-to-specs-btn" onclick="window.location.href='fullspec.html?id=${spec.id}'">
-                                    Go to Full Specifications
-                                </button>
-                            </div>
-                        </div>
-                    </div>
-                `;
-            }).join('');
-        }
+            }
 
-        // Function to toggle dropdown
-        function toggleDropdown(index) {
-            const dropdown = document.getElementById(`dropdown-${index}`);
-            const icon = document.getElementById(`icon-${index}`);
-            
-            if (dropdown.style.display === 'block') {
-                dropdown.style.display = 'none';
-                icon.classList.remove('fa-chevron-up');
-                icon.classList.add('fa-chevron-down');
-            } else {
-                // Close all other dropdowns
-                document.querySelectorAll('.additional-features-dropdown').forEach(dd => {
-                    dd.style.display = 'none';
-                });
-                document.querySelectorAll('.dropdown-icon').forEach(ic => {
-                    ic.classList.remove('fa-chevron-up');
-                    ic.classList.add('fa-chevron-down');
-                });
+            // Display additional features
+            if (spec.additional_features) {
+                const additionalSection = document.getElementById('additional-section');
+                const additionalContent = document.getElementById('additional-features');
+                additionalSection.style.display = 'block';
                 
-                // Open clicked dropdown
-                dropdown.style.display = 'block';
-                icon.classList.remove('fa-chevron-down');
-                icon.classList.add('fa-chevron-up');
+                if (Array.isArray(spec.additional_features)) {
+                    additionalContent.innerHTML = '<ul class="features-list">' + 
+                        spec.additional_features.map(feature => `<li>${feature}</li>`).join('') + 
+                        '</ul>';
+                } else if (typeof spec.additional_features === 'string') {
+                    const featuresArray = spec.additional_features
+                        .split(/[,\n]/)
+                        .map(f => f.trim())
+                        .filter(f => f.length > 0);
+                    
+                    if (featuresArray.length > 0) {
+                        additionalContent.innerHTML = '<ul class="features-list">' + 
+                            featuresArray.map(feature => `<li>${feature}</li>`).join('') + 
+                            '</ul>';
+                    } else {
+                        additionalContent.innerHTML = '<p>' + spec.additional_features + '</p>';
+                    }
+                }
             }
         }
 
@@ -415,12 +369,6 @@
             const vehiclePrice = document.getElementById('vehicle-price');
             vehiclePrice.textContent = message;
             vehiclePrice.style.fontSize = '16px';
-            
-            // Hide additional specs section on error
-            const additionalSection = document.querySelector('.additional-specs-section');
-            if (additionalSection) {
-                additionalSection.style.display = 'none';
-            }
         }
 
         // Load specifications when page loads
