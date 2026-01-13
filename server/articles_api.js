@@ -212,15 +212,20 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
 });
 
 // Route: GET /articles/summary
-// Description: Retrieves summary of latest 6 articles (for home/article cards)
+// Description: Retrieves summary of latest articles (for home/article cards)
+// Supports optional ?limit query parameter (default: 6)
 router.get('/articles/summary', async (req, res) => {
   try {
+    // Parse limit from query params, default to 6, max 50 for safety
+    const limit = Math.min(parseInt(req.query.limit) || 6, 50);
+    
     const result = await pool.query(`
       SELECT id, article_title, tag, tag2, tag3, tag4, tag5, images, permalink, created_at
       FROM articles
       ORDER BY created_at DESC
-      LIMIT 6
-    `);
+      LIMIT $1
+    `, [limit]);
+    
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching articles summary:', err);
