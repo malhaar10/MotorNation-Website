@@ -219,10 +219,12 @@ router.get('/articles/summary', async (req, res) => {
     // Parse limit from query params, default to 6, max 50 for safety
     const limit = Math.min(parseInt(req.query.limit) || 6, 50);
     
+    // Use NULLS LAST to handle NULL created_at values gracefully
+    // Articles with dates will appear first, then NULL dates
     const result = await pool.query(`
       SELECT id, article_title, tag, tag2, tag3, tag4, tag5, images, permalink, created_at
       FROM articles
-      ORDER BY created_at DESC
+      ORDER BY created_at DESC NULLS LAST
       LIMIT $1
     `, [limit]);
     
