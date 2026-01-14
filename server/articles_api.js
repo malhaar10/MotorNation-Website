@@ -179,7 +179,7 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
     
     // Check for duplicate permalink (extremely unlikely with 6-char UUID, but good practice)
     const existingPermalink = await pool.query(
-      'SELECT id FROM articles WHERE permalink = $1',
+      'SELECT id FROM articles WHERE slug = $1',
       [permalink]
     );
     
@@ -191,8 +191,8 @@ router.post('/articles', upload.array('images', 10), async (req, res) => {
     }
 
     const result = await pool.query(
-      `INSERT INTO articles (id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, images, permalink)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30)
+      `INSERT INTO articles (id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, images, slug, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, CURRENT_TIMESTAMP)
        RETURNING *`,
       [id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, imageUrls.length > 0 ? imageUrls : null, permalink]
     );
@@ -219,12 +219,10 @@ router.get('/articles/summary', async (req, res) => {
     // Parse limit from query params, default to 6, max 50 for safety
     const limit = Math.min(parseInt(req.query.limit) || 6, 50);
     
-    // Use NULLS LAST to handle NULL created_at values gracefully
-    // Articles with dates will appear first, then NULL dates
     const result = await pool.query(`
-      SELECT id, article_title, tag, tag2, tag3, tag4, tag5, images, permalink, created_at
+      SELECT id, article_title, tag, tag2, tag3, tag4, tag5, images, slug, created_at
       FROM articles
-      ORDER BY created_at DESC NULLS LAST
+      ORDER BY created_at DESC
       LIMIT $1
     `, [limit]);
     
