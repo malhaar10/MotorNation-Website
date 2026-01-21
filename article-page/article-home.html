@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-9276332511991978"
-     crossorigin="anonymous"></script>
+        crossorigin="anonymous"></script>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Article home</title>
     <link rel="icon" type="image/png" href="/assets/miniLogo.avif">
@@ -24,11 +24,11 @@
 <!-- Google tag (gtag.js) -->
 <script async src="https://www.googletagmanager.com/gtag/js?id=G-VVD46ERHKP"></script>
 <script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
 
-  gtag('config', 'G-VVD46ERHKP');
+    gtag('config', 'G-VVD46ERHKP');
 </script>
 
 <body>
@@ -87,7 +87,8 @@
         <div class="social-icons">
             <a href="https://www.facebook.com/motornationofficial"><i class="fa fa-facebook"></i></a>
             <a href="https://x.com/MotorNation_?t=WVuJZhDNnad4yikXOYNUng&s=09"><i class="fa fa-twitter"></i></a>
-            <a href="https://www.instagram.com/motornation_group?igsh=MWJjMGNma3AwMW45Ng=="><i class="fa fa-instagram"></i></a>
+            <a href="https://www.instagram.com/motornation_group?igsh=MWJjMGNma3AwMW45Ng=="><i
+                    class="fa fa-instagram"></i></a>
             <a href="https://www.youtube.com/channel/UC9HmzxcrnW3CGZVf0iPK6Eg"><i class="fa fa-youtube"></i></a>
         </div>
         <div class="contact-links">
@@ -98,12 +99,12 @@
         </div>
     </section>
 
-    
+
     <script>
         // Initialize cache manager and fetch news
         document.addEventListener('DOMContentLoaded', async () => {
 
-            
+
             try {
                 const isMobile = window.innerWidth <= 768;
                 const limit = isMobile ? 4 : 7; // Fetch 4 or 7 to skip first and show 3 or 6
@@ -114,11 +115,11 @@
 
                 // Use cached API client instead of direct fetch
                 const response = await fetch(`https://motornation-336079007565.us-central1.run.app/api/articles/summary?limit=${limit}`);
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
-                
+
                 const data = await response.json();
                 console.log('Received articles count:', data.length);
 
@@ -130,8 +131,8 @@
                     card.className = 'card';
 
                     // Use first image from GCS if available, otherwise fallback to placeholder
-                    const imageUrl = (article.images && article.images.length > 0) 
-                        ? article.images[0] 
+                    const imageUrl = (article.images && article.images.length > 0)
+                        ? article.images[0]
                         : "../images/Comparison.png";
 
                     card.innerHTML = `
@@ -161,27 +162,27 @@
             try {
                 // Use cached API client instead of direct fetch
                 const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/articles/summary?limit=1');
-                
+
                 if (!response.ok) {
                     throw new Error(`HTTP ${response.status}: ${response.statusText}`);
                 }
-                
+
                 const articles = await response.json();
 
                 if (!Array.isArray(articles) || articles.length === 0) {
                     document.getElementById('featured-news').innerHTML = '<p>No articles available.</p>';
-            return;
-        }
+                    return;
+                }
 
-        // Get the first (latest) article from database (already ordered by created_at DESC)
-        const latest = articles[0];
-        
-        // Use first image from GCS if available, otherwise fallback to placeholder
-        const imagePath = (latest.images && latest.images.length > 0) 
-            ? latest.images[0] 
-            : '../images/Comparison.png';
+                // Get the first (latest) article from database (already ordered by created_at DESC)
+                const latest = articles[0];
 
-        document.getElementById('featured-news').innerHTML = `
+                // Use first image from GCS if available, otherwise fallback to placeholder
+                const imagePath = (latest.images && latest.images.length > 0)
+                    ? latest.images[0]
+                    : '../images/Comparison.png';
+
+                document.getElementById('featured-news').innerHTML = `
             <a href="../article-page/article.html?id=${latest.id}">
               <img src="${imagePath}" alt="${latest.article_title}">
             </a>
@@ -192,69 +193,69 @@
               </a></h3>
             </div>
           `;
-    } catch (err) {
-        console.error('Error loading latest article:', err);
-        document.getElementById('featured-news').innerHTML = '<p>Failed to load article.</p>';
-    }
-}
-
-window.addEventListener('DOMContentLoaded', loadLatestNews);
-</script>
-
-<!-- Mobile navigation menu toggle functionality -->
-<script>
-    var navLinks = document.getElementById("navLinks");
-
-    // Show mobile navigation menu
-    function showMenu() {
-        navLinks.style.right = "0";
-        // Prevent body scrolling when menu is open
-        document.body.style.overflow = "hidden";
-    }
-
-    // Hide mobile navigation menu
-    function hideMenu() {
-        navLinks.style.right = "-200px";
-        // Restore body scrolling
-        document.body.style.overflow = "auto";
-    }
-
-    // Close menu when clicking outside (optional)
-    document.addEventListener('click', function (event) {
-        const navbar = document.getElementById('navbar');
-        const isClickInsideNav = navbar.contains(event.target);
-
-        if (!isClickInsideNav && navLinks.style.right === "0px") {
-            hideMenu();
+            } catch (err) {
+                console.error('Error loading latest article:', err);
+                document.getElementById('featured-news').innerHTML = '<p>Failed to load article.</p>';
+            }
         }
-    });
 
-    // Close menu when window is resized to desktop size
-    window.addEventListener('resize', function () {
-        if (window.innerWidth > 768) {
-            hideMenu();
+        window.addEventListener('DOMContentLoaded', loadLatestNews);
+    </script>
+
+    <!-- Mobile navigation menu toggle functionality -->
+    <script>
+        var navLinks = document.getElementById("navLinks");
+
+        // Show mobile navigation menu
+        function showMenu() {
+            navLinks.style.right = "0";
+            // Prevent body scrolling when menu is open
+            document.body.style.overflow = "hidden";
         }
-    });
 
-    // Navigation search bar functionality
-    const navSearchInput = document.getElementById('nav-search-input');
-    if (navSearchInput) {
-        navSearchInput.addEventListener('keypress', function(event) {
-            if (event.key === 'Enter') {
-                performSearch();
+        // Hide mobile navigation menu
+        function hideMenu() {
+            navLinks.style.right = "-200px";
+            // Restore body scrolling
+            document.body.style.overflow = "auto";
+        }
+
+        // Close menu when clicking outside (optional)
+        document.addEventListener('click', function (event) {
+            const navbar = document.getElementById('navbar');
+            const isClickInsideNav = navbar.contains(event.target);
+
+            if (!isClickInsideNav && navLinks.style.right === "0px") {
+                hideMenu();
             }
         });
-    }
 
-    // Function to perform navigation search
-    function performSearch() {
-        const searchQuery = document.getElementById('nav-search-input').value.trim();
-        if (searchQuery) {
-            // Redirect to search page with tag parameter (matches backend API)
-            window.location.href = `../search.html?tag=${encodeURIComponent(searchQuery)}`;
+        // Close menu when window is resized to desktop size
+        window.addEventListener('resize', function () {
+            if (window.innerWidth > 768) {
+                hideMenu();
+            }
+        });
+
+        // Navigation search bar functionality
+        const navSearchInput = document.getElementById('nav-search-input');
+        if (navSearchInput) {
+            navSearchInput.addEventListener('keypress', function (event) {
+                if (event.key === 'Enter') {
+                    performSearch();
+                }
+            });
         }
-    }
-</script>
+
+        // Function to perform navigation search
+        function performSearch() {
+            const searchQuery = document.getElementById('nav-search-input').value.trim();
+            if (searchQuery) {
+                // Redirect to search page with tag parameter (matches backend API)
+                window.location.href = `../search.html?tag=${encodeURIComponent(searchQuery)}`;
+            }
+        }
+    </script>
 
 
 </body>
