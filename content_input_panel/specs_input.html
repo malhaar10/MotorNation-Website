@@ -10,8 +10,18 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script src="firebase-config.js"></script>
+    
+    <!-- Authentication Check (protects this page) -->
+    <script src="auth-check.js"></script>
+    
     <style>
         body {
             font-family: 'Oswald', sans-serif;
@@ -62,10 +72,22 @@
             border-bottom: 2px solid #007BFF;
             padding-bottom: 10px;
         }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
     </style>
 </head>
 
 <body>
+    <!-- Loading screen (shown while checking authentication) -->
+    <div id="auth-loading" style="display: flex; justify-content: center; align-items: center; height: 100vh; background: black; flex-direction: column;">
+        <p style="color: white; font-size: 24px; margin-bottom: 20px;">🔐 Verifying authentication...</p>
+        <div style="width: 50px; height: 50px; border: 4px solid #333; border-top-color: #007BFF; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+    </div>
+
+    <!-- Page content (hidden until authenticated) -->
+    <div id="page-content" style="display: none;">
     <section class="header">
         <div class="logo-container">
             <a href="../index.html"><img src="../assets/MotorNation.avif" alt="MotorNation Logo"></a>
@@ -333,9 +355,14 @@
                 document.getElementById('submitBtn').disabled = true;
                 document.getElementById('submitBtn').textContent = 'Uploading...';
 
-                // TODO: Replace with your actual API endpoint
+                // Get Firebase authentication token
+                const token = await getAuthToken();
+
                 const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/specs', {
                     method: 'POST',
+                    headers: {
+                        'Authorization': `Bearer ${token}`
+                    },
                     body: formData // No Content-Type header - browser will set it automatically for FormData
                 });
 
@@ -381,6 +408,7 @@
             }
         });
     </script>
+    </div> <!-- End of page-content -->
 </body>
 
 </html>

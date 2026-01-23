@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
 const { generateSlug } = require('./utils/slug-generator');
+const { authenticateUser } = require('./middleware/firebase-auth');
 require('dotenv').config();
 
 // Ensure key file handling is robust: some deployments put the JSON content
@@ -323,7 +324,8 @@ router.get('/reviews/:id', async (req, res) => {
   }
 });
 
-router.post('/reviews', upload.array('images', 10), async (req, res) => {
+// PROTECTED: Requires Firebase authentication
+router.post('/reviews', authenticateUser, upload.array('images', 10), async (req, res) => {
   // Debug logs to help diagnose file upload issues
   console.log('DEBUG req.files (reviews):', req.files);
   console.log('DEBUG req.body (reviews):', req.body);

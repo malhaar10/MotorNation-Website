@@ -4,15 +4,24 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MotorNation</title>
+    <title>Admin Panel - MotorNation</title>
     <link rel="stylesheet" href="../page_header.css">
     <link rel="stylesheet" href="../content_input_panel/input_panel.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.0/css/line.css">
+    
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.7.1/firebase-auth-compat.js"></script>
+    
+    <!-- Firebase Configuration -->
+    <script src="firebase-config.js"></script>
+    
+    <!-- Authentication Check (protects this page) -->
+    <script src="auth-check.js"></script>
     <style>
         .button-container {
             display: flex;
@@ -43,23 +52,18 @@
 </head>
 
 <body>
+    <!-- Loading screen (shown while checking authentication) -->
+    <div id="auth-loading" style="display: flex; justify-content: center; align-items: center; height: 100vh; background: black; flex-direction: column;">
+        <p style="color: white; font-size: 24px; margin-bottom: 20px;">🔐 Verifying authentication...</p>
+        <div style="width: 50px; height: 50px; border: 4px solid #333; border-top-color: #007BFF; border-radius: 50%; animation: spin 1s linear infinite;"></div>
+    </div>
+
+    <!-- Page content (hidden until authenticated) -->
+    <div id="page-content" style="display: none;">
     <section class="header">
         <div class="logo-container">
             <a href="../index.html"><img src="../assets/MotorNation.avif" alt="MotorNation Logo"></a>
         </div>
-        <nav id="navbar">
-            <i class="fa fa-bars" onclick="showMenu()"></i>
-            <div class="nav-links" id="navLinks">
-                <i class="fa fa-times close-btn" onclick="hideMenu()"></i>
-                <ul>
-                    <li><a href="../index.html">HOME</a></li>
-                    <li><a href="../reviews-page/reviews-home.html">REVIEWS</a></li>
-                    <li><a href="../news-template/news-home.html">NEWS</a></li>
-                    <li><a href="../videos/video.html">VIDEOS</a></li>
-                    <li><a href="../search.html">SEARCH</a></li>
-                </ul>
-            </div>
-        </nav>
 
     </section>
 
@@ -68,20 +72,19 @@
         <a href="news_input.html" class="btn-large">NEWS INPUT</a>
         <a href="article_input.html" class="btn-large">ARTICLE INPUT</a>
         <a href="specs_input.html" class="btn-large">SPECIFICATIONS INPUT</a>
+        
+        <!-- Logout Button -->
+        <button onclick="logout()" class="btn-large" style="background-color: #dc3545; margin-top: 30px;">
+            LOGOUT
+        </button>
     </section>
-    <section class="hr">
-        <hr>
-    </section>
+    </div>
 
-    <section class="contact-card">
-        <img src="../assets/MotorNation.avif" alt="MotorNation logo">
-        <div class="social-icons">
-            <a href="assets/facebook.avif"><i class="fa fa-facebook"></i></a>
-            <a href="assets/twitter.avif"><i class="fa fa-twitter"></i></a>
-            <a href="assets/instagram.avif"><i class="fa fa-instagram"></i></a>
-            <a href="assets/youtube.avif"><i class="fa fa-youtube"></i></a>
-        </div>
-    </section>
+    <style>
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+    </style>
 
     <!-- Mobile navigation menu toggle functionality -->
     <script>

@@ -5,6 +5,7 @@ const { v4: uuidv4 } = require('uuid');
 const multer = require('multer');
 const { Storage } = require('@google-cloud/storage');
 const { generateSlug } = require('./utils/slug-generator');
+const { authenticateUser } = require('./middleware/firebase-auth');
 require('dotenv').config();
 
 // Ensure key file handling is robust: some deployments put the JSON content
@@ -97,7 +98,8 @@ async function uploadToGCS(file, filename) {
 // Route: POST /article
 // Description: Adds a new article to the database with image upload support.
 // Optional: author, images (files)
-router.post('/articles', upload.array('images', 10), async (req, res) => {
+// PROTECTED: Requires Firebase authentication
+router.post('/articles', authenticateUser, upload.array('images', 10), async (req, res) => {
   const {
     article_title,
     ptitle1,
