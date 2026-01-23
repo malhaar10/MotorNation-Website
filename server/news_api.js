@@ -196,15 +196,17 @@ router.post('/news', authenticateUser, upload.array('images', 10), async (req, r
 });
 
 // Route: GET /news/summary
-// Description: Retrieves summary of latest 6 articles (for home/news cards)
+// Description: Retrieves summary of latest articles (for home/news cards)
 router.get('/news/summary', async (req, res) => {
   try {
+    const limit = parseInt(req.query.limit) || 6;
+    
     const result = await pool.query(`
       SELECT id, news_title, date, tag, tag2, tag3, tag4, tag5, images, slug
       FROM news
       ORDER BY created_at DESC
-      LIMIT 6
-    `);
+      LIMIT $1
+    `, [limit]);
     res.json(result.rows);
   } catch (err) {
     console.error('Error fetching news summary:', err);
