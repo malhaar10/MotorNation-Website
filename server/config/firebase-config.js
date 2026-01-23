@@ -39,15 +39,28 @@ function initializeFirebase() {
     }
     // Strategy 2: Load from file path (Development)
     else if (process.env.FIREBASE_SERVICE_ACCOUNT_PATH) {
-      // Resolve path relative to server root (where .env is located)
-      const resolvedPath = path.resolve(__dirname, '..', process.env.FIREBASE_SERVICE_ACCOUNT_PATH);
-      console.log('🔐 Loading Firebase credentials from file:', resolvedPath);
+      const filePath = process.env.FIREBASE_SERVICE_ACCOUNT_PATH;
       
-      if (!fs.existsSync(resolvedPath)) {
-        throw new Error(`Firebase service account file not found: ${resolvedPath}`);
+      // Check if it's a JSON string instead of a file path
+      if (filePath.trim().startsWith('{')) {
+        console.log('🔐 Loading Firebase credentials from FIREBASE_SERVICE_ACCOUNT_PATH (JSON string)');
+        try {
+          serviceAccount = JSON.parse(filePath);
+        } catch (parseError) {
+          console.error('❌ Failed to parse FIREBASE_SERVICE_ACCOUNT_PATH JSON:', parseError.message);
+          throw new Error('Invalid JSON in FIREBASE_SERVICE_ACCOUNT_PATH environment variable');
+        }
+      } else {
+        // It's a file path
+        const resolvedPath = path.resolve(__dirname, '..', filePath);
+        console.log('🔐 Loading Firebase credentials from file:', resolvedPath);
+        
+        if (!fs.existsSync(resolvedPath)) {
+          throw new Error(`Firebase service account file not found: ${resolvedPath}`);
+        }
+        
+        serviceAccount = require(resolvedPath);
       }
-      
-      serviceAccount = require(resolvedPath);
     }
     // Strategy 3: Try default location (Development fallback)
     else {

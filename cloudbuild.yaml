@@ -21,7 +21,9 @@ steps:
       - '--cpu=1'
       - '--max-instances=10'
       - '--concurrency=80'
-      - '--set-env-vars=NODE_ENV=production,PORT=8080'
+      - '--timeout=300s'
+      - '--set-env-vars=NODE_ENV=production,PORT=8080,SERVER_PORT=8080,DB_HOST=34.66.26.244,DB_USER=postgres,DB_NAME=motornation,DB_PORT=5432,CHANNEL_ID=UC9HmzxcrnW3CGZVf0iPK6Eg,GOOGLE_CLOUD_PROJECT_ID=motornation-466804,GOOGLE_CLOUD_BUCKET_NAME_NEWS=news-article-images-mn,GOOGLE_CLOUD_BUCKET_NAME_REVIEWS=review-article-images-mn,GOOGLE_CLOUD_BUCKET_NAME_ARTICLES=article-images-mn,GOOGLE_CLOUD_BUCKET_NAME_SPECS_TABLE=specs-table-images-mn,GOOGLE_CLOUD_KEY_FILE=motornation-466804-6b7a914a1fd1.json,FIREBASE_SERVICE_ACCOUNT_PATH=./firebase-service-account.json'
+      - '--set-secrets=DB_PASSWORD=DB_PASSWORD:latest,YT_API_KEY=YT_API_KEY:latest,AUTHORIZED_ADMIN_UIDS=AUTHORIZED_ADMIN_UIDS:latest'
 
 # Options for the build
 options:
