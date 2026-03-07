@@ -94,137 +94,53 @@
         </div>
     </section>
 
-    <section class="form-container">
-        <div class="section-header">Basic Information</div>
+    <!-- SECTION A: SPECHOME -->
+    <section class="form-container" style="border: 2px solid #28a745; padding: 30px; border-radius: 10px; background-color: #0a0a0a;">
+        <div class="section-header" style="color: #28a745; border-bottom-color: #28a745;">SPECHOME</div>
 
         <div>
-            <label for="car_name">Car Name</label>
-            <input type="text" id="car_name" name="car_name">
+            <label for="spechome_name">Name *</label>
+            <input type="text" id="spechome_name" name="spechome_name" placeholder="e.g., Toyota Camry">
         </div>
 
         <div>
-            <label for="model_year">Model Year</label>
-            <input type="text" id="model_year" name="model_year">
+            <label for="spechome_year">Year *</label>
+            <input type="text" id="spechome_year" name="spechome_year" placeholder="e.g., 2024">
         </div>
 
         <div>
-            <label for="trim_name">Trim Name</label>
-            <input type="text" id="trim_name" name="trim_name" placeholder="e.g., LE, SE, XLE, Limited, Sport">
-            <small style="color: #ccc; font-size: 14px; margin-top: 5px; display: block;">
-                Specify the trim level or variant
-            </small>
+            <label for="spechome_minprice">Min Price</label>
+            <input type="text" id="spechome_minprice" name="spechome_minprice" placeholder="e.g., $28,000">
         </div>
 
         <div>
-            <label for="pricing">Pricing</label>
-            <input type="text" id="pricing" name="pricing" placeholder="e.g., $35,000 - $45,000">
-        </div>
-
-        <div class="section-header">Powertrain</div>
-
-        <div>
-            <label for="transmission">Transmission</label>
-            <input type="text" id="transmission" name="transmission" placeholder="e.g., 8-Speed Automatic">
+            <label for="spechome_maxprice">Max Price</label>
+            <input type="text" id="spechome_maxprice" name="spechome_maxprice" placeholder="e.g., $45,000">
         </div>
 
         <div>
-            <label for="fuel_type">Fuel Type</label>
-            <input type="text" id="fuel_type" name="fuel_type" placeholder="e.g., Gasoline, Diesel, Hybrid, Electric">
+            <label for="spechome_fuel">Fuel</label>
+            <input type="text" id="spechome_fuel" name="spechome_fuel" placeholder="e.g., Gasoline, Hybrid, Electric">
         </div>
 
         <div>
-            <label for="horsepower">Horsepower</label>
-            <input type="text" id="horsepower" name="horsepower" placeholder="e.g., 250 hp">
+            <label for="spechome_tag1">Tag 1</label>
+            <input type="text" id="spechome_tag1" name="spechome_tag1" placeholder="e.g., Sedan">
         </div>
 
         <div>
-            <label for="torque">Torque</label>
-            <input type="text" id="torque" name="torque" placeholder="e.g., 280 lb-ft">
+            <label for="spechome_tag2">Tag 2</label>
+            <input type="text" id="spechome_tag2" name="spechome_tag2">
         </div>
 
         <div>
-            <label for="fuel_economy">Fuel Economy</label>
-            <input type="text" id="fuel_economy" name="fuel_economy" placeholder="e.g., 28 city / 35 highway MPG">
-        </div>
-
-        <div class="section-header">Interior & Technology</div>
-
-        <div>
-            <label for="seating_capacity">Seating Capacity</label>
-            <input type="text" id="seating_capacity" name="seating_capacity" placeholder="e.g., 5 seats">
+            <label for="spechome_tag3">Tag 3</label>
+            <input type="text" id="spechome_tag3" name="spechome_tag3">
         </div>
 
         <div>
-            <label for="touch_screen_size">Touch Screen Size</label>
-            <input type="text" id="touch_screen_size" name="touch_screen_size" placeholder="e.g., 10.2-inch">
-        </div>
-
-        <div>
-            <label for="driver_display">Driver Display</label>
-            <input type="text" id="driver_display" name="driver_display" placeholder="e.g., 12.3-inch Digital Cluster">
-        </div>
-
-        <div class="section-header">Safety & Features</div>
-
-        <div>
-            <label for="safety_features">Safety Features</label>
-            <textarea id="safety_features" name="safety_features" placeholder="e.g., Adaptive Cruise Control, Lane Keep Assist, Blind Spot Monitoring..."></textarea>
-        </div>
-
-        <div>
-            <label for="camera">Camera</label>
-            <input type="text" id="camera" name="camera" placeholder="e.g., 360-degree Surround View">
-        </div>
-
-        <div>
-            <label for="additional_features">Additional Features</label>
-            <textarea id="additional_features" name="additional_features" placeholder="e.g., Wireless Charging, Premium Sound System, Panoramic Sunroof..."></textarea>
-        </div>
-
-        <div class="section-header">Capability (Optional)</div>
-
-        <div>
-            <label for="towing">Towing Capacity</label>
-            <input type="text" id="towing" name="towing" placeholder="e.g., 5,000 lbs (leave empty if N/A)">
-        </div>
-
-        <div>
-            <label for="payload">Payload Capacity</label>
-            <input type="text" id="payload" name="payload" placeholder="e.g., 1,500 lbs (leave empty if N/A)">
-        </div>
-
-        <div class="section-header">Tags</div>
-
-        <div>
-            <label for="tag">Tag 1</label>
-            <input type="text" id="tag" name="tag" placeholder="e.g., Sedan, SUV, Truck">
-        </div>
-
-        <div>
-            <label for="tag2">Tag 2</label>
-            <input type="text" id="tag2" name="tag2">
-        </div>
-
-        <div>
-            <label for="tag3">Tag 3</label>
-            <input type="text" id="tag3" name="tag3">
-        </div>
-
-        <div>
-            <label for="tag4">Tag 4</label>
-            <input type="text" id="tag4" name="tag4">
-        </div>
-
-        <div>
-            <label for="tag5">Tag 5</label>
-            <input type="text" id="tag5" name="tag5">
-        </div>
-
-        <div class="section-header">Images</div>
-
-        <div>
-            <label for="photos">Upload Photos (Max 10)</label>
-            <input type="file" id="photos" name="photos" multiple accept="image/*" style="
+            <label for="spechome_image">Upload Image</label>
+            <input type="file" id="spechome_image" name="spechome_image" accept="image/*" style="
                 padding: 12px;
                 font-size: 16px;
                 width: 100%;
@@ -234,177 +150,757 @@
                 background-color: white;
             ">
             <small style="color: #ccc; font-size: 14px; margin-top: 5px; display: block;">
-                Select up to 10 image files (.AVIF only). All files should be under 10MB.
+                Select one image file (.AVIF, .JPG, .PNG). File should be under 10MB.
             </small>
-            <div id="imagePreview" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+            <div id="spechome_imagePreview" style="margin-top: 10px;"></div>
         </div>
+
     </section>
 
+    <!-- SECTION B: SPECIFICATION TRIM INPUT -->
     <div style="margin: 40px 10vw;">
-        <button id="submitBtn" style="
-        background-color: #007BFF;
-        color: white;
-        font-size: 18px;
-        padding: 12px 24px;
-        border: none;
-        border-radius: 6px;
-        cursor: pointer;
-    ">
-            Submit
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <div class="section-header" style="color: #007BFF; border-bottom: none; margin: 0;">SPECIFICATION TRIM INPUT</div>
+            <div style="display: flex; gap: 10px;">
+                <button id="loadSampleBtn" style="
+                    background-color: #ffc107;
+                    color: black;
+                    font-size: 14px;
+                    padding: 8px 16px;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                    font-weight: 600;
+                ">
+                    🧪 Load Sample Data
+                </button>
+                <button id="addTrimBtn" style="
+                    background-color: #28a745;
+                    color: white;
+                    font-size: 16px;
+                    padding: 10px 20px;
+                    border: none;
+                    border-radius: 6px;
+                    cursor: pointer;
+                ">
+                    ➕ Add Another Trim
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div id="trimFormsContainer"></div>
+
+    <!-- SINGLE SUBMIT BUTTON -->
+    <div style="margin: 40px 10vw; text-align: center;">
+        <button id="submitAllBtn" style="
+            background-color: #007BFF;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            padding: 16px 40px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,123,255,0.3);
+        ">
+            📤 Submit All Data
         </button>
     </div>
 
     <script>
-        // Add image preview functionality
-        document.getElementById('photos').addEventListener('change', function(e) {
-            const files = e.target.files;
-            const preview = document.getElementById('imagePreview');
+        // SPECHOME IMAGE PREVIEW
+        document.getElementById('spechome_image').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            const preview = document.getElementById('spechome_imagePreview');
             preview.innerHTML = '';
 
-            if (files.length > 10) {
-                alert('Please select a maximum of 10 images.');
+            if (!file) return;
+
+            if (file.size > 10 * 1024 * 1024) {
+                alert('File is too large. Please select a file under 10MB.');
                 e.target.value = '';
                 return;
             }
 
-            Array.from(files).forEach((file, index) => {
-                if (file.size > 10 * 1024 * 1024) {
-                    alert(`File "${file.name}" is too large. Please select files under 10MB.`);
-                    return;
-                }
-
-                const reader = new FileReader();
-                reader.onload = function(e) {
-                    const img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.style.cssText = `
-                        width: 100px; 
-                        height: 100px; 
-                        object-fit: cover; 
-                        border-radius: 6px; 
-                        border: 2px solid #ccc;
-                    `;
-                    preview.appendChild(img);
-                };
-                reader.readAsDataURL(file);
-            });
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.style.cssText = `
+                    width: 200px; 
+                    height: 150px; 
+                    object-fit: cover; 
+                    border-radius: 6px; 
+                    border: 2px solid #28a745;
+                `;
+                preview.appendChild(img);
+            };
+            reader.readAsDataURL(file);
         });
 
-        document.getElementById('submitBtn').addEventListener('click', async () => {
-            const car_name = document.getElementById('car_name').value.trim();
-            const model_year = document.getElementById('model_year').value.trim();
-            const trim_name = document.getElementById('trim_name').value.trim();
-            const pricing = document.getElementById('pricing').value.trim();
-            const transmission = document.getElementById('transmission').value.trim();
-            const fuel_type = document.getElementById('fuel_type').value.trim();
-            const horsepower = document.getElementById('horsepower').value.trim();
-            const torque = document.getElementById('torque').value.trim();
-            const fuel_economy = document.getElementById('fuel_economy').value.trim();
-            const seating_capacity = document.getElementById('seating_capacity').value.trim();
-            const touch_screen_size = document.getElementById('touch_screen_size').value.trim();
-            const driver_display = document.getElementById('driver_display').value.trim();
-            const safety_features = document.getElementById('safety_features').value.trim();
-            const camera = document.getElementById('camera').value.trim();
-            const additional_features = document.getElementById('additional_features').value.trim();
-            const towing = document.getElementById('towing').value.trim();
-            const payload = document.getElementById('payload').value.trim();
-            const tag = document.getElementById('tag').value.trim();
-            const tag2 = document.getElementById('tag2').value.trim();
-            const tag3 = document.getElementById('tag3').value.trim();
-            const tag4 = document.getElementById('tag4').value.trim();
-            const tag5 = document.getElementById('tag5').value.trim();
-            const photos = document.getElementById('photos').files;
+        // SECTION B: SPECIFICATION TRIM FORMS
+        let trimCounter = 0;
 
-            // Basic validation
-            if (!car_name || !model_year) {
-                alert('Please fill in at least Car Name and Model Year.');
+        // Sample data for testing
+        const sampleSpechomeData = {
+            name: "Ford F-150",
+            year: "2024",
+            minprice: "$36,970",
+            maxprice: "$82,895",
+            fuel: "Gasoline",
+            tag1: "Pickup",
+            tag2: "Full-Size",
+            tag3: "Work Truck"
+        };
+
+        const sampleTrims = [
+            {
+                car_name: "Ford F-150",
+                model_year: "2024",
+                trim_name: "XLT SuperCrew 4x4",
+                pricing: "$48,590",
+                transmission: "10-Speed Automatic",
+                fuel_type: "Gasoline",
+                horsepower: "400 hp",
+                torque: "410 lb-ft",
+                fuel_economy: "18 city / 23 highway MPG",
+                seating_capacity: "5-6 seats",
+                touch_screen_size: "12-inch SYNC 4 touchscreen",
+                driver_display: "12-inch digital instrument cluster",
+                safety_features: "Ford Co-Pilot360, Pre-Collision Assist with Automatic Emergency Braking, Blind Spot Information System with Cross-Traffic Alert, Lane-Keeping System, Auto High-Beam Headlamps, Rear View Camera, Hill Start Assist, Trailer Sway Control, AdvanceTrac with Roll Stability Control",
+                camera: "Rearview camera with dynamic hitch assist",
+                additional_features: "FordPass Connect with WiFi hotspot, Apple CarPlay and Android Auto, Voice-activated navigation, 8-speaker audio system, Dual-zone electronic automatic temperature control, Power-adjustable pedals, Remote Start System, Pro Power Onboard 2.4kW, LED box lighting, Spray-in bedliner, Class IV trailer hitch, Sport cloth 40/20/40 front seats",
+                towing: "13,500 lbs",
+                payload: "3,325 lbs",
+                tag: "Pickup",
+                tag2: "4x4",
+                tag3: "Work",
+                tag4: "Towing",
+                tag5: "V8"
+            },
+            {
+                car_name: "Ford F-150",
+                model_year: "2024",
+                trim_name: "Lariat SuperCrew 4x4",
+                pricing: "$58,855",
+                transmission: "10-Speed Automatic",
+                fuel_type: "Gasoline",
+                horsepower: "400 hp",
+                torque: "410 lb-ft",
+                fuel_economy: "18 city / 23 highway MPG",
+                seating_capacity: "5-6 seats",
+                touch_screen_size: "12-inch SYNC 4 touchscreen",
+                driver_display: "12-inch digital instrument cluster",
+                safety_features: "Ford Co-Pilot360, Pre-Collision Assist with Automatic Emergency Braking, Blind Spot Information System with Cross-Traffic Alert, Lane-Keeping System, Auto High-Beam Headlamps, 360-degree camera system, Adaptive Cruise Control with Stop-and-Go, Evasive Steering Assist, Active Park Assist 2.0, Intersection Assist, Post-Collision Braking",
+                camera: "360-degree camera system with split-view display and Pro Trailer Backup Assist",
+                additional_features: "Leather-trimmed heated and ventilated front seats, Heated rear seats, Heated steering wheel, Panoramic Vista Roof, B&O Unleashed Sound System with 18 speakers, Wireless charging pad, Pro Power Onboard 7.2kW, Tailgate work surface, LED box lighting, Power-deployable running boards, Remote tailgate release, Twin-panel moonroof, Max Recline Seats, Ambient lighting, Power-sliding rear window",
+                towing: "13,500 lbs",
+                payload: "3,250 lbs",
+                tag: "Pickup",
+                tag2: "Luxury",
+                tag3: "4x4",
+                tag4: "Premium",
+                tag5: "Towing"
+            }
+        ];
+
+        // Function to load sample data
+        function loadSampleData() {
+            if (!confirm('⚠️ This will replace all current data with Ford F-150 sample data. Continue?')) {
                 return;
             }
 
-            // Create FormData for multipart form submission
-            const formData = new FormData();
-            formData.append('car_name', car_name);
-            formData.append('model_year', model_year);
-            formData.append('trim_name', trim_name);
-            formData.append('pricing', pricing);
-            formData.append('transmission', transmission);
-            formData.append('fuel_type', fuel_type);
-            formData.append('horsepower', horsepower);
-            formData.append('torque', torque);
-            formData.append('fuel_economy', fuel_economy);
-            formData.append('seating_capacity', seating_capacity);
-            formData.append('touch_screen_size', touch_screen_size);
-            formData.append('driver_display', driver_display);
-            formData.append('safety_features', safety_features);
-            formData.append('camera', camera);
-            formData.append('additional_features', additional_features);
-            formData.append('towing', towing);
-            formData.append('payload', payload);
-            formData.append('tag', tag);
-            formData.append('tag2', tag2);
-            formData.append('tag3', tag3);
-            formData.append('tag4', tag4);
-            formData.append('tag5', tag5);
+            // Load spechome data
+            document.getElementById('spechome_name').value = sampleSpechomeData.name;
+            document.getElementById('spechome_year').value = sampleSpechomeData.year;
+            document.getElementById('spechome_minprice').value = sampleSpechomeData.minprice;
+            document.getElementById('spechome_maxprice').value = sampleSpechomeData.maxprice;
+            document.getElementById('spechome_fuel').value = sampleSpechomeData.fuel;
+            document.getElementById('spechome_tag1').value = sampleSpechomeData.tag1;
+            document.getElementById('spechome_tag2').value = sampleSpechomeData.tag2;
+            document.getElementById('spechome_tag3').value = sampleSpechomeData.tag3;
 
-            // Append image files
-            Array.from(photos).forEach((file, index) => {
-                formData.append('photos', file);
+            // Clear existing trims
+            document.getElementById('trimFormsContainer').innerHTML = '';
+            trimCounter = 0;
+
+            // Add trims with sample data
+            sampleTrims.forEach((trimData, index) => {
+                trimCounter++;
+                const trimId = `trim_${trimCounter}`;
+                
+                const trimSection = document.createElement('section');
+                trimSection.className = 'form-container';
+                trimSection.id = trimId;
+                trimSection.style.cssText = 'border: 2px solid #007BFF; padding: 30px; border-radius: 10px; background-color: #0a0a0a; margin-top: 20px; position: relative;';
+                
+                trimSection.innerHTML = `
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                        <div style="color: #007BFF; font-size: 20px; font-weight: 700;">Trim #${trimCounter}</div>
+                        <button class="removeTrimBtn" data-trim-id="${trimId}" style="
+                            background-color: #dc3545;
+                            color: white;
+                            font-size: 14px;
+                            padding: 8px 16px;
+                            border: none;
+                            border-radius: 6px;
+                            cursor: pointer;
+                        ">
+                            🗑️ Remove
+                        </button>
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_car_name">Car Name *</label>
+                        <input type="text" id="${trimId}_car_name" name="car_name" placeholder="e.g., Toyota Camry" value="${trimData.car_name}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_model_year">Model Year *</label>
+                        <input type="text" id="${trimId}_model_year" name="model_year" placeholder="e.g., 2024" value="${trimData.model_year}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_trim_name">Trim Name</label>
+                        <input type="text" id="${trimId}_trim_name" name="trim_name" placeholder="e.g., LE, SE, XLE, Limited, Sport" value="${trimData.trim_name}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_pricing">Pricing</label>
+                        <input type="text" id="${trimId}_pricing" name="pricing" placeholder="e.g., $35,000" value="${trimData.pricing}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_transmission">Transmission</label>
+                        <input type="text" id="${trimId}_transmission" name="transmission" placeholder="e.g., 8-Speed Automatic" value="${trimData.transmission}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_fuel_type">Fuel Type</label>
+                        <input type="text" id="${trimId}_fuel_type" name="fuel_type" placeholder="e.g., Gasoline, Diesel, Hybrid, Electric" value="${trimData.fuel_type}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_horsepower">Horsepower</label>
+                        <input type="text" id="${trimId}_horsepower" name="horsepower" placeholder="e.g., 250 hp" value="${trimData.horsepower}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_torque">Torque</label>
+                        <input type="text" id="${trimId}_torque" name="torque" placeholder="e.g., 280 lb-ft" value="${trimData.torque}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_fuel_economy">Fuel Economy</label>
+                        <input type="text" id="${trimId}_fuel_economy" name="fuel_economy" placeholder="e.g., 28 city / 35 highway MPG" value="${trimData.fuel_economy}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_seating_capacity">Seating Capacity</label>
+                        <input type="text" id="${trimId}_seating_capacity" name="seating_capacity" placeholder="e.g., 5 seats" value="${trimData.seating_capacity}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_touch_screen_size">Touch Screen Size</label>
+                        <input type="text" id="${trimId}_touch_screen_size" name="touch_screen_size" placeholder="e.g., 10.2-inch" value="${trimData.touch_screen_size}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_driver_display">Driver Display</label>
+                        <input type="text" id="${trimId}_driver_display" name="driver_display" placeholder="e.g., 12.3-inch Digital Cluster" value="${trimData.driver_display}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_safety_features">Safety Features</label>
+                        <textarea id="${trimId}_safety_features" name="safety_features" placeholder="e.g., Adaptive Cruise Control, Lane Keep Assist, Blind Spot Monitoring...">${trimData.safety_features}</textarea>
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_camera">Camera</label>
+                        <input type="text" id="${trimId}_camera" name="camera" placeholder="e.g., 360-degree Surround View" value="${trimData.camera}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_additional_features">Additional Features</label>
+                        <textarea id="${trimId}_additional_features" name="additional_features" placeholder="e.g., Wireless Charging, Premium Sound System, Panoramic Sunroof...">${trimData.additional_features}</textarea>
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_towing">Towing Capacity</label>
+                        <input type="text" id="${trimId}_towing" name="towing" placeholder="e.g., 5,000 lbs (leave empty if N/A)" value="${trimData.towing}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_payload">Payload Capacity</label>
+                        <input type="text" id="${trimId}_payload" name="payload" placeholder="e.g., 1,500 lbs (leave empty if N/A)" value="${trimData.payload}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_tag">Tag 1</label>
+                        <input type="text" id="${trimId}_tag" name="tag" placeholder="e.g., Sedan, SUV, Truck" value="${trimData.tag}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_tag2">Tag 2</label>
+                        <input type="text" id="${trimId}_tag2" name="tag2" value="${trimData.tag2}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_tag3">Tag 3</label>
+                        <input type="text" id="${trimId}_tag3" name="tag3" value="${trimData.tag3}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_tag4">Tag 4</label>
+                        <input type="text" id="${trimId}_tag4" name="tag4" value="${trimData.tag4}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_tag5">Tag 5</label>
+                        <input type="text" id="${trimId}_tag5" name="tag5" value="${trimData.tag5}">
+                    </div>
+
+                    <div>
+                        <label for="${trimId}_photos">Upload Photos (Max 10)</label>
+                        <input type="file" id="${trimId}_photos" name="photos" multiple accept="image/*" style="
+                            padding: 12px;
+                            font-size: 16px;
+                            width: 100%;
+                            border: 1px solid #ccc;
+                            border-radius: 6px;
+                            font-family: 'Oswald', sans-serif;
+                            background-color: white;
+                        ">
+                        <small style="color: #ccc; font-size: 14px; margin-top: 5px; display: block;">
+                            Select up to 10 image files (.AVIF only). All files should be under 10MB.
+                        </small>
+                        <div id="${trimId}_imagePreview" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                    </div>
+                `;
+                
+                document.getElementById('trimFormsContainer').appendChild(trimSection);
+                
+                // Add image preview functionality for this trim
+                document.getElementById(`${trimId}_photos`).addEventListener('change', function(e) {
+                    const files = e.target.files;
+                    const preview = document.getElementById(`${trimId}_imagePreview`);
+                    preview.innerHTML = '';
+
+                    if (files.length > 10) {
+                        alert('Please select a maximum of 10 images.');
+                        e.target.value = '';
+                        return;
+                    }
+
+                    Array.from(files).forEach((file, index) => {
+                        if (file.size > 10 * 1024 * 1024) {
+                            alert(`File "${file.name}" is too large. Please select files under 10MB.`);
+                            return;
+                        }
+
+                        const reader = new FileReader();
+                        reader.onload = function(e) {
+                            const img = document.createElement('img');
+                            img.src = e.target.result;
+                            img.style.cssText = `
+                                width: 100px; 
+                                height: 100px; 
+                                object-fit: cover; 
+                                border-radius: 6px; 
+                                border: 2px solid #ccc;
+                            `;
+                            preview.appendChild(img);
+                        };
+                        reader.readAsDataURL(file);
+                    });
+                });
             });
 
+            alert('✅ Sample data loaded! You can now add photos and submit.');
+        }
+
+        // Load sample data button handler
+        document.getElementById('loadSampleBtn').addEventListener('click', loadSampleData);
+
+        // Function to create a new trim form
+        function createTrimForm() {
+            trimCounter++;
+            const trimId = `trim_${trimCounter}`;
+            
+            const trimSection = document.createElement('section');
+            trimSection.className = 'form-container';
+            trimSection.id = trimId;
+            trimSection.style.cssText = 'border: 2px solid #007BFF; padding: 30px; border-radius: 10px; background-color: #0a0a0a; margin-top: 20px; position: relative;';
+            
+            trimSection.innerHTML = `
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div style="color: #007BFF; font-size: 20px; font-weight: 700;">Trim #${trimCounter}</div>
+                    <button class="removeTrimBtn" data-trim-id="${trimId}" style="
+                        background-color: #dc3545;
+                        color: white;
+                        font-size: 14px;
+                        padding: 8px 16px;
+                        border: none;
+                        border-radius: 6px;
+                        cursor: pointer;
+                    ">
+                        🗑️ Remove
+                    </button>
+                </div>
+
+                <div>
+                    <label for="${trimId}_car_name">Car Name *</label>
+                    <input type="text" id="${trimId}_car_name" name="car_name" placeholder="e.g., Toyota Camry">
+                </div>
+
+                <div>
+                    <label for="${trimId}_model_year">Model Year *</label>
+                    <input type="text" id="${trimId}_model_year" name="model_year" placeholder="e.g., 2024">
+                </div>
+
+                <div>
+                    <label for="${trimId}_trim_name">Trim Name</label>
+                    <input type="text" id="${trimId}_trim_name" name="trim_name" placeholder="e.g., LE, SE, XLE, Limited, Sport">
+                </div>
+
+                <div>
+                    <label for="${trimId}_pricing">Pricing</label>
+                    <input type="text" id="${trimId}_pricing" name="pricing" placeholder="e.g., $35,000">
+                </div>
+
+                <div>
+                    <label for="${trimId}_transmission">Transmission</label>
+                    <input type="text" id="${trimId}_transmission" name="transmission" placeholder="e.g., 8-Speed Automatic">
+                </div>
+
+                <div>
+                    <label for="${trimId}_fuel_type">Fuel Type</label>
+                    <input type="text" id="${trimId}_fuel_type" name="fuel_type" placeholder="e.g., Gasoline, Diesel, Hybrid, Electric">
+                </div>
+
+                <div>
+                    <label for="${trimId}_horsepower">Horsepower</label>
+                    <input type="text" id="${trimId}_horsepower" name="horsepower" placeholder="e.g., 250 hp">
+                </div>
+
+                <div>
+                    <label for="${trimId}_torque">Torque</label>
+                    <input type="text" id="${trimId}_torque" name="torque" placeholder="e.g., 280 lb-ft">
+                </div>
+
+                <div>
+                    <label for="${trimId}_fuel_economy">Fuel Economy</label>
+                    <input type="text" id="${trimId}_fuel_economy" name="fuel_economy" placeholder="e.g., 28 city / 35 highway MPG">
+                </div>
+
+                <div>
+                    <label for="${trimId}_seating_capacity">Seating Capacity</label>
+                    <input type="text" id="${trimId}_seating_capacity" name="seating_capacity" placeholder="e.g., 5 seats">
+                </div>
+
+                <div>
+                    <label for="${trimId}_touch_screen_size">Touch Screen Size</label>
+                    <input type="text" id="${trimId}_touch_screen_size" name="touch_screen_size" placeholder="e.g., 10.2-inch">
+                </div>
+
+                <div>
+                    <label for="${trimId}_driver_display">Driver Display</label>
+                    <input type="text" id="${trimId}_driver_display" name="driver_display" placeholder="e.g., 12.3-inch Digital Cluster">
+                </div>
+
+                <div>
+                    <label for="${trimId}_safety_features">Safety Features</label>
+                    <textarea id="${trimId}_safety_features" name="safety_features" placeholder="e.g., Adaptive Cruise Control, Lane Keep Assist, Blind Spot Monitoring..."></textarea>
+                </div>
+
+                <div>
+                    <label for="${trimId}_camera">Camera</label>
+                    <input type="text" id="${trimId}_camera" name="camera" placeholder="e.g., 360-degree Surround View">
+                </div>
+
+                <div>
+                    <label for="${trimId}_additional_features">Additional Features</label>
+                    <textarea id="${trimId}_additional_features" name="additional_features" placeholder="e.g., Wireless Charging, Premium Sound System, Panoramic Sunroof..."></textarea>
+                </div>
+
+                <div>
+                    <label for="${trimId}_towing">Towing Capacity</label>
+                    <input type="text" id="${trimId}_towing" name="towing" placeholder="e.g., 5,000 lbs (leave empty if N/A)">
+                </div>
+
+                <div>
+                    <label for="${trimId}_payload">Payload Capacity</label>
+                    <input type="text" id="${trimId}_payload" name="payload" placeholder="e.g., 1,500 lbs (leave empty if N/A)">
+                </div>
+
+                <div>
+                    <label for="${trimId}_tag">Tag 1</label>
+                    <input type="text" id="${trimId}_tag" name="tag" placeholder="e.g., Sedan, SUV, Truck">
+                </div>
+
+                <div>
+                    <label for="${trimId}_tag2">Tag 2</label>
+                    <input type="text" id="${trimId}_tag2" name="tag2">
+                </div>
+
+                <div>
+                    <label for="${trimId}_tag3">Tag 3</label>
+                    <input type="text" id="${trimId}_tag3" name="tag3">
+                </div>
+
+                <div>
+                    <label for="${trimId}_tag4">Tag 4</label>
+                    <input type="text" id="${trimId}_tag4" name="tag4">
+                </div>
+
+                <div>
+                    <label for="${trimId}_tag5">Tag 5</label>
+                    <input type="text" id="${trimId}_tag5" name="tag5">
+                </div>
+
+                <div>
+                    <label for="${trimId}_photos">Upload Photos (Max 10)</label>
+                    <input type="file" id="${trimId}_photos" name="photos" multiple accept="image/*" style="
+                        padding: 12px;
+                        font-size: 16px;
+                        width: 100%;
+                        border: 1px solid #ccc;
+                        border-radius: 6px;
+                        font-family: 'Oswald', sans-serif;
+                        background-color: white;
+                    ">
+                    <small style="color: #ccc; font-size: 14px; margin-top: 5px; display: block;">
+                        Select up to 10 image files (.AVIF only). All files should be under 10MB.
+                    </small>
+                    <div id="${trimId}_imagePreview" style="margin-top: 10px; display: flex; flex-wrap: wrap; gap: 10px;"></div>
+                </div>
+            `;
+            
+            document.getElementById('trimFormsContainer').appendChild(trimSection);
+            
+            // Add image preview functionality for this trim
+            document.getElementById(`${trimId}_photos`).addEventListener('change', function(e) {
+                const files = e.target.files;
+                const preview = document.getElementById(`${trimId}_imagePreview`);
+                preview.innerHTML = '';
+
+                if (files.length > 10) {
+                    alert('Please select a maximum of 10 images.');
+                    e.target.value = '';
+                    return;
+                }
+
+                Array.from(files).forEach((file, index) => {
+                    if (file.size > 10 * 1024 * 1024) {
+                        alert(`File "${file.name}" is too large. Please select files under 10MB.`);
+                        return;
+                    }
+
+                    const reader = new FileReader();
+                    reader.onload = function(e) {
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.style.cssText = `
+                            width: 100px; 
+                            height: 100px; 
+                            object-fit: cover; 
+                            border-radius: 6px; 
+                            border: 2px solid #ccc;
+                        `;
+                        preview.appendChild(img);
+                    };
+                    reader.readAsDataURL(file);
+                });
+            });
+        }
+
+        // Add first trim form on page load
+        createTrimForm();
+
+        // Add trim button handler
+        document.getElementById('addTrimBtn').addEventListener('click', function() {
+            createTrimForm();
+        });
+
+        // Remove trim handler (event delegation)
+        document.getElementById('trimFormsContainer').addEventListener('click', function(e) {
+            if (e.target.classList.contains('removeTrimBtn')) {
+                const trimId = e.target.dataset.trimId;
+                const trimSection = document.getElementById(trimId);
+                if (trimSection && confirm('Are you sure you want to remove this trim?')) {
+                    trimSection.remove();
+                }
+            }
+        });
+
+        // SINGLE SUBMIT BUTTON - Submit all data
+        document.getElementById('submitAllBtn').addEventListener('click', async () => {
             try {
-                document.getElementById('submitBtn').disabled = true;
-                document.getElementById('submitBtn').textContent = 'Uploading...';
+                const submitBtn = document.getElementById('submitAllBtn');
+                submitBtn.disabled = true;
+                submitBtn.textContent = '⏳ Submitting...';
 
                 // Get Firebase authentication token
                 const token = await getAuthToken();
 
-                const response = await fetch('https://motornation-336079007565.us-central1.run.app/api/specs', {
+                // Collect spechome data with FormData (to handle file upload)
+                const spechomeFormData = new FormData();
+                spechomeFormData.append('name', document.getElementById('spechome_name').value.trim());
+                spechomeFormData.append('year', document.getElementById('spechome_year').value.trim());
+                spechomeFormData.append('minprice', document.getElementById('spechome_minprice').value.trim());
+                spechomeFormData.append('maxprice', document.getElementById('spechome_maxprice').value.trim());
+                spechomeFormData.append('fuel', document.getElementById('spechome_fuel').value.trim());
+                spechomeFormData.append('tag1', document.getElementById('spechome_tag1').value.trim());
+                spechomeFormData.append('tag2', document.getElementById('spechome_tag2').value.trim());
+                spechomeFormData.append('tag3', document.getElementById('spechome_tag3').value.trim());
+                
+                // Append image file
+                const imageFile = document.getElementById('spechome_image').files[0];
+                if (imageFile) {
+                    spechomeFormData.append('image', imageFile);
+                }
+
+                // Validate spechome required fields
+                const name = document.getElementById('spechome_name').value.trim();
+                const year = document.getElementById('spechome_year').value.trim();
+                
+                if (!name || !year) {
+                    alert('❌ Please fill in Spechome Name and Year (required fields).');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '📤 Submit All Data';
+                    return;
+                }
+
+                // Collect all trim forms data
+                const trimForms = document.querySelectorAll('#trimFormsContainer section');
+                const trimsData = [];
+
+                for (let i = 0; i < trimForms.length; i++) {
+                    const trimId = trimForms[i].id;
+                    
+                    const car_name = document.getElementById(`${trimId}_car_name`).value.trim();
+                    const model_year = document.getElementById(`${trimId}_model_year`).value.trim();
+
+                    // Validate required fields for each trim
+                    if (!car_name || !model_year) {
+                        alert(`❌ Trim #${i + 1}: Please fill in Car Name and Model Year.`);
+                        submitBtn.disabled = false;
+                        submitBtn.textContent = '📤 Submit All Data';
+                        return;
+                    }
+
+                    const formData = new FormData();
+                    formData.append('car_name', car_name);
+                    formData.append('model_year', model_year);
+                    formData.append('trim_name', document.getElementById(`${trimId}_trim_name`).value.trim());
+                    formData.append('pricing', document.getElementById(`${trimId}_pricing`).value.trim());
+                    formData.append('transmission', document.getElementById(`${trimId}_transmission`).value.trim());
+                    formData.append('fuel_type', document.getElementById(`${trimId}_fuel_type`).value.trim());
+                    formData.append('horsepower', document.getElementById(`${trimId}_horsepower`).value.trim());
+                    formData.append('torque', document.getElementById(`${trimId}_torque`).value.trim());
+                    formData.append('fuel_economy', document.getElementById(`${trimId}_fuel_economy`).value.trim());
+                    formData.append('seating_capacity', document.getElementById(`${trimId}_seating_capacity`).value.trim());
+                    formData.append('touch_screen_size', document.getElementById(`${trimId}_touch_screen_size`).value.trim());
+                    formData.append('driver_display', document.getElementById(`${trimId}_driver_display`).value.trim());
+                    formData.append('safety_features', document.getElementById(`${trimId}_safety_features`).value.trim());
+                    formData.append('camera', document.getElementById(`${trimId}_camera`).value.trim());
+                    formData.append('additional_features', document.getElementById(`${trimId}_additional_features`).value.trim());
+                    formData.append('towing', document.getElementById(`${trimId}_towing`).value.trim());
+                    formData.append('payload', document.getElementById(`${trimId}_payload`).value.trim());
+                    formData.append('tag', document.getElementById(`${trimId}_tag`).value.trim());
+                    formData.append('tag2', document.getElementById(`${trimId}_tag2`).value.trim());
+                    formData.append('tag3', document.getElementById(`${trimId}_tag3`).value.trim());
+                    formData.append('tag4', document.getElementById(`${trimId}_tag4`).value.trim());
+                    formData.append('tag5', document.getElementById(`${trimId}_tag5`).value.trim());
+
+                    // Append image files
+                    const photos = document.getElementById(`${trimId}_photos`).files;
+                    Array.from(photos).forEach((file) => {
+                        formData.append('photos', file);
+                    });
+
+                    trimsData.push(formData);
+                }
+
+                // If no trims, warn user
+                if (trimsData.length === 0) {
+                    alert('⚠️ Please add at least one specification trim.');
+                    submitBtn.disabled = false;
+                    submitBtn.textContent = '📤 Submit All Data';
+                    return;
+                }
+
+                // Submit spechome data first
+                submitBtn.textContent = '⏳ Submitting Spechome...';
+                const spechomeResponse = await fetch('https://motornation-336079007565.us-central1.run.app/api/spechome', {
                     method: 'POST',
                     headers: {
                         'Authorization': `Bearer ${token}`
+                        // No Content-Type header - browser will set it automatically for FormData
                     },
-                    body: formData // No Content-Type header - browser will set it automatically for FormData
+                    body: spechomeFormData
                 });
 
-                if (response.ok) {
-                    const data = await response.json();
-                    alert('✅ Specification submitted successfully!');
-                    console.log('Created specification:', data);
-                    
-                    // Reset form
-                    document.getElementById('car_name').value = '';
-                    document.getElementById('model_year').value = '';
-                    document.getElementById('trim_name').value = '';
-                    document.getElementById('pricing').value = '';
-                    document.getElementById('transmission').value = '';
-                    document.getElementById('fuel_type').value = '';
-                    document.getElementById('horsepower').value = '';
-                    document.getElementById('torque').value = '';
-                    document.getElementById('fuel_economy').value = '';
-                    document.getElementById('seating_capacity').value = '';
-                    document.getElementById('touch_screen_size').value = '';
-                    document.getElementById('driver_display').value = '';
-                    document.getElementById('safety_features').value = '';
-                    document.getElementById('camera').value = '';
-                    document.getElementById('additional_features').value = '';
-                    document.getElementById('towing').value = '';
-                    document.getElementById('payload').value = '';
-                    document.getElementById('tag').value = '';
-                    document.getElementById('tag2').value = '';
-                    document.getElementById('tag3').value = '';
-                    document.getElementById('tag4').value = '';
-                    document.getElementById('tag5').value = '';
-                    document.getElementById('photos').value = '';
-                    document.getElementById('imagePreview').innerHTML = '';
-                } else {
-                    const err = await response.json();
-                    alert('❌ Failed to submit specification: ' + err.error);
+                if (!spechomeResponse.ok) {
+                    const err = await spechomeResponse.json();
+                    throw new Error('Spechome submission failed: ' + err.error);
                 }
+
+                const spechomeResult = await spechomeResponse.json();
+                console.log('✅ Spechome created:', spechomeResult);
+
+                // Submit all trims
+                let successCount = 0;
+                for (let i = 0; i < trimsData.length; i++) {
+                    submitBtn.textContent = `⏳ Submitting Trim ${i + 1}/${trimsData.length}...`;
+                    
+                    const trimResponse = await fetch('https://motornation-336079007565.us-central1.run.app/api/specs', {
+                        method: 'POST',
+                        headers: {
+                            'Authorization': `Bearer ${token}`
+                        },
+                        body: trimsData[i]
+                    });
+
+                    if (trimResponse.ok) {
+                        const trimResult = await trimResponse.json();
+                        console.log(`✅ Trim ${i + 1} created:`, trimResult);
+                        successCount++;
+                    } else {
+                        const err = await trimResponse.json();
+                        console.error(`❌ Trim ${i + 1} failed:`, err);
+                        alert(`⚠️ Warning: Trim ${i + 1} failed to submit: ${err.error}`);
+                    }
+                }
+
+                // Success message
+                alert(`✅ Success!\n\n• Spechome: Submitted\n• Trims: ${successCount}/${trimsData.length} submitted successfully`);
+
+                // Reset all forms
+                document.getElementById('spechome_name').value = '';
+                document.getElementById('spechome_year').value = '';
+                document.getElementById('spechome_minprice').value = '';
+                document.getElementById('spechome_maxprice').value = '';
+                document.getElementById('spechome_fuel').value = '';
+                document.getElementById('spechome_tag1').value = '';
+                document.getElementById('spechome_tag2').value = '';
+                document.getElementById('spechome_tag3').value = '';
+                document.getElementById('spechome_image').value = '';
+                document.getElementById('spechome_imagePreview').innerHTML = '';
+
+                // Clear all trim forms
+                document.getElementById('trimFormsContainer').innerHTML = '';
+                trimCounter = 0;
+                createTrimForm(); // Add one fresh form
+
             } catch (error) {
-                alert('⚠️ Could not connect to server: ' + error.message);
+                alert('⚠️ Error: ' + error.message);
+                console.error('Submission error:', error);
             } finally {
-                document.getElementById('submitBtn').disabled = false;
-                document.getElementById('submitBtn').textContent = 'Submit Specification';
+                const submitBtn = document.getElementById('submitAllBtn');
+                submitBtn.disabled = false;
+                submitBtn.textContent = '📤 Submit All Data';
             }
         });
     </script>
