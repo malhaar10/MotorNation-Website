@@ -15,6 +15,7 @@ const newsApi = require('./news_api');
 const searchApi = require('./search_api');
 const articlesApi = require('./articles_api');
 const specsApi = require('./specs_api');
+const spechomeApi = require('./spechome_api');
 
 // === Middleware Setup ===
 app.use(cors({
@@ -70,6 +71,20 @@ app.get('/', (req, res) => {
         performance: "/api/articles/performance",
         hybrid: "/api/articles/hybrids",
         suv: "/api/articles/suv"
+      },
+      spechome: {
+        all: "/api/spechome",
+        summary: "/api/spechome/summary?limit=10",
+        by_id: "/api/spechome/:id",
+        by_fuel: "/api/spechome/fuel/:fuelType",
+        by_tag: "/api/spechome/tag/:tag",
+        by_year: "/api/spechome/year/:year"
+      },
+      specs: {
+        all: "/api/specs",
+        summary: "/api/specs/summary?limit=6",
+        by_slug: "/api/specs/slug/:slug",
+        by_id: "/api/specs/:id"
       }
     },
     status: "running",
@@ -119,6 +134,7 @@ app.use('/api', newsApi);
 app.use('/api', searchApi);
 app.use('/api', articlesApi);
 app.use('/api', specsApi);
+app.use('/api', spechomeApi);
 
 // === Enhanced DB Connection Test ===
 async function testDatabaseConnection() {
