@@ -97,7 +97,8 @@ async function uploadToGCS(file, filename) {
 
 // Route: POST /article
 // Description: Adds a new article to the database with image upload support.
-// Optional: author, images (files)
+// Required: article_title, ptitle1-3, para1-3, tag, tag2
+// Optional: ptitle4-15, para4-15, author, images (files)
 // PROTECTED: Requires Firebase authentication
 router.post('/articles', authenticateUser, upload.array('images', 10), async (req, res) => {
   const {
@@ -122,6 +123,16 @@ router.post('/articles', authenticateUser, upload.array('images', 10), async (re
     para9,
     ptitle10,
     para10,
+    ptitle11,
+    para11,
+    ptitle12,
+    para12,
+    ptitle13,
+    para13,
+    ptitle14,
+    para14,
+    ptitle15,
+    para15,
     tag,
     tag2,
     tag3,
@@ -193,10 +204,10 @@ router.post('/articles', authenticateUser, upload.array('images', 10), async (re
     }
 
     const result = await pool.query(
-      `INSERT INTO articles (id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, images, slug, created_at)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, CURRENT_TIMESTAMP)
+      `INSERT INTO articles (id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, ptitle11, para11, ptitle12, para12, ptitle13, para13, ptitle14, para14, ptitle15, para15, author, tag, tag2, tag3, tag4, tag5, images, slug, created_at)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40, CURRENT_TIMESTAMP)
        RETURNING *`,
-      [id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, author, tag, tag2, tag3, tag4, tag5, imageUrls.length > 0 ? imageUrls : null, permalink]
+      [id, article_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, ptitle11, para11, ptitle12, para12, ptitle13, para13, ptitle14, para14, ptitle15, para15, author, tag, tag2, tag3, tag4, tag5, imageUrls.length > 0 ? imageUrls : null, permalink]
     );
 
     res.status(201).json({

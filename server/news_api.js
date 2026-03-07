@@ -91,7 +91,7 @@ async function uploadToGCS(file, filename) {
 // Route: POST /news
 // Description: Adds a new news article to the database with image upload support.
 // Required: news_title, para1, para2, para3, tag, tag2
-// Optional: author, images (files)
+// Optional: ptitle1-15, para4-15, author, images (files)
 // PROTECTED: Requires Firebase authentication
 router.post('/news', authenticateUser, upload.array('images', 10), async (req, res) => {
   // Debug logs to help diagnose file upload issues
@@ -99,9 +99,36 @@ router.post('/news', authenticateUser, upload.array('images', 10), async (req, r
   console.log('DEBUG req.body:', req.body);
   const {
     news_title,
+    ptitle1,
     para1,
+    ptitle2,
     para2,
+    ptitle3,
     para3,
+    ptitle4,
+    para4,
+    ptitle5,
+    para5,
+    ptitle6,
+    para6,
+    ptitle7,
+    para7,
+    ptitle8,
+    para8,
+    ptitle9,
+    para9,
+    ptitle10,
+    para10,
+    ptitle11,
+    para11,
+    ptitle12,
+    para12,
+    ptitle13,
+    para13,
+    ptitle14,
+    para14,
+    ptitle15,
+    para15,
     tag,
     tag2,
     tag3,
@@ -179,10 +206,10 @@ router.post('/news', authenticateUser, upload.array('images', 10), async (req, r
     }
 
     const result = await pool.query(
-      `INSERT INTO news (id, news_title, para1, para2, para3, author, tag, tag2, tag3, tag4, tag5, images, slug)
-       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13)
+      `INSERT INTO news (id, news_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, ptitle11, para11, ptitle12, para12, ptitle13, para13, ptitle14, para14, ptitle15, para15, author, tag, tag2, tag3, tag4, tag5, images, slug)
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14, $15, $16, $17, $18, $19, $20, $21, $22, $23, $24, $25, $26, $27, $28, $29, $30, $31, $32, $33, $34, $35, $36, $37, $38, $39, $40)
        RETURNING *`,
-      [id, news_title, para1, para2, para3, author, tag, tag2, tag3, tag4, tag5, imageUrls.length > 0 ? imageUrls : null, finalSlug]
+      [id, news_title, ptitle1, para1, ptitle2, para2, ptitle3, para3, ptitle4, para4, ptitle5, para5, ptitle6, para6, ptitle7, para7, ptitle8, para8, ptitle9, para9, ptitle10, para10, ptitle11, para11, ptitle12, para12, ptitle13, para13, ptitle14, para14, ptitle15, para15, author, tag, tag2, tag3, tag4, tag5, imageUrls.length > 0 ? imageUrls : null, finalSlug]
     );
 
     res.status(201).json({
