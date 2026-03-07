@@ -169,18 +169,40 @@
         function displayArticle(data) {
             // Update article title and content
             document.querySelector(".article-text h2").textContent = data.news_title;
-            const paragraphs = [data.para1, data.para2, data.para3];
             const container = document.querySelector(".article-text");
 
-            // Clear existing <p> tags
+            // Clear existing content
             container.innerHTML = `<h2>${data.news_title}</h2>`;
 
-            paragraphs.forEach(p => {
-                const para = document.createElement("p");
-                para.innerHTML = formatText(p);
-                container.appendChild(para);
+            // Add author if available
+            if (data.author) {
+                const authorDiv = document.createElement("p");
+                authorDiv.className = "article-author";
+                authorDiv.innerHTML = `<strong>By ${data.author}</strong>`;
+                container.appendChild(authorDiv);
                 container.appendChild(document.createElement("br"));
-            });
+            }
+
+            // Add all content sections with paired titles and paragraphs (1-15)
+            for (let i = 1; i <= 15; i++) {
+                const ptitle = data[`ptitle${i}`];
+                const para = data[`para${i}`];
+                
+                // Add title if it exists
+                if (ptitle) {
+                    const titleElement = document.createElement("h3");
+                    titleElement.textContent = ptitle;
+                    container.appendChild(titleElement);
+                }
+                
+                // Add paragraph if it exists
+                if (para) {
+                    const paraElement = document.createElement("p");
+                    paraElement.innerHTML = formatText(para);
+                    container.appendChild(paraElement);
+                    container.appendChild(document.createElement("br"));
+                }
+            }
 
             // Update images if available
             if (data.images && data.images.length > 0) {
